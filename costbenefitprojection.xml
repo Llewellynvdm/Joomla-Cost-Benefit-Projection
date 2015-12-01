@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="3.2" method="upgrade">
+	<name>COM_COSTBENEFITPROJECTION</name>
+	<creationDate>15th June, 2012</creationDate>
+	<author>Llewellyn van der Merwe</author>
+	<authorEmail>llewellyn@vdm.io</authorEmail>
+	<authorUrl>http://www.vdm.io</authorUrl>
+	<copyright>Copyright (C) 2015. All Rights Reserved</copyright>
+	<license>GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html</license>
+	<version>3.0.8</version>
+	<description><![CDATA[
+		<h1>Cost Benefit Projection (v.3.0.8)</h1>
+		<div style="clear: both;"></div>
+		<p>[Create Epidemiological Profiles] (https://www.staffhealthcbp.com/) for diseases and risks affecting your company. Detailed information on projected work days lost and costs. Create and edit activities and wellness responses for your workplace. Access to Small Business Modelling. Results displayed by gender. Network with other companies and wellness professionals.
+
+Having seen the health priorities for your workforce, the tool outputs projections for how the interventions – which you have designed - are expected to benefit the company financially.
+
+Benefits are calculated based on the model projecting reductions in workdays lost due to sickness, presenteeism and death.</p>
+		<p>Created by <a href="http://www.vdm.io" target="_blank">Llewellyn van der Merwe</a>
+	]]></description>
+
+	<!-- Runs on install; New in Joomla 1.5 -->
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+		</sql>
+	</install>
+
+	<!-- Runs on uninstall; New in Joomla 1.5 -->
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+		</sql>
+	</uninstall>
+
+	<!-- Runs on install/uninstall/update; New in Joomla 2.5 -->
+	<scriptfile>script.php</scriptfile>
+
+	<media destination="com_costbenefitprojection" folder="media">
+		<filename>index.html</filename>
+		<folder>js</folder>
+		<folder>css</folder>
+		<folder>images</folder>
+		<folder>uikit</folder>
+		<folder>footable</folder>
+	</media>
+
+	<!-- Update Schema; New in Joomla 2.5 -->
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql/</schemapath>
+		</schemas>
+	</update>
+
+	<files folder="site">
+		<filename>controller.php</filename>
+		<filename>index.html</filename>
+		<filename>router.php</filename>
+		<filename>costbenefitprojection.php</filename>
+		<folder>assets</folder>
+		<folder>helpers</folder>
+		<folder>controllers</folder>
+		<folder>models</folder>
+		<folder>views</folder>
+		<folder>layouts</folder>
+	</files>
+
+	<languages folder="site">
+		<language tag="en-GB">language/en-GB/en-GB.com_costbenefitprojection.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.com_costbenefitprojection.sys.ini</language>
+	</languages>
+
+	<administration>
+		<menu>COM_COSTBENEFITPROJECTION_MENU</menu>
+		<submenu>
+			<!-- Instead of link you can specify individual link attributes -->
+			<menu option="com_costbenefitprojection" view="companies">COM_COSTBENEFITPROJECTION_MENU_COMPANIES</menu>
+			<menu option="com_costbenefitprojection" view="service_providers">COM_COSTBENEFITPROJECTION_MENU_SERVICE_PROVIDERS</menu>
+			<menu option="com_costbenefitprojection" view="scaling_factors">COM_COSTBENEFITPROJECTION_MENU_SCALING_FACTORS</menu>
+			<menu option="com_costbenefitprojection" view="interventions">COM_COSTBENEFITPROJECTION_MENU_INTERVENTIONS</menu>
+		</submenu>
+		<files folder="admin">
+			<filename>access.xml</filename>
+			<filename>config.xml</filename>
+			<filename>controller.php</filename>
+			<filename>vdm.php</filename>
+			<filename>index.html</filename>
+			<filename>costbenefitprojection.php</filename>
+			<folder>assets</folder>
+			<folder>controllers</folder>
+			<folder>helpers</folder>
+			<folder>models</folder>
+			<folder>sql</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
+			<folder>layouts</folder>
+		</files>
+
+		<languages folder="admin">
+			<language tag="en-GB">language/en-GB/en-GB.com_costbenefitprojection.ini</language>
+			<language tag="en-GB">language/en-GB/en-GB.com_costbenefitprojection.sys.ini</language>
+		</languages>
+
+	</administration>
+</extension>

@@ -1,0 +1,702 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+	<fieldset
+		name="global_config"
+		label="COM_COSTBENEFITPROJECTION_CONFIG_GLOBAL_LABEL"
+		description="COM_COSTBENEFITPROJECTION_CONFIG_GLOBAL_DESC">
+		<field
+			name="check_in"
+			type="list"
+			default="0"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CHECK_TIMER_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CHECK_TIMER_DESC">
+			<option
+				value="-5 hours">COM_COSTBENEFITPROJECTION_CONFIG_CHECK_TIMER_OPTION_ONE</option>
+			<option
+				value="-12 hours">COM_COSTBENEFITPROJECTION_CONFIG_CHECK_TIMER_OPTION_TWO</option>
+			<option
+				value="-1 day">COM_COSTBENEFITPROJECTION_CONFIG_CHECK_TIMER_OPTION_THREE</option>
+			<option
+				value="-2 day">COM_COSTBENEFITPROJECTION_CONFIG_CHECK_TIMER_OPTION_FOUR</option>
+			<option
+				value="-1 week">COM_COSTBENEFITPROJECTION_CONFIG_CHECK_TIMER_OPTION_FIVE</option>
+			<option
+				value="0">COM_COSTBENEFITPROJECTION_CONFIG_CHECK_TIMER_OPTION_SIX</option>
+		</field>
+		<field type="spacer" name="spacerAuthor" hr="true" />
+		<field
+			name="save_history"
+			type="radio"
+			class="btn-group btn-group-yesno"
+			default="0"
+			label="JGLOBAL_SAVE_HISTORY_OPTIONS_LABEL"
+			description="JGLOBAL_SAVE_HISTORY_OPTIONS_DESC"
+			>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field
+			name="history_limit"
+			type="text"
+			filter="integer"
+			label="JGLOBAL_HISTORY_LIMIT_OPTIONS_LABEL"
+			description="JGLOBAL_HISTORY_LIMIT_OPTIONS_DESC"
+			default="10"
+		/>
+		<field type="spacer" name="spacerHistory" hr="true" />
+		<field name="autorTitle"
+			type="spacer"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_AUTHOR"
+		/>
+		<field name="autorName"
+			type="text"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_AUTHOR_NAME_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_AUTHOR_NAME_DESC"
+			size="60"
+			default="Llewellyn van der Merwe"
+			readonly="true"
+			class="readonly"
+		/>
+		<field name="autorEmail"
+			type="email"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_AUTHOR_EMAIL_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_AUTHOR_EMAIL_DESC"
+			size="60"
+			default="llewellyn@vdm.io"
+			readonly="true"
+			class="readonly"
+		/>
+		<field type="spacer" name="spacerContributor1" hr="true" />
+		<field name="contributor1"
+			type="spacer"
+			class="text"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_ONE"
+		/>
+		<field name="titleContributor1"
+			type="text"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_DESC"
+			size="60"
+			default="Health Economist"
+		/>
+		<field name="nameContributor1"
+			type="text"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_DESC"
+			size="60"
+			default="Patrick Hanlon, M.Sc. PH"
+		/>
+		<field name="emailContributor1"
+			type="email"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_DESC"
+			size="60"
+			default="Patrick.Hanlon@unibas.ch"
+		/>
+		<field name="linkContributor1"
+			type="url"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_DESC"
+			size="60"
+			default="http://www.swisstph.ch/about-us/staff/detailview.html?tx_x4epersdb_pi1[showUid]=2267&amp;cHash=1b1c5db0808e04d3f1afe0f3a3f67998"
+		/>
+		<field name="useContributor1"
+			type="list"
+			default="2"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_DESC">
+			<option value="0">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_NONE</option>
+			<option value="1">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_EMAIL</option>
+			<option value="2">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_WWW</option>
+		</field>
+		<field name="showContributor1"
+			type="list"
+			default="3"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_DESC">
+			<option value="0">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_NONE</option>
+			<option value="1">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_BACK</option>
+			<option value="2">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_FRONT</option>
+			<option value="3">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_ALL</option>
+		</field>
+		<field type="spacer" name="spacerContributor2" hr="true" />
+		<field name="contributor2"
+			type="spacer"
+			class="text"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TWO"
+		/>
+		<field name="titleContributor2"
+			type="text"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_DESC"
+			size="60"
+			default="Development Advisor"
+		/>
+		<field name="nameContributor2"
+			type="text"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_DESC"
+			size="60"
+			default="Matthew Black"
+		/>
+		<field name="emailContributor2"
+			type="email"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_DESC"
+			size="60"
+			default="matthew.black@giz.de"
+		/>
+		<field name="linkContributor2"
+			type="url"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_DESC"
+			size="60"
+			default="http://www.giz.de"
+		/>
+		<field name="useContributor2"
+			type="list"
+			default="2"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_DESC">
+			<option value="0">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_NONE</option>
+			<option value="1">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_EMAIL</option>
+			<option value="2">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_WWW</option>
+		</field>
+		<field name="showContributor2"
+			type="list"
+			default="3"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_DESC">
+			<option value="0">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_NONE</option>
+			<option value="1">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_BACK</option>
+			<option value="2">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_FRONT</option>
+			<option value="3">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_ALL</option>
+		</field>
+		<field type="spacer" name="spacerContributor3" hr="true" />
+		<field name="contributor3"
+			type="spacer"
+			class="text"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_THREE"
+		/>
+		<field name="titleContributor3"
+			type="text"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_DESC"
+			size="60"
+			default="Associate Expert"
+		/>
+		<field name="nameContributor3"
+			type="text"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_DESC"
+			size="60"
+			default="Dr. Pascal Geldsetzer"
+		/>
+		<field name="emailContributor3"
+			type="email"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_DESC"
+			size="60"
+			default="pascal.geldsetzer@giz.de"
+		/>
+		<field name="linkContributor3"
+			type="url"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_DESC"
+			size="60"
+			default="http://www.giz.de"
+		/>
+		<field name="useContributor3"
+			type="list"
+			default="2"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_DESC">
+			<option value="0">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_NONE</option>
+			<option value="1">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_EMAIL</option>
+			<option value="2">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_WWW</option>
+		</field>
+		<field name="showContributor3"
+			type="list"
+			default="1"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_DESC">
+			<option value="0">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_NONE</option>
+			<option value="1">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_BACK</option>
+			<option value="2">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_FRONT</option>
+			<option value="3">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_ALL</option>
+		</field>
+		<field type="spacer" name="spacerContributor4" hr="true" />
+		<field name="contributor4"
+			type="spacer"
+			class="text"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_FOUR"
+		/>
+		<field name="titleContributor4"
+			type="text"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_DESC"
+			size="60"
+			default=""
+		/>
+		<field name="nameContributor4"
+			type="text"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_DESC"
+			size="60"
+			default=""
+		/>
+		<field name="emailContributor4"
+			type="email"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_DESC"
+			size="60"
+			default=""
+		/>
+		<field name="linkContributor4"
+			type="url"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_DESC"
+			size="60"
+			default=""
+		/>
+		<field name="useContributor4"
+			type="list"
+			default="0"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_DESC">
+			<option value="0">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_NONE</option>
+			<option value="1">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_EMAIL</option>
+			<option value="2">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_WWW</option>
+		</field>
+		<field name="showContributor4"
+			type="list"
+			default="0"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_DESC">
+			<option value="0">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_NONE</option>
+			<option value="1">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_BACK</option>
+			<option value="2">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_FRONT</option>
+			<option value="3">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_ALL</option>
+		</field>
+		<field type="spacer" name="spacerContributor5" hr="true" />
+		<field name="contributor5"
+			type="spacer"
+			class="text"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_FIVE"
+		/>
+		<field name="titleContributor5"
+			type="text"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_DESC"
+			size="60"
+			default=""
+		/>
+		<field name="nameContributor5"
+			type="text"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_DESC"
+			size="60"
+			default=""
+		/>
+		<field name="emailContributor5"
+			type="email"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_DESC"
+			size="60"
+			default=""
+		/>
+		<field name="linkContributor5"
+			type="url"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_DESC"
+			size="60"
+			default=""
+		/>
+		<field name="useContributor5"
+			type="list"
+			default="0"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_DESC">
+			<option value="0">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_NONE</option>
+			<option value="1">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_EMAIL</option>
+			<option value="2">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_WWW</option>
+		</field>
+		<field name="showContributor5"
+			type="list"
+			default="0"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_DESC">
+			<option value="0">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_NONE</option>
+			<option value="1">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_BACK</option>
+			<option value="2">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_FRONT</option>
+			<option value="3">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_ALL</option>
+		</field>
+	</fieldset>
+	<fieldset
+		name="group_config"
+		label="COM_COSTBENEFITPROJECTION_CONFIG_GROUPS_LABEL"
+		description="COM_COSTBENEFITPROJECTION_CONFIG_GROUPS_DESC">
+		<field name="memberuser"
+			type="usergroup"
+			label="COM_COSTBENEFITPROJECTION_USER_MEMBER_GROUP"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_TARGET_GROUP_DESC"
+			multiple="true"
+		/>
+		<field name="serviceprovideruser"
+			type="usergroup"
+			label="COM_COSTBENEFITPROJECTION_USER_SERVICE_PROVIDER_GROUP"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_TARGET_GROUP_DESC"
+			multiple="true"
+		/>
+		<field name="countryuser"
+			type="usergroup"
+			label="COM_COSTBENEFITPROJECTION_USER_COUNTRY_GROUP"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_TARGET_GROUP_DESC"
+			multiple="true"
+		/>
+
+		<!-- [11366] Memberbasicgroup Field. Type: Usergroup. (joomla) -->
+		<field
+			type="usergroup"
+			name="memberbasicgroup"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_MEMBERBASICGROUP_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_MEMBERBASICGROUP_DESCRIPTION"
+			multiple="true"
+		/>		
+		<!-- [11366] Advancedmembergroup Field. Type: Usergroup. (joomla) -->
+		<field
+			type="usergroup"
+			name="advancedmembergroup"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_ADVANCEDMEMBERGROUP_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_ADVANCEDMEMBERGROUP_DESCRIPTION"
+			multiple="true"
+		/>
+	</fieldset>
+	<fieldset
+		name="uikit_config"
+		label="COM_COSTBENEFITPROJECTION_CONFIG_UIKIT_LABEL"
+		description="COM_COSTBENEFITPROJECTION_CONFIG_UIKIT_DESC">
+		<field name="uikit_load"
+			type="radio"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_UIKIT_LOAD_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_UIKIT_LOAD_DESC"
+			class="btn-group btn-group-yesno"
+			default="">
+			<!-- [13239] Option Set. -->
+			<option value="">
+				COM_COSTBENEFITPROJECTION_CONFIG_AUTO_LOAD</option>"
+			<option value="1">
+				COM_COSTBENEFITPROJECTION_CONFIG_FORCE_LOAD</option>"
+			<option value="3">
+				COM_COSTBENEFITPROJECTION_CONFIG_ONLY_EXTRA</option>"
+			<option value="2">
+				COM_COSTBENEFITPROJECTION_CONFIG_DONT_LOAD</option>"
+		</field>
+		<field name="uikit_min"
+			type="radio"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_UIKIT_MIN_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_UIKIT_MIN_DESC"
+			class="btn-group btn-group-yesno"
+			default="">
+			<!-- [13264] Option Set. -->
+			<option value="">
+				COM_COSTBENEFITPROJECTION_CONFIG_NO</option>"
+			<option value=".min">
+				COM_COSTBENEFITPROJECTION_CONFIG_YES</option>"
+		</field>
+		<field name="uikit_style"
+			type="radio"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_UIKIT_STYLE_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_UIKIT_STYLE_DESC"
+			class="btn-group btn-group-yesno"
+			default="">
+			<!-- [13285] Option Set. -->
+			<option value="">
+				COM_COSTBENEFITPROJECTION_CONFIG_FLAT_LOAD</option>"
+			<option value=".almost-flat">
+				COM_COSTBENEFITPROJECTION_CONFIG_ALMOST_FLAT_LOAD</option>"
+			<option value=".gradient">
+				COM_COSTBENEFITPROJECTION_CONFIG_GRADIANT_LOAD</option>"
+		</field>
+	</fieldset>
+
+	<fieldset
+		name="googlechart_config"
+		label="COM_COSTBENEFITPROJECTION_CONFIG_CHART_SETTINGS_LABEL"
+		description="COM_COSTBENEFITPROJECTION_CONFIG_CHART_SETTINGS_DESC">
+		
+		<field type="note" name="chart_admin_naote" class="alert alert-info" label="COM_COSTBENEFITPROJECTION_CONFIG_ADMIN_CHART_NOTE_LABEL" description="COM_COSTBENEFITPROJECTION_CONFIG_ADMIN_CHART_NOTE_DESC"  />
+		<!-- [13317] Admin_chartbackground Field. Type: Color. -->
+		<field
+			type="color"
+			name="admin_chartbackground"
+			default="#F7F7FA"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CHARTBACKGROUND_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CHARTBACKGROUND_DESC"
+		/>		
+		<!-- [13325] Admin_mainwidth Field. Type: Text. -->
+		<field
+			type="text"
+			name="admin_mainwidth"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_MAINWIDTH_LABEL"
+			size="20"
+			maxlength="50"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_MAINWIDTH_DESC"
+			class="text_area"
+			filter="INT"
+			message="Error! Please add area width here."
+			hint="COM_COSTBENEFITPROJECTION_CONFIG_MAINWIDTH_HINT"
+		/>		
+		<!-- [13338] Spacer_chartadmin_hr_a Field. Type: Spacer. A None Database Field. -->
+		<field type="spacer" name="spacer_chartadmin_hr_a" hr="true" class="spacer_chartadmin_hr_a" />		
+		<!-- [13340] Admin_chartareatop Field. Type: Text. -->
+		<field
+			type="text"
+			name="admin_chartareatop"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREATOP_LABEL"
+			size="20"
+			maxlength="50"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREATOP_DESC"
+			class="text_area"
+			filter="INT"
+			message="Error! Please add top spacing here."
+			hint="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREATOP_HINT"
+		/>		
+		<!-- [13353] Admin_chartarealeft Field. Type: Text. -->
+		<field
+			type="text"
+			name="admin_chartarealeft"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREALEFT_LABEL"
+			size="20"
+			maxlength="50"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREALEFT_DESC"
+			class="text_area"
+			filter="INT"
+			message="Error! Please add left spacing here."
+			hint="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREALEFT_HINT"
+		/>		
+		<!-- [13366] Admin_chartareawidth Field. Type: Text. -->
+		<field
+			type="text"
+			name="admin_chartareawidth"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREAWIDTH_LABEL"
+			size="20"
+			maxlength="50"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREAWIDTH_DESC"
+			class="text_area"
+			filter="INT"
+			message="Error! Please add chart width here."
+			hint="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREAWIDTH_HINT"
+		/>		
+		<!-- [13379] Spacer_chartadmin_hr_b Field. Type: Spacer. A None Database Field. -->
+		<field type="spacer" name="spacer_chartadmin_hr_b" hr="true" class="spacer_chartadmin_hr_b" />		
+		<!-- [13381] Admin_legendtextstylefontcolor Field. Type: Color. -->
+		<field
+			type="color"
+			name="admin_legendtextstylefontcolor"
+			default="#63B1F2"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_LEGENDTEXTSTYLEFONTCOLOR_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_LEGENDTEXTSTYLEFONTCOLOR_DESC"
+		/>		
+		<!-- [13389] Admin_legendtextstylefontsize Field. Type: Text. -->
+		<field
+			type="text"
+			name="admin_legendtextstylefontsize"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_LEGENDTEXTSTYLEFONTSIZE_LABEL"
+			size="20"
+			maxlength="50"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_LEGENDTEXTSTYLEFONTSIZE_DESC"
+			class="text_area"
+			filter="INT"
+			message="Error! Please add size of the legend here."
+			hint="COM_COSTBENEFITPROJECTION_CONFIG_LEGENDTEXTSTYLEFONTSIZE_HINT"
+		/>		
+		<!-- [13402] Spacer_chartadmin_hr_c Field. Type: Spacer. A None Database Field. -->
+		<field type="spacer" name="spacer_chartadmin_hr_c" hr="true" class="spacer_chartadmin_hr_c" />		
+		<!-- [13404] Admin_vaxistextstylefontcolor Field. Type: Color. -->
+		<field
+			type="color"
+			name="admin_vaxistextstylefontcolor"
+			default="#63B1F2"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_VAXISTEXTSTYLEFONTCOLOR_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_VAXISTEXTSTYLEFONTCOLOR_DESC"
+		/>		
+		<!-- [13412] Spacer_chartadmin_hr_d Field. Type: Spacer. A None Database Field. -->
+		<field type="spacer" name="spacer_chartadmin_hr_d" hr="true" class="spacer_chartadmin_hr_d" />		
+		<!-- [13414] Admin_haxistextstylefontcolor Field. Type: Color. -->
+		<field
+			type="color"
+			name="admin_haxistextstylefontcolor"
+			default="#63B1F2"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_HAXISTEXTSTYLEFONTCOLOR_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_HAXISTEXTSTYLEFONTCOLOR_DESC"
+		/>		
+		<!-- [13422] Admin_haxistitletextstylefontcolor Field. Type: Color. -->
+		<field
+			type="color"
+			name="admin_haxistitletextstylefontcolor"
+			default="#63B1F2"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_HAXISTITLETEXTSTYLEFONTCOLOR_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_HAXISTITLETEXTSTYLEFONTCOLOR_DESC"
+		/>
+		
+		<field type="note" name="chart_site_note" class="alert alert-info" label="COM_COSTBENEFITPROJECTION_CONFIG_SITE_CHART_NOTE_LABEL" description="COM_COSTBENEFITPROJECTION_CONFIG_SITE_CHART_NOTE_DESC"  />
+		
+		<!-- [13433] Site_chartbackground Field. Type: Color. -->
+		<field
+			type="color"
+			name="site_chartbackground"
+			default="#F7F7FA"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CHARTBACKGROUND_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CHARTBACKGROUND_DESC"
+		/>		
+		<!-- [13441] Site_mainwidth Field. Type: Text. -->
+		<field
+			type="text"
+			name="site_mainwidth"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_MAINWIDTH_LABEL"
+			size="20"
+			maxlength="50"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_MAINWIDTH_DESC"
+			class="text_area"
+			filter="INT"
+			message="Error! Please add area width here."
+			hint="COM_COSTBENEFITPROJECTION_CONFIG_MAINWIDTH_HINT"
+		/>		
+		<!-- [13454] Spacer_chartsite_hr_a Field. Type: Spacer. A None Database Field. -->
+		<field type="spacer" name="spacer_chartsite_hr_a" hr="true" class="spacer_chartsite_hr_a" />		
+		<!-- [13456] Site_chartareatop Field. Type: Text. -->
+		<field
+			type="text"
+			name="site_chartareatop"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREATOP_LABEL"
+			size="20"
+			maxlength="50"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREATOP_DESC"
+			class="text_area"
+			filter="INT"
+			message="Error! Please add top spacing here."
+			hint="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREATOP_HINT"
+		/>		
+		<!-- [13469] Site_chartarealeft Field. Type: Text. -->
+		<field
+			type="text"
+			name="site_chartarealeft"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREALEFT_LABEL"
+			size="20"
+			maxlength="50"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREALEFT_DESC"
+			class="text_area"
+			filter="INT"
+			message="Error! Please add left spacing here."
+			hint="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREALEFT_HINT"
+		/>		
+		<!-- [13482] Site_chartareawidth Field. Type: Text. -->
+		<field
+			type="text"
+			name="site_chartareawidth"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREAWIDTH_LABEL"
+			size="20"
+			maxlength="50"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREAWIDTH_DESC"
+			class="text_area"
+			filter="INT"
+			message="Error! Please add chart width here."
+			hint="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREAWIDTH_HINT"
+		/>		
+		<!-- [13495] Spacer_chartsite_hr_b Field. Type: Spacer. A None Database Field. -->
+		<field type="spacer" name="spacer_chartsite_hr_b" hr="true" class="spacer_chartsite_hr_b" />		
+		<!-- [13497] Site_legendtextstylefontcolor Field. Type: Color. -->
+		<field
+			type="color"
+			name="site_legendtextstylefontcolor"
+			default="#63B1F2"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_LEGENDTEXTSTYLEFONTCOLOR_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_LEGENDTEXTSTYLEFONTCOLOR_DESC"
+		/>		
+		<!-- [13505] Site_legendtextstylefontsize Field. Type: Text. -->
+		<field
+			type="text"
+			name="site_legendtextstylefontsize"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_LEGENDTEXTSTYLEFONTSIZE_LABEL"
+			size="20"
+			maxlength="50"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_LEGENDTEXTSTYLEFONTSIZE_DESC"
+			class="text_area"
+			filter="INT"
+			message="Error! Please add size of the legend here."
+			hint="COM_COSTBENEFITPROJECTION_CONFIG_LEGENDTEXTSTYLEFONTSIZE_HINT"
+		/>		
+		<!-- [13518] Spacer_chartsite_hr_c Field. Type: Spacer. A None Database Field. -->
+		<field type="spacer" name="spacer_chartsite_hr_c" hr="true" class="spacer_chartsite_hr_c" />		
+		<!-- [13520] Site_vaxistextstylefontcolor Field. Type: Color. -->
+		<field
+			type="color"
+			name="site_vaxistextstylefontcolor"
+			default="#63B1F2"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_VAXISTEXTSTYLEFONTCOLOR_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_VAXISTEXTSTYLEFONTCOLOR_DESC"
+		/>		
+		<!-- [13528] Spacer_chartsite_hr_d Field. Type: Spacer. A None Database Field. -->
+		<field type="spacer" name="spacer_chartsite_hr_d" hr="true" class="spacer_chartsite_hr_d" />		
+		<!-- [13530] Site_haxistextstylefontcolor Field. Type: Color. -->
+		<field
+			type="color"
+			name="site_haxistextstylefontcolor"
+			default="#63B1F2"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_HAXISTEXTSTYLEFONTCOLOR_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_HAXISTEXTSTYLEFONTCOLOR_DESC"
+		/>		
+		<!-- [13538] Site_haxistitletextstylefontcolor Field. Type: Color. -->
+		<field
+			type="color"
+			name="site_haxistitletextstylefontcolor"
+			default="#63B1F2"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_HAXISTITLETEXTSTYLEFONTCOLOR_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_HAXISTITLETEXTSTYLEFONTCOLOR_DESC"
+		/>
+	</fieldset>
+	<fieldset
+		name="encryption_config"
+		label="COM_COSTBENEFITPROJECTION_CONFIG_ENCRYPTION_LABEL"
+		description="COM_COSTBENEFITPROJECTION_CONFIG_ENCRYPTION_DESC">
+		<field type="note" name="vdm_key_note" class="alert alert-info" label="COM_COSTBENEFITPROJECTION_CONFIG_VDM_KEY_NOTE_LABEL" description="COM_COSTBENEFITPROJECTION_CONFIG_VDM_KEY_NOTE_DESC"  />
+		<field name="advanced_key"
+			type="text"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_VDM_KEY_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_VDM_KEY_DESC"
+			size="60"
+			default=""
+		/>
+
+		<!-- [11366] Resultpath Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="resultpath"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_RESULTPATH_LABEL"
+			size="10"
+			maxlength="150"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_RESULTPATH_DESCRIPTION"
+			class="text_area"
+			required="true"
+			filter="PATH"
+			message="Error! Please add the path where the result json should be sotred here."
+			hint="COM_COSTBENEFITPROJECTION_CONFIG_RESULTPATH_HINT"
+		/>
+	</fieldset>
+	<fieldset
+		name="permissions"
+		label="JCONFIG_PERMISSIONS_LABEL"
+		description="JCONFIG_PERMISSIONS_DESC">
+		<field
+			name="rules"
+			type="rules"
+			label="JCONFIG_PERMISSIONS_LABEL"
+			class="inputbox"
+			validate="rules"
+			filter="rules"
+			component="com_costbenefitprojection"
+			section="component"
+		/>
+	</fieldset>
+</config>

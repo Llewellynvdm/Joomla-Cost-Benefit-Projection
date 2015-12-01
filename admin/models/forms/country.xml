@@ -1,0 +1,883 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form
+	addrulepath="/administrator/components/com_costbenefitprojection/models/rules"
+	addfieldpath="/administrator/components/com_costbenefitprojection/models/fields"
+>
+	<fieldset name="details">
+		<!-- [11019] Default Fields. -->
+		<!-- [11020] Id Field. Type: Text (joomla) -->
+		<field
+			name="id"
+			type="text" class="readonly" label="JGLOBAL_FIELD_ID_LABEL"
+			description ="JGLOBAL_FIELD_ID_DESC" size="10" default="0"
+			readonly="true"
+		/>
+		<!-- [11027] Date Created Field. Type: Calendar (joomla) -->
+		<field
+			name="created"
+			type="calendar"
+			label="COM_COSTBENEFITPROJECTION_COUNTRY_CREATED_DATE_LABEL"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_CREATED_DATE_DESC"
+			size="22"
+			format="%Y-%m-%d %H:%M:%S"
+			filter="user_utc"
+		/>
+		<!-- [11038] User Created Field. Type: User (joomla) -->
+		<field
+			name="created_by"
+			type="user"
+			label="COM_COSTBENEFITPROJECTION_COUNTRY_CREATED_BY_LABEL"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_CREATED_BY_DESC"
+		/>
+		<!-- [11046] Published Field. Type: List (joomla) -->
+		<field name="published" type="list" label="JSTATUS"
+			description="JFIELD_PUBLISHED_DESC" class="chzn-color-state"
+			filter="intval" size="1" default="1" >
+			<option value="1">
+				JPUBLISHED</option>
+			<option value="0">
+				JUNPUBLISHED</option>
+			<option value="2">
+				JARCHIVED</option>
+			<option value="-2">
+				JTRASHED</option>
+		</field>
+		<!-- [11061] Date Modified Field. Type: Calendar (joomla) -->
+		<field name="modified" type="calendar" class="readonly"
+			label="JGLOBAL_FIELD_MODIFIED_LABEL" description="COM_CONTENT_FIELD_MODIFIED_DESC"
+			size="22" readonly="true" format="%Y-%m-%d %H:%M:%S" filter="user_utc" />
+		<!-- [11065] User Modified Field. Type: User (joomla) -->
+		<field name="modified_by" type="user"
+			label="JGLOBAL_FIELD_MODIFIED_BY_LABEL"
+			class="readonly"
+			readonly="true"
+			filter="unset"
+		/>
+		<!-- [11075] Access Field. Type: Accesslevel (joomla) -->
+		<field name="access"
+			type="accesslevel"
+			label="JFIELD_ACCESS_LABEL"
+			description="JFIELD_ACCESS_DESC"
+			default="1"
+			required="false"
+		/>
+		<!-- [11085] Ordering Field. Type: Numbers (joomla) -->
+		<field
+			name="ordering"
+			type="number"
+			class="inputbox validate-ordering"
+			label="COM_COSTBENEFITPROJECTION_COUNTRY_ORDERING_LABEL"
+			description=""
+			default="0"
+			size="6"
+			required="false"
+		/>
+		<!-- [11097] Version Field. Type: Text (joomla) -->
+		<field
+			name="version"
+			type="text"
+			class="readonly"
+			label="COM_COSTBENEFITPROJECTION_COUNTRY_VERSION_LABEL"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_VERSION_DESC"
+			size="6"
+			readonly="true"
+			filter="unset"
+		/>
+		<!-- [11130] Dynamic Fields. -->
+		<!-- [11366] Name Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="name"
+			label="COM_COSTBENEFITPROJECTION_COUNTRY_NAME_LABEL"
+			size="40"
+			maxlength="150"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_NAME_DESCRIPTION"
+			class="text_area"
+			readonly="false"
+			disabled="false"
+			required="true"
+			filter="STRING"
+			message="Error! Please add name here."
+			hint="COM_COSTBENEFITPROJECTION_COUNTRY_NAME_HINT"
+		/>
+		<!-- [11487] User Field. Type: Countryuser. (custom) -->
+		<field
+			type="countryuser"
+			name="user"
+			label="COM_COSTBENEFITPROJECTION_COUNTRY_USER_LABEL"
+			hint="COM_COSTBENEFITPROJECTION_COUNTRY_USER_HINT"
+		/>
+		<!-- [11487] Currency Field. Type: Currency. (custom) -->
+		<field
+			type="currency"
+			name="currency"
+			label="COM_COSTBENEFITPROJECTION_COUNTRY_CURRENCY_LABEL"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_CURRENCY_DESCRIPTION"
+			class="list_class"
+			multiple="false"
+			required="true"
+		/>
+		<!-- [11366] Codethree Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="codethree"
+			label="COM_COSTBENEFITPROJECTION_COUNTRY_CODETHREE_LABEL"
+			size="40"
+			maxlength="3"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_CODETHREE_DESCRIPTION"
+			class="text_area"
+			required="true"
+			filter="WORD"
+			message="Error! Please add three-letter country code here."
+			hint="COM_COSTBENEFITPROJECTION_COUNTRY_CODETHREE_HINT"
+		/>
+		<!-- [11366] Codetwo Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="codetwo"
+			label="COM_COSTBENEFITPROJECTION_COUNTRY_CODETWO_LABEL"
+			size="40"
+			maxlength="2"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_CODETWO_DESCRIPTION"
+			class="text_area"
+			required="true"
+			filter="WORD"
+			message="Error! Please add two-letter country code here."
+			hint="COM_COSTBENEFITPROJECTION_COUNTRY_CODETWO_HINT"
+		/>
+		<!-- [11366] Working_days Field. Type: Integer. (joomla) -->
+		<field
+			type="integer"
+			name="working_days"
+			label="COM_COSTBENEFITPROJECTION_COUNTRY_WORKING_DAYS_LABEL"
+			default="225"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_WORKING_DAYS_DESCRIPTION"
+			class="text_area"
+			required="true"
+			first="200"
+			last="365"
+			step="1"
+		/>
+		<!-- [11366] Productivity_losses Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="productivity_losses"
+			label="COM_COSTBENEFITPROJECTION_COUNTRY_PRODUCTIVITY_LOSSES_LABEL"
+			size="10"
+			maxlength="10"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_PRODUCTIVITY_LOSSES_DESCRIPTION"
+			class="text_area"
+			readonly="false"
+			disabled="false"
+			required="true"
+			filter="CMD"
+			message="Error! Please add productivity losses here."
+			hint="COM_COSTBENEFITPROJECTION_COUNTRY_PRODUCTIVITY_LOSSES_HINT"
+		/>
+		<!-- [11487] Datayear Field. Type: Datayear. (custom) -->
+		<field
+			type="datayear"
+			name="datayear"
+			label="COM_COSTBENEFITPROJECTION_COUNTRY_DATAYEAR_LABEL"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_DATAYEAR_DESCRIPTION"
+			class="list_class"
+			multiple="false"
+			default="0"
+		/>
+		<!-- [11366] Worldzone Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="worldzone"
+			label="COM_COSTBENEFITPROJECTION_COUNTRY_WORLDZONE_LABEL"
+			size="40"
+			maxlength="50"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_WORLDZONE_DESCRIPTION"
+			class="text_area"
+			required="false"
+			filter="INT"
+			message="Error! Please add zone code here."
+			hint="COM_COSTBENEFITPROJECTION_COUNTRY_WORLDZONE_HINT"
+		/>
+		<!-- [11366] Publicaddress Field. Type: Editor. (joomla) -->
+		<field
+			type="editor"
+			name="publicaddress"
+			label="COM_COSTBENEFITPROJECTION_COUNTRY_PUBLICADDRESS_LABEL"
+			width="100%"
+			height="50px"
+			buttons="false"
+			filter="safehtml"
+		/>
+		<!-- [11366] Publicemail Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="publicemail"
+			label="COM_COSTBENEFITPROJECTION_COUNTRY_PUBLICEMAIL_LABEL"
+			size="60"
+			maxlength="150"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_PUBLICEMAIL_DESCRIPTION"
+			class="text_area"
+			filter="STRING"
+			validate="email"
+			message="Error! Please public email address here."
+			hint="COM_COSTBENEFITPROJECTION_COUNTRY_PUBLICEMAIL_HINT"
+		/>
+		<!-- [11397] Percentfemale Field. Type: Repeatable. (joomla) -->
+		<field
+			type="repeatable"
+			name="percentfemale"
+			label="Set Females Age Groups Percent"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_PERCENTFEMALE_DESCRIPTION"
+			id="percentfemale"
+			class="percentfemales"
+			select="COM_COSTBENEFITPROJECTION_COUNTRY_PERCENTFEMALE_SELECT"
+			icon="list"
+			maximum="10">
+			<fields name="percentfemale_fields" label="">
+				<fieldset hidden="true" name="percentfemale_modal" repeat="true">
+					<!-- [11280] Age Field. Type: List. (joomla) -->
+					<field
+						type="list"
+						name="age"
+						label="COM_COSTBENEFITPROJECTION_COUNTRY_AGE_LABEL"
+						class="list_class"
+						multiple="false"
+						filter="CMD">
+						<!-- [11352] Option Set. -->
+						<option value="15-19">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTEENNINETEEN</option>
+						<option value="20-24">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWENTYTWENTY_FOUR</option>
+						<option value="25-29">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWENTY_FIVETWENTY_NINE</option>
+						<option value="30-34">
+							COM_COSTBENEFITPROJECTION_COUNTRY_THIRTYTHIRTY_FOUR</option>
+						<option value="35-39">
+							COM_COSTBENEFITPROJECTION_COUNTRY_THIRTY_FIVETHIRTY_NINE</option>
+						<option value="40-44">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FORTYFORTY_FOUR</option>
+						<option value="45-49">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FORTY_FIVEFORTY_NINE</option>
+						<option value="50-54">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTYFIFTY_FOUR</option>
+						<option value="55-59">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTY_FIVEFIFTY_NINE</option>
+						<option value="60-64">
+							COM_COSTBENEFITPROJECTION_COUNTRY_SIXTYSIXTY_FOUR</option>
+					</field>
+					<!-- [11366] Percent Field. Type: Text. (joomla) -->
+					<field
+						type="text"
+						name="percent"
+						label="COM_COSTBENEFITPROJECTION_COUNTRY_PERCENT_LABEL"
+						size="10"
+						maxlength="50"
+						class="text_area"
+						readonly="false"
+						disabled="false"
+						filter="FLOAT"
+						message="Error! Please add percent here."
+						hint="COM_COSTBENEFITPROJECTION_COUNTRY_PERCENT_HINT"
+					/>
+				</fieldset>
+			</fields>
+		</field>
+		<!-- [11366] Alias Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="alias"
+			label="JFIELD_ALIAS_LABEL"
+			description="JFIELD_ALIAS_DESC"
+			filter="STRING"
+			hint="COM_COSTBENEFITPROJECTION_COUNTRY_ALIAS_HINT"
+		/>
+		<!-- [11397] Maledeath Field. Type: Repeatable. (joomla) -->
+		<field
+			type="repeatable"
+			name="maledeath"
+			label="Set Males Total Deaths"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_MALEDEATH_DESCRIPTION"
+			id="maledeath"
+			class="malesdeath"
+			select="COM_COSTBENEFITPROJECTION_COUNTRY_MALEDEATH_SELECT"
+			icon="list">
+			<fields name="maledeath_fields" label="">
+				<fieldset hidden="true" name="maledeath_modal" repeat="true">
+					<!-- [11280] Age Field. Type: List. (joomla) -->
+					<field
+						type="list"
+						name="age"
+						label="COM_COSTBENEFITPROJECTION_COUNTRY_AGE_LABEL"
+						class="list_class"
+						multiple="false"
+						filter="CMD">
+						<!-- [11352] Option Set. -->
+						<option value="15-19">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTEENNINETEEN</option>
+						<option value="20-24">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWENTYTWENTY_FOUR</option>
+						<option value="25-29">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWENTY_FIVETWENTY_NINE</option>
+						<option value="30-34">
+							COM_COSTBENEFITPROJECTION_COUNTRY_THIRTYTHIRTY_FOUR</option>
+						<option value="35-39">
+							COM_COSTBENEFITPROJECTION_COUNTRY_THIRTY_FIVETHIRTY_NINE</option>
+						<option value="40-44">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FORTYFORTY_FOUR</option>
+						<option value="45-49">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FORTY_FIVEFORTY_NINE</option>
+						<option value="50-54">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTYFIFTY_FOUR</option>
+						<option value="55-59">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTY_FIVEFIFTY_NINE</option>
+						<option value="60-64">
+							COM_COSTBENEFITPROJECTION_COUNTRY_SIXTYSIXTY_FOUR</option>
+					</field>
+					<!-- [11366] Number Field. Type: Text. (joomla) -->
+					<field
+						type="text"
+						name="number"
+						label="COM_COSTBENEFITPROJECTION_COUNTRY_NUMBER_LABEL"
+						size="10"
+						maxlength="50"
+						class="text_area"
+						readonly="false"
+						disabled="false"
+						filter="FLOAT"
+						message="Error! Please add number here."
+						hint="COM_COSTBENEFITPROJECTION_COUNTRY_NUMBER_HINT"
+					/>
+					<!-- [11280] Year Field. Type: List. (joomla) -->
+					<field
+						type="list"
+						name="year"
+						label="COM_COSTBENEFITPROJECTION_COUNTRY_YEAR_LABEL"
+						class="list_class"
+						multiple="false"
+						filter="INT">
+						<!-- [11352] Option Set. -->
+						<option value="">
+							COM_COSTBENEFITPROJECTION_COUNTRY_SELECT_A_YEAR</option>
+						<option value="2010">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TEN</option>
+						<option value="2011">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_ELEVEN</option>
+						<option value="2012">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWELVE</option>
+						<option value="2013">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_THIRTEEN</option>
+						<option value="2014">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_FOURTEEN</option>
+						<option value="2015">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_FIFTEEN</option>
+						<option value="2016">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_SIXTEEN</option>
+						<option value="2017">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_SEVENTEEN</option>
+						<option value="2018">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_EIGHTEEN</option>
+						<option value="2019">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_NINETEEN</option>
+						<option value="2020">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWENTY</option>
+						<option value="2021">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWENTY_ONE</option>
+						<option value="2022">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWENTY_TWO</option>
+						<option value="2023">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWENTY_THREE</option>
+						<option value="2024">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWENTY_FOUR</option>
+					</field>
+				</fieldset>
+			</fields>
+		</field>
+		<!-- [11366] Publicname Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="publicname"
+			label="COM_COSTBENEFITPROJECTION_COUNTRY_PUBLICNAME_LABEL"
+			size="60"
+			maxlength="150"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_PUBLICNAME_DESCRIPTION"
+			class="text_area"
+			readonly="false"
+			disabled="false"
+			filter="STRING"
+			message="Error! Please add public name here."
+			hint="COM_COSTBENEFITPROJECTION_COUNTRY_PUBLICNAME_HINT"
+		/>
+		<!-- [11397] Maleyld Field. Type: Repeatable. (joomla) -->
+		<field
+			type="repeatable"
+			name="maleyld"
+			label="Set Males Total YLDs"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_MALEYLD_DESCRIPTION"
+			id="maleyld"
+			class="malesyld"
+			select="COM_COSTBENEFITPROJECTION_COUNTRY_MALEYLD_SELECT"
+			icon="list">
+			<fields name="maleyld_fields" label="">
+				<fieldset hidden="true" name="maleyld_modal" repeat="true">
+					<!-- [11280] Age Field. Type: List. (joomla) -->
+					<field
+						type="list"
+						name="age"
+						label="COM_COSTBENEFITPROJECTION_COUNTRY_AGE_LABEL"
+						class="list_class"
+						multiple="false"
+						filter="CMD">
+						<!-- [11352] Option Set. -->
+						<option value="15-19">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTEENNINETEEN</option>
+						<option value="20-24">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWENTYTWENTY_FOUR</option>
+						<option value="25-29">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWENTY_FIVETWENTY_NINE</option>
+						<option value="30-34">
+							COM_COSTBENEFITPROJECTION_COUNTRY_THIRTYTHIRTY_FOUR</option>
+						<option value="35-39">
+							COM_COSTBENEFITPROJECTION_COUNTRY_THIRTY_FIVETHIRTY_NINE</option>
+						<option value="40-44">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FORTYFORTY_FOUR</option>
+						<option value="45-49">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FORTY_FIVEFORTY_NINE</option>
+						<option value="50-54">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTYFIFTY_FOUR</option>
+						<option value="55-59">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTY_FIVEFIFTY_NINE</option>
+						<option value="60-64">
+							COM_COSTBENEFITPROJECTION_COUNTRY_SIXTYSIXTY_FOUR</option>
+					</field>
+					<!-- [11366] Number Field. Type: Text. (joomla) -->
+					<field
+						type="text"
+						name="number"
+						label="COM_COSTBENEFITPROJECTION_COUNTRY_NUMBER_LABEL"
+						size="10"
+						maxlength="50"
+						class="text_area"
+						readonly="false"
+						disabled="false"
+						filter="FLOAT"
+						message="Error! Please add number here."
+						hint="COM_COSTBENEFITPROJECTION_COUNTRY_NUMBER_HINT"
+					/>
+					<!-- [11280] Year Field. Type: List. (joomla) -->
+					<field
+						type="list"
+						name="year"
+						label="COM_COSTBENEFITPROJECTION_COUNTRY_YEAR_LABEL"
+						class="list_class"
+						multiple="false"
+						filter="INT">
+						<!-- [11352] Option Set. -->
+						<option value="">
+							COM_COSTBENEFITPROJECTION_COUNTRY_SELECT_A_YEAR</option>
+						<option value="2010">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TEN</option>
+						<option value="2011">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_ELEVEN</option>
+						<option value="2012">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWELVE</option>
+						<option value="2013">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_THIRTEEN</option>
+						<option value="2014">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_FOURTEEN</option>
+						<option value="2015">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_FIFTEEN</option>
+						<option value="2016">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_SIXTEEN</option>
+						<option value="2017">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_SEVENTEEN</option>
+						<option value="2018">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_EIGHTEEN</option>
+						<option value="2019">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_NINETEEN</option>
+						<option value="2020">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWENTY</option>
+						<option value="2021">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWENTY_ONE</option>
+						<option value="2022">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWENTY_TWO</option>
+						<option value="2023">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWENTY_THREE</option>
+						<option value="2024">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWENTY_FOUR</option>
+					</field>
+				</fieldset>
+			</fields>
+		</field>
+		<!-- [11366] Publicnumber Field. Type: Tel. (joomla) -->
+		<field
+			type="tel"
+			name="publicnumber"
+			label="COM_COSTBENEFITPROJECTION_COUNTRY_PUBLICNUMBER_LABEL"
+			size="60"
+			maxlength="150"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_PUBLICNUMBER_DESCRIPTION"
+			class="text_area"
+			filter="tel"
+			validated="tel"
+			message="Error! Please add public phone number here."
+			hint="COM_COSTBENEFITPROJECTION_COUNTRY_PUBLICNUMBER_HINT"
+		/>
+		<!-- [11366] Presenteeism Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="presenteeism"
+			label="COM_COSTBENEFITPROJECTION_COUNTRY_PRESENTEEISM_LABEL"
+			size="10"
+			maxlength="10"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_PRESENTEEISM_DESCRIPTION"
+			class="text_area"
+			readonly="false"
+			disabled="false"
+			required="true"
+			filter="CMD"
+			message="Error! Please add presenteeism constant here."
+			hint="COM_COSTBENEFITPROJECTION_COUNTRY_PRESENTEEISM_HINT"
+		/>
+		<!-- [11397] Percentmale Field. Type: Repeatable. (joomla) -->
+		<field
+			type="repeatable"
+			name="percentmale"
+			label="Set Males Age Groups Percent"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_PERCENTMALE_DESCRIPTION"
+			id="percentmale"
+			class="percentmales"
+			select="COM_COSTBENEFITPROJECTION_COUNTRY_PERCENTMALE_SELECT"
+			icon="list"
+			maximum="10">
+			<fields name="percentmale_fields" label="">
+				<fieldset hidden="true" name="percentmale_modal" repeat="true">
+					<!-- [11280] Age Field. Type: List. (joomla) -->
+					<field
+						type="list"
+						name="age"
+						label="COM_COSTBENEFITPROJECTION_COUNTRY_AGE_LABEL"
+						class="list_class"
+						multiple="false"
+						filter="CMD">
+						<!-- [11352] Option Set. -->
+						<option value="15-19">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTEENNINETEEN</option>
+						<option value="20-24">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWENTYTWENTY_FOUR</option>
+						<option value="25-29">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWENTY_FIVETWENTY_NINE</option>
+						<option value="30-34">
+							COM_COSTBENEFITPROJECTION_COUNTRY_THIRTYTHIRTY_FOUR</option>
+						<option value="35-39">
+							COM_COSTBENEFITPROJECTION_COUNTRY_THIRTY_FIVETHIRTY_NINE</option>
+						<option value="40-44">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FORTYFORTY_FOUR</option>
+						<option value="45-49">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FORTY_FIVEFORTY_NINE</option>
+						<option value="50-54">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTYFIFTY_FOUR</option>
+						<option value="55-59">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTY_FIVEFIFTY_NINE</option>
+						<option value="60-64">
+							COM_COSTBENEFITPROJECTION_COUNTRY_SIXTYSIXTY_FOUR</option>
+					</field>
+					<!-- [11366] Percent Field. Type: Text. (joomla) -->
+					<field
+						type="text"
+						name="percent"
+						label="COM_COSTBENEFITPROJECTION_COUNTRY_PERCENT_LABEL"
+						size="10"
+						maxlength="50"
+						class="text_area"
+						readonly="false"
+						disabled="false"
+						filter="FLOAT"
+						message="Error! Please add percent here."
+						hint="COM_COSTBENEFITPROJECTION_COUNTRY_PERCENT_HINT"
+					/>
+				</fieldset>
+			</fields>
+		</field>
+		<!-- [11366] Medical_turnovers Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="medical_turnovers"
+			label="COM_COSTBENEFITPROJECTION_COUNTRY_MEDICAL_TURNOVERS_LABEL"
+			size="10"
+			maxlength="10"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_MEDICAL_TURNOVERS_DESCRIPTION"
+			class="text_area"
+			readonly="false"
+			disabled="false"
+			required="true"
+			filter="CMD"
+			message="Error! Please add ave. medical turnover here."
+			hint="COM_COSTBENEFITPROJECTION_COUNTRY_MEDICAL_TURNOVERS_HINT"
+		/>
+		<!-- [11487] Causesrisks Field. Type: Causesriskscheck. (custom) -->
+		<field
+			type="causesriskscheck"
+			name="causesrisks"
+			label="COM_COSTBENEFITPROJECTION_COUNTRY_CAUSESRISKS_LABEL"
+			class="list_class"
+			required="true"
+		/>
+		<!-- [11366] Sick_leave Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="sick_leave"
+			label="COM_COSTBENEFITPROJECTION_COUNTRY_SICK_LEAVE_LABEL"
+			size="10"
+			maxlength="10"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_SICK_LEAVE_DESCRIPTION"
+			class="text_area"
+			readonly="false"
+			disabled="false"
+			required="true"
+			filter="CMD"
+			message="Error! Please add ave. sick leave here."
+			hint="COM_COSTBENEFITPROJECTION_COUNTRY_SICK_LEAVE_HINT"
+		/>
+		<!-- [11397] Femaledeath Field. Type: Repeatable. (joomla) -->
+		<field
+			type="repeatable"
+			name="femaledeath"
+			label="Set Females Total Deaths"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_FEMALEDEATH_DESCRIPTION"
+			id="femaledeath"
+			class="femalesdeath"
+			select="COM_COSTBENEFITPROJECTION_COUNTRY_FEMALEDEATH_SELECT"
+			icon="list">
+			<fields name="femaledeath_fields" label="">
+				<fieldset hidden="true" name="femaledeath_modal" repeat="true">
+					<!-- [11280] Age Field. Type: List. (joomla) -->
+					<field
+						type="list"
+						name="age"
+						label="COM_COSTBENEFITPROJECTION_COUNTRY_AGE_LABEL"
+						class="list_class"
+						multiple="false"
+						filter="CMD">
+						<!-- [11352] Option Set. -->
+						<option value="15-19">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTEENNINETEEN</option>
+						<option value="20-24">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWENTYTWENTY_FOUR</option>
+						<option value="25-29">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWENTY_FIVETWENTY_NINE</option>
+						<option value="30-34">
+							COM_COSTBENEFITPROJECTION_COUNTRY_THIRTYTHIRTY_FOUR</option>
+						<option value="35-39">
+							COM_COSTBENEFITPROJECTION_COUNTRY_THIRTY_FIVETHIRTY_NINE</option>
+						<option value="40-44">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FORTYFORTY_FOUR</option>
+						<option value="45-49">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FORTY_FIVEFORTY_NINE</option>
+						<option value="50-54">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTYFIFTY_FOUR</option>
+						<option value="55-59">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTY_FIVEFIFTY_NINE</option>
+						<option value="60-64">
+							COM_COSTBENEFITPROJECTION_COUNTRY_SIXTYSIXTY_FOUR</option>
+					</field>
+					<!-- [11366] Number Field. Type: Text. (joomla) -->
+					<field
+						type="text"
+						name="number"
+						label="COM_COSTBENEFITPROJECTION_COUNTRY_NUMBER_LABEL"
+						size="10"
+						maxlength="50"
+						class="text_area"
+						readonly="false"
+						disabled="false"
+						filter="FLOAT"
+						message="Error! Please add number here."
+						hint="COM_COSTBENEFITPROJECTION_COUNTRY_NUMBER_HINT"
+					/>
+					<!-- [11280] Year Field. Type: List. (joomla) -->
+					<field
+						type="list"
+						name="year"
+						label="COM_COSTBENEFITPROJECTION_COUNTRY_YEAR_LABEL"
+						class="list_class"
+						multiple="false"
+						filter="INT">
+						<!-- [11352] Option Set. -->
+						<option value="">
+							COM_COSTBENEFITPROJECTION_COUNTRY_SELECT_A_YEAR</option>
+						<option value="2010">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TEN</option>
+						<option value="2011">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_ELEVEN</option>
+						<option value="2012">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWELVE</option>
+						<option value="2013">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_THIRTEEN</option>
+						<option value="2014">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_FOURTEEN</option>
+						<option value="2015">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_FIFTEEN</option>
+						<option value="2016">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_SIXTEEN</option>
+						<option value="2017">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_SEVENTEEN</option>
+						<option value="2018">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_EIGHTEEN</option>
+						<option value="2019">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_NINETEEN</option>
+						<option value="2020">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWENTY</option>
+						<option value="2021">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWENTY_ONE</option>
+						<option value="2022">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWENTY_TWO</option>
+						<option value="2023">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWENTY_THREE</option>
+						<option value="2024">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWENTY_FOUR</option>
+					</field>
+				</fieldset>
+			</fields>
+		</field>
+		<!-- [11366] Healthcare Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="healthcare"
+			label="COM_COSTBENEFITPROJECTION_COUNTRY_HEALTHCARE_LABEL"
+			size="10"
+			maxlength="10"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_HEALTHCARE_DESCRIPTION"
+			class="text_area"
+			readonly="false"
+			disabled="false"
+			required="true"
+			filter="CMD"
+			message="Error! Please add healthcare cost here."
+			hint="COM_COSTBENEFITPROJECTION_COUNTRY_HEALTHCARE_HINT"
+		/>
+		<!-- [11397] Femaleyld Field. Type: Repeatable. (joomla) -->
+		<field
+			type="repeatable"
+			name="femaleyld"
+			label="Set Females Total YLDs"
+			description="COM_COSTBENEFITPROJECTION_COUNTRY_FEMALEYLD_DESCRIPTION"
+			id="femaleyld"
+			class="femalesyld"
+			select="COM_COSTBENEFITPROJECTION_COUNTRY_FEMALEYLD_SELECT"
+			icon="list"
+			maximum="10">
+			<fields name="femaleyld_fields" label="">
+				<fieldset hidden="true" name="femaleyld_modal" repeat="true">
+					<!-- [11280] Age Field. Type: List. (joomla) -->
+					<field
+						type="list"
+						name="age"
+						label="COM_COSTBENEFITPROJECTION_COUNTRY_AGE_LABEL"
+						class="list_class"
+						multiple="false"
+						filter="CMD">
+						<!-- [11352] Option Set. -->
+						<option value="15-19">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTEENNINETEEN</option>
+						<option value="20-24">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWENTYTWENTY_FOUR</option>
+						<option value="25-29">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWENTY_FIVETWENTY_NINE</option>
+						<option value="30-34">
+							COM_COSTBENEFITPROJECTION_COUNTRY_THIRTYTHIRTY_FOUR</option>
+						<option value="35-39">
+							COM_COSTBENEFITPROJECTION_COUNTRY_THIRTY_FIVETHIRTY_NINE</option>
+						<option value="40-44">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FORTYFORTY_FOUR</option>
+						<option value="45-49">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FORTY_FIVEFORTY_NINE</option>
+						<option value="50-54">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTYFIFTY_FOUR</option>
+						<option value="55-59">
+							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTY_FIVEFIFTY_NINE</option>
+						<option value="60-64">
+							COM_COSTBENEFITPROJECTION_COUNTRY_SIXTYSIXTY_FOUR</option>
+					</field>
+					<!-- [11366] Number Field. Type: Text. (joomla) -->
+					<field
+						type="text"
+						name="number"
+						label="COM_COSTBENEFITPROJECTION_COUNTRY_NUMBER_LABEL"
+						size="10"
+						maxlength="50"
+						class="text_area"
+						readonly="false"
+						disabled="false"
+						filter="FLOAT"
+						message="Error! Please add number here."
+						hint="COM_COSTBENEFITPROJECTION_COUNTRY_NUMBER_HINT"
+					/>
+					<!-- [11280] Year Field. Type: List. (joomla) -->
+					<field
+						type="list"
+						name="year"
+						label="COM_COSTBENEFITPROJECTION_COUNTRY_YEAR_LABEL"
+						class="list_class"
+						multiple="false"
+						filter="INT">
+						<!-- [11352] Option Set. -->
+						<option value="">
+							COM_COSTBENEFITPROJECTION_COUNTRY_SELECT_A_YEAR</option>
+						<option value="2010">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TEN</option>
+						<option value="2011">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_ELEVEN</option>
+						<option value="2012">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWELVE</option>
+						<option value="2013">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_THIRTEEN</option>
+						<option value="2014">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_FOURTEEN</option>
+						<option value="2015">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_FIFTEEN</option>
+						<option value="2016">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_SIXTEEN</option>
+						<option value="2017">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_SEVENTEEN</option>
+						<option value="2018">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_EIGHTEEN</option>
+						<option value="2019">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_NINETEEN</option>
+						<option value="2020">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWENTY</option>
+						<option value="2021">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWENTY_ONE</option>
+						<option value="2022">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWENTY_TWO</option>
+						<option value="2023">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWENTY_THREE</option>
+						<option value="2024">
+							COM_COSTBENEFITPROJECTION_COUNTRY_TWO_THOUSAND_AND_TWENTY_FOUR</option>
+					</field>
+				</fieldset>
+			</fields>
+		</field>
+	</fieldset>
+	
+	<!-- [10053] Access Control Fields. -->
+	<fieldset name="accesscontrol">
+		<!-- [10055] Asset Id Field. Type: Hidden (joomla) -->
+		<field
+			name="asset_id"
+			type="hidden"
+			filter="unset"
+		/>
+		<!-- [10061] Rules Field. Type: Rules (joomla) -->
+		<field
+			name="rules"
+			type="rules"
+			label="Permissions in relation to this country"
+			translate_label="false"
+			filter="rules"
+			validate="rules"
+			class="inputbox"
+			component="com_costbenefitprojection"
+			section="country"
+		/>
+	</fieldset>
+</form>
