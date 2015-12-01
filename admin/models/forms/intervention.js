@@ -17,54 +17,54 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // Some Global Values
-jform_NqgeyPGPCt_required = false;
+jform_YwksxEqNkO_required = false;
 
 // Initial Script
 jQuery(document).ready(function()
 {
-	var type_NqgeyPG = jQuery("#jform_type input[type='radio']:checked").val();
-	NqgeyPG(type_NqgeyPG);
+	var type_YwksxEq = jQuery("#jform_type input[type='radio']:checked").val();
+	YwksxEq(type_YwksxEq);
 
-	var type_oEwwRnj = jQuery("#jform_type input[type='radio']:checked").val();
-	oEwwRnj(type_oEwwRnj);
+	var type_XJhCuBT = jQuery("#jform_type input[type='radio']:checked").val();
+	XJhCuBT(type_XJhCuBT);
 });
 
-// the NqgeyPG function
-function NqgeyPG(type_NqgeyPG)
+// the YwksxEq function
+function YwksxEq(type_YwksxEq)
 {
 	// [8008] set the function logic
-	if (type_NqgeyPG == 2)
+	if (type_YwksxEq == 2)
 	{
 		jQuery('#jform_interventions').closest('.control-group').show();
-		if (jform_NqgeyPGPCt_required)
+		if (jform_YwksxEqNkO_required)
 		{
 			updateFieldRequired('interventions',0);
 			jQuery('#jform_interventions').prop('required','required');
 			jQuery('#jform_interventions').attr('aria-required',true);
 			jQuery('#jform_interventions').addClass('required');
-			jform_NqgeyPGPCt_required = false;
+			jform_YwksxEqNkO_required = false;
 		}
 
 	}
 	else
 	{
 		jQuery('#jform_interventions').closest('.control-group').hide();
-		if (!jform_NqgeyPGPCt_required)
+		if (!jform_YwksxEqNkO_required)
 		{
 			updateFieldRequired('interventions',1);
 			jQuery('#jform_interventions').removeAttr('required');
 			jQuery('#jform_interventions').removeAttr('aria-required');
 			jQuery('#jform_interventions').removeClass('required');
-			jform_NqgeyPGPCt_required = true;
+			jform_YwksxEqNkO_required = true;
 		}
 	}
 }
 
-// the oEwwRnj function
-function oEwwRnj(type_oEwwRnj)
+// the XJhCuBT function
+function XJhCuBT(type_XJhCuBT)
 {
 	// [8008] set the function logic
-	if (type_oEwwRnj == 1)
+	if (type_XJhCuBT == 1)
 	{
 		jQuery('#jform_intervention').closest('.control-group').show();
 	}

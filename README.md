@@ -10,6 +10,12 @@ Having seen the health priorities for your workforce, the tool outputs projectio
 
 Benefits are calculated based on the model projecting reductions in workdays lost due to sickness, presenteeism and death.
 
+# Requirements
+
+Due to the size of the permissional structure, you will need to increase max_input_vars until the permissions are able to save.
+```
+max_input_vars = 5000
+```
 # Build Details
 
 + *Company*: [Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb] (https://www.staffhealthcbp.com/)
@@ -20,7 +26,7 @@ Benefits are calculated based on the model projecting reductions in workdays los
 + *Version*: 3.0.8
 + *Copyright*: Copyright (C) 2015. All Rights Reserved
 + *License*: GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html
-+ *Line count*: **77989**
++ *Line count*: **77995**
 + *File count*: **528**
 + *Folder count*: **99**
 

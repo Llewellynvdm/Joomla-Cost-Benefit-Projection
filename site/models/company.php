@@ -154,8 +154,8 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				$item->tags->getTagIds($item->id, 'com_costbenefitprojection.company');
 			}
 		}
-		$this->companymjgp = $item->id;
-		$this->companyosda = $item->id;
+		$this->companytgip = $item->id;
+		$this->companypqjv = $item->id;
 
 		return $item;
 	}
@@ -165,7 +165,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getTpmscaling_factors()
+	public function getQwjscaling_factors()
 	{
 		// [6945] Get the user object.
 		$user = JFactory::getUser();
@@ -204,15 +204,15 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 		$query->select($db->quoteName('h.name','company_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_company', 'h') . ' ON (' . $db->quoteName('a.company') . ' = ' . $db->quoteName('h.id') . ')');
 
-		// [6973] Filter by companymjgp global.
-		$companymjgp = $this->companymjgp;
-		if (is_numeric($companymjgp ))
+		// [6973] Filter by companytgip global.
+		$companytgip = $this->companytgip;
+		if (is_numeric($companytgip ))
 		{
-			$query->where('a.company = ' . (int) $companymjgp );
+			$query->where('a.company = ' . (int) $companytgip );
 		}
-		elseif (is_string($companymjgp))
+		elseif (is_string($companytgip))
 		{
-			$query->where('a.company = ' . $db->quote($companymjgp));
+			$query->where('a.company = ' . $db->quote($companytgip));
 		}
 		else
 		{
@@ -255,7 +255,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getQhdinterventions()
+	public function getObuinterventions()
 	{
 		// [6945] Get the user object.
 		$user = JFactory::getUser();
@@ -290,15 +290,15 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 		$query->select($db->quoteName('g.name','company_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_company', 'g') . ' ON (' . $db->quoteName('a.company') . ' = ' . $db->quoteName('g.id') . ')');
 
-		// [6973] Filter by companyosda global.
-		$companyosda = $this->companyosda;
-		if (is_numeric($companyosda ))
+		// [6973] Filter by companypqjv global.
+		$companypqjv = $this->companypqjv;
+		if (is_numeric($companypqjv ))
 		{
-			$query->where('a.company = ' . (int) $companyosda );
+			$query->where('a.company = ' . (int) $companypqjv );
 		}
-		elseif (is_string($companyosda))
+		elseif (is_string($companypqjv))
 		{
-			$query->where('a.company = ' . $db->quote($companyosda));
+			$query->where('a.company = ' . $db->quote($companypqjv));
 		}
 		else
 		{
@@ -351,7 +351,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				foreach ($items as $nr => &$item)
 				{
 					// [10884] convert type
-					$item->type = $this->selectionTranslationQhdinterventions($item->type, 'type');
+					$item->type = $this->selectionTranslationObuinterventions($item->type, 'type');
 				}
 			}
 
@@ -365,7 +365,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return translatable string
 	*/
-	public function selectionTranslationQhdinterventions($value,$name)
+	public function selectionTranslationObuinterventions($value,$name)
 	{
 		// [10910] Array of type language strings
 		if ($name == 'type')

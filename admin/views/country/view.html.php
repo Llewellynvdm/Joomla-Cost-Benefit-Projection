@@ -65,10 +65,10 @@ class CostbenefitprojectionViewCountry extends JViewLegacy
                 }
 
 		// [6479] Get Linked view data
-		$this->zpqservice_providers		= $this->get('Zpqservice_providers');
+		$this->gmeservice_providers		= $this->get('Gmeservice_providers');
 
 		// [6479] Get Linked view data
-		$this->iaacompanies		= $this->get('Iaacompanies');
+		$this->ywucompanies		= $this->get('Ywucompanies');
 
 		// Set the toolbar
 		$this->addToolBar();
