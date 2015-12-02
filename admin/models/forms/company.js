@@ -2,7 +2,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.8
+	@version		3.0.9
 	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -17,178 +17,178 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // Some Global Values
-jform_MyenDgDunb_required = false;
-jform_MyenDgDhEP_required = false;
-jform_MyenDgDOtm_required = false;
-jform_MyenDgDxnU_required = false;
-jform_MyenDgDQwQ_required = false;
-jform_MyenDgDHoX_required = false;
-jform_MyenDgDOTm_required = false;
+jform_pydRZWraSY_required = false;
+jform_pydRZWrZBd_required = false;
+jform_pydRZWrJNR_required = false;
+jform_pydRZWrWAx_required = false;
+jform_pydRZWrrWa_required = false;
+jform_pydRZWrVtn_required = false;
+jform_pydRZWrqmt_required = false;
 
 // Initial Script
 jQuery(document).ready(function()
 {
-	var department_MyenDgD = jQuery("#jform_department input[type='radio']:checked").val();
-	MyenDgD(department_MyenDgD);
+	var department_pydRZWr = jQuery("#jform_department input[type='radio']:checked").val();
+	pydRZWr(department_pydRZWr);
 
-	var department_JKkommy = jQuery("#jform_department input[type='radio']:checked").val();
-	JKkommy(department_JKkommy);
+	var department_sAKFZSC = jQuery("#jform_department input[type='radio']:checked").val();
+	sAKFZSC(department_sAKFZSC);
 });
 
-// the MyenDgD function
-function MyenDgD(department_MyenDgD)
+// the pydRZWr function
+function pydRZWr(department_pydRZWr)
 {
-	// [8016] set the function logic
-	if (department_MyenDgD == 2)
+	// [8017] set the function logic
+	if (department_pydRZWr == 2)
 	{
 		jQuery('#jform_causesrisks').closest('.control-group').show();
-		if (jform_MyenDgDunb_required)
+		if (jform_pydRZWraSY_required)
 		{
 			updateFieldRequired('causesrisks',0);
 			jQuery('#jform_causesrisks').prop('required','required');
 			jQuery('#jform_causesrisks').attr('aria-required',true);
 			jQuery('#jform_causesrisks').addClass('required');
-			jform_MyenDgDunb_required = false;
+			jform_pydRZWraSY_required = false;
 		}
 
 		jQuery('#jform_percentfemale').closest('.control-group').show();
 		jQuery('#jform_percentmale').closest('.control-group').show();
 		jQuery('#jform_productivity_losses').closest('.control-group').show();
-		if (jform_MyenDgDhEP_required)
+		if (jform_pydRZWrZBd_required)
 		{
 			updateFieldRequired('productivity_losses',0);
 			jQuery('#jform_productivity_losses').prop('required','required');
 			jQuery('#jform_productivity_losses').attr('aria-required',true);
 			jQuery('#jform_productivity_losses').addClass('required');
-			jform_MyenDgDhEP_required = false;
+			jform_pydRZWrZBd_required = false;
 		}
 
 		jQuery('#jform_medical_turnovers_females').closest('.control-group').show();
-		if (jform_MyenDgDOtm_required)
+		if (jform_pydRZWrJNR_required)
 		{
 			updateFieldRequired('medical_turnovers_females',0);
 			jQuery('#jform_medical_turnovers_females').prop('required','required');
 			jQuery('#jform_medical_turnovers_females').attr('aria-required',true);
 			jQuery('#jform_medical_turnovers_females').addClass('required');
-			jform_MyenDgDOtm_required = false;
+			jform_pydRZWrJNR_required = false;
 		}
 
 		jQuery('#jform_medical_turnovers_males').closest('.control-group').show();
-		if (jform_MyenDgDxnU_required)
+		if (jform_pydRZWrWAx_required)
 		{
 			updateFieldRequired('medical_turnovers_males',0);
 			jQuery('#jform_medical_turnovers_males').prop('required','required');
 			jQuery('#jform_medical_turnovers_males').attr('aria-required',true);
 			jQuery('#jform_medical_turnovers_males').addClass('required');
-			jform_MyenDgDxnU_required = false;
+			jform_pydRZWrWAx_required = false;
 		}
 
 		jQuery('#jform_sick_leave_females').closest('.control-group').show();
-		if (jform_MyenDgDQwQ_required)
+		if (jform_pydRZWrrWa_required)
 		{
 			updateFieldRequired('sick_leave_females',0);
 			jQuery('#jform_sick_leave_females').prop('required','required');
 			jQuery('#jform_sick_leave_females').attr('aria-required',true);
 			jQuery('#jform_sick_leave_females').addClass('required');
-			jform_MyenDgDQwQ_required = false;
+			jform_pydRZWrrWa_required = false;
 		}
 
 		jQuery('#jform_sick_leave_males').closest('.control-group').show();
-		if (jform_MyenDgDHoX_required)
+		if (jform_pydRZWrVtn_required)
 		{
 			updateFieldRequired('sick_leave_males',0);
 			jQuery('#jform_sick_leave_males').prop('required','required');
 			jQuery('#jform_sick_leave_males').attr('aria-required',true);
 			jQuery('#jform_sick_leave_males').addClass('required');
-			jform_MyenDgDHoX_required = false;
+			jform_pydRZWrVtn_required = false;
 		}
 
 		jQuery('#jform_total_healthcare').closest('.control-group').show();
-		if (jform_MyenDgDOTm_required)
+		if (jform_pydRZWrqmt_required)
 		{
 			updateFieldRequired('total_healthcare',0);
 			jQuery('#jform_total_healthcare').prop('required','required');
 			jQuery('#jform_total_healthcare').attr('aria-required',true);
 			jQuery('#jform_total_healthcare').addClass('required');
-			jform_MyenDgDOTm_required = false;
+			jform_pydRZWrqmt_required = false;
 		}
 
 	}
 	else
 	{
 		jQuery('#jform_causesrisks').closest('.control-group').hide();
-		if (!jform_MyenDgDunb_required)
+		if (!jform_pydRZWraSY_required)
 		{
 			updateFieldRequired('causesrisks',1);
 			jQuery('#jform_causesrisks').removeAttr('required');
 			jQuery('#jform_causesrisks').removeAttr('aria-required');
 			jQuery('#jform_causesrisks').removeClass('required');
-			jform_MyenDgDunb_required = true;
+			jform_pydRZWraSY_required = true;
 		}
 		jQuery('#jform_percentfemale').closest('.control-group').hide();
 		jQuery('#jform_percentmale').closest('.control-group').hide();
 		jQuery('#jform_productivity_losses').closest('.control-group').hide();
-		if (!jform_MyenDgDhEP_required)
+		if (!jform_pydRZWrZBd_required)
 		{
 			updateFieldRequired('productivity_losses',1);
 			jQuery('#jform_productivity_losses').removeAttr('required');
 			jQuery('#jform_productivity_losses').removeAttr('aria-required');
 			jQuery('#jform_productivity_losses').removeClass('required');
-			jform_MyenDgDhEP_required = true;
+			jform_pydRZWrZBd_required = true;
 		}
 		jQuery('#jform_medical_turnovers_females').closest('.control-group').hide();
-		if (!jform_MyenDgDOtm_required)
+		if (!jform_pydRZWrJNR_required)
 		{
 			updateFieldRequired('medical_turnovers_females',1);
 			jQuery('#jform_medical_turnovers_females').removeAttr('required');
 			jQuery('#jform_medical_turnovers_females').removeAttr('aria-required');
 			jQuery('#jform_medical_turnovers_females').removeClass('required');
-			jform_MyenDgDOtm_required = true;
+			jform_pydRZWrJNR_required = true;
 		}
 		jQuery('#jform_medical_turnovers_males').closest('.control-group').hide();
-		if (!jform_MyenDgDxnU_required)
+		if (!jform_pydRZWrWAx_required)
 		{
 			updateFieldRequired('medical_turnovers_males',1);
 			jQuery('#jform_medical_turnovers_males').removeAttr('required');
 			jQuery('#jform_medical_turnovers_males').removeAttr('aria-required');
 			jQuery('#jform_medical_turnovers_males').removeClass('required');
-			jform_MyenDgDxnU_required = true;
+			jform_pydRZWrWAx_required = true;
 		}
 		jQuery('#jform_sick_leave_females').closest('.control-group').hide();
-		if (!jform_MyenDgDQwQ_required)
+		if (!jform_pydRZWrrWa_required)
 		{
 			updateFieldRequired('sick_leave_females',1);
 			jQuery('#jform_sick_leave_females').removeAttr('required');
 			jQuery('#jform_sick_leave_females').removeAttr('aria-required');
 			jQuery('#jform_sick_leave_females').removeClass('required');
-			jform_MyenDgDQwQ_required = true;
+			jform_pydRZWrrWa_required = true;
 		}
 		jQuery('#jform_sick_leave_males').closest('.control-group').hide();
-		if (!jform_MyenDgDHoX_required)
+		if (!jform_pydRZWrVtn_required)
 		{
 			updateFieldRequired('sick_leave_males',1);
 			jQuery('#jform_sick_leave_males').removeAttr('required');
 			jQuery('#jform_sick_leave_males').removeAttr('aria-required');
 			jQuery('#jform_sick_leave_males').removeClass('required');
-			jform_MyenDgDHoX_required = true;
+			jform_pydRZWrVtn_required = true;
 		}
 		jQuery('#jform_total_healthcare').closest('.control-group').hide();
-		if (!jform_MyenDgDOTm_required)
+		if (!jform_pydRZWrqmt_required)
 		{
 			updateFieldRequired('total_healthcare',1);
 			jQuery('#jform_total_healthcare').removeAttr('required');
 			jQuery('#jform_total_healthcare').removeAttr('aria-required');
 			jQuery('#jform_total_healthcare').removeClass('required');
-			jform_MyenDgDOTm_required = true;
+			jform_pydRZWrqmt_required = true;
 		}
 	}
 }
 
-// the JKkommy function
-function JKkommy(department_JKkommy)
+// the sAKFZSC function
+function sAKFZSC(department_sAKFZSC)
 {
-	// [8016] set the function logic
-	if (department_JKkommy == 1)
+	// [8017] set the function logic
+	if (department_sAKFZSC == 1)
 	{
 		jQuery('.age_groups_note').closest('.control-group').show();
 		jQuery('.cause_risk_selection_note').closest('.control-group').show();

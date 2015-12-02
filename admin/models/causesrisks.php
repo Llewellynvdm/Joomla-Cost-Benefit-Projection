@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.8
+	@version		3.0.9
 	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -95,16 +95,16 @@ class CostbenefitprojectionModelCausesrisks extends JModelList
 	 */
 	public function getItems()
 	{ 
-		// [10544] check in items
+		// [10545] check in items
 		$this->checkInNow();
 
 		// load parent items
 		$items = parent::getItems();
 
-		// [10619] set values to display correctly.
+		// [10620] set values to display correctly.
 		if (CostbenefitprojectionHelper::checkArray($items))
 		{
-			// [10622] get user object.
+			// [10623] get user object.
 			$user = JFactory::getUser();
 			foreach ($items as $nr => &$item)
 			{
@@ -129,19 +129,19 @@ class CostbenefitprojectionModelCausesrisks extends JModelList
 	 */
 	protected function getListQuery()
 	{
-		// [7405] Get the user object.
+		// [7406] Get the user object.
 		$user = JFactory::getUser();
-		// [7407] Create a new query object.
+		// [7408] Create a new query object.
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(true);
 
-		// [7410] Select some fields
+		// [7411] Select some fields
 		$query->select('a.*');
 
-		// [7417] From the costbenefitprojection_item table
+		// [7418] From the costbenefitprojection_item table
 		$query->from($db->quoteName('#__costbenefitprojection_causerisk', 'a'));
 
-		// [7431] Filter by published state
+		// [7432] Filter by published state
 		$published = $this->getState('filter.published');
 		if (is_numeric($published))
 		{
@@ -152,21 +152,21 @@ class CostbenefitprojectionModelCausesrisks extends JModelList
 			$query->where('(a.published = 0 OR a.published = 1)');
 		}
 
-		// [7443] Join over the asset groups.
+		// [7444] Join over the asset groups.
 		$query->select('ag.title AS access_level');
 		$query->join('LEFT', '#__viewlevels AS ag ON ag.id = a.access');
-		// [7446] Filter by access level.
+		// [7447] Filter by access level.
 		if ($access = $this->getState('filter.access'))
 		{
 			$query->where('a.access = ' . (int) $access);
 		}
-		// [7451] Implement View Level Access
+		// [7452] Implement View Level Access
 		if (!$user->authorise('core.options', 'com_costbenefitprojection'))
 		{
 			$groups = implode(',', $user->getAuthorisedViewLevels());
 			$query->where('a.access IN (' . $groups . ')');
 		}
-		// [7528] Filter by search.
+		// [7529] Filter by search.
 		$search = $this->getState('filter.search');
 		if (!empty($search))
 		{
@@ -182,7 +182,7 @@ class CostbenefitprojectionModelCausesrisks extends JModelList
 		}
 
 
-		// [7487] Add the list ordering clause.
+		// [7488] Add the list ordering clause.
 		$orderCol = $this->state->get('list.ordering', 'a.id');
 		$orderDirn = $this->state->get('list.direction', 'asc');	
 		if ($orderCol != '')
@@ -200,42 +200,42 @@ class CostbenefitprojectionModelCausesrisks extends JModelList
 	*/
 	public function getExportData($pks)
 	{
-		// [7195] setup the query
+		// [7196] setup the query
 		if (CostbenefitprojectionHelper::checkArray($pks))
 		{
-			// [7198] Get the user object.
+			// [7199] Get the user object.
 			$user = JFactory::getUser();
-			// [7200] Create a new query object.
+			// [7201] Create a new query object.
 			$db = JFactory::getDBO();
 			$query = $db->getQuery(true);
 
-			// [7203] Select some fields
+			// [7204] Select some fields
 			$query->select('a.*');
 
-			// [7205] From the costbenefitprojection_causerisk table
+			// [7206] From the costbenefitprojection_causerisk table
 			$query->from($db->quoteName('#__costbenefitprojection_causerisk', 'a'));
 			$query->where('a.id IN (' . implode(',',$pks) . ')');
-			// [7215] Implement View Level Access
+			// [7216] Implement View Level Access
 			if (!$user->authorise('core.options', 'com_costbenefitprojection'))
 			{
 				$groups = implode(',', $user->getAuthorisedViewLevels());
 				$query->where('a.access IN (' . $groups . ')');
 			}
 
-			// [7222] Order the results by ordering
+			// [7223] Order the results by ordering
 			$query->order('a.ordering  ASC');
 
-			// [7224] Load the items
+			// [7225] Load the items
 			$db->setQuery($query);
 			$db->execute();
 			if ($db->getNumRows())
 			{
 				$items = $db->loadObjectList();
 
-				// [10619] set values to display correctly.
+				// [10620] set values to display correctly.
 				if (CostbenefitprojectionHelper::checkArray($items))
 				{
-					// [10622] get user object.
+					// [10623] get user object.
 					$user = JFactory::getUser();
 					foreach ($items as $nr => &$item)
 					{
@@ -246,13 +246,13 @@ class CostbenefitprojectionModelCausesrisks extends JModelList
 							continue;
 						}
 
-						// [10832] unset the values we don't want exported.
+						// [10833] unset the values we don't want exported.
 						unset($item->asset_id);
 						unset($item->checked_out);
 						unset($item->checked_out_time);
 					}
 				}
-				// [10841] Add headers to items array.
+				// [10842] Add headers to items array.
 				$headers = $this->getExImPortHeaders();
 				if (CostbenefitprojectionHelper::checkObject($headers))
 				{
@@ -271,13 +271,13 @@ class CostbenefitprojectionModelCausesrisks extends JModelList
 	*/
 	public function getExImPortHeaders()
 	{
-		// [7244] Get a db connection.
+		// [7245] Get a db connection.
 		$db = JFactory::getDbo();
-		// [7246] get the columns
+		// [7247] get the columns
 		$columns = $db->getTableColumns("#__costbenefitprojection_causerisk");
 		if (CostbenefitprojectionHelper::checkArray($columns))
 		{
-			// [7250] remove the headers you don't import/export.
+			// [7251] remove the headers you don't import/export.
 			unset($columns['asset_id']);
 			unset($columns['checked_out']);
 			unset($columns['checked_out_time']);
@@ -299,7 +299,7 @@ class CostbenefitprojectionModelCausesrisks extends JModelList
 	 */
 	protected function getStoreId($id = '')
 	{
-		// [10167] Compile the store id.
+		// [10168] Compile the store id.
 		$id .= ':' . $this->getState('filter.id');
 		$id .= ':' . $this->getState('filter.search');
 		$id .= ':' . $this->getState('filter.published');
@@ -320,15 +320,15 @@ class CostbenefitprojectionModelCausesrisks extends JModelList
 	*/
 	protected function checkInNow()
 	{
-		// [10560] Get set check in time
+		// [10561] Get set check in time
 		$time = JComponentHelper::getParams('com_costbenefitprojection')->get('check_in');
 		
 		if ($time)
 		{
 
-			// [10565] Get a db connection.
+			// [10566] Get a db connection.
 			$db = JFactory::getDbo();
-			// [10567] reset query
+			// [10568] reset query
 			$query = $db->getQuery(true);
 			$query->select('*');
 			$query->from($db->quoteName('#__costbenefitprojection_causerisk'));
@@ -336,24 +336,24 @@ class CostbenefitprojectionModelCausesrisks extends JModelList
 			$db->execute();
 			if ($db->getNumRows())
 			{
-				// [10575] Get Yesterdays date
+				// [10576] Get Yesterdays date
 				$date = JFactory::getDate()->modify($time)->toSql();
-				// [10577] reset query
+				// [10578] reset query
 				$query = $db->getQuery(true);
 
-				// [10579] Fields to update.
+				// [10580] Fields to update.
 				$fields = array(
 					$db->quoteName('checked_out_time') . '=\'0000-00-00 00:00:00\'',
 					$db->quoteName('checked_out') . '=0'
 				);
 
-				// [10584] Conditions for which records should be updated.
+				// [10585] Conditions for which records should be updated.
 				$conditions = array(
 					$db->quoteName('checked_out') . '!=0', 
 					$db->quoteName('checked_out_time') . '<\''.$date.'\''
 				);
 
-				// [10589] Check table
+				// [10590] Check table
 				$query->update($db->quoteName('#__costbenefitprojection_causerisk'))->set($fields)->where($conditions); 
 
 				$db->setQuery($query);

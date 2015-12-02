@@ -2,7 +2,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.8
+	@version		3.0.9
 	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection

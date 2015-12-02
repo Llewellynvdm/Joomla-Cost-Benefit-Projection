@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.8
+	@version		3.0.9
 	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -44,36 +44,36 @@ class JFormFieldCountries extends JFormFieldList
 	 */
 	protected function getInput()
 	{
-		// [7699] see if we should add buttons
+		// [7700] see if we should add buttons
 		$setButton = $this->getAttribute('button');
-		// [7701] get html
+		// [7702] get html
 		$html = parent::getInput();
-		// [7703] if true set button
+		// [7704] if true set button
 		if ($setButton === 'true')
 		{
 			$user = JFactory::getUser();
-			// [7707] only add if user allowed to create country
+			// [7708] only add if user allowed to create country
 			if ($user->authorise('country.create', 'com_costbenefitprojection'))
 			{
-				// [7725] get the input from url
+				// [7726] get the input from url
 				$jinput = JFactory::getApplication()->input;
-				// [7727] get the view name & id
+				// [7728] get the view name & id
 				$values = $jinput->getArray(array(
 					'id' => 'int',
 					'view' => 'word'
 				));
-				// [7732] check if new item
+				// [7733] check if new item
 				$ref = '';
 				if (!is_null($values['id']) && strlen($values['view']))
 				{
-					// [7736] only load referal if not new item.
+					// [7737] only load referal if not new item.
 					$ref = '&amp;ref=' . $values['view'] . '&amp;refid=' . $values['id'];
 				}
-				// [7739] build the button
+				// [7740] build the button
 				$button = '<a class="btn btn-small btn-success"
 					href="index.php?option=com_costbenefitprojection&amp;view=country&amp;layout=edit'.$ref.'" >
 					<span class="icon-new icon-white"></span>' . JText::_('COM_COSTBENEFITPROJECTION_NEW') . '</a>';
-				// [7743] return the button attached to input field
+				// [7744] return the button attached to input field
 				return $html . $button;
 			}
 		}

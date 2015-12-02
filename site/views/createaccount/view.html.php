@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.8
+	@version		3.0.9
 	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -37,20 +37,20 @@ class CostbenefitprojectionViewCreateaccount extends JViewLegacy
 		$this->menu = $this->app->getMenu()->getActive();
 		// get the user object
 		$this->user = JFactory::getUser();
-		// [3043] Initialise variables.
+		// [3044] Initialise variables.
 		$this->items		= $this->get('Items');
 
-		// [3061] Check for errors.
+		// [3062] Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
 			JError::raiseWarning(500, implode("\n", $errors));
 			return false;
 		}
 
-		// [3078] Set the toolbar
+		// [3079] Set the toolbar
 		$this->addToolBar();
 
-		// [3080] set the document
+		// [3081] set the document
 		$this->_prepareDocument();
 
 		parent::display($tpl);
@@ -101,39 +101,40 @@ class CostbenefitprojectionViewCreateaccount extends JViewLegacy
 	protected function _prepareDocument()
 	{
 
-		// [3430] always make sure jquery is loaded.
+		// [3431] always make sure jquery is loaded.
 		JHtml::_('jquery.framework');
-		// [3432] Load the header checker class.
+		// [3433] Load the header checker class.
 		require_once( JPATH_COMPONENT_SITE.'/helpers/headercheck.php' );
-		// [3434] Initialize the header checker.
+		// [3435] Initialize the header checker.
 		$HeaderCheck = new HeaderCheck;
 
-		// [3439] Load uikit options.
+		// [3440] Load uikit options.
 		$uikit = $this->params->get('uikit_load');
-		// [3441] Set script size.
+		// [3442] Set script size.
 		$size = $this->params->get('uikit_min');
-		// [3443] Set css style.
+		// [3444] Set css style.
 		$style = $this->params->get('uikit_style');
 
-		// [3446] The uikit css.
+		// [3447] The uikit css.
 		if ((!$HeaderCheck->css_loaded('uikit.min') || $uikit == 1) && $uikit != 2 && $uikit != 3)
 		{
 			$this->document->addStyleSheet(JURI::root(true) .'/media/com_costbenefitprojection/uikit/css/uikit'.$style.$size.'.css');
 		}
-		// [3451] The uikit js.
+		// [3452] The uikit js.
 		if ((!$HeaderCheck->js_loaded('uikit.min') || $uikit == 1) && $uikit != 2 && $uikit != 3)
 		{
 			$this->document->addScript(JURI::root(true) .'/media/com_costbenefitprojection/uikit/js/uikit'.$size.'.js');
 		}
 
-		// [3460] Load the script to find all uikit components needed.
+		// [3461] Load the script to find all uikit components needed.
 		if ($uikit != 2)
 		{
-			// [3463] Set the default uikit components in this view.
+			// [3464] Set the default uikit components in this view.
 			$uikitComp = array();
+			$uikitComp[] = 'uk-accordion';
 			$uikitComp[] = 'data-uk-grid';
 
-			// [3472] Get field uikit components needed in this view.
+			// [3473] Get field uikit components needed in this view.
 			$uikitFieldComp = $this->get('UikitComp');
 			if (isset($uikitFieldComp) && CostbenefitprojectionHelper::checkArray($uikitFieldComp))
 			{
@@ -149,26 +150,26 @@ class CostbenefitprojectionViewCreateaccount extends JViewLegacy
 			}
 		}
 
-		// [3488] Load the needed uikit components in this view.
+		// [3489] Load the needed uikit components in this view.
 		if ($uikit != 2 && isset($uikitComp) && CostbenefitprojectionHelper::checkArray($uikitComp))
 		{
-			// [3491] load just in case.
+			// [3492] load just in case.
 			jimport('joomla.filesystem.file');
-			// [3493] loading...
+			// [3494] loading...
 			foreach ($uikitComp as $class)
 			{
 				foreach (CostbenefitprojectionHelper::$uk_components[$class] as $name)
 				{
-					// [3498] check if the CSS file exists.
+					// [3499] check if the CSS file exists.
 					if (JFile::exists(JPATH_ROOT.'/media/com_costbenefitprojection/uikit/css/components/'.$name.$style.$size.'.css'))
 					{
-						// [3501] load the css.
+						// [3502] load the css.
 						$this->document->addStyleSheet(JURI::root(true) .'/media/com_costbenefitprojection/uikit/css/components/'.$name.$style.$size.'.css');
 					}
-					// [3504] check if the JavaScript file exists.
+					// [3505] check if the JavaScript file exists.
 					if (JFile::exists(JPATH_ROOT.'/media/com_costbenefitprojection/uikit/js/components/'.$name.$size.'.js'))
 					{
-						// [3507] load the js.
+						// [3508] load the js.
 						$this->document->addScript(JURI::root(true) .'/media/com_costbenefitprojection/uikit/js/components/'.$name.$size.'.js');
 					}
 				}

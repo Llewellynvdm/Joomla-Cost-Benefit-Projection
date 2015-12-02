@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.8
+	@version		3.0.9
 	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -976,7 +976,7 @@ abstract class CostbenefitprojectionHelper
 	{
 		if (strpos($content,'class="uk-') !== false)
 		{
-			// [2605] reset
+			// [2606] reset
 			$temp = array();
 			foreach (self::$uk_components as $looking => $add)
 			{
@@ -985,15 +985,15 @@ abstract class CostbenefitprojectionHelper
 					$temp[] = $looking;
 				}
 			}
-			// [2614] make sure uikit is loaded to config
+			// [2615] make sure uikit is loaded to config
 			if (strpos($content,'class="uk-') !== false)
 			{
 				self::$uikit = true;
 			}
-			// [2619] sorter
+			// [2620] sorter
 			if (self::checkArray($temp))
 			{
-				// [2622] merger
+				// [2623] merger
 				if (self::checkArray($classes))
 				{
 					$newTemp = array_merge($temp,$classes);

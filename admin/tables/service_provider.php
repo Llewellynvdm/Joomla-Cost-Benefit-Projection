@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.8
+	@version		3.0.9
 	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -47,7 +47,7 @@ class CostbenefitprojectionTableService_provider extends JTable
 	{
 		parent::__construct('#__costbenefitprojection_service_provider', 'id', $db);
 
-		// [4202] Adding History Options
+		// [4203] Adding History Options
 		JTableObserverContenthistory::createObserver($this, array('typeAlias' => 'com_costbenefitprojection.service_provider')); 
 	}	
  

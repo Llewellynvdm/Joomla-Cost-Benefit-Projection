@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.8
+	@version		3.0.9
 	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -88,27 +88,27 @@ class CostbenefitprojectionViewIntervention extends JViewLegacy
 		$isNew = $this->item->id == 0;
 
 		JToolbarHelper::title( JText::_($isNew ? 'COM_COSTBENEFITPROJECTION_INTERVENTION_NEW' : 'COM_COSTBENEFITPROJECTION_INTERVENTION_EDIT'), 'pencil-2 article-add');
-		// [10277] Built the actions for new and existing records.
+		// [10278] Built the actions for new and existing records.
 		if ($this->refid || $this->ref)
 		{
 			if ($this->canDo->get('intervention.create') && $isNew)
 			{
-				// [10289] We can create the record.
+				// [10290] We can create the record.
 				JToolBarHelper::save('intervention.save', 'JTOOLBAR_SAVE');
 			}
 			elseif ($this->canDo->get('intervention.edit'))
 			{
-				// [10301] We can save the record.
+				// [10302] We can save the record.
 				JToolBarHelper::save('intervention.save', 'JTOOLBAR_SAVE');
 			}
 			if ($isNew)
 			{
-				// [10306] Do not creat but cancel.
+				// [10307] Do not creat but cancel.
 				JToolBarHelper::cancel('intervention.cancel', 'JTOOLBAR_CANCEL');
 			}
 			else
 			{
-				// [10311] We can close it.
+				// [10312] We can close it.
 				JToolBarHelper::cancel('intervention.cancel', 'JTOOLBAR_CLOSE');
 			}
 		}
@@ -116,7 +116,7 @@ class CostbenefitprojectionViewIntervention extends JViewLegacy
 		{
 			if ($isNew)
 			{
-				// [10319] For new records, check the create permission.
+				// [10320] For new records, check the create permission.
 				if ($this->canDo->get('intervention.create'))
 				{
 					JToolBarHelper::apply('intervention.apply', 'JTOOLBAR_APPLY');
@@ -129,11 +129,11 @@ class CostbenefitprojectionViewIntervention extends JViewLegacy
 			{
 				if ($this->canDo->get('intervention.edit'))
 				{
-					// [10346] We can save the new record
+					// [10347] We can save the new record
 					JToolBarHelper::apply('intervention.apply', 'JTOOLBAR_APPLY');
 					JToolBarHelper::save('intervention.save', 'JTOOLBAR_SAVE');
-					// [10349] We can save this record, but check the create permission to see
-					// [10350] if we can return to make a new one.
+					// [10350] We can save this record, but check the create permission to see
+					// [10351] if we can return to make a new one.
 					if ($this->canDo->get('intervention.create'))
 					{
 						JToolBarHelper::custom('intervention.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);
@@ -152,7 +152,7 @@ class CostbenefitprojectionViewIntervention extends JViewLegacy
 			}
 		}
 		JToolbarHelper::divider();
-		// [10386] set help url for this view if found
+		// [10387] set help url for this view if found
 		$help_url = CostbenefitprojectionHelper::getHelpUrl('intervention');
 		if (CostbenefitprojectionHelper::checkString($help_url))
 		{
@@ -195,7 +195,7 @@ class CostbenefitprojectionViewIntervention extends JViewLegacy
 		$document->addScript(JURI::root()."administrator/templates/isis/js/template.js");
 		// the default style of this view
 		$document->addStyleSheet(JURI::root()."components/com_costbenefitprojection/assets/css/intervention.css");
-		// [8807] Add Ajax Token
+		// [8808] Add Ajax Token
 		$document->addScriptDeclaration("var token = '".JSession::getFormToken()."';"); 
 		// default javascript of this view
 		$document->addScript(JURI::root().$this->script);

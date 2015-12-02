@@ -4,15 +4,15 @@
 	addfieldpath="/administrator/components/com_costbenefitprojection/models/fields"
 >
 	<fieldset name="details">
-		<!-- [11027] Default Fields. -->
-		<!-- [11028] Id Field. Type: Text (joomla) -->
+		<!-- [11028] Default Fields. -->
+		<!-- [11029] Id Field. Type: Text (joomla) -->
 		<field
 			name="id"
 			type="text" class="readonly" label="JGLOBAL_FIELD_ID_LABEL"
 			description ="JGLOBAL_FIELD_ID_DESC" size="10" default="0"
 			readonly="true"
 		/>
-		<!-- [11035] Date Created Field. Type: Calendar (joomla) -->
+		<!-- [11036] Date Created Field. Type: Calendar (joomla) -->
 		<field
 			name="created"
 			type="calendar"
@@ -22,14 +22,14 @@
 			format="%Y-%m-%d %H:%M:%S"
 			filter="user_utc"
 		/>
-		<!-- [11046] User Created Field. Type: User (joomla) -->
+		<!-- [11047] User Created Field. Type: User (joomla) -->
 		<field
 			name="created_by"
 			type="user"
 			label="COM_COSTBENEFITPROJECTION_COUNTRY_CREATED_BY_LABEL"
 			description="COM_COSTBENEFITPROJECTION_COUNTRY_CREATED_BY_DESC"
 		/>
-		<!-- [11054] Published Field. Type: List (joomla) -->
+		<!-- [11055] Published Field. Type: List (joomla) -->
 		<field name="published" type="list" label="JSTATUS"
 			description="JFIELD_PUBLISHED_DESC" class="chzn-color-state"
 			filter="intval" size="1" default="1" >
@@ -42,18 +42,18 @@
 			<option value="-2">
 				JTRASHED</option>
 		</field>
-		<!-- [11069] Date Modified Field. Type: Calendar (joomla) -->
+		<!-- [11070] Date Modified Field. Type: Calendar (joomla) -->
 		<field name="modified" type="calendar" class="readonly"
 			label="JGLOBAL_FIELD_MODIFIED_LABEL" description="COM_CONTENT_FIELD_MODIFIED_DESC"
 			size="22" readonly="true" format="%Y-%m-%d %H:%M:%S" filter="user_utc" />
-		<!-- [11073] User Modified Field. Type: User (joomla) -->
+		<!-- [11074] User Modified Field. Type: User (joomla) -->
 		<field name="modified_by" type="user"
 			label="JGLOBAL_FIELD_MODIFIED_BY_LABEL"
 			class="readonly"
 			readonly="true"
 			filter="unset"
 		/>
-		<!-- [11083] Access Field. Type: Accesslevel (joomla) -->
+		<!-- [11084] Access Field. Type: Accesslevel (joomla) -->
 		<field name="access"
 			type="accesslevel"
 			label="JFIELD_ACCESS_LABEL"
@@ -61,7 +61,7 @@
 			default="1"
 			required="false"
 		/>
-		<!-- [11093] Ordering Field. Type: Numbers (joomla) -->
+		<!-- [11094] Ordering Field. Type: Numbers (joomla) -->
 		<field
 			name="ordering"
 			type="number"
@@ -72,7 +72,7 @@
 			size="6"
 			required="false"
 		/>
-		<!-- [11105] Version Field. Type: Text (joomla) -->
+		<!-- [11106] Version Field. Type: Text (joomla) -->
 		<field
 			name="version"
 			type="text"
@@ -83,8 +83,8 @@
 			readonly="true"
 			filter="unset"
 		/>
-		<!-- [11138] Dynamic Fields. -->
-		<!-- [11374] Name Field. Type: Text. (joomla) -->
+		<!-- [11139] Dynamic Fields. -->
+		<!-- [11375] Name Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="name"
@@ -100,14 +100,14 @@
 			message="Error! Please add name here."
 			hint="COM_COSTBENEFITPROJECTION_COUNTRY_NAME_HINT"
 		/>
-		<!-- [11495] User Field. Type: Countryuser. (custom) -->
+		<!-- [11496] User Field. Type: Countryuser. (custom) -->
 		<field
 			type="countryuser"
 			name="user"
 			label="COM_COSTBENEFITPROJECTION_COUNTRY_USER_LABEL"
 			hint="COM_COSTBENEFITPROJECTION_COUNTRY_USER_HINT"
 		/>
-		<!-- [11495] Currency Field. Type: Currency. (custom) -->
+		<!-- [11496] Currency Field. Type: Currency. (custom) -->
 		<field
 			type="currency"
 			name="currency"
@@ -117,7 +117,7 @@
 			multiple="false"
 			required="true"
 		/>
-		<!-- [11374] Codethree Field. Type: Text. (joomla) -->
+		<!-- [11375] Codethree Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="codethree"
@@ -131,7 +131,7 @@
 			message="Error! Please add three-letter country code here."
 			hint="COM_COSTBENEFITPROJECTION_COUNTRY_CODETHREE_HINT"
 		/>
-		<!-- [11374] Codetwo Field. Type: Text. (joomla) -->
+		<!-- [11375] Codetwo Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="codetwo"
@@ -145,7 +145,7 @@
 			message="Error! Please add two-letter country code here."
 			hint="COM_COSTBENEFITPROJECTION_COUNTRY_CODETWO_HINT"
 		/>
-		<!-- [11374] Working_days Field. Type: Integer. (joomla) -->
+		<!-- [11375] Working_days Field. Type: Integer. (joomla) -->
 		<field
 			type="integer"
 			name="working_days"
@@ -158,7 +158,7 @@
 			last="365"
 			step="1"
 		/>
-		<!-- [11374] Productivity_losses Field. Type: Text. (joomla) -->
+		<!-- [11375] Productivity_losses Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="productivity_losses"
@@ -174,7 +174,7 @@
 			message="Error! Please add productivity losses here."
 			hint="COM_COSTBENEFITPROJECTION_COUNTRY_PRODUCTIVITY_LOSSES_HINT"
 		/>
-		<!-- [11495] Datayear Field. Type: Datayear. (custom) -->
+		<!-- [11496] Datayear Field. Type: Datayear. (custom) -->
 		<field
 			type="datayear"
 			name="datayear"
@@ -184,7 +184,7 @@
 			multiple="false"
 			default="0"
 		/>
-		<!-- [11374] Worldzone Field. Type: Text. (joomla) -->
+		<!-- [11375] Worldzone Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="worldzone"
@@ -198,7 +198,7 @@
 			message="Error! Please add zone code here."
 			hint="COM_COSTBENEFITPROJECTION_COUNTRY_WORLDZONE_HINT"
 		/>
-		<!-- [11374] Publicaddress Field. Type: Editor. (joomla) -->
+		<!-- [11375] Publicaddress Field. Type: Editor. (joomla) -->
 		<field
 			type="editor"
 			name="publicaddress"
@@ -208,7 +208,7 @@
 			buttons="false"
 			filter="safehtml"
 		/>
-		<!-- [11374] Publicemail Field. Type: Text. (joomla) -->
+		<!-- [11375] Publicemail Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="publicemail"
@@ -222,7 +222,7 @@
 			message="Error! Please public email address here."
 			hint="COM_COSTBENEFITPROJECTION_COUNTRY_PUBLICEMAIL_HINT"
 		/>
-		<!-- [11405] Percentfemale Field. Type: Repeatable. (joomla) -->
+		<!-- [11406] Percentfemale Field. Type: Repeatable. (joomla) -->
 		<field
 			type="repeatable"
 			name="percentfemale"
@@ -235,7 +235,7 @@
 			maximum="10">
 			<fields name="percentfemale_fields" label="">
 				<fieldset hidden="true" name="percentfemale_modal" repeat="true">
-					<!-- [11288] Age Field. Type: List. (joomla) -->
+					<!-- [11289] Age Field. Type: List. (joomla) -->
 					<field
 						type="list"
 						name="age"
@@ -243,7 +243,7 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD">
-						<!-- [11360] Option Set. -->
+						<!-- [11361] Option Set. -->
 						<option value="15-19">
 							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTEENNINETEEN</option>
 						<option value="20-24">
@@ -265,7 +265,7 @@
 						<option value="60-64">
 							COM_COSTBENEFITPROJECTION_COUNTRY_SIXTYSIXTY_FOUR</option>
 					</field>
-					<!-- [11374] Percent Field. Type: Text. (joomla) -->
+					<!-- [11375] Percent Field. Type: Text. (joomla) -->
 					<field
 						type="text"
 						name="percent"
@@ -282,7 +282,7 @@
 				</fieldset>
 			</fields>
 		</field>
-		<!-- [11374] Alias Field. Type: Text. (joomla) -->
+		<!-- [11375] Alias Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="alias"
@@ -291,7 +291,7 @@
 			filter="STRING"
 			hint="COM_COSTBENEFITPROJECTION_COUNTRY_ALIAS_HINT"
 		/>
-		<!-- [11405] Maledeath Field. Type: Repeatable. (joomla) -->
+		<!-- [11406] Maledeath Field. Type: Repeatable. (joomla) -->
 		<field
 			type="repeatable"
 			name="maledeath"
@@ -303,7 +303,7 @@
 			icon="list">
 			<fields name="maledeath_fields" label="">
 				<fieldset hidden="true" name="maledeath_modal" repeat="true">
-					<!-- [11288] Age Field. Type: List. (joomla) -->
+					<!-- [11289] Age Field. Type: List. (joomla) -->
 					<field
 						type="list"
 						name="age"
@@ -311,7 +311,7 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD">
-						<!-- [11360] Option Set. -->
+						<!-- [11361] Option Set. -->
 						<option value="15-19">
 							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTEENNINETEEN</option>
 						<option value="20-24">
@@ -333,7 +333,7 @@
 						<option value="60-64">
 							COM_COSTBENEFITPROJECTION_COUNTRY_SIXTYSIXTY_FOUR</option>
 					</field>
-					<!-- [11374] Number Field. Type: Text. (joomla) -->
+					<!-- [11375] Number Field. Type: Text. (joomla) -->
 					<field
 						type="text"
 						name="number"
@@ -347,7 +347,7 @@
 						message="Error! Please add number here."
 						hint="COM_COSTBENEFITPROJECTION_COUNTRY_NUMBER_HINT"
 					/>
-					<!-- [11288] Year Field. Type: List. (joomla) -->
+					<!-- [11289] Year Field. Type: List. (joomla) -->
 					<field
 						type="list"
 						name="year"
@@ -355,7 +355,7 @@
 						class="list_class"
 						multiple="false"
 						filter="INT">
-						<!-- [11360] Option Set. -->
+						<!-- [11361] Option Set. -->
 						<option value="">
 							COM_COSTBENEFITPROJECTION_COUNTRY_SELECT_A_YEAR</option>
 						<option value="2010">
@@ -392,7 +392,7 @@
 				</fieldset>
 			</fields>
 		</field>
-		<!-- [11374] Publicname Field. Type: Text. (joomla) -->
+		<!-- [11375] Publicname Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="publicname"
@@ -407,7 +407,7 @@
 			message="Error! Please add public name here."
 			hint="COM_COSTBENEFITPROJECTION_COUNTRY_PUBLICNAME_HINT"
 		/>
-		<!-- [11405] Maleyld Field. Type: Repeatable. (joomla) -->
+		<!-- [11406] Maleyld Field. Type: Repeatable. (joomla) -->
 		<field
 			type="repeatable"
 			name="maleyld"
@@ -419,7 +419,7 @@
 			icon="list">
 			<fields name="maleyld_fields" label="">
 				<fieldset hidden="true" name="maleyld_modal" repeat="true">
-					<!-- [11288] Age Field. Type: List. (joomla) -->
+					<!-- [11289] Age Field. Type: List. (joomla) -->
 					<field
 						type="list"
 						name="age"
@@ -427,7 +427,7 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD">
-						<!-- [11360] Option Set. -->
+						<!-- [11361] Option Set. -->
 						<option value="15-19">
 							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTEENNINETEEN</option>
 						<option value="20-24">
@@ -449,7 +449,7 @@
 						<option value="60-64">
 							COM_COSTBENEFITPROJECTION_COUNTRY_SIXTYSIXTY_FOUR</option>
 					</field>
-					<!-- [11374] Number Field. Type: Text. (joomla) -->
+					<!-- [11375] Number Field. Type: Text. (joomla) -->
 					<field
 						type="text"
 						name="number"
@@ -463,7 +463,7 @@
 						message="Error! Please add number here."
 						hint="COM_COSTBENEFITPROJECTION_COUNTRY_NUMBER_HINT"
 					/>
-					<!-- [11288] Year Field. Type: List. (joomla) -->
+					<!-- [11289] Year Field. Type: List. (joomla) -->
 					<field
 						type="list"
 						name="year"
@@ -471,7 +471,7 @@
 						class="list_class"
 						multiple="false"
 						filter="INT">
-						<!-- [11360] Option Set. -->
+						<!-- [11361] Option Set. -->
 						<option value="">
 							COM_COSTBENEFITPROJECTION_COUNTRY_SELECT_A_YEAR</option>
 						<option value="2010">
@@ -508,7 +508,7 @@
 				</fieldset>
 			</fields>
 		</field>
-		<!-- [11374] Publicnumber Field. Type: Tel. (joomla) -->
+		<!-- [11375] Publicnumber Field. Type: Tel. (joomla) -->
 		<field
 			type="tel"
 			name="publicnumber"
@@ -522,7 +522,7 @@
 			message="Error! Please add public phone number here."
 			hint="COM_COSTBENEFITPROJECTION_COUNTRY_PUBLICNUMBER_HINT"
 		/>
-		<!-- [11374] Presenteeism Field. Type: Text. (joomla) -->
+		<!-- [11375] Presenteeism Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="presenteeism"
@@ -538,7 +538,7 @@
 			message="Error! Please add presenteeism constant here."
 			hint="COM_COSTBENEFITPROJECTION_COUNTRY_PRESENTEEISM_HINT"
 		/>
-		<!-- [11405] Percentmale Field. Type: Repeatable. (joomla) -->
+		<!-- [11406] Percentmale Field. Type: Repeatable. (joomla) -->
 		<field
 			type="repeatable"
 			name="percentmale"
@@ -551,7 +551,7 @@
 			maximum="10">
 			<fields name="percentmale_fields" label="">
 				<fieldset hidden="true" name="percentmale_modal" repeat="true">
-					<!-- [11288] Age Field. Type: List. (joomla) -->
+					<!-- [11289] Age Field. Type: List. (joomla) -->
 					<field
 						type="list"
 						name="age"
@@ -559,7 +559,7 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD">
-						<!-- [11360] Option Set. -->
+						<!-- [11361] Option Set. -->
 						<option value="15-19">
 							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTEENNINETEEN</option>
 						<option value="20-24">
@@ -581,7 +581,7 @@
 						<option value="60-64">
 							COM_COSTBENEFITPROJECTION_COUNTRY_SIXTYSIXTY_FOUR</option>
 					</field>
-					<!-- [11374] Percent Field. Type: Text. (joomla) -->
+					<!-- [11375] Percent Field. Type: Text. (joomla) -->
 					<field
 						type="text"
 						name="percent"
@@ -598,7 +598,7 @@
 				</fieldset>
 			</fields>
 		</field>
-		<!-- [11374] Medical_turnovers Field. Type: Text. (joomla) -->
+		<!-- [11375] Medical_turnovers Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="medical_turnovers"
@@ -614,7 +614,7 @@
 			message="Error! Please add ave. medical turnover here."
 			hint="COM_COSTBENEFITPROJECTION_COUNTRY_MEDICAL_TURNOVERS_HINT"
 		/>
-		<!-- [11495] Causesrisks Field. Type: Causesriskscheck. (custom) -->
+		<!-- [11496] Causesrisks Field. Type: Causesriskscheck. (custom) -->
 		<field
 			type="causesriskscheck"
 			name="causesrisks"
@@ -622,7 +622,7 @@
 			class="list_class"
 			required="true"
 		/>
-		<!-- [11374] Sick_leave Field. Type: Text. (joomla) -->
+		<!-- [11375] Sick_leave Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="sick_leave"
@@ -638,7 +638,7 @@
 			message="Error! Please add ave. sick leave here."
 			hint="COM_COSTBENEFITPROJECTION_COUNTRY_SICK_LEAVE_HINT"
 		/>
-		<!-- [11405] Femaledeath Field. Type: Repeatable. (joomla) -->
+		<!-- [11406] Femaledeath Field. Type: Repeatable. (joomla) -->
 		<field
 			type="repeatable"
 			name="femaledeath"
@@ -650,7 +650,7 @@
 			icon="list">
 			<fields name="femaledeath_fields" label="">
 				<fieldset hidden="true" name="femaledeath_modal" repeat="true">
-					<!-- [11288] Age Field. Type: List. (joomla) -->
+					<!-- [11289] Age Field. Type: List. (joomla) -->
 					<field
 						type="list"
 						name="age"
@@ -658,7 +658,7 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD">
-						<!-- [11360] Option Set. -->
+						<!-- [11361] Option Set. -->
 						<option value="15-19">
 							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTEENNINETEEN</option>
 						<option value="20-24">
@@ -680,7 +680,7 @@
 						<option value="60-64">
 							COM_COSTBENEFITPROJECTION_COUNTRY_SIXTYSIXTY_FOUR</option>
 					</field>
-					<!-- [11374] Number Field. Type: Text. (joomla) -->
+					<!-- [11375] Number Field. Type: Text. (joomla) -->
 					<field
 						type="text"
 						name="number"
@@ -694,7 +694,7 @@
 						message="Error! Please add number here."
 						hint="COM_COSTBENEFITPROJECTION_COUNTRY_NUMBER_HINT"
 					/>
-					<!-- [11288] Year Field. Type: List. (joomla) -->
+					<!-- [11289] Year Field. Type: List. (joomla) -->
 					<field
 						type="list"
 						name="year"
@@ -702,7 +702,7 @@
 						class="list_class"
 						multiple="false"
 						filter="INT">
-						<!-- [11360] Option Set. -->
+						<!-- [11361] Option Set. -->
 						<option value="">
 							COM_COSTBENEFITPROJECTION_COUNTRY_SELECT_A_YEAR</option>
 						<option value="2010">
@@ -739,7 +739,7 @@
 				</fieldset>
 			</fields>
 		</field>
-		<!-- [11374] Healthcare Field. Type: Text. (joomla) -->
+		<!-- [11375] Healthcare Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="healthcare"
@@ -755,7 +755,7 @@
 			message="Error! Please add healthcare cost here."
 			hint="COM_COSTBENEFITPROJECTION_COUNTRY_HEALTHCARE_HINT"
 		/>
-		<!-- [11405] Femaleyld Field. Type: Repeatable. (joomla) -->
+		<!-- [11406] Femaleyld Field. Type: Repeatable. (joomla) -->
 		<field
 			type="repeatable"
 			name="femaleyld"
@@ -768,7 +768,7 @@
 			maximum="10">
 			<fields name="femaleyld_fields" label="">
 				<fieldset hidden="true" name="femaleyld_modal" repeat="true">
-					<!-- [11288] Age Field. Type: List. (joomla) -->
+					<!-- [11289] Age Field. Type: List. (joomla) -->
 					<field
 						type="list"
 						name="age"
@@ -776,7 +776,7 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD">
-						<!-- [11360] Option Set. -->
+						<!-- [11361] Option Set. -->
 						<option value="15-19">
 							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTEENNINETEEN</option>
 						<option value="20-24">
@@ -798,7 +798,7 @@
 						<option value="60-64">
 							COM_COSTBENEFITPROJECTION_COUNTRY_SIXTYSIXTY_FOUR</option>
 					</field>
-					<!-- [11374] Number Field. Type: Text. (joomla) -->
+					<!-- [11375] Number Field. Type: Text. (joomla) -->
 					<field
 						type="text"
 						name="number"
@@ -812,7 +812,7 @@
 						message="Error! Please add number here."
 						hint="COM_COSTBENEFITPROJECTION_COUNTRY_NUMBER_HINT"
 					/>
-					<!-- [11288] Year Field. Type: List. (joomla) -->
+					<!-- [11289] Year Field. Type: List. (joomla) -->
 					<field
 						type="list"
 						name="year"
@@ -820,7 +820,7 @@
 						class="list_class"
 						multiple="false"
 						filter="INT">
-						<!-- [11360] Option Set. -->
+						<!-- [11361] Option Set. -->
 						<option value="">
 							COM_COSTBENEFITPROJECTION_COUNTRY_SELECT_A_YEAR</option>
 						<option value="2010">
@@ -859,15 +859,15 @@
 		</field>
 	</fieldset>
 	
-	<!-- [10061] Access Control Fields. -->
+	<!-- [10062] Access Control Fields. -->
 	<fieldset name="accesscontrol">
-		<!-- [10063] Asset Id Field. Type: Hidden (joomla) -->
+		<!-- [10064] Asset Id Field. Type: Hidden (joomla) -->
 		<field
 			name="asset_id"
 			type="hidden"
 			filter="unset"
 		/>
-		<!-- [10069] Rules Field. Type: Rules (joomla) -->
+		<!-- [10070] Rules Field. Type: Rules (joomla) -->
 		<field
 			name="rules"
 			type="rules"

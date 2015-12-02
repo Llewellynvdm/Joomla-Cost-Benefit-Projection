@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.8
+	@version		3.0.9
 	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -55,7 +55,7 @@ if ($this->items)
 			}
 			else
 			{
-				$serviceList[] = '<li aria-hidden="true" class=""><div class="uk-accordion" data-uk-accordion="{showfirst:false}">'.  implode('', $bucket).'</div></li>';
+				$serviceList[] = '<li aria-hidden="true" class="" data-uk-check-display><div class="uk-accordion" data-uk-accordion="{showfirst:false}">'.  implode('', $bucket).'</div></li>';
 			}
 		}
 		else

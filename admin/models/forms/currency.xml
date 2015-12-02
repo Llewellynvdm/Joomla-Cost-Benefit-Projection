@@ -4,15 +4,15 @@
 	addfieldpath="/administrator/components/com_costbenefitprojection/models/fields"
 >
 	<fieldset name="details">
-		<!-- [11027] Default Fields. -->
-		<!-- [11028] Id Field. Type: Text (joomla) -->
+		<!-- [11028] Default Fields. -->
+		<!-- [11029] Id Field. Type: Text (joomla) -->
 		<field
 			name="id"
 			type="text" class="readonly" label="JGLOBAL_FIELD_ID_LABEL"
 			description ="JGLOBAL_FIELD_ID_DESC" size="10" default="0"
 			readonly="true"
 		/>
-		<!-- [11035] Date Created Field. Type: Calendar (joomla) -->
+		<!-- [11036] Date Created Field. Type: Calendar (joomla) -->
 		<field
 			name="created"
 			type="calendar"
@@ -22,14 +22,14 @@
 			format="%Y-%m-%d %H:%M:%S"
 			filter="user_utc"
 		/>
-		<!-- [11046] User Created Field. Type: User (joomla) -->
+		<!-- [11047] User Created Field. Type: User (joomla) -->
 		<field
 			name="created_by"
 			type="user"
 			label="COM_COSTBENEFITPROJECTION_CURRENCY_CREATED_BY_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CURRENCY_CREATED_BY_DESC"
 		/>
-		<!-- [11054] Published Field. Type: List (joomla) -->
+		<!-- [11055] Published Field. Type: List (joomla) -->
 		<field name="published" type="list" label="JSTATUS"
 			description="JFIELD_PUBLISHED_DESC" class="chzn-color-state"
 			filter="intval" size="1" default="1" >
@@ -42,18 +42,18 @@
 			<option value="-2">
 				JTRASHED</option>
 		</field>
-		<!-- [11069] Date Modified Field. Type: Calendar (joomla) -->
+		<!-- [11070] Date Modified Field. Type: Calendar (joomla) -->
 		<field name="modified" type="calendar" class="readonly"
 			label="JGLOBAL_FIELD_MODIFIED_LABEL" description="COM_CONTENT_FIELD_MODIFIED_DESC"
 			size="22" readonly="true" format="%Y-%m-%d %H:%M:%S" filter="user_utc" />
-		<!-- [11073] User Modified Field. Type: User (joomla) -->
+		<!-- [11074] User Modified Field. Type: User (joomla) -->
 		<field name="modified_by" type="user"
 			label="JGLOBAL_FIELD_MODIFIED_BY_LABEL"
 			class="readonly"
 			readonly="true"
 			filter="unset"
 		/>
-		<!-- [11083] Access Field. Type: Accesslevel (joomla) -->
+		<!-- [11084] Access Field. Type: Accesslevel (joomla) -->
 		<field name="access"
 			type="accesslevel"
 			label="JFIELD_ACCESS_LABEL"
@@ -61,7 +61,7 @@
 			default="1"
 			required="false"
 		/>
-		<!-- [11093] Ordering Field. Type: Numbers (joomla) -->
+		<!-- [11094] Ordering Field. Type: Numbers (joomla) -->
 		<field
 			name="ordering"
 			type="number"
@@ -72,7 +72,7 @@
 			size="6"
 			required="false"
 		/>
-		<!-- [11105] Version Field. Type: Text (joomla) -->
+		<!-- [11106] Version Field. Type: Text (joomla) -->
 		<field
 			name="version"
 			type="text"
@@ -83,8 +83,8 @@
 			readonly="true"
 			filter="unset"
 		/>
-		<!-- [11138] Dynamic Fields. -->
-		<!-- [11374] Name Field. Type: Text. (joomla) -->
+		<!-- [11139] Dynamic Fields. -->
+		<!-- [11375] Name Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="name"
@@ -100,7 +100,7 @@
 			message="Error! Please add name here."
 			hint="COM_COSTBENEFITPROJECTION_CURRENCY_NAME_HINT"
 		/>
-		<!-- [11374] Codethree Field. Type: Text. (joomla) -->
+		<!-- [11375] Codethree Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="codethree"
@@ -114,7 +114,7 @@
 			message="Error! Please add three-letter currency code here."
 			hint="COM_COSTBENEFITPROJECTION_CURRENCY_CODETHREE_HINT"
 		/>
-		<!-- [11374] Numericcode Field. Type: Text. (joomla) -->
+		<!-- [11375] Numericcode Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="numericcode"
@@ -128,7 +128,7 @@
 			message="Error! Please add numeric code here."
 			hint="COM_COSTBENEFITPROJECTION_CURRENCY_NUMERICCODE_HINT"
 		/>
-		<!-- [11374] Symbol Field. Type: Text. (joomla) -->
+		<!-- [11375] Symbol Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="symbol"
@@ -142,7 +142,7 @@
 			message="Error! Please add currency symbol here."
 			hint="COM_COSTBENEFITPROJECTION_CURRENCY_SYMBOL_HINT"
 		/>
-		<!-- [11374] Alias Field. Type: Text. (joomla) -->
+		<!-- [11375] Alias Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="alias"
@@ -151,7 +151,7 @@
 			filter="STRING"
 			hint="COM_COSTBENEFITPROJECTION_CURRENCY_ALIAS_HINT"
 		/>
-		<!-- [11374] Positivestyle Field. Type: Text. (joomla) -->
+		<!-- [11375] Positivestyle Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="positivestyle"
@@ -164,7 +164,7 @@
 			message="Error! Please add currency positive style here."
 			hint="COM_COSTBENEFITPROJECTION_CURRENCY_POSITIVESTYLE_HINT"
 		/>
-		<!-- [11374] Thousands Field. Type: Text. (joomla) -->
+		<!-- [11375] Thousands Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="thousands"
@@ -176,7 +176,7 @@
 			message="Error! Please add currency thousands separator here."
 			hint="COM_COSTBENEFITPROJECTION_CURRENCY_THOUSANDS_HINT"
 		/>
-		<!-- [11374] Decimalsymbol Field. Type: Text. (joomla) -->
+		<!-- [11375] Decimalsymbol Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="decimalsymbol"
@@ -191,7 +191,7 @@
 			message="Error! Please add currency decimal symbol here."
 			hint="COM_COSTBENEFITPROJECTION_CURRENCY_DECIMALSYMBOL_HINT"
 		/>
-		<!-- [11374] Decimalplace Field. Type: Text. (joomla) -->
+		<!-- [11375] Decimalplace Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="decimalplace"
@@ -206,7 +206,7 @@
 			message="Error! Please add currency decimal place here."
 			hint="COM_COSTBENEFITPROJECTION_CURRENCY_DECIMALPLACE_HINT"
 		/>
-		<!-- [11374] Negativestyle Field. Type: Text. (joomla) -->
+		<!-- [11375] Negativestyle Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="negativestyle"
@@ -221,15 +221,15 @@
 		/>
 	</fieldset>
 	
-	<!-- [10061] Access Control Fields. -->
+	<!-- [10062] Access Control Fields. -->
 	<fieldset name="accesscontrol">
-		<!-- [10063] Asset Id Field. Type: Hidden (joomla) -->
+		<!-- [10064] Asset Id Field. Type: Hidden (joomla) -->
 		<field
 			name="asset_id"
 			type="hidden"
 			filter="unset"
 		/>
-		<!-- [10069] Rules Field. Type: Rules (joomla) -->
+		<!-- [10070] Rules Field. Type: Rules (joomla) -->
 		<field
 			name="rules"
 			type="rules"

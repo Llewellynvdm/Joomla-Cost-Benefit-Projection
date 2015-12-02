@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.8
+	@version		3.0.9
 	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -64,11 +64,11 @@ class CostbenefitprojectionViewCompany extends JViewLegacy
                         $this->referral = '&ref='.(string)$this->ref;
                 }
 
-		// [6487] Get Linked view data
-		$this->oabscaling_factors		= $this->get('Oabscaling_factors');
+		// [6488] Get Linked view data
+		$this->yosscaling_factors		= $this->get('Yosscaling_factors');
 
-		// [6487] Get Linked view data
-		$this->ljeinterventions		= $this->get('Ljeinterventions');
+		// [6488] Get Linked view data
+		$this->zjtinterventions		= $this->get('Zjtinterventions');
 
 		// Set the toolbar
 		$this->addToolBar();
@@ -92,27 +92,27 @@ class CostbenefitprojectionViewCompany extends JViewLegacy
 		$isNew = $this->item->id == 0;
 
 		JToolbarHelper::title( JText::_($isNew ? 'COM_COSTBENEFITPROJECTION_COMPANY_NEW' : 'COM_COSTBENEFITPROJECTION_COMPANY_EDIT'), 'pencil-2 article-add');
-		// [10277] Built the actions for new and existing records.
+		// [10278] Built the actions for new and existing records.
 		if ($this->refid || $this->ref)
 		{
 			if ($this->canDo->get('company.create') && $isNew)
 			{
-				// [10289] We can create the record.
+				// [10290] We can create the record.
 				JToolBarHelper::save('company.save', 'JTOOLBAR_SAVE');
 			}
 			elseif ($this->canDo->get('company.edit'))
 			{
-				// [10301] We can save the record.
+				// [10302] We can save the record.
 				JToolBarHelper::save('company.save', 'JTOOLBAR_SAVE');
 			}
 			if ($isNew)
 			{
-				// [10306] Do not creat but cancel.
+				// [10307] Do not creat but cancel.
 				JToolBarHelper::cancel('company.cancel', 'JTOOLBAR_CANCEL');
 			}
 			else
 			{
-				// [10311] We can close it.
+				// [10312] We can close it.
 				JToolBarHelper::cancel('company.cancel', 'JTOOLBAR_CLOSE');
 			}
 		}
@@ -120,7 +120,7 @@ class CostbenefitprojectionViewCompany extends JViewLegacy
 		{
 			if ($isNew)
 			{
-				// [10319] For new records, check the create permission.
+				// [10320] For new records, check the create permission.
 				if ($this->canDo->get('company.create'))
 				{
 					JToolBarHelper::apply('company.apply', 'JTOOLBAR_APPLY');
@@ -133,11 +133,11 @@ class CostbenefitprojectionViewCompany extends JViewLegacy
 			{
 				if ($this->canDo->get('company.edit'))
 				{
-					// [10346] We can save the new record
+					// [10347] We can save the new record
 					JToolBarHelper::apply('company.apply', 'JTOOLBAR_APPLY');
 					JToolBarHelper::save('company.save', 'JTOOLBAR_SAVE');
-					// [10349] We can save this record, but check the create permission to see
-					// [10350] if we can return to make a new one.
+					// [10350] We can save this record, but check the create permission to see
+					// [10351] if we can return to make a new one.
 					if ($this->canDo->get('company.create'))
 					{
 						JToolBarHelper::custom('company.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);
@@ -156,7 +156,7 @@ class CostbenefitprojectionViewCompany extends JViewLegacy
 			}
 		}
 		JToolbarHelper::divider();
-		// [10386] set help url for this view if found
+		// [10387] set help url for this view if found
 		$help_url = CostbenefitprojectionHelper::getHelpUrl('company');
 		if (CostbenefitprojectionHelper::checkString($help_url))
 		{
@@ -194,21 +194,21 @@ class CostbenefitprojectionViewCompany extends JViewLegacy
 		$document->setTitle(JText::_($isNew ? 'COM_COSTBENEFITPROJECTION_COMPANY_NEW' : 'COM_COSTBENEFITPROJECTION_COMPANY_EDIT'));
 		$document->addStyleSheet(JURI::root() . "administrator/components/com_costbenefitprojection/assets/css/company.css"); 
 
-		// [6522] Add the CSS for Footable.
+		// [6523] Add the CSS for Footable.
 		$document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable/css/footable.core.min.css');
 
-		// [6524] Use the Metro Style
+		// [6525] Use the Metro Style
 		if (!isset($this->fooTableStyle) || 0 == $this->fooTableStyle)
 		{
 			$document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable/css/footable.metro.min.css');
 		}
-		// [6529] Use the Legacy Style.
+		// [6530] Use the Legacy Style.
 		elseif (isset($this->fooTableStyle) && 1 == $this->fooTableStyle)
 		{
 			$document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable/css/footable.standalone.min.css');
 		}
 
-		// [6534] Add the JavaScript for Footable
+		// [6535] Add the JavaScript for Footable
 		$document->addScript(JURI::root() .'media/com_costbenefitprojection/footable/js/footable.js');
 		$document->addScript(JURI::root() .'media/com_costbenefitprojection/footable/js/footable.sort.js');
 		$document->addScript(JURI::root() .'media/com_costbenefitprojection/footable/js/footable.filter.js');

@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.8
+	@version		3.0.9
 	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -196,11 +196,11 @@ class CostbenefitprojectionViewCountries extends JViewLegacy
 			);
                 }  
 
-		// [9115] Set Currency Name Selection
+		// [9116] Set Currency Name Selection
 		$this->currencyNameOptions = JFormHelper::loadFieldType('Currency')->getOptions();
 		if ($this->currencyNameOptions)
 		{
-			// [9119] Currency Name Filter
+			// [9120] Currency Name Filter
 			JHtmlSidebar::addFilter(
 				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_COUNTRY_CURRENCY_LABEL').' -',
 				'filter_currency',
@@ -209,7 +209,7 @@ class CostbenefitprojectionViewCountries extends JViewLegacy
 
 			if ($this->canBatch && $this->canCreate && $this->canEdit)
 			{
-				// [9128] Currency Name Batch Selection
+				// [9129] Currency Name Batch Selection
 				JHtmlBatch_::addListSelection(
 					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_COUNTRY_CURRENCY_LABEL').' -',
 					'batch[currency]',

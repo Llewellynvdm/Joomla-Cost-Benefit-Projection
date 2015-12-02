@@ -2,7 +2,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.8
+	@version		3.0.9
 	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -17,54 +17,54 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // Some Global Values
-jform_ugSWqSHmgt_required = false;
+jform_WkmQDwgOQw_required = false;
 
 // Initial Script
 jQuery(document).ready(function()
 {
-	var type_ugSWqSH = jQuery("#jform_type input[type='radio']:checked").val();
-	ugSWqSH(type_ugSWqSH);
+	var type_WkmQDwg = jQuery("#jform_type input[type='radio']:checked").val();
+	WkmQDwg(type_WkmQDwg);
 
-	var type_bnFuIkh = jQuery("#jform_type input[type='radio']:checked").val();
-	bnFuIkh(type_bnFuIkh);
+	var type_rAiqAEp = jQuery("#jform_type input[type='radio']:checked").val();
+	rAiqAEp(type_rAiqAEp);
 });
 
-// the ugSWqSH function
-function ugSWqSH(type_ugSWqSH)
+// the WkmQDwg function
+function WkmQDwg(type_WkmQDwg)
 {
-	// [8016] set the function logic
-	if (type_ugSWqSH == 2)
+	// [8017] set the function logic
+	if (type_WkmQDwg == 2)
 	{
 		jQuery('#jform_interventions').closest('.control-group').show();
-		if (jform_ugSWqSHmgt_required)
+		if (jform_WkmQDwgOQw_required)
 		{
 			updateFieldRequired('interventions',0);
 			jQuery('#jform_interventions').prop('required','required');
 			jQuery('#jform_interventions').attr('aria-required',true);
 			jQuery('#jform_interventions').addClass('required');
-			jform_ugSWqSHmgt_required = false;
+			jform_WkmQDwgOQw_required = false;
 		}
 
 	}
 	else
 	{
 		jQuery('#jform_interventions').closest('.control-group').hide();
-		if (!jform_ugSWqSHmgt_required)
+		if (!jform_WkmQDwgOQw_required)
 		{
 			updateFieldRequired('interventions',1);
 			jQuery('#jform_interventions').removeAttr('required');
 			jQuery('#jform_interventions').removeAttr('aria-required');
 			jQuery('#jform_interventions').removeClass('required');
-			jform_ugSWqSHmgt_required = true;
+			jform_WkmQDwgOQw_required = true;
 		}
 	}
 }
 
-// the bnFuIkh function
-function bnFuIkh(type_bnFuIkh)
+// the rAiqAEp function
+function rAiqAEp(type_rAiqAEp)
 {
-	// [8016] set the function logic
-	if (type_bnFuIkh == 1)
+	// [8017] set the function logic
+	if (type_rAiqAEp == 1)
 	{
 		jQuery('#jform_intervention').closest('.control-group').show();
 	}

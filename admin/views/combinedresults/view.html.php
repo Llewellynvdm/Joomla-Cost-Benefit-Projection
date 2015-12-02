@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.8
+	@version		3.0.9
 	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -37,10 +37,10 @@ class CostbenefitprojectionViewCombinedresults extends JViewLegacy
 		$this->user = JFactory::getUser();
                 // get global action permissions
 		$this->canDo = CostbenefitprojectionHelper::getActions('combinedresults');
-		// [3043] Initialise variables.
+		// [3044] Initialise variables.
 		$this->items		= $this->get('Items');
 
-		// [3061] Check for errors.
+		// [3062] Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
 			JError::raiseWarning(500, implode("\n", $errors));
@@ -72,14 +72,14 @@ class CostbenefitprojectionViewCombinedresults extends JViewLegacy
 			$this->table_tabs = false;
 		}
 
-		// [3085] We don't need toolbar in the modal window.
+		// [3086] We don't need toolbar in the modal window.
 		if ($this->getLayout() !== 'modal')
 		{
-			// [3088] add the tool bar
+			// [3089] add the tool bar
 			$this->addToolBar();
 		}
 
-		// [3091] set the document
+		// [3092] set the document
 		$this->setDocument();
 
 		parent::display($tpl);
@@ -128,80 +128,80 @@ class CostbenefitprojectionViewCombinedresults extends JViewLegacy
 	protected function setDocument()
 	{
 
-		// [3430] always make sure jquery is loaded.
+		// [3431] always make sure jquery is loaded.
 		JHtml::_('jquery.framework');
-		// [3432] Load the header checker class.
+		// [3433] Load the header checker class.
 		require_once( JPATH_COMPONENT_SITE.'/helpers/headercheck.php' );
-		// [3434] Initialize the header checker.
+		// [3435] Initialize the header checker.
 		$HeaderCheck = new HeaderCheck;
 
-		// [3439] Load uikit options.
+		// [3440] Load uikit options.
 		$uikit = $this->params->get('uikit_load');
-		// [3441] Set script size.
+		// [3442] Set script size.
 		$size = $this->params->get('uikit_min');
-		// [3443] Set css style.
+		// [3444] Set css style.
 		$style = $this->params->get('uikit_style');
 
-		// [3446] The uikit css.
+		// [3447] The uikit css.
 		if ((!$HeaderCheck->css_loaded('uikit.min') || $uikit == 1) && $uikit != 2 && $uikit != 3)
 		{
 			$this->document->addStyleSheet(JURI::root(true) .'/media/com_costbenefitprojection/uikit/css/uikit'.$style.$size.'.css');
 		}
-		// [3451] The uikit js.
+		// [3452] The uikit js.
 		if ((!$HeaderCheck->js_loaded('uikit.min') || $uikit == 1) && $uikit != 2 && $uikit != 3)
 		{
 			$this->document->addScript(JURI::root(true) .'/media/com_costbenefitprojection/uikit/js/uikit'.$size.'.js');
 		}
 
-		// [3516] Load the needed uikit components in this view.
+		// [3517] Load the needed uikit components in this view.
 		$uikitComp = $this->get('UikitComp');
 		if ($uikit != 2 && isset($uikitComp) && CostbenefitprojectionHelper::checkArray($uikitComp))
 		{
-			// [3520] load just in case.
+			// [3521] load just in case.
 			jimport('joomla.filesystem.file');
-			// [3522] loading...
+			// [3523] loading...
 			foreach ($uikitComp as $class)
 			{
 				foreach (CostbenefitprojectionHelper::$uk_components[$class] as $name)
 				{
-					// [3527] check if the CSS file exists.
+					// [3528] check if the CSS file exists.
 					if (JFile::exists(JPATH_ROOT.'/media/com_costbenefitprojection/uikit/css/components/'.$name.$style.$size.'.css'))
 					{
-						// [3530] load the css.
+						// [3531] load the css.
 						$this->document->addStyleSheet(JURI::root(true) .'/media/com_costbenefitprojection/uikit/css/components/'.$name.$style.$size.'.css');
 					}
-					// [3533] check if the JavaScript file exists.
+					// [3534] check if the JavaScript file exists.
 					if (JFile::exists(JPATH_ROOT.'/media/com_costbenefitprojection/uikit/js/components/'.$name.$size.'.js'))
 					{
-						// [3536] load the js.
+						// [3537] load the js.
 						$this->document->addScript(JURI::root(true) .'/media/com_costbenefitprojection/uikit/js/components/'.$name.$size.'.js');
 					}
 				}
 			}
 		} 
 
-		// [3412] add the google chart builder class.
+		// [3413] add the google chart builder class.
 		require_once JPATH_COMPONENT_ADMINISTRATOR.'/helpers/chartbuilder.php';
-		// [3414] load the google chart js.
+		// [3415] load the google chart js.
 		$this->document->addScript(JURI::root(true) .'/media/com_costbenefitprojection/js/google.jsapi.js');
 		$this->document->addScript('https://canvg.googlecode.com/svn/trunk/rgbcolor.js');
 		$this->document->addScript('https://canvg.googlecode.com/svn/trunk/canvg.js'); 
 
-		// [6522] Add the CSS for Footable.
+		// [6523] Add the CSS for Footable.
 		$this->document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable/css/footable.core.min.css');
 
-		// [6524] Use the Metro Style
+		// [6525] Use the Metro Style
 		if (!isset($this->fooTableStyle) || 0 == $this->fooTableStyle)
 		{
 			$this->document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable/css/footable.metro.min.css');
 		}
-		// [6529] Use the Legacy Style.
+		// [6530] Use the Legacy Style.
 		elseif (isset($this->fooTableStyle) && 1 == $this->fooTableStyle)
 		{
 			$this->document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable/css/footable.standalone.min.css');
 		}
 
-		// [6534] Add the JavaScript for Footable
+		// [6535] Add the JavaScript for Footable
 		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable/js/footable.js');
 		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable/js/footable.sort.js');
 		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable/js/footable.filter.js');
@@ -251,7 +251,7 @@ class CostbenefitprojectionViewCombinedresults extends JViewLegacy
 		JToolBarHelper::custom('combinedresults.dashboard', 'grid-2', '', 'COM_COSTBENEFITPROJECTION_DASH', false);
 		if ($this->canDo->get('combinedresults.companies'))
 		{
-			// [3211] add Companies button.
+			// [3212] add Companies button.
 			JToolBarHelper::custom('combinedresults.gotoCompanies', 'vcard', '', 'COM_COSTBENEFITPROJECTION_COMPANIES', false);
 		}
 

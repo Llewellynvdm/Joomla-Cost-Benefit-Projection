@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.8
+	@version		3.0.9
 	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -37,13 +37,13 @@ class CostbenefitprojectionModelAjax extends JModelList
 
 	}
 
-	// [8924] Used in company
+	// [8925] Used in company
 	public function getCalculatedResult($id,$data)
 	{
 		return CostbenefitprojectionHelper::calculate($id,$data);
 	}
 
-	// [8924] Used in intervention
+	// [8925] Used in intervention
 public function getInterventionBuildTable($idName,$oject,$cluster)
 	{
 		if (CostbenefitprojectionHelper::isJson($oject) && CostbenefitprojectionHelper::checkString($idName))

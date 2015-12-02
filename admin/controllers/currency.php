@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.8
+	@version		3.0.9
 	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -54,13 +54,13 @@ class CostbenefitprojectionControllerCurrency extends JControllerForm
 	 */
 	protected function allowAdd($data = array())
 	{
-		// [9327] Access check.
+		// [9328] Access check.
 		$access = JFactory::getUser()->authorise('currency.access', 'com_costbenefitprojection');
 		if (!$access)
 		{
 			return false;
 		}
-		// [9338] In the absense of better information, revert to the component permissions.
+		// [9339] In the absense of better information, revert to the component permissions.
 		return JFactory::getUser()->authorise('currency.create', $this->option);
 	}
 
@@ -76,13 +76,13 @@ class CostbenefitprojectionControllerCurrency extends JControllerForm
 	 */
 	protected function allowEdit($data = array(), $key = 'id')
 	{
-		// [9481] get user object.
+		// [9482] get user object.
 		$user		= JFactory::getUser();
-		// [9483] get record id.
+		// [9484] get record id.
 		$recordId	= (int) isset($data[$key]) ? $data[$key] : 0;
 
 
-		// [9490] Access check.
+		// [9491] Access check.
 		$access = ($user->authorise('currency.access', 'com_costbenefitprojection.currency.' . (int) $recordId) &&  $user->authorise('currency.access', 'com_costbenefitprojection'));
 		if (!$access)
 		{
@@ -91,17 +91,17 @@ class CostbenefitprojectionControllerCurrency extends JControllerForm
 
 		if ($recordId)
 		{
-			// [9499] The record has been set. Check the record permissions.
+			// [9500] The record has been set. Check the record permissions.
 			$permission = $user->authorise('currency.edit', 'com_costbenefitprojection.currency.' . (int) $recordId);
 			if (!$permission && !is_null($permission))
 			{
 				if ($user->authorise('currency.edit.own', 'com_costbenefitprojection.currency.' . $recordId))
 				{
-					// [9521] Now test the owner is the user.
+					// [9522] Now test the owner is the user.
 					$ownerId = (int) isset($data['created_by']) ? $data['created_by'] : 0;
 					if (empty($ownerId))
 					{
-						// [9525] Need to do a lookup from the model.
+						// [9526] Need to do a lookup from the model.
 						$record = $this->getModel()->getItem($recordId);
 
 						if (empty($record))
@@ -111,7 +111,7 @@ class CostbenefitprojectionControllerCurrency extends JControllerForm
 						$ownerId = $record->created_by;
 					}
 
-					// [9533] If the owner matches 'me' then allow.
+					// [9534] If the owner matches 'me' then allow.
 					if ($ownerId == $user->id)
 					{
 						if ($user->authorise('currency.edit.own', 'com_costbenefitprojection'))
@@ -123,7 +123,7 @@ class CostbenefitprojectionControllerCurrency extends JControllerForm
 				return false;
 			}
 		}
-		// [9555] Since there is no permission, revert to the component permissions.
+		// [9556] Since there is no permission, revert to the component permissions.
 		return $user->authorise('currency.edit', $this->option);
 	}
 
