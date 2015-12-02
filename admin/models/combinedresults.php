@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.0.8
-	@build			1st December, 2015
+	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		combinedresults.php
@@ -90,12 +90,12 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 				JFactory::getApplication()->redirect('index.php?option=com_costbenefitprojection&view=cpanel');
 			}
 		} 
-		// [2904] Make sure all records load, since no pagination allowed.
+		// [2912] Make sure all records load, since no pagination allowed.
 		$this->setState('list.limit', 0);
-		// [2906] Get a db connection.
+		// [2914] Get a db connection.
 		$db = JFactory::getDbo();
 
-		// [2909] Create a new query object.
+		// [2917] Create a new query object.
 		$query = $db->getQuery(true);
 
 		// [1791] Get from #__costbenefitprojection_company as a
@@ -115,7 +115,7 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 			array('f.id','f.name','f.alias','f.codethree','f.numericcode','f.symbol','f.thousands','f.decimalplace','f.decimalsymbol','f.positivestyle','f.negativestyle','f.published','f.access','f.ordering'),
 			array('currency_id','currency_name','currency_alias','currency_codethree','currency_numericcode','currency_symbol','currency_thousands','currency_decimalplace','currency_decimalsymbol','currency_positivestyle','currency_negativestyle','currency_published','currency_access','currency_ordering')));
 		$query->join('LEFT', ($db->quoteName('#__costbenefitprojection_currency', 'f')) . ' ON (' . $db->quoteName('e.currency') . ' = ' . $db->quoteName('f.codethree') . ')');
-		// [2120] Check if $ids is an array with values.
+		// [2127] Check if $ids is an array with values.
 		$array = $ids;
 		if (isset($array) && CostbenefitprojectionHelper::checkArray($array))
 		{
@@ -126,7 +126,7 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 			return false;
 		}
 
-		// [2922] return the query object
+		// [2930] return the query object
 		return $query;
 	}
 
@@ -152,89 +152,89 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 		// Get the global params
 		$globalParams = JComponentHelper::getParams('com_costbenefitprojection', true);
 
-		// [3011] Get the advanced encription.
+		// [3019] Get the advanced encription.
 		$advancedkey = CostbenefitprojectionHelper::getCryptKey('advanced');
-		// [3013] Get the encription object.
+		// [3021] Get the encription object.
 		$advanced = new FOFEncryptAes($advancedkey, 256);
 
-		// [2937] Convert the parameter fields into objects.
+		// [2945] Convert the parameter fields into objects.
 		foreach ($items as $nr => &$item)
 		{
-			// [2940] Always create a slug for sef URL's
+			// [2948] Always create a slug for sef URL's
 			$item->slug = (isset($item->alias)) ? $item->id.':'.$item->alias : $item->id;
 			if (!empty($item->medical_turnovers_males) && $advancedkey && !is_numeric($item->medical_turnovers_males) && $item->medical_turnovers_males === base64_encode(base64_decode($item->medical_turnovers_males, true)))
 			{
-				// [1993] Decode medical_turnovers_males
+				// [1997] Decode medical_turnovers_males
 				$item->medical_turnovers_males = rtrim($advanced->decryptString($item->medical_turnovers_males), "\0");
 			}
 			if (!empty($item->sick_leave_males) && $advancedkey && !is_numeric($item->sick_leave_males) && $item->sick_leave_males === base64_encode(base64_decode($item->sick_leave_males, true)))
 			{
-				// [1993] Decode sick_leave_males
+				// [1997] Decode sick_leave_males
 				$item->sick_leave_males = rtrim($advanced->decryptString($item->sick_leave_males), "\0");
 			}
 			if (!empty($item->males) && $advancedkey && !is_numeric($item->males) && $item->males === base64_encode(base64_decode($item->males, true)))
 			{
-				// [1993] Decode males
+				// [1997] Decode males
 				$item->males = rtrim($advanced->decryptString($item->males), "\0");
 			}
 			if (CostbenefitprojectionHelper::checkString($item->causesrisks))
 			{
-				// [1993] Decode causesrisks
+				// [1997] Decode causesrisks
 				$item->causesrisks = json_decode($item->causesrisks, true);
 			}
 			if (!empty($item->females) && $advancedkey && !is_numeric($item->females) && $item->females === base64_encode(base64_decode($item->females, true)))
 			{
-				// [1993] Decode females
+				// [1997] Decode females
 				$item->females = rtrim($advanced->decryptString($item->females), "\0");
 			}
 			if (!empty($item->medical_turnovers_females) && $advancedkey && !is_numeric($item->medical_turnovers_females) && $item->medical_turnovers_females === base64_encode(base64_decode($item->medical_turnovers_females, true)))
 			{
-				// [1993] Decode medical_turnovers_females
+				// [1997] Decode medical_turnovers_females
 				$item->medical_turnovers_females = rtrim($advanced->decryptString($item->medical_turnovers_females), "\0");
 			}
 			if (!empty($item->sick_leave_females) && $advancedkey && !is_numeric($item->sick_leave_females) && $item->sick_leave_females === base64_encode(base64_decode($item->sick_leave_females, true)))
 			{
-				// [1993] Decode sick_leave_females
+				// [1997] Decode sick_leave_females
 				$item->sick_leave_females = rtrim($advanced->decryptString($item->sick_leave_females), "\0");
 			}
 			if (!empty($item->total_salary) && $advancedkey && !is_numeric($item->total_salary) && $item->total_salary === base64_encode(base64_decode($item->total_salary, true)))
 			{
-				// [1993] Decode total_salary
+				// [1997] Decode total_salary
 				$item->total_salary = rtrim($advanced->decryptString($item->total_salary), "\0");
 			}
 			if (!empty($item->total_healthcare) && $advancedkey && !is_numeric($item->total_healthcare) && $item->total_healthcare === base64_encode(base64_decode($item->total_healthcare, true)))
 			{
-				// [1993] Decode total_healthcare
+				// [1997] Decode total_healthcare
 				$item->total_healthcare = rtrim($advanced->decryptString($item->total_healthcare), "\0");
 			}
 			if (CostbenefitprojectionHelper::checkString($item->country_causesrisks))
 			{
-				// [1993] Decode country_causesrisks
+				// [1997] Decode country_causesrisks
 				$item->country_causesrisks = json_decode($item->country_causesrisks, true);
 			}
-			// [2008] Make sure the content prepare plugins fire on country_publicaddress.
+			// [2012] Make sure the content prepare plugins fire on country_publicaddress.
 			$item->country_publicaddress = JHtml::_('content.prepare',$item->country_publicaddress);
-			// [2010] Checking if country_publicaddress has uikit components that must be loaded.
+			// [2014] Checking if country_publicaddress has uikit components that must be loaded.
 			$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->country_publicaddress,$this->uikitComp);
-			// [2304] set the global causesrisks value.
+			// [2312] set the global causesrisks value.
 			$this->a_causesrisks = $item->causesrisks;
-			// [2304] set the global datayear value.
+			// [2312] set the global datayear value.
 			$this->a_datayear = $item->datayear;
-			// [2304] set the global datayear value.
+			// [2312] set the global datayear value.
 			$this->e_datayear = $item->country_datayear;
-			// [2304] set the global causesrisks value.
+			// [2312] set the global causesrisks value.
 			$this->e_causesrisks = $item->country_causesrisks;
-			// [2041] set countryCountryHealth_dataB to the $item object.
+			// [2045] set countryCountryHealth_dataB to the $item object.
 			$item->countryCountryHealth_dataB = $this->getCountryCountryHealth_dataBcbb_B($item->country);
-			// [2041] set idCompanyScaling_factorC to the $item object.
+			// [2045] set idCompanyScaling_factorC to the $item object.
 			$item->idCompanyScaling_factorC = $this->getIdCompanyScaling_factorBcbb_C($item->id);
-			// [2041] set idCompanyInterventionD to the $item object.
+			// [2045] set idCompanyInterventionD to the $item object.
 			$item->idCompanyInterventionD = $this->getIdCompanyInterventionBcbb_D($item->id);
-			// [2041] set causesrisksIdCauseriskG to the $item object.
+			// [2045] set causesrisksIdCauseriskG to the $item object.
 			$item->causesrisksIdCauseriskG = $this->getCausesrisksIdCauseriskBcbb_G($item->causesrisks);
-			// [2041] set countryCountryHealth_dataBB to the $item object.
+			// [2045] set countryCountryHealth_dataBB to the $item object.
 			$item->countryCountryHealth_dataBB = $this->getCountryCountryHealth_dataBcbb_BB($item->country);
-			// [2041] set causesrisksIdCauseriskGG to the $item object.
+			// [2045] set causesrisksIdCauseriskGG to the $item object.
 			$item->causesrisksIdCauseriskGG = $this->getCausesrisksIdCauseriskBcbb_GG($item->country_causesrisks);
 		} 
 
@@ -250,19 +250,19 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 	*/
 	public function getCountryCountryHealth_dataBcbb_B($country)
 	{
-		// [2702] Get a db connection.
+		// [2710] Get a db connection.
 		$db = JFactory::getDbo();
 
-		// [2704] Create a new query object.
+		// [2712] Create a new query object.
 		$query = $db->getQuery(true);
 
-		// [2706] Get from #__costbenefitprojection_health_data as b
+		// [2714] Get from #__costbenefitprojection_health_data as b
 		$query->select($db->quoteName(
 			array('b.id','b.causerisk','b.year','b.maledeath','b.maleyld','b.femaledeath','b.femaleyld','b.published'),
 			array('id','causerisk','year','maledeath','maleyld','femaledeath','femaleyld','published')));
 		$query->from($db->quoteName('#__costbenefitprojection_health_data', 'b'));
 		$query->where('b.country = ' . $db->quote($country));
-		// [2120] Check if $this->a_causesrisks is an array with values.
+		// [2127] Check if $this->a_causesrisks is an array with values.
 		$array = $this->a_causesrisks;
 		if (isset($array) && CostbenefitprojectionHelper::checkArray($array))
 		{
@@ -276,11 +276,11 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 		$query->where('b.year = ' . $db->quote($this->a_datayear));
 		$query->order('b.ordering ASC');
 
-		// [2760] Reset the query using our newly populated query object.
+		// [2768] Reset the query using our newly populated query object.
 		$db->setQuery($query);
 		$db->execute();
 
-		// [2763] check if there was data returned
+		// [2771] check if there was data returned
 		if ($db->getNumRows())
 		{
 			return $db->loadObjectList();
@@ -296,13 +296,13 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 	*/
 	public function getIdCompanyScaling_factorBcbb_C($id)
 	{
-		// [2702] Get a db connection.
+		// [2710] Get a db connection.
 		$db = JFactory::getDbo();
 
-		// [2704] Create a new query object.
+		// [2712] Create a new query object.
 		$query = $db->getQuery(true);
 
-		// [2706] Get from #__costbenefitprojection_scaling_factor as c
+		// [2714] Get from #__costbenefitprojection_scaling_factor as c
 		$query->select($db->quoteName(
 			array('c.id','c.causerisk','c.reference','c.yld_scaling_factor_males','c.yld_scaling_factor_females','c.mortality_scaling_factor_males','c.mortality_scaling_factor_females','c.presenteeism_scaling_factor_males','c.presenteeism_scaling_factor_females','c.health_scaling_factor','c.published'),
 			array('id','causerisk','reference','yld_scaling_factor_males','yld_scaling_factor_females','mortality_scaling_factor_males','mortality_scaling_factor_females','presenteeism_scaling_factor_males','presenteeism_scaling_factor_females','health_scaling_factor','published')));
@@ -311,21 +311,21 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 		$query->where('c.published = 1');
 		$query->order('c.ordering ASC');
 
-		// [2760] Reset the query using our newly populated query object.
+		// [2768] Reset the query using our newly populated query object.
 		$db->setQuery($query);
 		$db->execute();
 
-		// [2763] check if there was data returned
+		// [2771] check if there was data returned
 		if ($db->getNumRows())
 		{
 			$items = $db->loadObjectList();
 
-			// [2816] Convert the parameter fields into objects.
+			// [2824] Convert the parameter fields into objects.
 			foreach ($items as $nr => &$item)
 			{
-				// [2008] Make sure the content prepare plugins fire on reference.
+				// [2012] Make sure the content prepare plugins fire on reference.
 				$item->reference = JHtml::_('content.prepare',$item->reference);
-				// [2010] Checking if reference has uikit components that must be loaded.
+				// [2014] Checking if reference has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->reference,$this->uikitComp);
 			}
 			return $items;
@@ -341,13 +341,13 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 	*/
 	public function getIdCompanyInterventionBcbb_D($id)
 	{
-		// [2702] Get a db connection.
+		// [2710] Get a db connection.
 		$db = JFactory::getDbo();
 
-		// [2704] Create a new query object.
+		// [2712] Create a new query object.
 		$query = $db->getQuery(true);
 
-		// [2706] Get from #__costbenefitprojection_intervention as d
+		// [2714] Get from #__costbenefitprojection_intervention as d
 		$query->select($db->quoteName(
 			array('d.id','d.name','d.type','d.coverage','d.duration','d.share','d.description','d.reference','d.intervention','d.published','d.created_by','d.modified_by','d.created','d.modified'),
 			array('id','name','type','coverage','duration','share','description','reference','intervention','published','created_by','modified_by','created','modified')));
@@ -356,25 +356,25 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 		$query->where('d.published = 1');
 		$query->order('d.ordering ASC');
 
-		// [2760] Reset the query using our newly populated query object.
+		// [2768] Reset the query using our newly populated query object.
 		$db->setQuery($query);
 		$db->execute();
 
-		// [2763] check if there was data returned
+		// [2771] check if there was data returned
 		if ($db->getNumRows())
 		{
 			$items = $db->loadObjectList();
 
-			// [2816] Convert the parameter fields into objects.
+			// [2824] Convert the parameter fields into objects.
 			foreach ($items as $nr => &$item)
 			{
-				// [2008] Make sure the content prepare plugins fire on description.
+				// [2012] Make sure the content prepare plugins fire on description.
 				$item->description = JHtml::_('content.prepare',$item->description);
-				// [2010] Checking if description has uikit components that must be loaded.
+				// [2014] Checking if description has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->description,$this->uikitComp);
-				// [2008] Make sure the content prepare plugins fire on reference.
+				// [2012] Make sure the content prepare plugins fire on reference.
 				$item->reference = JHtml::_('content.prepare',$item->reference);
-				// [2010] Checking if reference has uikit components that must be loaded.
+				// [2014] Checking if reference has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->reference,$this->uikitComp);
 			}
 			return $items;
@@ -390,19 +390,19 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 	*/
 	public function getCausesrisksIdCauseriskBcbb_G($causesrisks)
 	{
-		// [2702] Get a db connection.
+		// [2710] Get a db connection.
 		$db = JFactory::getDbo();
 
-		// [2704] Create a new query object.
+		// [2712] Create a new query object.
 		$query = $db->getQuery(true);
 
-		// [2706] Get from #__costbenefitprojection_causerisk as g
+		// [2714] Get from #__costbenefitprojection_causerisk as g
 		$query->select($db->quoteName(
 			array('g.id','g.name','g.ref','g.alias','g.description'),
 			array('id','name','ref','alias','description')));
 		$query->from($db->quoteName('#__costbenefitprojection_causerisk', 'g'));
 
-		// [2712] Check if $causesrisks is an array with values.
+		// [2720] Check if $causesrisks is an array with values.
 		$array = $causesrisks;
 		if (isset($array) && CostbenefitprojectionHelper::checkArray($array))
 		{
@@ -413,21 +413,21 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 			return false;
 		}
 
-		// [2760] Reset the query using our newly populated query object.
+		// [2768] Reset the query using our newly populated query object.
 		$db->setQuery($query);
 		$db->execute();
 
-		// [2763] check if there was data returned
+		// [2771] check if there was data returned
 		if ($db->getNumRows())
 		{
 			$items = $db->loadObjectList();
 
-			// [2816] Convert the parameter fields into objects.
+			// [2824] Convert the parameter fields into objects.
 			foreach ($items as $nr => &$item)
 			{
-				// [2008] Make sure the content prepare plugins fire on description.
+				// [2012] Make sure the content prepare plugins fire on description.
 				$item->description = JHtml::_('content.prepare',$item->description);
-				// [2010] Checking if description has uikit components that must be loaded.
+				// [2014] Checking if description has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->description,$this->uikitComp);
 			}
 			return $items;
@@ -443,19 +443,19 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 	*/
 	public function getCountryCountryHealth_dataBcbb_BB($country)
 	{
-		// [2702] Get a db connection.
+		// [2710] Get a db connection.
 		$db = JFactory::getDbo();
 
-		// [2704] Create a new query object.
+		// [2712] Create a new query object.
 		$query = $db->getQuery(true);
 
-		// [2706] Get from #__costbenefitprojection_health_data as bb
+		// [2714] Get from #__costbenefitprojection_health_data as bb
 		$query->select($db->quoteName(
 			array('bb.id','bb.asset_id','bb.causerisk','bb.year','bb.country','bb.maledeath','bb.maleyld','bb.femaledeath','bb.femaleyld','bb.published','bb.created_by','bb.modified_by','bb.created','bb.modified','bb.version','bb.hits','bb.ordering'),
 			array('id','asset_id','causerisk','year','country','maledeath','maleyld','femaledeath','femaleyld','published','created_by','modified_by','created','modified','version','hits','ordering')));
 		$query->from($db->quoteName('#__costbenefitprojection_health_data', 'bb'));
 		$query->where('bb.country = ' . $db->quote($country));
-		// [2120] Check if $this->e_causesrisks is an array with values.
+		// [2127] Check if $this->e_causesrisks is an array with values.
 		$array = $this->e_causesrisks;
 		if (isset($array) && CostbenefitprojectionHelper::checkArray($array))
 		{
@@ -469,11 +469,11 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 		$query->where('bb.year = ' . $db->quote($this->e_datayear));
 		$query->order('bb.ordering ASC');
 
-		// [2760] Reset the query using our newly populated query object.
+		// [2768] Reset the query using our newly populated query object.
 		$db->setQuery($query);
 		$db->execute();
 
-		// [2763] check if there was data returned
+		// [2771] check if there was data returned
 		if ($db->getNumRows())
 		{
 			return $db->loadObjectList();
@@ -489,19 +489,19 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 	*/
 	public function getCausesrisksIdCauseriskBcbb_GG($causesrisks)
 	{
-		// [2702] Get a db connection.
+		// [2710] Get a db connection.
 		$db = JFactory::getDbo();
 
-		// [2704] Create a new query object.
+		// [2712] Create a new query object.
 		$query = $db->getQuery(true);
 
-		// [2706] Get from #__costbenefitprojection_causerisk as gg
+		// [2714] Get from #__costbenefitprojection_causerisk as gg
 		$query->select($db->quoteName(
 			array('gg.id','gg.name','gg.ref','gg.alias','gg.description'),
 			array('id','name','ref','alias','description')));
 		$query->from($db->quoteName('#__costbenefitprojection_causerisk', 'gg'));
 
-		// [2712] Check if $causesrisks is an array with values.
+		// [2720] Check if $causesrisks is an array with values.
 		$array = $causesrisks;
 		if (isset($array) && CostbenefitprojectionHelper::checkArray($array))
 		{
@@ -512,21 +512,21 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 			return false;
 		}
 
-		// [2760] Reset the query using our newly populated query object.
+		// [2768] Reset the query using our newly populated query object.
 		$db->setQuery($query);
 		$db->execute();
 
-		// [2763] check if there was data returned
+		// [2771] check if there was data returned
 		if ($db->getNumRows())
 		{
 			$items = $db->loadObjectList();
 
-			// [2816] Convert the parameter fields into objects.
+			// [2824] Convert the parameter fields into objects.
 			foreach ($items as $nr => &$item)
 			{
-				// [2008] Make sure the content prepare plugins fire on description.
+				// [2012] Make sure the content prepare plugins fire on description.
 				$item->description = JHtml::_('content.prepare',$item->description);
-				// [2010] Checking if description has uikit components that must be loaded.
+				// [2014] Checking if description has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->description,$this->uikitComp);
 			}
 			return $items;

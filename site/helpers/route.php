@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.0.8
-	@build			1st December, 2015
+	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		route.php
@@ -38,18 +38,18 @@ abstract class CostbenefitprojectionHelperRoute
 	{
 		if ($id > 0)
 		{
-			// [4578] Initialize the needel array.
+			// [4586] Initialize the needel array.
 			$needles = array(
 				'cpanel'  => array((int) $id)
 			);
-			// [4582] Create the link
+			// [4590] Create the link
 			$link = 'index.php?option=com_costbenefitprojection&view=cpanel&id='. $id;
 		}
 		else
 		{
-			// [4587] Initialize the needel array.
+			// [4595] Initialize the needel array.
 			$needles = array();
-			// [4589]Create the link but don't add the id.
+			// [4597]Create the link but don't add the id.
 			$link = 'index.php?option=com_costbenefitprojection&view=cpanel';
 		}
 		if ($catid > 1)
@@ -79,18 +79,18 @@ abstract class CostbenefitprojectionHelperRoute
 	{
 		if ($id > 0)
 		{
-			// [4578] Initialize the needel array.
+			// [4586] Initialize the needel array.
 			$needles = array(
 				'createaccount'  => array((int) $id)
 			);
-			// [4582] Create the link
+			// [4590] Create the link
 			$link = 'index.php?option=com_costbenefitprojection&view=createaccount&id='. $id;
 		}
 		else
 		{
-			// [4587] Initialize the needel array.
+			// [4595] Initialize the needel array.
 			$needles = array();
-			// [4589]Create the link but don't add the id.
+			// [4597]Create the link but don't add the id.
 			$link = 'index.php?option=com_costbenefitprojection&view=createaccount';
 		}
 		if ($catid > 1)
@@ -120,18 +120,18 @@ abstract class CostbenefitprojectionHelperRoute
 	{
 		if ($id > 0)
 		{
-			// [4578] Initialize the needel array.
+			// [4586] Initialize the needel array.
 			$needles = array(
 				'companyresults'  => array((int) $id)
 			);
-			// [4582] Create the link
+			// [4590] Create the link
 			$link = 'index.php?option=com_costbenefitprojection&view=companyresults&id='. $id;
 		}
 		else
 		{
-			// [4587] Initialize the needel array.
+			// [4595] Initialize the needel array.
 			$needles = array();
-			// [4589]Create the link but don't add the id.
+			// [4597]Create the link but don't add the id.
 			$link = 'index.php?option=com_costbenefitprojection&view=companyresults';
 		}
 		if ($catid > 1)
@@ -161,18 +161,18 @@ abstract class CostbenefitprojectionHelperRoute
 	{
 		if ($id > 0)
 		{
-			// [4578] Initialize the needel array.
+			// [4586] Initialize the needel array.
 			$needles = array(
 				'combinedresults'  => array((int) $id)
 			);
-			// [4582] Create the link
+			// [4590] Create the link
 			$link = 'index.php?option=com_costbenefitprojection&view=combinedresults&id='. $id;
 		}
 		else
 		{
-			// [4587] Initialize the needel array.
+			// [4595] Initialize the needel array.
 			$needles = array();
-			// [4589]Create the link but don't add the id.
+			// [4597]Create the link but don't add the id.
 			$link = 'index.php?option=com_costbenefitprojection&view=combinedresults';
 		}
 		if ($catid > 1)

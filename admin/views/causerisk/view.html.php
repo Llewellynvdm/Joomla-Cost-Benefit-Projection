@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.0.8
-	@build			1st December, 2015
+	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -86,27 +86,27 @@ class CostbenefitprojectionViewCauserisk extends JViewLegacy
 		$isNew = $this->item->id == 0;
 
 		JToolbarHelper::title( JText::_($isNew ? 'COM_COSTBENEFITPROJECTION_CAUSERISK_NEW' : 'COM_COSTBENEFITPROJECTION_CAUSERISK_EDIT'), 'pencil-2 article-add');
-		// [10269] Built the actions for new and existing records.
+		// [10277] Built the actions for new and existing records.
 		if ($this->refid || $this->ref)
 		{
 			if ($this->canDo->get('causerisk.create') && $isNew)
 			{
-				// [10281] We can create the record.
+				// [10289] We can create the record.
 				JToolBarHelper::save('causerisk.save', 'JTOOLBAR_SAVE');
 			}
 			elseif ($this->canDo->get('causerisk.edit'))
 			{
-				// [10293] We can save the record.
+				// [10301] We can save the record.
 				JToolBarHelper::save('causerisk.save', 'JTOOLBAR_SAVE');
 			}
 			if ($isNew)
 			{
-				// [10298] Do not creat but cancel.
+				// [10306] Do not creat but cancel.
 				JToolBarHelper::cancel('causerisk.cancel', 'JTOOLBAR_CANCEL');
 			}
 			else
 			{
-				// [10303] We can close it.
+				// [10311] We can close it.
 				JToolBarHelper::cancel('causerisk.cancel', 'JTOOLBAR_CLOSE');
 			}
 		}
@@ -114,7 +114,7 @@ class CostbenefitprojectionViewCauserisk extends JViewLegacy
 		{
 			if ($isNew)
 			{
-				// [10311] For new records, check the create permission.
+				// [10319] For new records, check the create permission.
 				if ($this->canDo->get('causerisk.create'))
 				{
 					JToolBarHelper::apply('causerisk.apply', 'JTOOLBAR_APPLY');
@@ -127,11 +127,11 @@ class CostbenefitprojectionViewCauserisk extends JViewLegacy
 			{
 				if ($this->canDo->get('causerisk.edit'))
 				{
-					// [10338] We can save the new record
+					// [10346] We can save the new record
 					JToolBarHelper::apply('causerisk.apply', 'JTOOLBAR_APPLY');
 					JToolBarHelper::save('causerisk.save', 'JTOOLBAR_SAVE');
-					// [10341] We can save this record, but check the create permission to see
-					// [10342] if we can return to make a new one.
+					// [10349] We can save this record, but check the create permission to see
+					// [10350] if we can return to make a new one.
 					if ($this->canDo->get('causerisk.create'))
 					{
 						JToolBarHelper::custom('causerisk.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);
@@ -150,7 +150,7 @@ class CostbenefitprojectionViewCauserisk extends JViewLegacy
 			}
 		}
 		JToolbarHelper::divider();
-		// [10378] set help url for this view if found
+		// [10386] set help url for this view if found
 		$help_url = CostbenefitprojectionHelper::getHelpUrl('causerisk');
 		if (CostbenefitprojectionHelper::checkString($help_url))
 		{

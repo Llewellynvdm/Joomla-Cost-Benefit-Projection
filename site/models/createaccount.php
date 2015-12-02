@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.0.8
-	@build			1st December, 2015
+	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		createaccount.php
@@ -59,12 +59,12 @@ class CostbenefitprojectionModelCreateaccount extends JModelList
 		$this->app		= JFactory::getApplication();
 		$this->input		= $this->app->input;
 		$this->initSet		= true; 
-		// [2904] Make sure all records load, since no pagination allowed.
+		// [2912] Make sure all records load, since no pagination allowed.
 		$this->setState('list.limit', 0);
-		// [2906] Get a db connection.
+		// [2914] Get a db connection.
 		$db = JFactory::getDbo();
 
-		// [2909] Create a new query object.
+		// [2917] Create a new query object.
 		$query = $db->getQuery(true);
 
 		// [1791] Get from #__costbenefitprojection_country as a
@@ -72,10 +72,17 @@ class CostbenefitprojectionModelCreateaccount extends JModelList
 			array('a.id','a.user','a.name','a.publicname','a.publicemail','a.publicnumber','a.publicaddress'),
 			array('id','user','name','publicname','publicemail','publicnumber','publicaddress')));
 		$query->from($db->quoteName('#__costbenefitprojection_country', 'a'));
+		$query->where('CHAR_LENGTH(a.causesrisks) > 5');
+		$query->where('CHAR_LENGTH(a.percentfemale) > 5');
+		$query->where('CHAR_LENGTH(a.percentmale) > 5');
+		$query->where('CHAR_LENGTH(a.datayear) > 3');
+		$query->where('CHAR_LENGTH(a.productivity_losses) > 0');
+		$query->where('CHAR_LENGTH(a.sick_leave) > 0');
+		$query->where('CHAR_LENGTH(a.medical_turnovers) > 0');
 		$query->where('a.published = 1');
 		$query->order('a.name ASC');
 
-		// [2922] return the query object
+		// [2930] return the query object
 		return $query;
 	}
 
@@ -101,16 +108,16 @@ class CostbenefitprojectionModelCreateaccount extends JModelList
 		// Get the global params
 		$globalParams = JComponentHelper::getParams('com_costbenefitprojection', true);
 
-		// [2937] Convert the parameter fields into objects.
+		// [2945] Convert the parameter fields into objects.
 		foreach ($items as $nr => &$item)
 		{
-			// [2940] Always create a slug for sef URL's
+			// [2948] Always create a slug for sef URL's
 			$item->slug = (isset($item->alias)) ? $item->id.':'.$item->alias : $item->id;
-			// [2008] Make sure the content prepare plugins fire on publicaddress.
+			// [2012] Make sure the content prepare plugins fire on publicaddress.
 			$item->publicaddress = JHtml::_('content.prepare',$item->publicaddress);
-			// [2010] Checking if publicaddress has uikit components that must be loaded.
+			// [2014] Checking if publicaddress has uikit components that must be loaded.
 			$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->publicaddress,$this->uikitComp);
-			// [2041] set idCountryService_providerB to the $item object.
+			// [2045] set idCountryService_providerB to the $item object.
 			$item->idCountryService_providerB = $this->getIdCountryService_providerCace_B($item->id);
 		} 
 
@@ -126,13 +133,13 @@ class CostbenefitprojectionModelCreateaccount extends JModelList
 	*/
 	public function getIdCountryService_providerCace_B($id)
 	{
-		// [2702] Get a db connection.
+		// [2710] Get a db connection.
 		$db = JFactory::getDbo();
 
-		// [2704] Create a new query object.
+		// [2712] Create a new query object.
 		$query = $db->getQuery(true);
 
-		// [2706] Get from #__costbenefitprojection_service_provider as b
+		// [2714] Get from #__costbenefitprojection_service_provider as b
 		$query->select($db->quoteName(
 			array('b.id','b.user','b.publicname','b.publicemail','b.publicnumber','b.publicaddress'),
 			array('id','user','publicname','publicemail','publicnumber','publicaddress')));
@@ -141,21 +148,21 @@ class CostbenefitprojectionModelCreateaccount extends JModelList
 		$query->where('b.published = 1');
 		$query->order('b.publicname ASC');
 
-		// [2760] Reset the query using our newly populated query object.
+		// [2768] Reset the query using our newly populated query object.
 		$db->setQuery($query);
 		$db->execute();
 
-		// [2763] check if there was data returned
+		// [2771] check if there was data returned
 		if ($db->getNumRows())
 		{
 			$items = $db->loadObjectList();
 
-			// [2816] Convert the parameter fields into objects.
+			// [2824] Convert the parameter fields into objects.
 			foreach ($items as $nr => &$item)
 			{
-				// [2008] Make sure the content prepare plugins fire on publicaddress.
+				// [2012] Make sure the content prepare plugins fire on publicaddress.
 				$item->publicaddress = JHtml::_('content.prepare',$item->publicaddress);
-				// [2010] Checking if publicaddress has uikit components that must be loaded.
+				// [2014] Checking if publicaddress has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->publicaddress,$this->uikitComp);
 			}
 			return $items;

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.0.8
-	@build			1st December, 2015
+	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		help_document.php
@@ -54,13 +54,13 @@ class CostbenefitprojectionControllerHelp_document extends JControllerForm
 	 */
 	protected function allowAdd($data = array())
 	{
-		// [9319] Access check.
+		// [9327] Access check.
 		$access = JFactory::getUser()->authorise('help_document.access', 'com_costbenefitprojection');
 		if (!$access)
 		{
 			return false;
 		}
-		// [9330] In the absense of better information, revert to the component permissions.
+		// [9338] In the absense of better information, revert to the component permissions.
 		return JFactory::getUser()->authorise('help_document.create', $this->option);
 	}
 
@@ -76,13 +76,13 @@ class CostbenefitprojectionControllerHelp_document extends JControllerForm
 	 */
 	protected function allowEdit($data = array(), $key = 'id')
 	{
-		// [9473] get user object.
+		// [9481] get user object.
 		$user		= JFactory::getUser();
-		// [9475] get record id.
+		// [9483] get record id.
 		$recordId	= (int) isset($data[$key]) ? $data[$key] : 0;
 
 
-		// [9482] Access check.
+		// [9490] Access check.
 		$access = ($user->authorise('help_document.access', 'com_costbenefitprojection.help_document.' . (int) $recordId) &&  $user->authorise('help_document.access', 'com_costbenefitprojection'));
 		if (!$access)
 		{
@@ -91,17 +91,17 @@ class CostbenefitprojectionControllerHelp_document extends JControllerForm
 
 		if ($recordId)
 		{
-			// [9491] The record has been set. Check the record permissions.
+			// [9499] The record has been set. Check the record permissions.
 			$permission = $user->authorise('help_document.edit', 'com_costbenefitprojection.help_document.' . (int) $recordId);
 			if (!$permission && !is_null($permission))
 			{
 				if ($user->authorise('help_document.edit.own', 'com_costbenefitprojection.help_document.' . $recordId))
 				{
-					// [9513] Now test the owner is the user.
+					// [9521] Now test the owner is the user.
 					$ownerId = (int) isset($data['created_by']) ? $data['created_by'] : 0;
 					if (empty($ownerId))
 					{
-						// [9517] Need to do a lookup from the model.
+						// [9525] Need to do a lookup from the model.
 						$record = $this->getModel()->getItem($recordId);
 
 						if (empty($record))
@@ -111,7 +111,7 @@ class CostbenefitprojectionControllerHelp_document extends JControllerForm
 						$ownerId = $record->created_by;
 					}
 
-					// [9525] If the owner matches 'me' then allow.
+					// [9533] If the owner matches 'me' then allow.
 					if ($ownerId == $user->id)
 					{
 						if ($user->authorise('help_document.edit.own', 'com_costbenefitprojection'))
@@ -123,7 +123,7 @@ class CostbenefitprojectionControllerHelp_document extends JControllerForm
 				return false;
 			}
 		}
-		// [9547] Since there is no permission, revert to the component permissions.
+		// [9555] Since there is no permission, revert to the component permissions.
 		return $user->authorise('help_document.edit', $this->option);
 	}
 

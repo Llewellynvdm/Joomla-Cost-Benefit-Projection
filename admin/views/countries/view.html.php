@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.0.8
-	@build			1st December, 2015
+	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -196,11 +196,11 @@ class CostbenefitprojectionViewCountries extends JViewLegacy
 			);
                 }  
 
-		// [9107] Set Currency Name Selection
+		// [9115] Set Currency Name Selection
 		$this->currencyNameOptions = JFormHelper::loadFieldType('Currency')->getOptions();
 		if ($this->currencyNameOptions)
 		{
-			// [9111] Currency Name Filter
+			// [9119] Currency Name Filter
 			JHtmlSidebar::addFilter(
 				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_COUNTRY_CURRENCY_LABEL').' -',
 				'filter_currency',
@@ -209,7 +209,7 @@ class CostbenefitprojectionViewCountries extends JViewLegacy
 
 			if ($this->canBatch && $this->canCreate && $this->canEdit)
 			{
-				// [9120] Currency Name Batch Selection
+				// [9128] Currency Name Batch Selection
 				JHtmlBatch_::addListSelection(
 					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_COUNTRY_CURRENCY_LABEL').' -',
 					'batch[currency]',

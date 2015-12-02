@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.0.8
-	@build			1st December, 2015
+	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -37,23 +37,62 @@ class CostbenefitprojectionViewCreateaccount extends JViewLegacy
 		$this->menu = $this->app->getMenu()->getActive();
 		// get the user object
 		$this->user = JFactory::getUser();
-		// [3035] Initialise variables.
+		// [3043] Initialise variables.
 		$this->items		= $this->get('Items');
 
-		// [3053] Check for errors.
+		// [3061] Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
 			JError::raiseWarning(500, implode("\n", $errors));
 			return false;
 		}
 
-		// [3070] Set the toolbar
+		// [3078] Set the toolbar
 		$this->addToolBar();
 
-		// [3072] set the document
+		// [3080] set the document
 		$this->_prepareDocument();
 
 		parent::display($tpl);
+	}
+
+	public function buildDetails($item)
+	{
+		// ensure we have reset the buckets
+		$list = array();
+		$details = array();
+		$bucket = array();
+		$user = JFactory::getUser($item->user);
+		// get the name set
+		if (!isset($item->name))
+		{
+			$item->name = $user->name;
+		}
+		// build the list
+		$list = $item->name;
+		// build the details
+		$name		= (CostbenefitprojectionHelper::checkString($item->publicname)) ? $item->publicname : $item->name;
+		$number		= (CostbenefitprojectionHelper::checkString($item->publicnumber)) ? $item->publicnumber : false;
+		$email		= (CostbenefitprojectionHelper::checkString($item->publicemail)) ? $item->publicemail : $user->email;
+		$address	= (CostbenefitprojectionHelper::checkString($item->publicaddress)) ? $item->publicaddress : false;
+		// load to the bucket
+		$bucket[] = '<b>'.JText::_('COM_COSTBENEFITPROJECTION_NAME').':</b> '.$name;
+		if ($number)
+		{
+			$bucket[] = '<b>'.JText::_('COM_COSTBENEFITPROJECTION_NUMBER').':</b> '.$number;
+		}
+		if ($email)
+		{
+			$bucket[] = '<b>'.JText::_('COM_COSTBENEFITPROJECTION_EMAIL').':</b> '.$email;
+		}
+		if ($address)
+		{
+			$bucket[] = '<dl class="uk-description-list-horizontal"><dt>'.JText::_('COM_COSTBENEFITPROJECTION_ADDRESS').':</dt><dd>'.$address.'</dd></dl>';
+		}
+		// build details list
+		$details = '<ul class="uk-list uk-list-striped"><li>'.implode('</li><li>', $bucket).'</li></ul>';
+
+		return array('list' => $list, 'details' => $details);
 	}
 
         /**
@@ -62,52 +101,74 @@ class CostbenefitprojectionViewCreateaccount extends JViewLegacy
 	protected function _prepareDocument()
 	{
 
-		// [3422] always make sure jquery is loaded.
+		// [3430] always make sure jquery is loaded.
 		JHtml::_('jquery.framework');
-		// [3424] Load the header checker class.
+		// [3432] Load the header checker class.
 		require_once( JPATH_COMPONENT_SITE.'/helpers/headercheck.php' );
-		// [3426] Initialize the header checker.
+		// [3434] Initialize the header checker.
 		$HeaderCheck = new HeaderCheck;
 
-		// [3431] Load uikit options.
+		// [3439] Load uikit options.
 		$uikit = $this->params->get('uikit_load');
-		// [3433] Set script size.
+		// [3441] Set script size.
 		$size = $this->params->get('uikit_min');
-		// [3435] Set css style.
+		// [3443] Set css style.
 		$style = $this->params->get('uikit_style');
 
-		// [3438] The uikit css.
+		// [3446] The uikit css.
 		if ((!$HeaderCheck->css_loaded('uikit.min') || $uikit == 1) && $uikit != 2 && $uikit != 3)
 		{
 			$this->document->addStyleSheet(JURI::root(true) .'/media/com_costbenefitprojection/uikit/css/uikit'.$style.$size.'.css');
 		}
-		// [3443] The uikit js.
+		// [3451] The uikit js.
 		if ((!$HeaderCheck->js_loaded('uikit.min') || $uikit == 1) && $uikit != 2 && $uikit != 3)
 		{
 			$this->document->addScript(JURI::root(true) .'/media/com_costbenefitprojection/uikit/js/uikit'.$size.'.js');
 		}
 
-		// [3508] Load the needed uikit components in this view.
-		$uikitComp = $this->get('UikitComp');
+		// [3460] Load the script to find all uikit components needed.
+		if ($uikit != 2)
+		{
+			// [3463] Set the default uikit components in this view.
+			$uikitComp = array();
+			$uikitComp[] = 'data-uk-grid';
+
+			// [3472] Get field uikit components needed in this view.
+			$uikitFieldComp = $this->get('UikitComp');
+			if (isset($uikitFieldComp) && CostbenefitprojectionHelper::checkArray($uikitFieldComp))
+			{
+				if (isset($uikitComp) && CostbenefitprojectionHelper::checkArray($uikitComp))
+				{
+					$uikitComp = array_merge($uikitComp, $uikitFieldComp);
+					$uikitComp = array_unique($uikitComp);
+				}
+				else
+				{
+					$uikitComp = $uikitFieldComp;
+				}
+			}
+		}
+
+		// [3488] Load the needed uikit components in this view.
 		if ($uikit != 2 && isset($uikitComp) && CostbenefitprojectionHelper::checkArray($uikitComp))
 		{
-			// [3512] load just in case.
+			// [3491] load just in case.
 			jimport('joomla.filesystem.file');
-			// [3514] loading...
+			// [3493] loading...
 			foreach ($uikitComp as $class)
 			{
 				foreach (CostbenefitprojectionHelper::$uk_components[$class] as $name)
 				{
-					// [3519] check if the CSS file exists.
+					// [3498] check if the CSS file exists.
 					if (JFile::exists(JPATH_ROOT.'/media/com_costbenefitprojection/uikit/css/components/'.$name.$style.$size.'.css'))
 					{
-						// [3522] load the css.
+						// [3501] load the css.
 						$this->document->addStyleSheet(JURI::root(true) .'/media/com_costbenefitprojection/uikit/css/components/'.$name.$style.$size.'.css');
 					}
-					// [3525] check if the JavaScript file exists.
+					// [3504] check if the JavaScript file exists.
 					if (JFile::exists(JPATH_ROOT.'/media/com_costbenefitprojection/uikit/js/components/'.$name.$size.'.js'))
 					{
-						// [3528] load the js.
+						// [3507] load the js.
 						$this->document->addScript(JURI::root(true) .'/media/com_costbenefitprojection/uikit/js/components/'.$name.$size.'.js');
 					}
 				}

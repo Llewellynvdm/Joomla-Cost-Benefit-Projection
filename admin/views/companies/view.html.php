@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.0.8
-	@build			1st December, 2015
+	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -130,7 +130,7 @@ class CostbenefitprojectionViewCompanies extends JViewLegacy
                                 $bar->appendButton('Custom', $dhtml, 'batch');
                         }		if ($this->canDo->get('combinedresults.access'))
 		{
-			// [7118] add Combined Results button.
+			// [7126] add Combined Results button.
 			JToolBarHelper::custom('companies.redirectToCombinedresults', 'cogs', '', 'COM_COSTBENEFITPROJECTION_COMBINEDRESULTS', true);
 		} 
 
@@ -200,11 +200,11 @@ class CostbenefitprojectionViewCompanies extends JViewLegacy
 			);
                 }  
 
-		// [9141] Set Department Selection
+		// [9149] Set Department Selection
 		$this->departmentOptions = $this->getTheDepartmentSelections();
 		if ($this->departmentOptions)
 		{
-			// [9145] Department Filter
+			// [9153] Department Filter
 			JHtmlSidebar::addFilter(
 				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_COMPANY_DEPARTMENT_LABEL').' -',
 				'filter_department',
@@ -213,7 +213,7 @@ class CostbenefitprojectionViewCompanies extends JViewLegacy
 
 			if ($this->canBatch && $this->canCreate && $this->canEdit)
 			{
-				// [9154] Department Batch Selection
+				// [9162] Department Batch Selection
 				JHtmlBatch_::addListSelection(
 					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_COMPANY_DEPARTMENT_LABEL').' -',
 					'batch[department]',
@@ -222,11 +222,11 @@ class CostbenefitprojectionViewCompanies extends JViewLegacy
 			}
 		}
 
-		// [9107] Set Country Name Selection
+		// [9115] Set Country Name Selection
 		$this->countryNameOptions = JFormHelper::loadFieldType('Countries')->getOptions();
 		if ($this->countryNameOptions)
 		{
-			// [9111] Country Name Filter
+			// [9119] Country Name Filter
 			JHtmlSidebar::addFilter(
 				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_COMPANY_COUNTRY_LABEL').' -',
 				'filter_country',
@@ -235,7 +235,7 @@ class CostbenefitprojectionViewCompanies extends JViewLegacy
 
 			if ($this->canBatch && $this->canCreate && $this->canEdit)
 			{
-				// [9120] Country Name Batch Selection
+				// [9128] Country Name Batch Selection
 				JHtmlBatch_::addListSelection(
 					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_COMPANY_COUNTRY_LABEL').' -',
 					'batch[country]',
@@ -244,11 +244,11 @@ class CostbenefitprojectionViewCompanies extends JViewLegacy
 			}
 		}
 
-		// [9107] Set Serviceprovider User Selection
+		// [9115] Set Serviceprovider User Selection
 		$this->serviceproviderUserOptions = JFormHelper::loadFieldType('Serviceprovider')->getOptions();
 		if ($this->serviceproviderUserOptions)
 		{
-			// [9111] Serviceprovider User Filter
+			// [9119] Serviceprovider User Filter
 			JHtmlSidebar::addFilter(
 				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_COMPANY_SERVICEPROVIDER_LABEL').' -',
 				'filter_serviceprovider',
@@ -257,7 +257,7 @@ class CostbenefitprojectionViewCompanies extends JViewLegacy
 
 			if ($this->canBatch && $this->canCreate && $this->canEdit)
 			{
-				// [9120] Serviceprovider User Batch Selection
+				// [9128] Serviceprovider User Batch Selection
 				JHtmlBatch_::addListSelection(
 					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_COMPANY_SERVICEPROVIDER_LABEL').' -',
 					'batch[serviceprovider]',
@@ -266,11 +266,11 @@ class CostbenefitprojectionViewCompanies extends JViewLegacy
 			}
 		}
 
-		// [9141] Set Per Selection
+		// [9149] Set Per Selection
 		$this->perOptions = $this->getThePerSelections();
 		if ($this->perOptions)
 		{
-			// [9145] Per Filter
+			// [9153] Per Filter
 			JHtmlSidebar::addFilter(
 				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_COMPANY_PER_LABEL').' -',
 				'filter_per',
@@ -279,7 +279,7 @@ class CostbenefitprojectionViewCompanies extends JViewLegacy
 
 			if ($this->canBatch && $this->canCreate && $this->canEdit)
 			{
-				// [9154] Per Batch Selection
+				// [9162] Per Batch Selection
 				JHtmlBatch_::addListSelection(
 					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_COMPANY_PER_LABEL').' -',
 					'batch[per]',
@@ -341,33 +341,33 @@ class CostbenefitprojectionViewCompanies extends JViewLegacy
 
 	protected function getTheDepartmentSelections()
 	{
-		// [9017] Get a db connection.
+		// [9025] Get a db connection.
 		$db = JFactory::getDbo();
 
-		// [9019] Create a new query object.
+		// [9027] Create a new query object.
 		$query = $db->getQuery(true);
 
-		// [9021] Select the text.
+		// [9029] Select the text.
 		$query->select($db->quoteName('department'));
 		$query->from($db->quoteName('#__costbenefitprojection_company'));
 		$query->order($db->quoteName('department') . ' ASC');
 
-		// [9025] Reset the query using our newly populated query object.
+		// [9033] Reset the query using our newly populated query object.
 		$db->setQuery($query);
 
 		$results = $db->loadColumn();
 
 		if ($results)
 		{
-			// [9033] get model
+			// [9041] get model
 			$model = $this->getModel();
 			$results = array_unique($results);
 			$filter = array();
 			foreach ($results as $department)
 			{
-				// [9044] Translate the department selection
+				// [9052] Translate the department selection
 				$text = $model->selectionTranslation($department,'department');
-				// [9046] Now add the department and its text to the options array
+				// [9054] Now add the department and its text to the options array
 				$filter[] = JHtml::_('select.option', $department, JText::_($text));
 			}
 			return $filter;
@@ -377,33 +377,33 @@ class CostbenefitprojectionViewCompanies extends JViewLegacy
 
 	protected function getThePerSelections()
 	{
-		// [9017] Get a db connection.
+		// [9025] Get a db connection.
 		$db = JFactory::getDbo();
 
-		// [9019] Create a new query object.
+		// [9027] Create a new query object.
 		$query = $db->getQuery(true);
 
-		// [9021] Select the text.
+		// [9029] Select the text.
 		$query->select($db->quoteName('per'));
 		$query->from($db->quoteName('#__costbenefitprojection_company'));
 		$query->order($db->quoteName('per') . ' ASC');
 
-		// [9025] Reset the query using our newly populated query object.
+		// [9033] Reset the query using our newly populated query object.
 		$db->setQuery($query);
 
 		$results = $db->loadColumn();
 
 		if ($results)
 		{
-			// [9033] get model
+			// [9041] get model
 			$model = $this->getModel();
 			$results = array_unique($results);
 			$filter = array();
 			foreach ($results as $per)
 			{
-				// [9044] Translate the per selection
+				// [9052] Translate the per selection
 				$text = $model->selectionTranslation($per,'per');
-				// [9046] Now add the per and its text to the options array
+				// [9054] Now add the per and its text to the options array
 				$filter[] = JHtml::_('select.option', $per, JText::_($text));
 			}
 			return $filter;

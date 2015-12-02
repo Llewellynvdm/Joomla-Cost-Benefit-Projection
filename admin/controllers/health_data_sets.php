@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.0.8
-	@build			1st December, 2015
+	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		health_data_sets.php
@@ -42,29 +42,29 @@ class CostbenefitprojectionControllerHealth_data_sets extends JControllerAdmin
 
 	public function exportData()
 	{
-		// [7269] Check for request forgeries
+		// [7277] Check for request forgeries
 		JSession::checkToken() or die(JText::_('JINVALID_TOKEN'));
-		// [7271] check if export is allowed for this user.
+		// [7279] check if export is allowed for this user.
 		$user = JFactory::getUser();
 		if ($user->authorise('health_data.export', 'com_costbenefitprojection') && $user->authorise('core.export', 'com_costbenefitprojection'))
 		{
-			// [7275] Get the input
+			// [7283] Get the input
 			$input = JFactory::getApplication()->input;
 			$pks = $input->post->get('cid', array(), 'array');
-			// [7278] Sanitize the input
+			// [7286] Sanitize the input
 			JArrayHelper::toInteger($pks);
-			// [7280] Get the model
+			// [7288] Get the model
 			$model = $this->getModel('Health_data_sets');
-			// [7282] get the data to export
+			// [7290] get the data to export
 			$data = $model->getExportData($pks);
 			if (CostbenefitprojectionHelper::checkArray($data))
 			{
-				// [7286] now set the data to the spreadsheet
+				// [7294] now set the data to the spreadsheet
 				$date = JFactory::getDate();
 				CostbenefitprojectionHelper::xls($data,'Health_data_sets_'.$date->format('jS_F_Y'),'Health data sets exported ('.$date->format('jS F, Y').')','health data sets');
 			}
 		}
-		// [7291] Redirect to the list screen with error.
+		// [7299] Redirect to the list screen with error.
 		$message = JText::_('COM_COSTBENEFITPROJECTION_EXPORT_FAILED');
 		$this->setRedirect(JRoute::_('index.php?option=com_costbenefitprojection&view=health_data_sets', false), $message, 'error');
 		return;
@@ -73,31 +73,31 @@ class CostbenefitprojectionControllerHealth_data_sets extends JControllerAdmin
 
 	public function importData()
 	{
-		// [7300] Check for request forgeries
+		// [7308] Check for request forgeries
 		JSession::checkToken() or die(JText::_('JINVALID_TOKEN'));
-		// [7302] check if import is allowed for this user.
+		// [7310] check if import is allowed for this user.
 		$user = JFactory::getUser();
 		if ($user->authorise('health_data.import', 'com_costbenefitprojection') && $user->authorise('core.import', 'com_costbenefitprojection'))
 		{
-			// [7306] Get the import model
+			// [7314] Get the import model
 			$model = $this->getModel('Health_data_sets');
-			// [7308] get the headers to import
+			// [7316] get the headers to import
 			$headers = $model->getExImPortHeaders();
 			if (CostbenefitprojectionHelper::checkObject($headers))
 			{
-				// [7312] Load headers to session.
+				// [7320] Load headers to session.
 				$session = JFactory::getSession();
 				$headers = json_encode($headers);
 				$session->set('health_data_VDM_IMPORTHEADERS', $headers);
 				$session->set('backto_VDM_IMPORT', 'health_data_sets');
 				$session->set('dataType_VDM_IMPORTINTO', 'health_data');
-				// [7318] Redirect to import view.
+				// [7326] Redirect to import view.
 				$message = JText::_('COM_COSTBENEFITPROJECTION_IMPORT_SELECT_FILE_FOR_HEALTH_DATA_SETS');
 				$this->setRedirect(JRoute::_('index.php?option=com_costbenefitprojection&view=import', false), $message);
 				return;
 			}
 		}
-		// [7330] Redirect to the list screen with error.
+		// [7338] Redirect to the list screen with error.
 		$message = JText::_('COM_COSTBENEFITPROJECTION_IMPORT_FAILED');
 		$this->setRedirect(JRoute::_('index.php?option=com_costbenefitprojection&view=health_data_sets', false), $message, 'error');
 		return;

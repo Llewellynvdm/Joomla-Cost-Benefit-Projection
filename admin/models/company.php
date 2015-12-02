@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.0.8
-	@build			1st December, 2015
+	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		company.php
@@ -91,60 +91,60 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 
 			if (!empty($item->causesrisks))
 			{
-				// [3996] JSON Decode causesrisks.
+				// [4004] JSON Decode causesrisks.
 				$item->causesrisks = json_decode($item->causesrisks);
 			}
 
-			// [4038] Get the advanced encription key.
+			// [4046] Get the advanced encription key.
 			$advancedkey = CostbenefitprojectionHelper::getCryptKey('advanced');
-			// [4040] Get the encription object.
+			// [4048] Get the encription object.
 			$advanced = new FOFEncryptAes($advancedkey, 256);
 
 			if (!empty($item->medical_turnovers_males) && $advancedkey && !is_numeric($item->medical_turnovers_males) && $item->medical_turnovers_males === base64_encode(base64_decode($item->medical_turnovers_males, true)))
 			{
-				// [4046] advanced decript data medical_turnovers_males.
+				// [4054] advanced decript data medical_turnovers_males.
 				$item->medical_turnovers_males = rtrim($advanced->decryptString($item->medical_turnovers_males), "\0");
 			}
 
 			if (!empty($item->sick_leave_males) && $advancedkey && !is_numeric($item->sick_leave_males) && $item->sick_leave_males === base64_encode(base64_decode($item->sick_leave_males, true)))
 			{
-				// [4046] advanced decript data sick_leave_males.
+				// [4054] advanced decript data sick_leave_males.
 				$item->sick_leave_males = rtrim($advanced->decryptString($item->sick_leave_males), "\0");
 			}
 
 			if (!empty($item->males) && $advancedkey && !is_numeric($item->males) && $item->males === base64_encode(base64_decode($item->males, true)))
 			{
-				// [4046] advanced decript data males.
+				// [4054] advanced decript data males.
 				$item->males = rtrim($advanced->decryptString($item->males), "\0");
 			}
 
 			if (!empty($item->females) && $advancedkey && !is_numeric($item->females) && $item->females === base64_encode(base64_decode($item->females, true)))
 			{
-				// [4046] advanced decript data females.
+				// [4054] advanced decript data females.
 				$item->females = rtrim($advanced->decryptString($item->females), "\0");
 			}
 
 			if (!empty($item->medical_turnovers_females) && $advancedkey && !is_numeric($item->medical_turnovers_females) && $item->medical_turnovers_females === base64_encode(base64_decode($item->medical_turnovers_females, true)))
 			{
-				// [4046] advanced decript data medical_turnovers_females.
+				// [4054] advanced decript data medical_turnovers_females.
 				$item->medical_turnovers_females = rtrim($advanced->decryptString($item->medical_turnovers_females), "\0");
 			}
 
 			if (!empty($item->sick_leave_females) && $advancedkey && !is_numeric($item->sick_leave_females) && $item->sick_leave_females === base64_encode(base64_decode($item->sick_leave_females, true)))
 			{
-				// [4046] advanced decript data sick_leave_females.
+				// [4054] advanced decript data sick_leave_females.
 				$item->sick_leave_females = rtrim($advanced->decryptString($item->sick_leave_females), "\0");
 			}
 
 			if (!empty($item->total_salary) && $advancedkey && !is_numeric($item->total_salary) && $item->total_salary === base64_encode(base64_decode($item->total_salary, true)))
 			{
-				// [4046] advanced decript data total_salary.
+				// [4054] advanced decript data total_salary.
 				$item->total_salary = rtrim($advanced->decryptString($item->total_salary), "\0");
 			}
 
 			if (!empty($item->total_healthcare) && $advancedkey && !is_numeric($item->total_healthcare) && $item->total_healthcare === base64_encode(base64_decode($item->total_healthcare, true)))
 			{
-				// [4046] advanced decript data total_healthcare.
+				// [4054] advanced decript data total_healthcare.
 				$item->total_healthcare = rtrim($advanced->decryptString($item->total_healthcare), "\0");
 			}
 			
@@ -154,8 +154,8 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				$item->tags->getTagIds($item->id, 'com_costbenefitprojection.company');
 			}
 		}
-		$this->companytgip = $item->id;
-		$this->companypqjv = $item->id;
+		$this->companyehly = $item->id;
+		$this->companynukc = $item->id;
 
 		return $item;
 	}
@@ -165,18 +165,18 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getQwjscaling_factors()
+	public function getOabscaling_factors()
 	{
-		// [6945] Get the user object.
+		// [6953] Get the user object.
 		$user = JFactory::getUser();
-		// [6947] Create a new query object.
+		// [6955] Create a new query object.
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(true);
 
-		// [6950] Select some fields
+		// [6958] Select some fields
 		$query->select('a.*');
 
-		// [6957] From the costbenefitprojection_scaling_factor table
+		// [6965] From the costbenefitprojection_scaling_factor table
 		$query->from($db->quoteName('#__costbenefitprojection_scaling_factor', 'a'));
 
 		// Filter by companies (admin sees all)
@@ -196,43 +196,43 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			}
 		}
 
-		// [7550] From the costbenefitprojection_causerisk table.
+		// [7558] From the costbenefitprojection_causerisk table.
 		$query->select($db->quoteName('g.name','causerisk_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_causerisk', 'g') . ' ON (' . $db->quoteName('a.causerisk') . ' = ' . $db->quoteName('g.id') . ')');
 
-		// [7550] From the costbenefitprojection_company table.
+		// [7558] From the costbenefitprojection_company table.
 		$query->select($db->quoteName('h.name','company_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_company', 'h') . ' ON (' . $db->quoteName('a.company') . ' = ' . $db->quoteName('h.id') . ')');
 
-		// [6973] Filter by companytgip global.
-		$companytgip = $this->companytgip;
-		if (is_numeric($companytgip ))
+		// [6981] Filter by companyehly global.
+		$companyehly = $this->companyehly;
+		if (is_numeric($companyehly ))
 		{
-			$query->where('a.company = ' . (int) $companytgip );
+			$query->where('a.company = ' . (int) $companyehly );
 		}
-		elseif (is_string($companytgip))
+		elseif (is_string($companyehly))
 		{
-			$query->where('a.company = ' . $db->quote($companytgip));
+			$query->where('a.company = ' . $db->quote($companyehly));
 		}
 		else
 		{
 			$query->where('a.company = -5');
 		}
 
-		// [7005] Order the results by ordering
+		// [7013] Order the results by ordering
 		$query->order('a.ordering  ASC');
 
-		// [7007] Load the items
+		// [7015] Load the items
 		$db->setQuery($query);
 		$db->execute();
 		if ($db->getNumRows())
 		{
 			$items = $db->loadObjectList();
 
-			// [10611] set values to display correctly.
+			// [10619] set values to display correctly.
 			if (CostbenefitprojectionHelper::checkArray($items))
 			{
-				// [10614] get user object.
+				// [10622] get user object.
 				$user = JFactory::getUser();
 				foreach ($items as $nr => &$item)
 				{
@@ -255,18 +255,18 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getObuinterventions()
+	public function getLjeinterventions()
 	{
-		// [6945] Get the user object.
+		// [6953] Get the user object.
 		$user = JFactory::getUser();
-		// [6947] Create a new query object.
+		// [6955] Create a new query object.
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(true);
 
-		// [6950] Select some fields
+		// [6958] Select some fields
 		$query->select('a.*');
 
-		// [6957] From the costbenefitprojection_intervention table
+		// [6965] From the costbenefitprojection_intervention table
 		$query->from($db->quoteName('#__costbenefitprojection_intervention', 'a'));
 
 		// Filter the companies (admin sees all)
@@ -286,39 +286,39 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			}
 		}
 
-		// [7550] From the costbenefitprojection_company table.
+		// [7558] From the costbenefitprojection_company table.
 		$query->select($db->quoteName('g.name','company_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_company', 'g') . ' ON (' . $db->quoteName('a.company') . ' = ' . $db->quoteName('g.id') . ')');
 
-		// [6973] Filter by companypqjv global.
-		$companypqjv = $this->companypqjv;
-		if (is_numeric($companypqjv ))
+		// [6981] Filter by companynukc global.
+		$companynukc = $this->companynukc;
+		if (is_numeric($companynukc ))
 		{
-			$query->where('a.company = ' . (int) $companypqjv );
+			$query->where('a.company = ' . (int) $companynukc );
 		}
-		elseif (is_string($companypqjv))
+		elseif (is_string($companynukc))
 		{
-			$query->where('a.company = ' . $db->quote($companypqjv));
+			$query->where('a.company = ' . $db->quote($companynukc));
 		}
 		else
 		{
 			$query->where('a.company = -5');
 		}
 
-		// [7005] Order the results by ordering
+		// [7013] Order the results by ordering
 		$query->order('a.ordering  ASC');
 
-		// [7007] Load the items
+		// [7015] Load the items
 		$db->setQuery($query);
 		$db->execute();
 		if ($db->getNumRows())
 		{
 			$items = $db->loadObjectList();
 
-			// [10611] set values to display correctly.
+			// [10619] set values to display correctly.
 			if (CostbenefitprojectionHelper::checkArray($items))
 			{
-				// [10614] get user object.
+				// [10622] get user object.
 				$user = JFactory::getUser();
 				foreach ($items as $nr => &$item)
 				{
@@ -345,13 +345,13 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			}
 		} 
 
-			// [10877] set selection value to a translatable value
+			// [10885] set selection value to a translatable value
 			if (CostbenefitprojectionHelper::checkArray($items))
 			{
 				foreach ($items as $nr => &$item)
 				{
-					// [10884] convert type
-					$item->type = $this->selectionTranslationObuinterventions($item->type, 'type');
+					// [10892] convert type
+					$item->type = $this->selectionTranslationLjeinterventions($item->type, 'type');
 				}
 			}
 
@@ -365,16 +365,16 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return translatable string
 	*/
-	public function selectionTranslationObuinterventions($value,$name)
+	public function selectionTranslationLjeinterventions($value,$name)
 	{
-		// [10910] Array of type language strings
+		// [10918] Array of type language strings
 		if ($name == 'type')
 		{
 			$typeArray = array(
 				1 => 'COM_COSTBENEFITPROJECTION_INTERVENTION_SINGLE',
 				2 => 'COM_COSTBENEFITPROJECTION_INTERVENTION_CLUSTER'
 			);
-			// [10941] Now check if value is found in this array
+			// [10949] Now check if value is found in this array
 			if (isset($typeArray[$value]) && CostbenefitprojectionHelper::checkString($typeArray[$value]))
 			{
 				return $typeArray[$value];
@@ -394,7 +394,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	 * @since   1.6
 	 */
 	public function getForm($data = array(), $loadData = true)
-	{		// [9566] Get the form.
+	{		// [9574] Get the form.
 		$form = $this->loadForm('com_costbenefitprojection.company', 'company', array('control' => 'jform', 'load_data' => $loadData));
 
 		if (empty($form))
@@ -404,12 +404,12 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 
 		$jinput = JFactory::getApplication()->input;
 
-		// [9651] The front end calls this model and uses a_id to avoid id clashes so we need to check for that first.
+		// [9659] The front end calls this model and uses a_id to avoid id clashes so we need to check for that first.
 		if ($jinput->get('a_id'))
 		{
 			$id = $jinput->get('a_id', 0, 'INT');
 		}
-		// [9656] The back end uses id so we use that the rest of the time and set it to 0 by default.
+		// [9664] The back end uses id so we use that the rest of the time and set it to 0 by default.
 		else
 		{
 			$id = $jinput->get('id', 0, 'INT');
@@ -417,207 +417,207 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 
 		$user = JFactory::getUser();
 
-		// [9662] Check for existing item.
-		// [9663] Modify the form based on Edit State access controls.
+		// [9670] Check for existing item.
+		// [9671] Modify the form based on Edit State access controls.
 		if ($id != 0 && (!$user->authorise('company.edit.state', 'com_costbenefitprojection.company.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('company.edit.state', 'com_costbenefitprojection')))
 		{
-			// [9676] Disable fields for display.
+			// [9684] Disable fields for display.
 			$form->setFieldAttribute('ordering', 'disabled', 'true');
 			$form->setFieldAttribute('published', 'disabled', 'true');
-			// [9679] Disable fields while saving.
+			// [9687] Disable fields while saving.
 			$form->setFieldAttribute('ordering', 'filter', 'unset');
 			$form->setFieldAttribute('published', 'filter', 'unset');
 		}
-		// [9684] Modify the form based on Edit Creaded By access controls.
+		// [9692] Modify the form based on Edit Creaded By access controls.
 		if ($id != 0 && (!$user->authorise('company.edit.created_by', 'com_costbenefitprojection.company.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('company.edit.created_by', 'com_costbenefitprojection')))
 		{
-			// [9696] Disable fields for display.
+			// [9704] Disable fields for display.
 			$form->setFieldAttribute('created_by', 'disabled', 'true');
-			// [9698] Disable fields for display.
+			// [9706] Disable fields for display.
 			$form->setFieldAttribute('created_by', 'readonly', 'true');
-			// [9700] Disable fields while saving.
+			// [9708] Disable fields while saving.
 			$form->setFieldAttribute('created_by', 'filter', 'unset');
 		}
-		// [9703] Modify the form based on Edit Creaded Date access controls.
+		// [9711] Modify the form based on Edit Creaded Date access controls.
 		if ($id != 0 && (!$user->authorise('company.edit.created', 'com_costbenefitprojection.company.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('company.edit.created', 'com_costbenefitprojection')))
 		{
-			// [9715] Disable fields for display.
+			// [9723] Disable fields for display.
 			$form->setFieldAttribute('created', 'disabled', 'true');
-			// [9717] Disable fields while saving.
+			// [9725] Disable fields while saving.
 			$form->setFieldAttribute('created', 'filter', 'unset');
 		}
-		// [9725] Modify the form based on Edit Email access controls.
+		// [9733] Modify the form based on Edit Email access controls.
 		if ($id != 0 && (!$user->authorise('company.edit.email', 'com_costbenefitprojection.company.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('company.edit.email', 'com_costbenefitprojection')))
 		{
-			// [9729] Disable fields for display.
+			// [9737] Disable fields for display.
 			$form->setFieldAttribute('email', 'disabled', 'true');
-			// [9731] Disable fields for display.
+			// [9739] Disable fields for display.
 			$form->setFieldAttribute('email', 'readonly', 'true');
 			if (!$form->getValue('email'))
 			{
-				// [9741] Disable fields while saving.
+				// [9749] Disable fields while saving.
 				$form->setFieldAttribute('email', 'filter', 'unset');
-				// [9743] Disable fields while saving.
+				// [9751] Disable fields while saving.
 				$form->setFieldAttribute('email', 'required', 'false');
 			}
 		}
-		// [9725] Modify the form based on Edit User access controls.
+		// [9733] Modify the form based on Edit User access controls.
 		if ($id != 0 && (!$user->authorise('company.edit.user', 'com_costbenefitprojection.company.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('company.edit.user', 'com_costbenefitprojection')))
 		{
-			// [9729] Disable fields for display.
+			// [9737] Disable fields for display.
 			$form->setFieldAttribute('user', 'disabled', 'true');
-			// [9731] Disable fields for display.
+			// [9739] Disable fields for display.
 			$form->setFieldAttribute('user', 'readonly', 'true');
 			if (!$form->getValue('user'))
 			{
-				// [9741] Disable fields while saving.
+				// [9749] Disable fields while saving.
 				$form->setFieldAttribute('user', 'filter', 'unset');
-				// [9743] Disable fields while saving.
+				// [9751] Disable fields while saving.
 				$form->setFieldAttribute('user', 'required', 'false');
 			}
 		}
-		// [9725] Modify the form based on Edit Department access controls.
+		// [9733] Modify the form based on Edit Department access controls.
 		if ($id != 0 && (!$user->authorise('company.edit.department', 'com_costbenefitprojection.company.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('company.edit.department', 'com_costbenefitprojection')))
 		{
-			// [9729] Disable fields for display.
+			// [9737] Disable fields for display.
 			$form->setFieldAttribute('department', 'disabled', 'true');
-			// [9731] Disable fields for display.
+			// [9739] Disable fields for display.
 			$form->setFieldAttribute('department', 'readonly', 'true');
-			// [9735] Disable radio button for display.
+			// [9743] Disable radio button for display.
 			$class = $form->getFieldAttribute('department', 'class', '');
 			$form->setFieldAttribute('department', 'class', $class.' disabled no-click');
 			if (!$form->getValue('department'))
 			{
-				// [9741] Disable fields while saving.
+				// [9749] Disable fields while saving.
 				$form->setFieldAttribute('department', 'filter', 'unset');
-				// [9743] Disable fields while saving.
+				// [9751] Disable fields while saving.
 				$form->setFieldAttribute('department', 'required', 'false');
 			}
 		}
-		// [9725] Modify the form based on Edit Country access controls.
+		// [9733] Modify the form based on Edit Country access controls.
 		if ($id != 0 && (!$user->authorise('company.edit.country', 'com_costbenefitprojection.company.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('company.edit.country', 'com_costbenefitprojection')))
 		{
-			// [9729] Disable fields for display.
+			// [9737] Disable fields for display.
 			$form->setFieldAttribute('country', 'disabled', 'true');
-			// [9731] Disable fields for display.
+			// [9739] Disable fields for display.
 			$form->setFieldAttribute('country', 'readonly', 'true');
 			if (!$form->getValue('country'))
 			{
-				// [9741] Disable fields while saving.
+				// [9749] Disable fields while saving.
 				$form->setFieldAttribute('country', 'filter', 'unset');
-				// [9743] Disable fields while saving.
+				// [9751] Disable fields while saving.
 				$form->setFieldAttribute('country', 'required', 'false');
 			}
 		}
-		// [9725] Modify the form based on Edit Serviceprovider access controls.
+		// [9733] Modify the form based on Edit Serviceprovider access controls.
 		if ($id != 0 && (!$user->authorise('company.edit.serviceprovider', 'com_costbenefitprojection.company.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('company.edit.serviceprovider', 'com_costbenefitprojection')))
 		{
-			// [9729] Disable fields for display.
+			// [9737] Disable fields for display.
 			$form->setFieldAttribute('serviceprovider', 'disabled', 'true');
-			// [9731] Disable fields for display.
+			// [9739] Disable fields for display.
 			$form->setFieldAttribute('serviceprovider', 'readonly', 'true');
 			if (!$form->getValue('serviceprovider'))
 			{
-				// [9741] Disable fields while saving.
+				// [9749] Disable fields while saving.
 				$form->setFieldAttribute('serviceprovider', 'filter', 'unset');
-				// [9743] Disable fields while saving.
+				// [9751] Disable fields while saving.
 				$form->setFieldAttribute('serviceprovider', 'required', 'false');
 			}
 		}
-		// [9725] Modify the form based on Edit Per access controls.
+		// [9733] Modify the form based on Edit Per access controls.
 		if ($id != 0 && (!$user->authorise('company.edit.per', 'com_costbenefitprojection.company.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('company.edit.per', 'com_costbenefitprojection')))
 		{
-			// [9729] Disable fields for display.
+			// [9737] Disable fields for display.
 			$form->setFieldAttribute('per', 'disabled', 'true');
-			// [9731] Disable fields for display.
+			// [9739] Disable fields for display.
 			$form->setFieldAttribute('per', 'readonly', 'true');
-			// [9735] Disable radio button for display.
+			// [9743] Disable radio button for display.
 			$class = $form->getFieldAttribute('per', 'class', '');
 			$form->setFieldAttribute('per', 'class', $class.' disabled no-click');
 			if (!$form->getValue('per'))
 			{
-				// [9741] Disable fields while saving.
+				// [9749] Disable fields while saving.
 				$form->setFieldAttribute('per', 'filter', 'unset');
-				// [9743] Disable fields while saving.
+				// [9751] Disable fields while saving.
 				$form->setFieldAttribute('per', 'required', 'false');
 			}
 		}
-		// [9725] Modify the form based on Edit Causesrisks access controls.
+		// [9733] Modify the form based on Edit Causesrisks access controls.
 		if ($id != 0 && (!$user->authorise('company.edit.causesrisks', 'com_costbenefitprojection.company.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('company.edit.causesrisks', 'com_costbenefitprojection')))
 		{
-			// [9729] Disable fields for display.
+			// [9737] Disable fields for display.
 			$form->setFieldAttribute('causesrisks', 'disabled', 'true');
-			// [9731] Disable fields for display.
+			// [9739] Disable fields for display.
 			$form->setFieldAttribute('causesrisks', 'readonly', 'true');
 			if (!$form->getValue('causesrisks'))
 			{
-				// [9741] Disable fields while saving.
+				// [9749] Disable fields while saving.
 				$form->setFieldAttribute('causesrisks', 'filter', 'unset');
-				// [9743] Disable fields while saving.
+				// [9751] Disable fields while saving.
 				$form->setFieldAttribute('causesrisks', 'required', 'false');
 			}
 		}
-		// [9725] Modify the form based on Edit Percentfemale access controls.
+		// [9733] Modify the form based on Edit Percentfemale access controls.
 		if ($id != 0 && (!$user->authorise('company.edit.percentfemale', 'com_costbenefitprojection.company.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('company.edit.percentfemale', 'com_costbenefitprojection')))
 		{
-			// [9729] Disable fields for display.
+			// [9737] Disable fields for display.
 			$form->setFieldAttribute('percentfemale', 'disabled', 'true');
-			// [9731] Disable fields for display.
+			// [9739] Disable fields for display.
 			$form->setFieldAttribute('percentfemale', 'readonly', 'true');
-			// [9735] Disable radio button for display.
+			// [9743] Disable radio button for display.
 			$class = $form->getFieldAttribute('percentfemale', 'class', '');
 			$form->setFieldAttribute('percentfemale', 'class', $class.' disabled no-click');
 			if (!$form->getValue('percentfemale'))
 			{
-				// [9741] Disable fields while saving.
+				// [9749] Disable fields while saving.
 				$form->setFieldAttribute('percentfemale', 'filter', 'unset');
-				// [9743] Disable fields while saving.
+				// [9751] Disable fields while saving.
 				$form->setFieldAttribute('percentfemale', 'required', 'false');
 			}
 		}
-		// [9725] Modify the form based on Edit Datayear access controls.
+		// [9733] Modify the form based on Edit Datayear access controls.
 		if ($id != 0 && (!$user->authorise('company.edit.datayear', 'com_costbenefitprojection.company.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('company.edit.datayear', 'com_costbenefitprojection')))
 		{
-			// [9729] Disable fields for display.
+			// [9737] Disable fields for display.
 			$form->setFieldAttribute('datayear', 'disabled', 'true');
-			// [9731] Disable fields for display.
+			// [9739] Disable fields for display.
 			$form->setFieldAttribute('datayear', 'readonly', 'true');
 			if (!$form->getValue('datayear'))
 			{
-				// [9741] Disable fields while saving.
+				// [9749] Disable fields while saving.
 				$form->setFieldAttribute('datayear', 'filter', 'unset');
-				// [9743] Disable fields while saving.
+				// [9751] Disable fields while saving.
 				$form->setFieldAttribute('datayear', 'required', 'false');
 			}
 		}
-		// [9725] Modify the form based on Edit Percentmale access controls.
+		// [9733] Modify the form based on Edit Percentmale access controls.
 		if ($id != 0 && (!$user->authorise('company.edit.percentmale', 'com_costbenefitprojection.company.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('company.edit.percentmale', 'com_costbenefitprojection')))
 		{
-			// [9729] Disable fields for display.
+			// [9737] Disable fields for display.
 			$form->setFieldAttribute('percentmale', 'disabled', 'true');
-			// [9731] Disable fields for display.
+			// [9739] Disable fields for display.
 			$form->setFieldAttribute('percentmale', 'readonly', 'true');
-			// [9735] Disable radio button for display.
+			// [9743] Disable radio button for display.
 			$class = $form->getFieldAttribute('percentmale', 'class', '');
 			$form->setFieldAttribute('percentmale', 'class', $class.' disabled no-click');
 			if (!$form->getValue('percentmale'))
 			{
-				// [9741] Disable fields while saving.
+				// [9749] Disable fields while saving.
 				$form->setFieldAttribute('percentmale', 'filter', 'unset');
-				// [9743] Disable fields while saving.
+				// [9751] Disable fields while saving.
 				$form->setFieldAttribute('percentmale', 'required', 'false');
 			}
 		}
@@ -654,7 +654,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			}
 
 			$user = JFactory::getUser();
-			// [9867] The record has been set. Check the record permissions.
+			// [9875] The record has been set. Check the record permissions.
 			return $user->authorise('company.delete', 'com_costbenefitprojection.company.' . (int) $record->id);
 		}
 		return false;
@@ -676,14 +676,14 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 
 		if ($recordId)
 		{
-			// [9954] The record has been set. Check the record permissions.
+			// [9962] The record has been set. Check the record permissions.
 			$permission = $user->authorise('company.edit.state', 'com_costbenefitprojection.company.' . (int) $recordId);
 			if (!$permission && !is_null($permission))
 			{
 				return false;
 			}
 		}
-		// [9971] In the absense of better information, revert to the component permissions.
+		// [9979] In the absense of better information, revert to the component permissions.
 		return $user->authorise('company.edit.state', 'com_costbenefitprojection');
 	}
     
@@ -698,7 +698,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	 */
 	protected function allowEdit($data = array(), $key = 'id')
 	{
-		// [9779] Check specific edit permission then general edit permission.
+		// [9787] Check specific edit permission then general edit permission.
 		$user = JFactory::getUser();
 		$recordId	= (int) isset($data[$key]) ? $data[$key] : 0;
 		if (!$user->authorise('core.options', 'com_costbenefitprojection'))
@@ -813,20 +813,20 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*/
 	public function validate($form, $data, $group = null)
 	{
-		// [8770] check if the not_required field is set
+		// [8778] check if the not_required field is set
 		if (CostbenefitprojectionHelper::checkString($data['not_required']))
 		{
 			$requiredFields = (array) explode(',',(string) $data['not_required']);
 			$requiredFields = array_unique($requiredFields);
-			// [8775] now change the required field attributes value
+			// [8783] now change the required field attributes value
 			foreach ($requiredFields as $requiredField)
 			{
-				// [8778] make sure there is a string value
+				// [8786] make sure there is a string value
 				if (CostbenefitprojectionHelper::checkString($requiredField))
 				{
-					// [8781] change to false
+					// [8789] change to false
 					$form->setFieldAttribute($requiredField, 'required', 'false');
-					// [8783] also clear the data set
+					// [8791] also clear the data set
 					$data[$requiredField] = '';
 				}
 			}
@@ -957,7 +957,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	{
 		if (empty($this->batchSet))
 		{
-			// [4932] Set some needed variables.
+			// [4940] Set some needed variables.
 			$this->user 		= JFactory::getUser();
 			$this->table 		= $this->getTable();
 			$this->tableClassName	= get_class($this->table);
@@ -1000,12 +1000,12 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			}
 		}
 
-		// [4952] get list of uniqe fields
+		// [4960] get list of uniqe fields
 		$uniqeFields = $this->getUniqeFields();
-		// [4954] remove move_copy from array
+		// [4962] remove move_copy from array
 		unset($values['move_copy']);
 
-		// [4957] make sure published is set
+		// [4965] make sure published is set
 		if (!isset($values['published']))
 		{
 			$values['published'] = 0;
@@ -1017,21 +1017,21 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 
 		$newIds = array();
 
-		// [4994] Parent exists so let's proceed
+		// [5002] Parent exists so let's proceed
 		while (!empty($pks))
 		{
-			// [4997] Pop the first ID off the stack
+			// [5005] Pop the first ID off the stack
 			$pk = array_shift($pks);
 
 			$this->table->reset();
 
-			// [5002] only allow copy if user may edit this item.
+			// [5010] only allow copy if user may edit this item.
 
 			if (!$this->user->authorise('company.edit', $contexts[$pk]))
 
 			{
 
-				// [5012] Not fatal error
+				// [5020] Not fatal error
 
 				$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
 
@@ -1039,19 +1039,19 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 
 			}
 
-			// [5017] Check that the row actually exists
+			// [5025] Check that the row actually exists
 			if (!$this->table->load($pk))
 			{
 				if ($error = $this->table->getError())
 				{
-					// [5022] Fatal error
+					// [5030] Fatal error
 					$this->setError($error);
 
 					return false;
 				}
 				else
 				{
-					// [5029] Not fatal error
+					// [5037] Not fatal error
 					$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
 					continue;
 				}
@@ -1059,7 +1059,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 
 			$this->table->name = $this->generateUniqe('name',$this->table->name);
 
-			// [5065] insert all set values
+			// [5073] insert all set values
 			if (CostbenefitprojectionHelper::checkArray($values))
 			{
 				foreach ($values as $key => $value)
@@ -1071,7 +1071,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				}
 			}
 
-			// [5077] update all uniqe fields
+			// [5085] update all uniqe fields
 			if (CostbenefitprojectionHelper::checkArray($uniqeFields))
 			{
 				foreach ($uniqeFields as $uniqeField)
@@ -1080,13 +1080,13 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				}
 			}
 
-			// [5086] Reset the ID because we are making a copy
+			// [5094] Reset the ID because we are making a copy
 			$this->table->id = 0;
 
-			// [5089] TODO: Deal with ordering?
-			// [5090] $this->table->ordering	= 1;
+			// [5097] TODO: Deal with ordering?
+			// [5098] $this->table->ordering	= 1;
 
-			// [5092] Check the row.
+			// [5100] Check the row.
 			if (!$this->table->check())
 			{
 				$this->setError($this->table->getError());
@@ -1099,7 +1099,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				$this->createTagsHelper($this->tagsObserver, $this->type, $pk, $this->typeAlias, $this->table);
 			}
 
-			// [5105] Store the row.
+			// [5113] Store the row.
 			if (!$this->table->store())
 			{
 				$this->setError($this->table->getError());
@@ -1107,14 +1107,14 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				return false;
 			}
 
-			// [5113] Get the new item ID
+			// [5121] Get the new item ID
 			$newId = $this->table->get('id');
 
-			// [5116] Add the new ID to the array
+			// [5124] Add the new ID to the array
 			$newIds[$pk] = $newId;
 		}
 
-		// [5120] Clean the cache
+		// [5128] Clean the cache
 		$this->cleanCache();
 
 		return $newIds;
@@ -1135,7 +1135,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	{
 		if (empty($this->batchSet))
 		{
-			// [4734] Set some needed variables.
+			// [4742] Set some needed variables.
 			$this->user		= JFactory::getUser();
 			$this->table		= $this->getTable();
 			$this->tableClassName	= get_class($this->table);
@@ -1179,15 +1179,15 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			}
 		}
 
-		// [4756] make sure published only updates if user has the permission.
+		// [4764] make sure published only updates if user has the permission.
 		if (isset($values['published']) && !$this->canDo->get('company.edit.state'))
 		{
 			unset($values['published']);
 		}
-		// [4769] remove move_copy from array
+		// [4777] remove move_copy from array
 		unset($values['move_copy']);
 
-		// [4790] Parent exists so we proceed
+		// [4798] Parent exists so we proceed
 		foreach ($pks as $pk)
 		{
 			if (!$this->user->authorise('company.edit', $contexts[$pk]))
@@ -1197,30 +1197,30 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				return false;
 			}
 
-			// [4807] Check that the row actually exists
+			// [4815] Check that the row actually exists
 			if (!$this->table->load($pk))
 			{
 				if ($error = $this->table->getError())
 				{
-					// [4812] Fatal error
+					// [4820] Fatal error
 					$this->setError($error);
 
 					return false;
 				}
 				else
 				{
-					// [4819] Not fatal error
+					// [4827] Not fatal error
 					$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
 					continue;
 				}
 			}
 
-			// [4825] insert all set values.
+			// [4833] insert all set values.
 			if (CostbenefitprojectionHelper::checkArray($values))
 			{
 				foreach ($values as $key => $value)
 				{
-					// [4830] Do special action for access.
+					// [4838] Do special action for access.
 					if ('access' == $key && strlen($value) > 0)
 					{
 						$this->table->$key = $value;
@@ -1233,7 +1233,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			}
 
 
-			// [4842] Check the row.
+			// [4850] Check the row.
 			if (!$this->table->check())
 			{
 				$this->setError($this->table->getError());
@@ -1246,7 +1246,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				$this->createTagsHelper($this->tagsObserver, $this->type, $pk, $this->typeAlias, $this->table);
 			}
 
-			// [4855] Store the row.
+			// [4863] Store the row.
 			if (!$this->table->store())
 			{
 				$this->setError($this->table->getError());
@@ -1255,7 +1255,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			}
 		}
 
-		// [4864] Clean the cache
+		// [4872] Clean the cache
 		$this->cleanCache();
 
 		return true;
@@ -1285,60 +1285,60 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			$data['metadata'] = (string) $metadata;
 		} 
 
-		// [4106] Set the causesrisks string to JSON string.
+		// [4114] Set the causesrisks string to JSON string.
 		if (isset($data['causesrisks']))
 		{
 			$data['causesrisks'] = (string) json_encode($data['causesrisks']);
 		}
 
-		// [4146] Get the advanced encription key.
+		// [4154] Get the advanced encription key.
 		$advancedkey = CostbenefitprojectionHelper::getCryptKey('advanced');
-		// [4148] Get the encription object
+		// [4156] Get the encription object
 		$advanced = new FOFEncryptAes($advancedkey, 256);
 
-		// [4152] Encript data medical_turnovers_males.
+		// [4160] Encript data medical_turnovers_males.
 		if (isset($data['medical_turnovers_males']) && $advancedkey)
 		{
 			$data['medical_turnovers_males'] = $advanced->encryptString($data['medical_turnovers_males']);
 		}
 
-		// [4152] Encript data sick_leave_males.
+		// [4160] Encript data sick_leave_males.
 		if (isset($data['sick_leave_males']) && $advancedkey)
 		{
 			$data['sick_leave_males'] = $advanced->encryptString($data['sick_leave_males']);
 		}
 
-		// [4152] Encript data males.
+		// [4160] Encript data males.
 		if (isset($data['males']) && $advancedkey)
 		{
 			$data['males'] = $advanced->encryptString($data['males']);
 		}
 
-		// [4152] Encript data females.
+		// [4160] Encript data females.
 		if (isset($data['females']) && $advancedkey)
 		{
 			$data['females'] = $advanced->encryptString($data['females']);
 		}
 
-		// [4152] Encript data medical_turnovers_females.
+		// [4160] Encript data medical_turnovers_females.
 		if (isset($data['medical_turnovers_females']) && $advancedkey)
 		{
 			$data['medical_turnovers_females'] = $advanced->encryptString($data['medical_turnovers_females']);
 		}
 
-		// [4152] Encript data sick_leave_females.
+		// [4160] Encript data sick_leave_females.
 		if (isset($data['sick_leave_females']) && $advancedkey)
 		{
 			$data['sick_leave_females'] = $advanced->encryptString($data['sick_leave_females']);
 		}
 
-		// [4152] Encript data total_salary.
+		// [4160] Encript data total_salary.
 		if (isset($data['total_salary']) && $advancedkey)
 		{
 			$data['total_salary'] = $advanced->encryptString($data['total_salary']);
 		}
 
-		// [4152] Encript data total_healthcare.
+		// [4160] Encript data total_healthcare.
 		if (isset($data['total_healthcare']) && $advancedkey)
 		{
 			$data['total_healthcare'] = $advanced->encryptString($data['total_healthcare']);
@@ -1359,10 +1359,10 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			$data['params'] = (string) $params;
 		}
 
-		// [5212] Alter the uniqe field for save as copy
+		// [5220] Alter the uniqe field for save as copy
 		if ($input->get('task') == 'save2copy')
 		{
-			// [5215] Automatic handling of other uniqe fields
+			// [5223] Automatic handling of other uniqe fields
 			$uniqeFields = $this->getUniqeFields();
 			if (CostbenefitprojectionHelper::checkArray($uniqeFields))
 			{
@@ -1415,7 +1415,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	protected function _generateNewTitle($title)
 	{
 
-		// [5270] Alter the title
+		// [5278] Alter the title
 		$table = $this->getTable();
 
 		while ($table->load(array('title' => $title)))

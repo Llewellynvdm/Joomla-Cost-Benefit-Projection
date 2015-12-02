@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.0.8
-	@build			1st December, 2015
+	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		datayear.php
@@ -44,36 +44,36 @@ class JFormFieldDatayear extends JFormFieldList
 	 */
 	protected function getInput()
 	{
-		// [7691] see if we should add buttons
+		// [7699] see if we should add buttons
 		$setButton = $this->getAttribute('button');
-		// [7693] get html
+		// [7701] get html
 		$html = parent::getInput();
-		// [7695] if true set button
+		// [7703] if true set button
 		if ($setButton === 'true')
 		{
 			$user = JFactory::getUser();
-			// [7699] only add if user allowed to create health_data
+			// [7707] only add if user allowed to create health_data
 			if ($user->authorise('health_data.create', 'com_costbenefitprojection'))
 			{
-				// [7717] get the input from url
+				// [7725] get the input from url
 				$jinput = JFactory::getApplication()->input;
-				// [7719] get the view name & id
+				// [7727] get the view name & id
 				$values = $jinput->getArray(array(
 					'id' => 'int',
 					'view' => 'word'
 				));
-				// [7724] check if new item
+				// [7732] check if new item
 				$ref = '';
 				if (!is_null($values['id']) && strlen($values['view']))
 				{
-					// [7728] only load referal if not new item.
+					// [7736] only load referal if not new item.
 					$ref = '&amp;ref=' . $values['view'] . '&amp;refid=' . $values['id'];
 				}
-				// [7731] build the button
+				// [7739] build the button
 				$button = '<a class="btn btn-small btn-success"
 					href="index.php?option=com_costbenefitprojection&amp;view=health_data&amp;layout=edit'.$ref.'" >
 					<span class="icon-new icon-white"></span>' . JText::_('COM_COSTBENEFITPROJECTION_NEW') . '</a>';
-				// [7735] return the button attached to input field
+				// [7743] return the button attached to input field
 				return $html . $button;
 			}
 		}

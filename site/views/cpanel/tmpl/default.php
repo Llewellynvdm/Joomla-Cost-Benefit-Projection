@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.0.8
-	@build			1st December, 2015
+	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
@@ -277,11 +277,15 @@ function setIntervention($item)
 	</div>
 </div>
 
+<?php if (!$useris): ?>
 <!-- This is the modal -->
 <div id="member" class="uk-modal">
     <div class="uk-modal-dialog">
         <a class="uk-modal-close uk-close"></a>
-        <?php if (CostbenefitprojectionHelper::checkArray($login_cp)): ?>
+	<div class="uk-panel">
+		<a class="uk-button uk-button-primary uk-width-1-1 uk-margin-bottom" href="<?php echo JRoute::_('index.php?option=com_costbenefitprojection&view=createaccount'); ?>"><i class="uk-icon-check"></i> <?php echo JText::_('COM_COSTBENEFITPROJECTION_OPEN_FREE_ACCOUNT_NOW'); ?></a>
+	</div>
+	<?php if (CostbenefitprojectionHelper::checkArray($login_cp)): ?>
 		<div class="uk-panel"><?php echo implode('</div><div class="uk-panel">',$login_cp); ?></div>
 	<?php else: ?>
 		<div class="uk-alert"><?php echo JText::_('COM_COSTBENEFITPROJECTION_SOON_THE_MEMBER_ACCESS_WILL_BE_READY'); ?></div>
@@ -293,6 +297,9 @@ function setIntervention($item)
 <div id="public" class="uk-modal">
     <div class="uk-modal-dialog">
         <a class="uk-modal-close uk-close"></a>
+	<div class="uk-panel">
+		<a class="uk-button uk-button-primary uk-width-1-1 uk-margin-bottom" href="<?php echo JRoute::_('index.php?option=com_costbenefitprojection&view=createaccount'); ?>"><i class="uk-icon-check"></i> <?php echo JText::_('COM_COSTBENEFITPROJECTION_OPEN_FREE_ACCOUNT_NOW'); ?></a>
+	</div>
 	<?php if (CostbenefitprojectionHelper::checkArray($public_cp)): ?>
 		<div class="uk-panel"><?php echo implode('</div><div class="uk-panel">',$public_cp); ?></div>
 	<?php else: ?>
@@ -300,6 +307,8 @@ function setIntervention($item)
 	<?php endif; ?>
     </div>
 </div>
+<?php endif; ?>
+
 <!-- This is the off-canvas sidebar -->
 <div id="appnotice" class="uk-offcanvas">
     <div class="uk-offcanvas-bar uk-offcanvas-bar-flip"><?php echo JLayoutHelper::render('appnotice',''); ?></div>

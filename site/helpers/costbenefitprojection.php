@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.0.8
-	@build			1st December, 2015
+	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -967,7 +967,7 @@ abstract class CostbenefitprojectionHelper
 	{
 		if (strpos($content,'class="uk-') !== false)
 		{
-			// [2597] reset
+			// [2605] reset
 			$temp = array();
 			foreach (self::$uk_components as $looking => $add)
 			{
@@ -976,15 +976,15 @@ abstract class CostbenefitprojectionHelper
 					$temp[] = $looking;
 				}
 			}
-			// [2606] make sure uikit is loaded to config
+			// [2614] make sure uikit is loaded to config
 			if (strpos($content,'class="uk-') !== false)
 			{
 				self::$uikit = true;
 			}
-			// [2611] sorter
+			// [2619] sorter
 			if (self::checkArray($temp))
 			{
-				// [2614] merger
+				// [2622] merger
 				if (self::checkArray($classes))
 				{
 					$newTemp = array_merge($temp,$classes);

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.0.8
-	@build			1st December, 2015
+	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -37,20 +37,20 @@ class CostbenefitprojectionViewCpanel extends JViewLegacy
 		$this->menu = $this->app->getMenu()->getActive();
 		// get the user object
 		$this->user = JFactory::getUser();
-		// [3035] Initialise variables.
+		// [3043] Initialise variables.
 		$this->items		= $this->get('Items');
 
-		// [3053] Check for errors.
+		// [3061] Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
 			JError::raiseWarning(500, implode("\n", $errors));
 			return false;
 		}
 
-		// [3070] Set the toolbar
+		// [3078] Set the toolbar
 		$this->addToolBar();
 
-		// [3072] set the document
+		// [3080] set the document
 		$this->_prepareDocument();
 
 		parent::display($tpl);
@@ -62,42 +62,42 @@ class CostbenefitprojectionViewCpanel extends JViewLegacy
 	protected function _prepareDocument()
 	{
 
-		// [3422] always make sure jquery is loaded.
+		// [3430] always make sure jquery is loaded.
 		JHtml::_('jquery.framework');
-		// [3424] Load the header checker class.
+		// [3432] Load the header checker class.
 		require_once( JPATH_COMPONENT_SITE.'/helpers/headercheck.php' );
-		// [3426] Initialize the header checker.
+		// [3434] Initialize the header checker.
 		$HeaderCheck = new HeaderCheck;
 
-		// [3431] Load uikit options.
+		// [3439] Load uikit options.
 		$uikit = $this->params->get('uikit_load');
-		// [3433] Set script size.
+		// [3441] Set script size.
 		$size = $this->params->get('uikit_min');
-		// [3435] Set css style.
+		// [3443] Set css style.
 		$style = $this->params->get('uikit_style');
 
-		// [3438] The uikit css.
+		// [3446] The uikit css.
 		if ((!$HeaderCheck->css_loaded('uikit.min') || $uikit == 1) && $uikit != 2 && $uikit != 3)
 		{
 			$this->document->addStyleSheet(JURI::root(true) .'/media/com_costbenefitprojection/uikit/css/uikit'.$style.$size.'.css');
 		}
-		// [3443] The uikit js.
+		// [3451] The uikit js.
 		if ((!$HeaderCheck->js_loaded('uikit.min') || $uikit == 1) && $uikit != 2 && $uikit != 3)
 		{
 			$this->document->addScript(JURI::root(true) .'/media/com_costbenefitprojection/uikit/js/uikit'.$size.'.js');
 		}
 
-		// [3452] Load the script to find all uikit components needed.
+		// [3460] Load the script to find all uikit components needed.
 		if ($uikit != 2)
 		{
-			// [3455] Set the default uikit components in this view.
+			// [3463] Set the default uikit components in this view.
 			$uikitComp = array();
 			$uikitComp[] = 'data-uk-grid';
 			$uikitComp[] = 'uk-accordion';
 			$uikitComp[] = 'data-uk-lightbox';
 			$uikitComp[] = 'data-uk-tooltip';
 
-			// [3464] Get field uikit components needed in this view.
+			// [3472] Get field uikit components needed in this view.
 			$uikitFieldComp = $this->get('UikitComp');
 			if (isset($uikitFieldComp) && CostbenefitprojectionHelper::checkArray($uikitFieldComp))
 			{
@@ -113,69 +113,69 @@ class CostbenefitprojectionViewCpanel extends JViewLegacy
 			}
 		}
 
-		// [3480] Load the needed uikit components in this view.
+		// [3488] Load the needed uikit components in this view.
 		if ($uikit != 2 && isset($uikitComp) && CostbenefitprojectionHelper::checkArray($uikitComp))
 		{
-			// [3483] load just in case.
+			// [3491] load just in case.
 			jimport('joomla.filesystem.file');
-			// [3485] loading...
+			// [3493] loading...
 			foreach ($uikitComp as $class)
 			{
 				foreach (CostbenefitprojectionHelper::$uk_components[$class] as $name)
 				{
-					// [3490] check if the CSS file exists.
+					// [3498] check if the CSS file exists.
 					if (JFile::exists(JPATH_ROOT.'/media/com_costbenefitprojection/uikit/css/components/'.$name.$style.$size.'.css'))
 					{
-						// [3493] load the css.
+						// [3501] load the css.
 						$this->document->addStyleSheet(JURI::root(true) .'/media/com_costbenefitprojection/uikit/css/components/'.$name.$style.$size.'.css');
 					}
-					// [3496] check if the JavaScript file exists.
+					// [3504] check if the JavaScript file exists.
 					if (JFile::exists(JPATH_ROOT.'/media/com_costbenefitprojection/uikit/js/components/'.$name.$size.'.js'))
 					{
-						// [3499] load the js.
+						// [3507] load the js.
 						$this->document->addScript(JURI::root(true) .'/media/com_costbenefitprojection/uikit/js/components/'.$name.$size.'.js');
 					}
 				}
 			}
 		} 
 
-		// [3404] add the google chart builder class.
+		// [3412] add the google chart builder class.
 		require_once JPATH_COMPONENT_ADMINISTRATOR.'/helpers/chartbuilder.php';
-		// [3406] load the google chart js.
+		// [3414] load the google chart js.
 		$this->document->addScript(JURI::root(true) .'/media/com_costbenefitprojection/js/google.jsapi.js');
 		$this->document->addScript('https://canvg.googlecode.com/svn/trunk/rgbcolor.js');
 		$this->document->addScript('https://canvg.googlecode.com/svn/trunk/canvg.js'); 
 
-		// [6514] Add the CSS for Footable.
+		// [6522] Add the CSS for Footable.
 		$this->document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable/css/footable.core.min.css');
 
-		// [6516] Use the Metro Style
+		// [6524] Use the Metro Style
 		if (!isset($this->fooTableStyle) || 0 == $this->fooTableStyle)
 		{
 			$this->document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable/css/footable.metro.min.css');
 		}
-		// [6521] Use the Legacy Style.
+		// [6529] Use the Legacy Style.
 		elseif (isset($this->fooTableStyle) && 1 == $this->fooTableStyle)
 		{
 			$this->document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable/css/footable.standalone.min.css');
 		}
 
-		// [6526] Add the JavaScript for Footable
+		// [6534] Add the JavaScript for Footable
 		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable/js/footable.js');
 		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable/js/footable.sort.js');
 		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable/js/footable.filter.js');
 		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable/js/footable.paginate.js'); 
-		// [3380] load the meta description
+		// [3388] load the meta description
 		if ($this->params->get('menu-meta_description'))
 		{
 			$this->document->setDescription($this->params->get('menu-meta_description'));
 		}
-		// [3385] load the key words if set
+		// [3393] load the key words if set
 		if ($this->params->get('menu-meta_keywords'))
 		{
 			$this->document->setMetadata('keywords', $this->params->get('menu-meta_keywords'));
 		}
-		// [3390] check the robot params
+		// [3398] check the robot params
 		if ($this->params->get('robots'))
 		{
 			$this->document->setMetadata('robots', $this->params->get('robots'));

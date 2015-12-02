@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.0.8
-	@build			1st December, 2015
+	@build			2nd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -39,7 +39,7 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 		$viewGroups = array(
 			'main' => array('png.company.add', 'png.companies', 'png.service_provider.add', 'png.service_providers', 'png.countries', 'png.causerisk.add', 'png.causesrisks', 'png.health_data_sets', 'png.scaling_factor.add', 'png.scaling_factors', 'png.intervention.add', 'png.interventions', 'png.currencies', 'png.help_documents')
 		);
-		// [12182] view access array
+		// [12190] view access array
 		$viewAccess = array(
 			'company.create' => 'company.create',
 			'companies.access' => 'company.access',
