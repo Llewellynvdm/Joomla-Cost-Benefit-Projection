@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.9
-	@build			2nd December, 2015
+	@version		3.1.0
+	@build			17th December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		country.php
@@ -47,7 +47,7 @@ class CostbenefitprojectionTableCountry extends JTable
 	{
 		parent::__construct('#__costbenefitprojection_country', 'id', $db);
 
-		// [4203] Adding History Options
+		// [4277] Adding History Options
 		JTableObserverContenthistory::createObserver($this, array('typeAlias' => 'com_costbenefitprojection.country')); 
 	}	
  

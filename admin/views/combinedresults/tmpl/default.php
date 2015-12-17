@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.9
-	@build			2nd December, 2015
+	@version		3.1.0
+	@build			17th December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
@@ -20,6 +20,11 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access'); 
 
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
+JHtml::_('behavior.tooltip');
+JHtml::_('behavior.formvalidation');
+JHtml::_('formbehavior.chosen', 'select');
+JHtml::_('behavior.keepalive');
 ?>
 <?php if ($this->canDo->get('combinedresults.access')): ?>
 <script type="text/javascript">

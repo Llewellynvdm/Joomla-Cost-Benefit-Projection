@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.9
-	@build			2nd December, 2015
+	@version		3.1.0
+	@build			17th December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
@@ -247,7 +247,7 @@ function setIntervention($item)
 			<div class="uk-width-1-1">
 				<br/>
 				<?php if (CostbenefitprojectionHelper::checkArray($top_cp)): ?>
-					<?php $width = count($top_cp); // data-uk-lightbox just incase ?>
+					<?php $width = count($top_cp); // data-uk-lightbox just in case ?>
 					<div class="uk-width-medium-1-<?php echo $width; ?>"><div class="uk-panel"><?php echo implode('</div></div><div class="uk-width-medium-1-<?php echo $width; ?>"><div class="uk-panel">',$top_cp); ?></div></div>
 				<?php endif; ?>
 				<div class="uk-animation-fade uk-animation-scale-down">
@@ -318,11 +318,13 @@ function setIntervention($item)
 jQuery(window).load(function() {
 	jQuery('#loading').fadeOut( 'fast', function() {
 		jQuery('#main_costbenefitprojection').fadeIn( 'fast', function() {
-			jQuery('.footable').footable();
+			<?php if (isset($this->items) && costbenefitprojectionHelper::checkArray($this->items) && $useris): ?>
+				jQuery('.footable').footable();
+			<?php endif; ?>
 		});
 	});
 });
-<?php if (isset($this->items) && costbenefitprojectionHelper::checkArray($this->items)): ?>
+<?php if (isset($this->items) && costbenefitprojectionHelper::checkArray($this->items) && $useris): ?>
 // foo table trigger on click
 jQuery('.footabletab').click(function(e){
 	 // use setTimeout() to execute

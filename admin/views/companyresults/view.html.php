@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.9
-	@build			2nd December, 2015
+	@version		3.1.0
+	@build			17th December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -32,15 +32,17 @@ class CostbenefitprojectionViewCompanyresults extends JViewLegacy
 	function display($tpl = null)
 	{
                 // get component params
-		$this->params = JComponentHelper::getParams('com_costbenefitprojection');
+		$this->params	= JComponentHelper::getParams('com_costbenefitprojection');
+		// get the application
+		$this->app	= JFactory::getApplication();
 		// get the user object
-		$this->user = JFactory::getUser();
+		$this->user	= JFactory::getUser();
                 // get global action permissions
-		$this->canDo = CostbenefitprojectionHelper::getActions('companyresults');
-		// [3038] Initialise variables.
+		$this->canDo	= CostbenefitprojectionHelper::getActions('companyresults');
+		// [3077] Initialise variables.
 		$this->item	= $this->get('Item');
 
-		// [3062] Check for errors.
+		// [3112] Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
 			JError::raiseWarning(500, implode("\n", $errors));
@@ -65,14 +67,14 @@ class CostbenefitprojectionViewCompanyresults extends JViewLegacy
 			$this->table_tabs = false;
 		}
 
-		// [3086] We don't need toolbar in the modal window.
+		// [3136] We don't need toolbar in the modal window.
 		if ($this->getLayout() !== 'modal')
 		{
-			// [3089] add the tool bar
+			// [3139] add the tool bar
 			$this->addToolBar();
 		}
 
-		// [3092] set the document
+		// [3142] set the document
 		$this->setDocument();
 
 		parent::display($tpl);
@@ -120,7 +122,7 @@ class CostbenefitprojectionViewCompanyresults extends JViewLegacy
 	 */
 	protected function setDocument()
 	{
-		// [3338] load the meta description
+		// [3392] load the meta description
 		if (isset($this->item->metadesc) && $this->item->metadesc)
 		{
 			$this->document->setDescription($this->item->metadesc);
@@ -129,7 +131,7 @@ class CostbenefitprojectionViewCompanyresults extends JViewLegacy
 		{
 			$this->document->setDescription($this->params->get('menu-meta_description'));
 		}
-		// [3347] load the key words if set
+		// [3401] load the key words if set
 		if (isset($this->item->metakey) && $this->item->metakey)
 		{
 			$this->document->setMetadata('keywords', $this->item->metakey);
@@ -138,7 +140,7 @@ class CostbenefitprojectionViewCompanyresults extends JViewLegacy
 		{
 			$this->document->setMetadata('keywords', $this->params->get('menu-meta_keywords'));
 		}
-		// [3356] check the robot params
+		// [3410] check the robot params
 		if (isset($this->item->robots) && $this->item->robots)
 		{
 			$this->document->setMetadata('robots', $this->item->robots);
@@ -147,12 +149,12 @@ class CostbenefitprojectionViewCompanyresults extends JViewLegacy
 		{
 			$this->document->setMetadata('robots', $this->params->get('robots'));
 		}
-		// [3365] check if autor is to be set
+		// [3419] check if autor is to be set
 		if (isset($this->item->created_by) && $this->params->get('MetaAuthor') == '1')
 		{
 			$this->document->setMetaData('author', $this->item->created_by);
 		}
-		// [3370] check if metadata is available
+		// [3424] check if metadata is available
 		if (isset($this->item->metadata) && $this->item->metadata)
 		{
 			$mdata = json_decode($this->item->metadata,true);
@@ -165,80 +167,80 @@ class CostbenefitprojectionViewCompanyresults extends JViewLegacy
 			}
 		} 
 
-		// [3431] always make sure jquery is loaded.
+		// [3485] always make sure jquery is loaded.
 		JHtml::_('jquery.framework');
-		// [3433] Load the header checker class.
+		// [3487] Load the header checker class.
 		require_once( JPATH_COMPONENT_SITE.'/helpers/headercheck.php' );
-		// [3435] Initialize the header checker.
+		// [3489] Initialize the header checker.
 		$HeaderCheck = new HeaderCheck;
 
-		// [3440] Load uikit options.
+		// [3494] Load uikit options.
 		$uikit = $this->params->get('uikit_load');
-		// [3442] Set script size.
+		// [3496] Set script size.
 		$size = $this->params->get('uikit_min');
-		// [3444] Set css style.
+		// [3498] Set css style.
 		$style = $this->params->get('uikit_style');
 
-		// [3447] The uikit css.
+		// [3501] The uikit css.
 		if ((!$HeaderCheck->css_loaded('uikit.min') || $uikit == 1) && $uikit != 2 && $uikit != 3)
 		{
 			$this->document->addStyleSheet(JURI::root(true) .'/media/com_costbenefitprojection/uikit/css/uikit'.$style.$size.'.css');
 		}
-		// [3452] The uikit js.
+		// [3506] The uikit js.
 		if ((!$HeaderCheck->js_loaded('uikit.min') || $uikit == 1) && $uikit != 2 && $uikit != 3)
 		{
 			$this->document->addScript(JURI::root(true) .'/media/com_costbenefitprojection/uikit/js/uikit'.$size.'.js');
 		}
 
-		// [3517] Load the needed uikit components in this view.
+		// [3571] Load the needed uikit components in this view.
 		$uikitComp = $this->get('UikitComp');
 		if ($uikit != 2 && isset($uikitComp) && CostbenefitprojectionHelper::checkArray($uikitComp))
 		{
-			// [3521] load just in case.
+			// [3575] load just in case.
 			jimport('joomla.filesystem.file');
-			// [3523] loading...
+			// [3577] loading...
 			foreach ($uikitComp as $class)
 			{
 				foreach (CostbenefitprojectionHelper::$uk_components[$class] as $name)
 				{
-					// [3528] check if the CSS file exists.
+					// [3582] check if the CSS file exists.
 					if (JFile::exists(JPATH_ROOT.'/media/com_costbenefitprojection/uikit/css/components/'.$name.$style.$size.'.css'))
 					{
-						// [3531] load the css.
+						// [3585] load the css.
 						$this->document->addStyleSheet(JURI::root(true) .'/media/com_costbenefitprojection/uikit/css/components/'.$name.$style.$size.'.css');
 					}
-					// [3534] check if the JavaScript file exists.
+					// [3588] check if the JavaScript file exists.
 					if (JFile::exists(JPATH_ROOT.'/media/com_costbenefitprojection/uikit/js/components/'.$name.$size.'.js'))
 					{
-						// [3537] load the js.
+						// [3591] load the js.
 						$this->document->addScript(JURI::root(true) .'/media/com_costbenefitprojection/uikit/js/components/'.$name.$size.'.js');
 					}
 				}
 			}
 		} 
 
-		// [3413] add the google chart builder class.
+		// [3467] add the google chart builder class.
 		require_once JPATH_COMPONENT_ADMINISTRATOR.'/helpers/chartbuilder.php';
-		// [3415] load the google chart js.
+		// [3469] load the google chart js.
 		$this->document->addScript(JURI::root(true) .'/media/com_costbenefitprojection/js/google.jsapi.js');
 		$this->document->addScript('https://canvg.googlecode.com/svn/trunk/rgbcolor.js');
 		$this->document->addScript('https://canvg.googlecode.com/svn/trunk/canvg.js'); 
 
-		// [6523] Add the CSS for Footable.
+		// [6599] Add the CSS for Footable.
 		$this->document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable/css/footable.core.min.css');
 
-		// [6525] Use the Metro Style
+		// [6601] Use the Metro Style
 		if (!isset($this->fooTableStyle) || 0 == $this->fooTableStyle)
 		{
 			$this->document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable/css/footable.metro.min.css');
 		}
-		// [6530] Use the Legacy Style.
+		// [6606] Use the Legacy Style.
 		elseif (isset($this->fooTableStyle) && 1 == $this->fooTableStyle)
 		{
 			$this->document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable/css/footable.standalone.min.css');
 		}
 
-		// [6535] Add the JavaScript for Footable
+		// [6611] Add the JavaScript for Footable
 		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable/js/footable.js');
 		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable/js/footable.sort.js');
 		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable/js/footable.filter.js');
@@ -276,8 +278,8 @@ class CostbenefitprojectionViewCompanyresults extends JViewLegacy
 	 */
 	protected function addToolBar()
 	{
-		JFactory::getApplication()->input->set('hidemainmenu', true);
-		$app = JFactory::getApplication();
+		// hide the main menu
+		$this->app->input->set('hidemainmenu', true);
 		// set the title
 		if ($this->item->name)
 		{
@@ -296,12 +298,12 @@ class CostbenefitprojectionViewCompanyresults extends JViewLegacy
 		JToolBarHelper::custom('companyresults.dashboard', 'grid-2', '', 'COM_COSTBENEFITPROJECTION_DASH', false);
 		if ($this->canDo->get('companyresults.companies'))
 		{
-			// [3212] add Companies button.
+			// [3266] add Companies button.
 			JToolBarHelper::custom('companyresults.gotoCompanies', 'vcard', '', 'COM_COSTBENEFITPROJECTION_COMPANIES', false);
 		}
 		if ($this->canDo->get('companyresults.edit'))
 		{
-			// [3212] add Edit button.
+			// [3266] add Edit button.
 			JToolBarHelper::custom('companyresults.editCompany', 'pencil', '', 'COM_COSTBENEFITPROJECTION_EDIT', false);
 		}
 

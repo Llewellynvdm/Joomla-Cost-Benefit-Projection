@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.9
-	@build			2nd December, 2015
+	@version		3.1.0
+	@build			17th December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		router.php
@@ -76,11 +76,11 @@ class CostbenefitprojectionRouter extends JComponentRouterBase
 			return $segments;
 		}
 
-		if (isset($view) && isset($query['id']) && ($view == 'cpanel' || $view == 'createaccount' || $view == 'companyresults' || $view == 'combinedresults'))
+		if (isset($view) && isset($query['id']) && ($view == 'cpanel' || $view == 'publicresults' || $view == 'createaccount' || $view == 'companyresults' || $view == 'combinedresults'))
 		{
 			if ($mId != (int) $query['id'] || $mView != $view)
 			{
-				if ($view == 'cpanel' || $view == 'createaccount' || $view == 'companyresults' || $view == 'combinedresults')
+				if (($view == 'cpanel' || $view == 'publicresults' || $view == 'createaccount' || $view == 'companyresults' || $view == 'combinedresults'))
 				{
 					$segments[] = $view;
 					$id = explode(':', $query['id']);
@@ -140,6 +140,21 @@ class CostbenefitprojectionRouter extends JComponentRouterBase
 				else
 				{
 					$id = $this->getVar('cpanel', $segments[$count-1], 'alias', 'id');
+					if($id)
+					{
+						$vars['id'] = $id;
+					}
+				}
+				break;
+			case 'publicresults':
+				$vars['view'] = 'publicresults';
+				if (is_numeric($segments[$count-1]))
+				{
+					$vars['id'] = (int) $segments[$count-1];
+				}
+				else
+				{
+					$id = $this->getVar('publicresults', $segments[$count-1], 'alias', 'id');
 					if($id)
 					{
 						$vars['id'] = $id;

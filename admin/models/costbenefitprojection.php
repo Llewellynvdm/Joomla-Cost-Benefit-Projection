@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.9
-	@build			2nd December, 2015
+	@version		3.1.0
+	@build			17th December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -39,7 +39,7 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 		$viewGroups = array(
 			'main' => array('png.company.add', 'png.companies', 'png.service_provider.add', 'png.service_providers', 'png.countries', 'png.causerisk.add', 'png.causesrisks', 'png.health_data_sets', 'png.scaling_factor.add', 'png.scaling_factors', 'png.intervention.add', 'png.interventions', 'png.currencies', 'png.help_documents')
 		);
-		// [12191] view access array
+		// [12267] view access array
 		$viewAccess = array(
 			'company.create' => 'company.create',
 			'companies.access' => 'company.access',

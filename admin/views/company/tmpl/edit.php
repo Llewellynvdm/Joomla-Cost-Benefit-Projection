@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.9
-	@build			2nd December, 2015
+	@version		3.1.0
+	@build			17th December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -135,33 +135,33 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_department listeners for department_pydRZWr function
+// #jform_department listeners for department_FemBBLx function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_pydRZWr = jQuery("#jform_department input[type='radio']:checked").val();
-	pydRZWr(department_pydRZWr);
+	var department_FemBBLx = jQuery("#jform_department input[type='radio']:checked").val();
+	FemBBLx(department_FemBBLx);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_pydRZWr = jQuery("#jform_department input[type='radio']:checked").val();
-	pydRZWr(department_pydRZWr);
+	var department_FemBBLx = jQuery("#jform_department input[type='radio']:checked").val();
+	FemBBLx(department_FemBBLx);
 
 });
 
-// #jform_department listeners for department_sAKFZSC function
+// #jform_department listeners for department_kUrQZMs function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_sAKFZSC = jQuery("#jform_department input[type='radio']:checked").val();
-	sAKFZSC(department_sAKFZSC);
+	var department_kUrQZMs = jQuery("#jform_department input[type='radio']:checked").val();
+	kUrQZMs(department_kUrQZMs);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_sAKFZSC = jQuery("#jform_department input[type='radio']:checked").val();
-	sAKFZSC(department_sAKFZSC);
+	var department_kUrQZMs = jQuery("#jform_department input[type='radio']:checked").val();
+	kUrQZMs(department_kUrQZMs);
 
 });
 

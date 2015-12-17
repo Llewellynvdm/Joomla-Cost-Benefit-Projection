@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.9
-	@build			2nd December, 2015
+	@version		3.1.0
+	@build			17th December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		health_data.php
@@ -110,7 +110,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 	 * @since   1.6
 	 */
 	public function getForm($data = array(), $loadData = true)
-	{		// [9575] Get the form.
+	{		// [9651] Get the form.
 		$form = $this->loadForm('com_costbenefitprojection.health_data', 'health_data', array('control' => 'jform', 'load_data' => $loadData));
 
 		if (empty($form))
@@ -120,12 +120,12 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 
 		$jinput = JFactory::getApplication()->input;
 
-		// [9660] The front end calls this model and uses a_id to avoid id clashes so we need to check for that first.
+		// [9736] The front end calls this model and uses a_id to avoid id clashes so we need to check for that first.
 		if ($jinput->get('a_id'))
 		{
 			$id = $jinput->get('a_id', 0, 'INT');
 		}
-		// [9665] The back end uses id so we use that the rest of the time and set it to 0 by default.
+		// [9741] The back end uses id so we use that the rest of the time and set it to 0 by default.
 		else
 		{
 			$id = $jinput->get('id', 0, 'INT');
@@ -133,157 +133,157 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 
 		$user = JFactory::getUser();
 
-		// [9671] Check for existing item.
-		// [9672] Modify the form based on Edit State access controls.
+		// [9747] Check for existing item.
+		// [9748] Modify the form based on Edit State access controls.
 		if ($id != 0 && (!$user->authorise('health_data.edit.state', 'com_costbenefitprojection.health_data.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('health_data.edit.state', 'com_costbenefitprojection')))
 		{
-			// [9685] Disable fields for display.
+			// [9761] Disable fields for display.
 			$form->setFieldAttribute('ordering', 'disabled', 'true');
 			$form->setFieldAttribute('published', 'disabled', 'true');
-			// [9688] Disable fields while saving.
+			// [9764] Disable fields while saving.
 			$form->setFieldAttribute('ordering', 'filter', 'unset');
 			$form->setFieldAttribute('published', 'filter', 'unset');
 		}
-		// [9693] Modify the form based on Edit Creaded By access controls.
+		// [9769] Modify the form based on Edit Creaded By access controls.
 		if (!$user->authorise('core.edit.created_by', 'com_costbenefitprojection'))
 		{
-			// [9705] Disable fields for display.
+			// [9781] Disable fields for display.
 			$form->setFieldAttribute('created_by', 'disabled', 'true');
-			// [9707] Disable fields for display.
+			// [9783] Disable fields for display.
 			$form->setFieldAttribute('created_by', 'readonly', 'true');
-			// [9709] Disable fields while saving.
+			// [9785] Disable fields while saving.
 			$form->setFieldAttribute('created_by', 'filter', 'unset');
 		}
-		// [9712] Modify the form based on Edit Creaded Date access controls.
+		// [9788] Modify the form based on Edit Creaded Date access controls.
 		if (!$user->authorise('core.edit.created', 'com_costbenefitprojection'))
 		{
-			// [9724] Disable fields for display.
+			// [9800] Disable fields for display.
 			$form->setFieldAttribute('created', 'disabled', 'true');
-			// [9726] Disable fields while saving.
+			// [9802] Disable fields while saving.
 			$form->setFieldAttribute('created', 'filter', 'unset');
 		}
-		// [9734] Modify the form based on Edit Causerisk access controls.
+		// [9810] Modify the form based on Edit Causerisk access controls.
 		if ($id != 0 && (!$user->authorise('health_data.edit.causerisk', 'com_costbenefitprojection.health_data.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('health_data.edit.causerisk', 'com_costbenefitprojection')))
 		{
-			// [9738] Disable fields for display.
+			// [9814] Disable fields for display.
 			$form->setFieldAttribute('causerisk', 'disabled', 'true');
-			// [9740] Disable fields for display.
+			// [9816] Disable fields for display.
 			$form->setFieldAttribute('causerisk', 'readonly', 'true');
 			if (!$form->getValue('causerisk'))
 			{
-				// [9750] Disable fields while saving.
+				// [9826] Disable fields while saving.
 				$form->setFieldAttribute('causerisk', 'filter', 'unset');
-				// [9752] Disable fields while saving.
+				// [9828] Disable fields while saving.
 				$form->setFieldAttribute('causerisk', 'required', 'false');
 			}
 		}
-		// [9734] Modify the form based on Edit Year access controls.
+		// [9810] Modify the form based on Edit Year access controls.
 		if ($id != 0 && (!$user->authorise('health_data.edit.year', 'com_costbenefitprojection.health_data.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('health_data.edit.year', 'com_costbenefitprojection')))
 		{
-			// [9738] Disable fields for display.
+			// [9814] Disable fields for display.
 			$form->setFieldAttribute('year', 'disabled', 'true');
-			// [9740] Disable fields for display.
+			// [9816] Disable fields for display.
 			$form->setFieldAttribute('year', 'readonly', 'true');
 			if (!$form->getValue('year'))
 			{
-				// [9750] Disable fields while saving.
+				// [9826] Disable fields while saving.
 				$form->setFieldAttribute('year', 'filter', 'unset');
-				// [9752] Disable fields while saving.
+				// [9828] Disable fields while saving.
 				$form->setFieldAttribute('year', 'required', 'false');
 			}
 		}
-		// [9734] Modify the form based on Edit Country access controls.
+		// [9810] Modify the form based on Edit Country access controls.
 		if ($id != 0 && (!$user->authorise('health_data.edit.country', 'com_costbenefitprojection.health_data.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('health_data.edit.country', 'com_costbenefitprojection')))
 		{
-			// [9738] Disable fields for display.
+			// [9814] Disable fields for display.
 			$form->setFieldAttribute('country', 'disabled', 'true');
-			// [9740] Disable fields for display.
+			// [9816] Disable fields for display.
 			$form->setFieldAttribute('country', 'readonly', 'true');
 			if (!$form->getValue('country'))
 			{
-				// [9750] Disable fields while saving.
+				// [9826] Disable fields while saving.
 				$form->setFieldAttribute('country', 'filter', 'unset');
-				// [9752] Disable fields while saving.
+				// [9828] Disable fields while saving.
 				$form->setFieldAttribute('country', 'required', 'false');
 			}
 		}
-		// [9734] Modify the form based on Edit Femaledeath access controls.
+		// [9810] Modify the form based on Edit Femaledeath access controls.
 		if ($id != 0 && (!$user->authorise('health_data.edit.femaledeath', 'com_costbenefitprojection.health_data.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('health_data.edit.femaledeath', 'com_costbenefitprojection')))
 		{
-			// [9738] Disable fields for display.
+			// [9814] Disable fields for display.
 			$form->setFieldAttribute('femaledeath', 'disabled', 'true');
-			// [9740] Disable fields for display.
+			// [9816] Disable fields for display.
 			$form->setFieldAttribute('femaledeath', 'readonly', 'true');
-			// [9744] Disable radio button for display.
+			// [9820] Disable radio button for display.
 			$class = $form->getFieldAttribute('femaledeath', 'class', '');
 			$form->setFieldAttribute('femaledeath', 'class', $class.' disabled no-click');
 			if (!$form->getValue('femaledeath'))
 			{
-				// [9750] Disable fields while saving.
+				// [9826] Disable fields while saving.
 				$form->setFieldAttribute('femaledeath', 'filter', 'unset');
-				// [9752] Disable fields while saving.
+				// [9828] Disable fields while saving.
 				$form->setFieldAttribute('femaledeath', 'required', 'false');
 			}
 		}
-		// [9734] Modify the form based on Edit Maleyld access controls.
+		// [9810] Modify the form based on Edit Maleyld access controls.
 		if ($id != 0 && (!$user->authorise('health_data.edit.maleyld', 'com_costbenefitprojection.health_data.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('health_data.edit.maleyld', 'com_costbenefitprojection')))
 		{
-			// [9738] Disable fields for display.
+			// [9814] Disable fields for display.
 			$form->setFieldAttribute('maleyld', 'disabled', 'true');
-			// [9740] Disable fields for display.
+			// [9816] Disable fields for display.
 			$form->setFieldAttribute('maleyld', 'readonly', 'true');
-			// [9744] Disable radio button for display.
+			// [9820] Disable radio button for display.
 			$class = $form->getFieldAttribute('maleyld', 'class', '');
 			$form->setFieldAttribute('maleyld', 'class', $class.' disabled no-click');
 			if (!$form->getValue('maleyld'))
 			{
-				// [9750] Disable fields while saving.
+				// [9826] Disable fields while saving.
 				$form->setFieldAttribute('maleyld', 'filter', 'unset');
-				// [9752] Disable fields while saving.
+				// [9828] Disable fields while saving.
 				$form->setFieldAttribute('maleyld', 'required', 'false');
 			}
 		}
-		// [9734] Modify the form based on Edit Maledeath access controls.
+		// [9810] Modify the form based on Edit Maledeath access controls.
 		if ($id != 0 && (!$user->authorise('health_data.edit.maledeath', 'com_costbenefitprojection.health_data.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('health_data.edit.maledeath', 'com_costbenefitprojection')))
 		{
-			// [9738] Disable fields for display.
+			// [9814] Disable fields for display.
 			$form->setFieldAttribute('maledeath', 'disabled', 'true');
-			// [9740] Disable fields for display.
+			// [9816] Disable fields for display.
 			$form->setFieldAttribute('maledeath', 'readonly', 'true');
-			// [9744] Disable radio button for display.
+			// [9820] Disable radio button for display.
 			$class = $form->getFieldAttribute('maledeath', 'class', '');
 			$form->setFieldAttribute('maledeath', 'class', $class.' disabled no-click');
 			if (!$form->getValue('maledeath'))
 			{
-				// [9750] Disable fields while saving.
+				// [9826] Disable fields while saving.
 				$form->setFieldAttribute('maledeath', 'filter', 'unset');
-				// [9752] Disable fields while saving.
+				// [9828] Disable fields while saving.
 				$form->setFieldAttribute('maledeath', 'required', 'false');
 			}
 		}
-		// [9734] Modify the form based on Edit Femaleyld access controls.
+		// [9810] Modify the form based on Edit Femaleyld access controls.
 		if ($id != 0 && (!$user->authorise('health_data.edit.femaleyld', 'com_costbenefitprojection.health_data.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('health_data.edit.femaleyld', 'com_costbenefitprojection')))
 		{
-			// [9738] Disable fields for display.
+			// [9814] Disable fields for display.
 			$form->setFieldAttribute('femaleyld', 'disabled', 'true');
-			// [9740] Disable fields for display.
+			// [9816] Disable fields for display.
 			$form->setFieldAttribute('femaleyld', 'readonly', 'true');
-			// [9744] Disable radio button for display.
+			// [9820] Disable radio button for display.
 			$class = $form->getFieldAttribute('femaleyld', 'class', '');
 			$form->setFieldAttribute('femaleyld', 'class', $class.' disabled no-click');
 			if (!$form->getValue('femaleyld'))
 			{
-				// [9750] Disable fields while saving.
+				// [9826] Disable fields while saving.
 				$form->setFieldAttribute('femaleyld', 'filter', 'unset');
-				// [9752] Disable fields while saving.
+				// [9828] Disable fields while saving.
 				$form->setFieldAttribute('femaleyld', 'required', 'false');
 			}
 		}
@@ -320,7 +320,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 			}
 
 			$user = JFactory::getUser();
-			// [9876] The record has been set. Check the record permissions.
+			// [9952] The record has been set. Check the record permissions.
 			return $user->authorise('health_data.delete', 'com_costbenefitprojection.health_data.' . (int) $record->id);
 		}
 		return false;
@@ -342,14 +342,14 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 
 		if ($recordId)
 		{
-			// [9963] The record has been set. Check the record permissions.
+			// [10039] The record has been set. Check the record permissions.
 			$permission = $user->authorise('health_data.edit.state', 'com_costbenefitprojection.health_data.' . (int) $recordId);
 			if (!$permission && !is_null($permission))
 			{
 				return false;
 			}
 		}
-		// [9980] In the absense of better information, revert to the component permissions.
+		// [10056] In the absense of better information, revert to the component permissions.
 		return $user->authorise('health_data.edit.state', 'com_costbenefitprojection');
 	}
     
@@ -364,7 +364,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 	 */
 	protected function allowEdit($data = array(), $key = 'id')
 	{
-		// [9788] Check specific edit permission then general edit permission.
+		// [9864] Check specific edit permission then general edit permission.
 		$user = JFactory::getUser();
 		$recordId	= (int) isset($data[$key]) ? $data[$key] : 0;
 		if (!$user->authorise('core.options', 'com_costbenefitprojection'))
@@ -469,6 +469,25 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 	protected function getUniqeFields()
 	{
 		return false;
+	}
+	
+	/**
+	 * Method to delete one or more records.
+	 *
+	 * @param   array  &$pks  An array of record primary keys.
+	 *
+	 * @return  boolean  True if successful, false if an error occurs.
+	 *
+	 * @since   12.2
+	 */
+	public function delete(&$pks)
+	{
+		if (!parent::delete($pks))
+		{
+			return false;
+		}
+		
+		return true;
 	}
     
 	/**
@@ -582,7 +601,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 	{
 		if (empty($this->batchSet))
 		{
-			// [4941] Set some needed variables.
+			// [5015] Set some needed variables.
 			$this->user 		= JFactory::getUser();
 			$this->table 		= $this->getTable();
 			$this->tableClassName	= get_class($this->table);
@@ -627,12 +646,12 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 			}
 		}
 
-		// [4961] get list of uniqe fields
+		// [5035] get list of uniqe fields
 		$uniqeFields = $this->getUniqeFields();
-		// [4963] remove move_copy from array
+		// [5037] remove move_copy from array
 		unset($values['move_copy']);
 
-		// [4966] make sure published is set
+		// [5040] make sure published is set
 		if (!isset($values['published']))
 		{
 			$values['published'] = 0;
@@ -644,21 +663,21 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 
 		$newIds = array();
 
-		// [5003] Parent exists so let's proceed
+		// [5077] Parent exists so let's proceed
 		while (!empty($pks))
 		{
-			// [5006] Pop the first ID off the stack
+			// [5080] Pop the first ID off the stack
 			$pk = array_shift($pks);
 
 			$this->table->reset();
 
-			// [5011] only allow copy if user may edit this item.
+			// [5085] only allow copy if user may edit this item.
 
 			if (!$this->user->authorise('health_data.edit', $contexts[$pk]))
 
 			{
 
-				// [5021] Not fatal error
+				// [5095] Not fatal error
 
 				$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
 
@@ -666,19 +685,19 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 
 			}
 
-			// [5026] Check that the row actually exists
+			// [5100] Check that the row actually exists
 			if (!$this->table->load($pk))
 			{
 				if ($error = $this->table->getError())
 				{
-					// [5031] Fatal error
+					// [5105] Fatal error
 					$this->setError($error);
 
 					return false;
 				}
 				else
 				{
-					// [5038] Not fatal error
+					// [5112] Not fatal error
 					$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
 					continue;
 				}
@@ -686,7 +705,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 
 			$this->table->causerisk = $this->generateUniqe('causerisk',$this->table->causerisk);
 
-			// [5074] insert all set values
+			// [5148] insert all set values
 			if (CostbenefitprojectionHelper::checkArray($values))
 			{
 				foreach ($values as $key => $value)
@@ -698,7 +717,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 				}
 			}
 
-			// [5086] update all uniqe fields
+			// [5160] update all uniqe fields
 			if (CostbenefitprojectionHelper::checkArray($uniqeFields))
 			{
 				foreach ($uniqeFields as $uniqeField)
@@ -707,13 +726,13 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 				}
 			}
 
-			// [5095] Reset the ID because we are making a copy
+			// [5169] Reset the ID because we are making a copy
 			$this->table->id = 0;
 
-			// [5098] TODO: Deal with ordering?
-			// [5099] $this->table->ordering	= 1;
+			// [5172] TODO: Deal with ordering?
+			// [5173] $this->table->ordering	= 1;
 
-			// [5101] Check the row.
+			// [5175] Check the row.
 			if (!$this->table->check())
 			{
 				$this->setError($this->table->getError());
@@ -726,7 +745,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 				$this->createTagsHelper($this->tagsObserver, $this->type, $pk, $this->typeAlias, $this->table);
 			}
 
-			// [5114] Store the row.
+			// [5188] Store the row.
 			if (!$this->table->store())
 			{
 				$this->setError($this->table->getError());
@@ -734,14 +753,14 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 				return false;
 			}
 
-			// [5122] Get the new item ID
+			// [5196] Get the new item ID
 			$newId = $this->table->get('id');
 
-			// [5125] Add the new ID to the array
+			// [5199] Add the new ID to the array
 			$newIds[$pk] = $newId;
 		}
 
-		// [5129] Clean the cache
+		// [5203] Clean the cache
 		$this->cleanCache();
 
 		return $newIds;
@@ -762,7 +781,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 	{
 		if (empty($this->batchSet))
 		{
-			// [4743] Set some needed variables.
+			// [4817] Set some needed variables.
 			$this->user		= JFactory::getUser();
 			$this->table		= $this->getTable();
 			$this->tableClassName	= get_class($this->table);
@@ -808,15 +827,15 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 			}
 		}
 
-		// [4765] make sure published only updates if user has the permission.
+		// [4839] make sure published only updates if user has the permission.
 		if (isset($values['published']) && !$this->canDo->get('health_data.edit.state'))
 		{
 			unset($values['published']);
 		}
-		// [4778] remove move_copy from array
+		// [4852] remove move_copy from array
 		unset($values['move_copy']);
 
-		// [4799] Parent exists so we proceed
+		// [4873] Parent exists so we proceed
 		foreach ($pks as $pk)
 		{
 			if (!$this->user->authorise('health_data.edit', $contexts[$pk]))
@@ -826,30 +845,30 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 				return false;
 			}
 
-			// [4816] Check that the row actually exists
+			// [4890] Check that the row actually exists
 			if (!$this->table->load($pk))
 			{
 				if ($error = $this->table->getError())
 				{
-					// [4821] Fatal error
+					// [4895] Fatal error
 					$this->setError($error);
 
 					return false;
 				}
 				else
 				{
-					// [4828] Not fatal error
+					// [4902] Not fatal error
 					$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
 					continue;
 				}
 			}
 
-			// [4834] insert all set values.
+			// [4908] insert all set values.
 			if (CostbenefitprojectionHelper::checkArray($values))
 			{
 				foreach ($values as $key => $value)
 				{
-					// [4839] Do special action for access.
+					// [4913] Do special action for access.
 					if ('access' == $key && strlen($value) > 0)
 					{
 						$this->table->$key = $value;
@@ -862,7 +881,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 			}
 
 
-			// [4851] Check the row.
+			// [4925] Check the row.
 			if (!$this->table->check())
 			{
 				$this->setError($this->table->getError());
@@ -875,7 +894,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 				$this->createTagsHelper($this->tagsObserver, $this->type, $pk, $this->typeAlias, $this->table);
 			}
 
-			// [4864] Store the row.
+			// [4938] Store the row.
 			if (!$this->table->store())
 			{
 				$this->setError($this->table->getError());
@@ -884,7 +903,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 			}
 		}
 
-		// [4873] Clean the cache
+		// [4947] Clean the cache
 		$this->cleanCache();
 
 		return true;
@@ -922,10 +941,10 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 			$data['params'] = (string) $params;
 		}
 
-		// [5221] Alter the uniqe field for save as copy
+		// [5295] Alter the uniqe field for save as copy
 		if ($input->get('task') == 'save2copy')
 		{
-			// [5224] Automatic handling of other uniqe fields
+			// [5298] Automatic handling of other uniqe fields
 			$uniqeFields = $this->getUniqeFields();
 			if (CostbenefitprojectionHelper::checkArray($uniqeFields))
 			{
@@ -978,7 +997,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 	protected function _generateNewTitle($title)
 	{
 
-		// [5279] Alter the title
+		// [5353] Alter the title
 		$table = $this->getTable();
 
 		while ($table->load(array('title' => $title)))

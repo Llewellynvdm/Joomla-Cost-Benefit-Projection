@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.9
-	@build			2nd December, 2015
+	@version		3.1.0
+	@build			17th December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
@@ -70,7 +70,7 @@ if ($this->items)
 <?php if ($this->items): ?>
 <div class="uk-alert uk-alert-success" data-uk-alert>
     <a href="" class="uk-alert-close uk-close"></a>
-    <p><?php echo JText::_('COM_COSTBENEFITPROJECTION_PA_SERVICE_PROVIDER_OR_COUNTRY_ADMINISTRATOR_MUST_SETUP_AN_ACCOUNT_FOR_YOUPPTHERFORE_PLEASE_SELECT_YOUR_COUNTRY_AND_PREVERED_SERVICE_PROVIDER_SHOULD_YOU_BE_UNSURE_WHICH_SERVICE_PROFIDER_TO_CONTACT_YOU_CAN_SIMPLY_CONTACT_THE_COUNTRY_ADMINISTRATORP'); ?></p>
+    <p><?php echo JText::_('COM_COSTBENEFITPROJECTION_PA_SERVICE_PROVIDER_OR_COUNTRY_ADMINISTRATOR_MUST_SETUP_AN_ACCOUNT_FOR_YOUPPTHEREFORE_PLEASE_SELECT_YOUR_COUNTRY_AND_PREFERRED_SERVICE_PROVIDER_SHOULD_YOU_BE_UNSURE_WHICH_SERVICE_PROVIDER_TO_CONTACT_YOU_CAN_SIMPLY_CONTACT_THE_COUNTRY_ADMINISTRATORP'); ?></p>
 </div>
 <div data-uk-grid-margin="" class="uk-grid">
 	<div class="uk-width-medium-1-4">

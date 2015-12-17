@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.9
-	@build			2nd December, 2015
+	@version		3.1.0
+	@build			17th December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		sum.php
@@ -72,17 +72,27 @@ class Sum
 	{
 		if(CostbenefitprojectionHelper::checkObject($this->company))
 		{
-			// main swith
+			// main switch
 			$usecountry = false;
+			// public switch
+			if (isset($this->company->public))
+			{
+				$usecountry = true;
+				$cKey = 'id';
+			}
+			else
+			{
+				$cKey = 'country';
+			}
 			// set array of json objects to convert to array
 			$jsonObjects = array('percentmale','percentfemale','country_percentmale','country_percentfemale','country_maledeath','country_femaledeath','country_maleyld','country_femaleyld');
 			$removeArray = array(
 				'asset_id','not_required','published','created_by','country_created_by','country_created','country_version','country_hits','country_ordering',
 				'modified_by','country_asset_id','created','modified','version','hits','ordering','country_published','country_modified_by','country_modified',
-				'idCompanyScaling_factorC','countryCountryHealth_dataB','countryCountryHealth_dataBB','causesrisksIdCauseriskG','causesrisksIdCauseriskGG','idCompanyInterventionD');
+				'idCompanyScaling_factorC',$cKey.'CountryHealth_dataB',$cKey.'CountryHealth_dataBB','causesrisksIdCauseriskG','causesrisksIdCauseriskGG','idCompanyInterventionD');
 			foreach ($jsonObjects as $jsonObject)
 			{
-				if (CostbenefitprojectionHelper::isJson($this->company->$jsonObject))
+				if (isset($this->company->$jsonObject) && CostbenefitprojectionHelper::isJson($this->company->$jsonObject))
 				{
 					// convert to array
 					$array = json_decode($this->company->$jsonObject,true);
@@ -103,7 +113,7 @@ class Sum
 				}
 			}
 			// if company has not causerisks selected fall back on country
-			if (!CostbenefitprojectionHelper::checkArray($this->company->causesrisks) || $this->company->department == 1)
+			if ($usecountry || (isset($this->company->causesrisks) && !CostbenefitprojectionHelper::checkArray($this->company->causesrisks)) || $this->company->department == 1)
 			{
 				$this->company->causesrisks			= $this->company->country_causesrisks;
 				$this->company->medical_turnovers_males		= $this->company->males * ($this->company->country_medical_turnovers/100000);
@@ -122,11 +132,11 @@ class Sum
 			foreach ($percentSort as $sort)
 			{
 				$point = $sort;
-				if (!CostbenefitprojectionHelper::checkArray($this->company->$sort) && strpos($sort, 'country') === false)
+				if (isset($this->company->$sort) && !CostbenefitprojectionHelper::checkArray($this->company->$sort) && strpos($sort, 'country') === false)
 				{
 					$sort = 'country_'.$sort;
 				}
-				if (CostbenefitprojectionHelper::checkArray($this->company->$sort))
+				if (isset($this->company->$sort) && CostbenefitprojectionHelper::checkArray($this->company->$sort))
 				{
 					$bucket = array();
 					foreach ($this->company->$sort as $value)
@@ -140,7 +150,7 @@ class Sum
 			$countrySort = array('country_maledeath','country_femaledeath','country_maleyld','country_femaleyld');
 			foreach ($countrySort as $sort)
 			{
-				if (CostbenefitprojectionHelper::checkArray($this->company->$sort))
+				if (isset($this->company->$sort) && CostbenefitprojectionHelper::checkArray($this->company->$sort))
 				{
 					$bucket = array();
 					foreach ($this->company->$sort as $value)
@@ -153,15 +163,15 @@ class Sum
 			// country health totals sorting
 			$specialSort = array('maledeath','maleyld','femaledeath','femaleyld');
 			$keepData = array();
-			if (CostbenefitprojectionHelper::checkArray($this->company->countryCountryHealth_dataB) && !$usecountry)
+			if (isset($this->company->{$cKey.'CountryHealth_dataB'}) && CostbenefitprojectionHelper::checkArray($this->company->{$cKey.'CountryHealth_dataB'}) && !$usecountry)
 			{
 				$healthBucket = array();
-				foreach ($this->company->countryCountryHealth_dataB as $healthData)
+				foreach ($this->company->{$cKey.'CountryHealth_dataB'} as $healthData)
 				{
 					$healthBucket[$healthData->causerisk] = new stdClass();
 					foreach ($specialSort as $sort)
 					{
-						if (CostbenefitprojectionHelper::isJson($healthData->$sort))
+						if (isset($healthData->$sort) && CostbenefitprojectionHelper::isJson($healthData->$sort))
 						{
 							// convert to array
 							$array = json_decode($healthData->$sort,true);
@@ -207,15 +217,15 @@ class Sum
 					}
 				}
 			}
-			elseif (CostbenefitprojectionHelper::checkArray($this->company->countryCountryHealth_dataBB) && $usecountry)
+			elseif (isset($this->company->{$cKey.'CountryHealth_dataBB'}) && CostbenefitprojectionHelper::checkArray($this->company->{$cKey.'CountryHealth_dataBB'}) && $usecountry)
 			{
 				$healthBucket = array();
-				foreach ($this->company->countryCountryHealth_dataBB as $healthData)
+				foreach ($this->company->{$cKey.'CountryHealth_dataBB'} as $healthData)
 				{
 					$healthBucket[$healthData->causerisk] = new stdClass();
 					foreach ($specialSort as $sort)
 					{
-						if (CostbenefitprojectionHelper::isJson($healthData->$sort))
+						if (isset($healthData->$sort) && CostbenefitprojectionHelper::isJson($healthData->$sort))
 						{
 							// convert to array
 							$array = json_decode($healthData->$sort,true);
@@ -275,7 +285,7 @@ class Sum
 				'health_scaling_factor'
 				);
 			$scalingBucket = array();
-			if (CostbenefitprojectionHelper::checkArray($this->company->idCompanyScaling_factorC))
+			if (isset($this->company->idCompanyScaling_factorC) && CostbenefitprojectionHelper::checkArray($this->company->idCompanyScaling_factorC))
 			{
 				// use the compony set values
 				foreach ($this->company->idCompanyScaling_factorC as $scalingFactor)
@@ -311,7 +321,7 @@ class Sum
 				'category',
 				'description'
 				);
-			if (CostbenefitprojectionHelper::checkArray($this->company->causesrisksIdCauseriskG) && !$usecountry)
+			if (isset($this->company->causesrisksIdCauseriskG) && CostbenefitprojectionHelper::checkArray($this->company->causesrisksIdCauseriskG) && !$usecountry)
 			{
 				foreach ($this->company->causesrisksIdCauseriskG as $causesrisks)
 				{
@@ -323,7 +333,7 @@ class Sum
 					}
 				}
 			}
-			elseif (CostbenefitprojectionHelper::checkArray($this->company->causesrisksIdCauseriskGG) && $usecountry)
+			elseif (isset($this->company->causesrisksIdCauseriskGG) && CostbenefitprojectionHelper::checkArray($this->company->causesrisksIdCauseriskGG) && $usecountry)
 			{
 				foreach ($this->company->causesrisksIdCauseriskGG as $causesrisks)
 				{
@@ -347,7 +357,7 @@ class Sum
 				'type'
 				);
 			$insterventionBucket = array();
-			if (CostbenefitprojectionHelper::checkArray($this->company->idCompanyInterventionD))
+			if (isset($this->company->idCompanyInterventionD) && CostbenefitprojectionHelper::checkArray($this->company->idCompanyInterventionD))
 			{
 				foreach ($this->company->idCompanyInterventionD as $key => $intervention)
 				{

@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.9
-	@build			2nd December, 2015
+	@version		3.1.0
+	@build			17th December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		country.php
@@ -54,13 +54,13 @@ class CostbenefitprojectionControllerCountry extends JControllerForm
 	 */
 	protected function allowAdd($data = array())
 	{
-		// [9328] Access check.
+		// [9404] Access check.
 		$access = JFactory::getUser()->authorise('country.access', 'com_costbenefitprojection');
 		if (!$access)
 		{
 			return false;
 		}
-		// [9339] In the absense of better information, revert to the component permissions.
+		// [9415] In the absense of better information, revert to the component permissions.
 		return JFactory::getUser()->authorise('country.create', $this->option);
 	}
 
@@ -76,9 +76,9 @@ class CostbenefitprojectionControllerCountry extends JControllerForm
 	 */
 	protected function allowEdit($data = array(), $key = 'id')
 	{
-		// [9482] get user object.
+		// [9558] get user object.
 		$user		= JFactory::getUser();
-		// [9484] get record id.
+		// [9560] get record id.
 		$recordId	= (int) isset($data[$key]) ? $data[$key] : 0;
 		if (!$user->authorise('core.options', 'com_costbenefitprojection'))
 		{
@@ -91,7 +91,7 @@ class CostbenefitprojectionControllerCountry extends JControllerForm
 			}
 		}
 
-		// [9491] Access check.
+		// [9567] Access check.
 		$access = ($user->authorise('country.access', 'com_costbenefitprojection.country.' . (int) $recordId) &&  $user->authorise('country.access', 'com_costbenefitprojection'));
 		if (!$access)
 		{
@@ -100,17 +100,17 @@ class CostbenefitprojectionControllerCountry extends JControllerForm
 
 		if ($recordId)
 		{
-			// [9500] The record has been set. Check the record permissions.
+			// [9576] The record has been set. Check the record permissions.
 			$permission = $user->authorise('country.edit', 'com_costbenefitprojection.country.' . (int) $recordId);
 			if (!$permission && !is_null($permission))
 			{
 				if ($user->authorise('country.edit.own', 'com_costbenefitprojection.country.' . $recordId))
 				{
-					// [9522] Now test the owner is the user.
+					// [9598] Now test the owner is the user.
 					$ownerId = (int) isset($data['created_by']) ? $data['created_by'] : 0;
 					if (empty($ownerId))
 					{
-						// [9526] Need to do a lookup from the model.
+						// [9602] Need to do a lookup from the model.
 						$record = $this->getModel()->getItem($recordId);
 
 						if (empty($record))
@@ -120,7 +120,7 @@ class CostbenefitprojectionControllerCountry extends JControllerForm
 						$ownerId = $record->created_by;
 					}
 
-					// [9534] If the owner matches 'me' then allow.
+					// [9610] If the owner matches 'me' then allow.
 					if ($ownerId == $user->id)
 					{
 						if ($user->authorise('country.edit.own', 'com_costbenefitprojection'))
@@ -132,7 +132,7 @@ class CostbenefitprojectionControllerCountry extends JControllerForm
 				return false;
 			}
 		}
-		// [9556] Since there is no permission, revert to the component permissions.
+		// [9632] Since there is no permission, revert to the component permissions.
 		return $user->authorise('country.edit', $this->option);
 	}
 

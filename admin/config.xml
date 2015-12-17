@@ -355,7 +355,7 @@
 			multiple="true"
 		/>
 
-		<!-- [11375] Memberbasicgroup Field. Type: Usergroup. (joomla) -->
+		<!-- [11451] Memberbasicgroup Field. Type: Usergroup. (joomla) -->
 		<field
 			type="usergroup"
 			name="memberbasicgroup"
@@ -363,7 +363,7 @@
 			description="COM_COSTBENEFITPROJECTION_CONFIG_MEMBERBASICGROUP_DESCRIPTION"
 			multiple="true"
 		/>		
-		<!-- [11375] Advancedmembergroup Field. Type: Usergroup. (joomla) -->
+		<!-- [11451] Advancedmembergroup Field. Type: Usergroup. (joomla) -->
 		<field
 			type="usergroup"
 			name="advancedmembergroup"
@@ -382,7 +382,7 @@
 			description="COM_COSTBENEFITPROJECTION_CONFIG_UIKIT_LOAD_DESC"
 			class="btn-group btn-group-yesno"
 			default="">
-			<!-- [13248] Option Set. -->
+			<!-- [13324] Option Set. -->
 			<option value="">
 				COM_COSTBENEFITPROJECTION_CONFIG_AUTO_LOAD</option>"
 			<option value="1">
@@ -398,7 +398,7 @@
 			description="COM_COSTBENEFITPROJECTION_CONFIG_UIKIT_MIN_DESC"
 			class="btn-group btn-group-yesno"
 			default="">
-			<!-- [13273] Option Set. -->
+			<!-- [13349] Option Set. -->
 			<option value="">
 				COM_COSTBENEFITPROJECTION_CONFIG_NO</option>"
 			<option value=".min">
@@ -410,7 +410,7 @@
 			description="COM_COSTBENEFITPROJECTION_CONFIG_UIKIT_STYLE_DESC"
 			class="btn-group btn-group-yesno"
 			default="">
-			<!-- [13294] Option Set. -->
+			<!-- [13370] Option Set. -->
 			<option value="">
 				COM_COSTBENEFITPROJECTION_CONFIG_FLAT_LOAD</option>"
 			<option value=".almost-flat">
@@ -426,7 +426,7 @@
 		description="COM_COSTBENEFITPROJECTION_CONFIG_CHART_SETTINGS_DESC">
 		
 		<field type="note" name="chart_admin_naote" class="alert alert-info" label="COM_COSTBENEFITPROJECTION_CONFIG_ADMIN_CHART_NOTE_LABEL" description="COM_COSTBENEFITPROJECTION_CONFIG_ADMIN_CHART_NOTE_DESC"  />
-		<!-- [13326] Admin_chartbackground Field. Type: Color. -->
+		<!-- [13402] Admin_chartbackground Field. Type: Color. -->
 		<field
 			type="color"
 			name="admin_chartbackground"
@@ -434,7 +434,7 @@
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CHARTBACKGROUND_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CHARTBACKGROUND_DESC"
 		/>		
-		<!-- [13334] Admin_mainwidth Field. Type: Text. -->
+		<!-- [13410] Admin_mainwidth Field. Type: Text. -->
 		<field
 			type="text"
 			name="admin_mainwidth"
@@ -447,9 +447,9 @@
 			message="Error! Please add area width here."
 			hint="COM_COSTBENEFITPROJECTION_CONFIG_MAINWIDTH_HINT"
 		/>		
-		<!-- [13347] Spacer_chartadmin_hr_a Field. Type: Spacer. A None Database Field. -->
+		<!-- [13423] Spacer_chartadmin_hr_a Field. Type: Spacer. A None Database Field. -->
 		<field type="spacer" name="spacer_chartadmin_hr_a" hr="true" class="spacer_chartadmin_hr_a" />		
-		<!-- [13349] Admin_chartareatop Field. Type: Text. -->
+		<!-- [13425] Admin_chartareatop Field. Type: Text. -->
 		<field
 			type="text"
 			name="admin_chartareatop"
@@ -462,7 +462,7 @@
 			message="Error! Please add top spacing here."
 			hint="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREATOP_HINT"
 		/>		
-		<!-- [13362] Admin_chartarealeft Field. Type: Text. -->
+		<!-- [13438] Admin_chartarealeft Field. Type: Text. -->
 		<field
 			type="text"
 			name="admin_chartarealeft"
@@ -475,7 +475,7 @@
 			message="Error! Please add left spacing here."
 			hint="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREALEFT_HINT"
 		/>		
-		<!-- [13375] Admin_chartareawidth Field. Type: Text. -->
+		<!-- [13451] Admin_chartareawidth Field. Type: Text. -->
 		<field
 			type="text"
 			name="admin_chartareawidth"
@@ -488,9 +488,9 @@
 			message="Error! Please add chart width here."
 			hint="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREAWIDTH_HINT"
 		/>		
-		<!-- [13388] Spacer_chartadmin_hr_b Field. Type: Spacer. A None Database Field. -->
+		<!-- [13464] Spacer_chartadmin_hr_b Field. Type: Spacer. A None Database Field. -->
 		<field type="spacer" name="spacer_chartadmin_hr_b" hr="true" class="spacer_chartadmin_hr_b" />		
-		<!-- [13390] Admin_legendtextstylefontcolor Field. Type: Color. -->
+		<!-- [13466] Admin_legendtextstylefontcolor Field. Type: Color. -->
 		<field
 			type="color"
 			name="admin_legendtextstylefontcolor"
@@ -498,7 +498,7 @@
 			label="COM_COSTBENEFITPROJECTION_CONFIG_LEGENDTEXTSTYLEFONTCOLOR_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_LEGENDTEXTSTYLEFONTCOLOR_DESC"
 		/>		
-		<!-- [13398] Admin_legendtextstylefontsize Field. Type: Text. -->
+		<!-- [13474] Admin_legendtextstylefontsize Field. Type: Text. -->
 		<field
 			type="text"
 			name="admin_legendtextstylefontsize"
@@ -511,9 +511,9 @@
 			message="Error! Please add size of the legend here."
 			hint="COM_COSTBENEFITPROJECTION_CONFIG_LEGENDTEXTSTYLEFONTSIZE_HINT"
 		/>		
-		<!-- [13411] Spacer_chartadmin_hr_c Field. Type: Spacer. A None Database Field. -->
+		<!-- [13487] Spacer_chartadmin_hr_c Field. Type: Spacer. A None Database Field. -->
 		<field type="spacer" name="spacer_chartadmin_hr_c" hr="true" class="spacer_chartadmin_hr_c" />		
-		<!-- [13413] Admin_vaxistextstylefontcolor Field. Type: Color. -->
+		<!-- [13489] Admin_vaxistextstylefontcolor Field. Type: Color. -->
 		<field
 			type="color"
 			name="admin_vaxistextstylefontcolor"
@@ -521,9 +521,9 @@
 			label="COM_COSTBENEFITPROJECTION_CONFIG_VAXISTEXTSTYLEFONTCOLOR_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_VAXISTEXTSTYLEFONTCOLOR_DESC"
 		/>		
-		<!-- [13421] Spacer_chartadmin_hr_d Field. Type: Spacer. A None Database Field. -->
+		<!-- [13497] Spacer_chartadmin_hr_d Field. Type: Spacer. A None Database Field. -->
 		<field type="spacer" name="spacer_chartadmin_hr_d" hr="true" class="spacer_chartadmin_hr_d" />		
-		<!-- [13423] Admin_haxistextstylefontcolor Field. Type: Color. -->
+		<!-- [13499] Admin_haxistextstylefontcolor Field. Type: Color. -->
 		<field
 			type="color"
 			name="admin_haxistextstylefontcolor"
@@ -531,7 +531,7 @@
 			label="COM_COSTBENEFITPROJECTION_CONFIG_HAXISTEXTSTYLEFONTCOLOR_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_HAXISTEXTSTYLEFONTCOLOR_DESC"
 		/>		
-		<!-- [13431] Admin_haxistitletextstylefontcolor Field. Type: Color. -->
+		<!-- [13507] Admin_haxistitletextstylefontcolor Field. Type: Color. -->
 		<field
 			type="color"
 			name="admin_haxistitletextstylefontcolor"
@@ -542,7 +542,7 @@
 		
 		<field type="note" name="chart_site_note" class="alert alert-info" label="COM_COSTBENEFITPROJECTION_CONFIG_SITE_CHART_NOTE_LABEL" description="COM_COSTBENEFITPROJECTION_CONFIG_SITE_CHART_NOTE_DESC"  />
 		
-		<!-- [13442] Site_chartbackground Field. Type: Color. -->
+		<!-- [13518] Site_chartbackground Field. Type: Color. -->
 		<field
 			type="color"
 			name="site_chartbackground"
@@ -550,7 +550,7 @@
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CHARTBACKGROUND_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CHARTBACKGROUND_DESC"
 		/>		
-		<!-- [13450] Site_mainwidth Field. Type: Text. -->
+		<!-- [13526] Site_mainwidth Field. Type: Text. -->
 		<field
 			type="text"
 			name="site_mainwidth"
@@ -563,9 +563,9 @@
 			message="Error! Please add area width here."
 			hint="COM_COSTBENEFITPROJECTION_CONFIG_MAINWIDTH_HINT"
 		/>		
-		<!-- [13463] Spacer_chartsite_hr_a Field. Type: Spacer. A None Database Field. -->
+		<!-- [13539] Spacer_chartsite_hr_a Field. Type: Spacer. A None Database Field. -->
 		<field type="spacer" name="spacer_chartsite_hr_a" hr="true" class="spacer_chartsite_hr_a" />		
-		<!-- [13465] Site_chartareatop Field. Type: Text. -->
+		<!-- [13541] Site_chartareatop Field. Type: Text. -->
 		<field
 			type="text"
 			name="site_chartareatop"
@@ -578,7 +578,7 @@
 			message="Error! Please add top spacing here."
 			hint="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREATOP_HINT"
 		/>		
-		<!-- [13478] Site_chartarealeft Field. Type: Text. -->
+		<!-- [13554] Site_chartarealeft Field. Type: Text. -->
 		<field
 			type="text"
 			name="site_chartarealeft"
@@ -591,7 +591,7 @@
 			message="Error! Please add left spacing here."
 			hint="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREALEFT_HINT"
 		/>		
-		<!-- [13491] Site_chartareawidth Field. Type: Text. -->
+		<!-- [13567] Site_chartareawidth Field. Type: Text. -->
 		<field
 			type="text"
 			name="site_chartareawidth"
@@ -604,9 +604,9 @@
 			message="Error! Please add chart width here."
 			hint="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREAWIDTH_HINT"
 		/>		
-		<!-- [13504] Spacer_chartsite_hr_b Field. Type: Spacer. A None Database Field. -->
+		<!-- [13580] Spacer_chartsite_hr_b Field. Type: Spacer. A None Database Field. -->
 		<field type="spacer" name="spacer_chartsite_hr_b" hr="true" class="spacer_chartsite_hr_b" />		
-		<!-- [13506] Site_legendtextstylefontcolor Field. Type: Color. -->
+		<!-- [13582] Site_legendtextstylefontcolor Field. Type: Color. -->
 		<field
 			type="color"
 			name="site_legendtextstylefontcolor"
@@ -614,7 +614,7 @@
 			label="COM_COSTBENEFITPROJECTION_CONFIG_LEGENDTEXTSTYLEFONTCOLOR_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_LEGENDTEXTSTYLEFONTCOLOR_DESC"
 		/>		
-		<!-- [13514] Site_legendtextstylefontsize Field. Type: Text. -->
+		<!-- [13590] Site_legendtextstylefontsize Field. Type: Text. -->
 		<field
 			type="text"
 			name="site_legendtextstylefontsize"
@@ -627,9 +627,9 @@
 			message="Error! Please add size of the legend here."
 			hint="COM_COSTBENEFITPROJECTION_CONFIG_LEGENDTEXTSTYLEFONTSIZE_HINT"
 		/>		
-		<!-- [13527] Spacer_chartsite_hr_c Field. Type: Spacer. A None Database Field. -->
+		<!-- [13603] Spacer_chartsite_hr_c Field. Type: Spacer. A None Database Field. -->
 		<field type="spacer" name="spacer_chartsite_hr_c" hr="true" class="spacer_chartsite_hr_c" />		
-		<!-- [13529] Site_vaxistextstylefontcolor Field. Type: Color. -->
+		<!-- [13605] Site_vaxistextstylefontcolor Field. Type: Color. -->
 		<field
 			type="color"
 			name="site_vaxistextstylefontcolor"
@@ -637,9 +637,9 @@
 			label="COM_COSTBENEFITPROJECTION_CONFIG_VAXISTEXTSTYLEFONTCOLOR_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_VAXISTEXTSTYLEFONTCOLOR_DESC"
 		/>		
-		<!-- [13537] Spacer_chartsite_hr_d Field. Type: Spacer. A None Database Field. -->
+		<!-- [13613] Spacer_chartsite_hr_d Field. Type: Spacer. A None Database Field. -->
 		<field type="spacer" name="spacer_chartsite_hr_d" hr="true" class="spacer_chartsite_hr_d" />		
-		<!-- [13539] Site_haxistextstylefontcolor Field. Type: Color. -->
+		<!-- [13615] Site_haxistextstylefontcolor Field. Type: Color. -->
 		<field
 			type="color"
 			name="site_haxistextstylefontcolor"
@@ -647,7 +647,7 @@
 			label="COM_COSTBENEFITPROJECTION_CONFIG_HAXISTEXTSTYLEFONTCOLOR_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_HAXISTEXTSTYLEFONTCOLOR_DESC"
 		/>		
-		<!-- [13547] Site_haxistitletextstylefontcolor Field. Type: Color. -->
+		<!-- [13623] Site_haxistitletextstylefontcolor Field. Type: Color. -->
 		<field
 			type="color"
 			name="site_haxistitletextstylefontcolor"
@@ -669,7 +669,7 @@
 			default=""
 		/>
 
-		<!-- [11375] Resultpath Field. Type: Text. (joomla) -->
+		<!-- [11451] Resultpath Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="resultpath"

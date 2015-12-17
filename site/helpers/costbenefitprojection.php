@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.9
-	@build			2nd December, 2015
+	@version		3.1.0
+	@build			17th December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -711,23 +711,23 @@ abstract class CostbenefitprojectionHelper
 						$targetgroups = json_decode($help->groups, true);
 						if (!array_intersect($targetgroups, $groups))
 						{
-							// [1383] if user not in those target groups then remove the item
+							// [1401] if user not in those target groups then remove the item
 							unset($helps[$nr]);
 							continue;
 						}
 					}
-					// [1388] set the return type
+					// [1406] set the return type
 					switch ($help->type)
 					{
-						// [1391] set joomla article
+						// [1409] set joomla article
 						case 1:
 							return self::loadArticleLink($help->article);
 						break;
-						// [1395] set help text
+						// [1413] set help text
 						case 2:
 							return self::loadHelpTextLink($help->id);
 						break;
-						// [1399] set Link
+						// [1417] set Link
 						case 3:
 							return $help->url;
 						break;
@@ -951,8 +951,18 @@ abstract class CostbenefitprojectionHelper
 				'timepicker' ),
 			'data-uk-tooltip' => array(
 				'tooltip' ),
+			'uk-placeholder' => array(
+				'placeholder' ),
+			'uk-dotnav' => array(
+				'dotnav' ),
+			'uk-slidenav' => array(
+				'slidenav' ),
+			'uk-form' => array(
+				'form-advanced' ),
+			'uk-progress' => array(
+				'progress' ),
 			'upload-drop' => array(
-				'upload' )
+				'upload', 'form-file' )
 			);
 	
 	/**
@@ -967,7 +977,7 @@ abstract class CostbenefitprojectionHelper
 	{
 		if (strpos($content,'class="uk-') !== false)
 		{
-			// [2606] reset
+			// [2645] reset
 			$temp = array();
 			foreach (self::$uk_components as $looking => $add)
 			{
@@ -976,15 +986,15 @@ abstract class CostbenefitprojectionHelper
 					$temp[] = $looking;
 				}
 			}
-			// [2615] make sure uikit is loaded to config
+			// [2654] make sure uikit is loaded to config
 			if (strpos($content,'class="uk-') !== false)
 			{
 				self::$uikit = true;
 			}
-			// [2620] sorter
+			// [2659] sorter
 			if (self::checkArray($temp))
 			{
-				// [2623] merger
+				// [2662] merger
 				if (self::checkArray($classes))
 				{
 					$newTemp = array_merge($temp,$classes);
@@ -1005,23 +1015,34 @@ abstract class CostbenefitprojectionHelper
 	*/
 	public static function createUser($new)
 	{
-		// [1617] load the user component language files if there is an error.
+		// [1635] load the user component language files if there is an error.
 		$lang = JFactory::getLanguage();
 		$extension = 'com_users';
 		$base_dir = JPATH_SITE;
 		$language_tag = 'en-GB';
 		$reload = true;
 		$lang->load($extension, $base_dir, $language_tag, $reload);
-		// [1624] load the user regestration model
+		// [1642] load the user regestration model
 		$model = self::getModel('registration', JPATH_ROOT. '/components/com_users', 'Users');
-		// [1626] make sure no activation is needed
+		// [1644] make sure no activation is needed
 		$useractivation = self::setParams('com_users','useractivation',0);
-		// [1628] make sure password is send
+		// [1646] make sure password is send
 		$sendpassword = self::setParams('com_users','sendpassword',1);
-		// [1630] set password
-		$password = self::randomkey(8);
-		// [1632] set username
-		if (self::checkString($new['username']))
+		// [1648] Check if password was set
+		if (isset($new['password']) && isset($new['password2']) && self::checkString($new['password']) && self::checkString($new['password2']))
+		{
+			// [1651] Use the users passwords
+			$password = $new['password'];
+			$password2 = $new['password2'];
+		}
+		else
+		{
+			// [1657] Set random password
+			$password = self::randomkey(8);
+			$password2 = $password;
+		}
+		// [1661] set username
+		if (isset($new['username']) && self::checkString($new['username']))
 		{
 			$new['username'] = self::safeString($new['username']);
 		}
@@ -1029,21 +1050,21 @@ abstract class CostbenefitprojectionHelper
 		{
 			$new['username'] = self::safeString($new['name']);			
 		}
-		// [1641] linup new user data
+		// [1670] linup new user data
 		$data = array(
 			'username' => $new['username'],
 			'name' => $new['name'],
 			'email1' => $new['email'],
 			'password1' => $password, // First password field
-			'password2' => $password, // Confirm password field
+			'password2' => $password2, // Confirm password field
 			'block' => 0 );
-		// [1649] register the new user
+		// [1678] register the new user
 		$userId = $model->register($data);
-		// [1651] set activation back to default
+		// [1680] set activation back to default
 		self::setParams('com_users','useractivation',$useractivation);
-		// [1653] set send password back to default
+		// [1682] set send password back to default
 		self::setParams('com_users','sendpassword',$sendpassword);
-		// [1655] if user is created
+		// [1684] if user is created
 		if ($userId > 0)
 		{
 			return $userId;
@@ -1053,21 +1074,21 @@ abstract class CostbenefitprojectionHelper
 
 	protected static function setParams($component,$target,$value)
 	{
-		// [1665] Get the params and set the new values
+		// [1694] Get the params and set the new values
 		$params = JComponentHelper::getParams($component);
 		$was = $params->get($target, null);
 		if ($was != $value)
 		{
 			$params->set($target, $value);
-			// [1671] Get a new database query instance
+			// [1700] Get a new database query instance
 			$db = JFactory::getDBO();
 			$query = $db->getQuery(true);
-			// [1674] Build the query
+			// [1703] Build the query
 			$query->update('#__extensions AS a');
 			$query->set('a.params = ' . $db->quote((string)$params));
 			$query->where('a.element = ' . $db->quote((string)$component));
 			
-			// [1679] Execute the query
+			// [1708] Execute the query
 			$db->setQuery($query);
 			$db->query();
 		}
@@ -1625,12 +1646,12 @@ abstract class CostbenefitprojectionHelper
 	{
 		if ('advanced' == $type)
 		{
-			// [1269] Get the global params
+			// [1287] Get the global params
 			$params = JComponentHelper::getParams('com_costbenefitprojection', true);
 			$advanced_key = $params->get('advanced_key', null);
 			if ($advanced_key)
 			{
-				// [1274] load the file
+				// [1292] load the file
 				JLoader::import( 'vdm', JPATH_COMPONENT_ADMINISTRATOR);
 
 				$the = new VDM($advanced_key);

@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.9
-	@build			2nd December, 2015
+	@version		3.1.0
+	@build			17th December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		route.php
@@ -38,23 +38,64 @@ abstract class CostbenefitprojectionHelperRoute
 	{
 		if ($id > 0)
 		{
-			// [4587] Initialize the needel array.
+			// [4661] Initialize the needel array.
 			$needles = array(
 				'cpanel'  => array((int) $id)
 			);
-			// [4591] Create the link
+			// [4665] Create the link
 			$link = 'index.php?option=com_costbenefitprojection&view=cpanel&id='. $id;
 		}
 		else
 		{
-			// [4596] Initialize the needel array.
+			// [4670] Initialize the needel array.
 			$needles = array();
-			// [4598]Create the link but don't add the id.
+			// [4672]Create the link but don't add the id.
 			$link = 'index.php?option=com_costbenefitprojection&view=cpanel';
 		}
 		if ($catid > 1)
 		{
 			$categories = JCategories::getInstance('costbenefitprojection.cpanel');
+			$category = $categories->get($catid);
+			if ($category)
+			{
+				$needles['category'] = array_reverse($category->getPath());
+				$needles['categories'] = $needles['category'];
+				$link .= '&catid='.$catid;
+			}
+		}
+
+		if ($item = self::_findItem($needles))
+		{
+			$link .= '&Itemid='.$item;
+		}
+
+		return $link;
+	}
+
+	/**
+	* @param int The route of the Publicresults
+	*/
+	public static function getPublicresultsRoute($id = 0, $catid = 0)
+	{
+		if ($id > 0)
+		{
+			// [4661] Initialize the needel array.
+			$needles = array(
+				'publicresults'  => array((int) $id)
+			);
+			// [4665] Create the link
+			$link = 'index.php?option=com_costbenefitprojection&view=publicresults&id='. $id;
+		}
+		else
+		{
+			// [4670] Initialize the needel array.
+			$needles = array();
+			// [4672]Create the link but don't add the id.
+			$link = 'index.php?option=com_costbenefitprojection&view=publicresults';
+		}
+		if ($catid > 1)
+		{
+			$categories = JCategories::getInstance('costbenefitprojection.publicresults');
 			$category = $categories->get($catid);
 			if ($category)
 			{
@@ -79,18 +120,18 @@ abstract class CostbenefitprojectionHelperRoute
 	{
 		if ($id > 0)
 		{
-			// [4587] Initialize the needel array.
+			// [4661] Initialize the needel array.
 			$needles = array(
 				'createaccount'  => array((int) $id)
 			);
-			// [4591] Create the link
+			// [4665] Create the link
 			$link = 'index.php?option=com_costbenefitprojection&view=createaccount&id='. $id;
 		}
 		else
 		{
-			// [4596] Initialize the needel array.
+			// [4670] Initialize the needel array.
 			$needles = array();
-			// [4598]Create the link but don't add the id.
+			// [4672]Create the link but don't add the id.
 			$link = 'index.php?option=com_costbenefitprojection&view=createaccount';
 		}
 		if ($catid > 1)
@@ -120,18 +161,18 @@ abstract class CostbenefitprojectionHelperRoute
 	{
 		if ($id > 0)
 		{
-			// [4587] Initialize the needel array.
+			// [4661] Initialize the needel array.
 			$needles = array(
 				'companyresults'  => array((int) $id)
 			);
-			// [4591] Create the link
+			// [4665] Create the link
 			$link = 'index.php?option=com_costbenefitprojection&view=companyresults&id='. $id;
 		}
 		else
 		{
-			// [4596] Initialize the needel array.
+			// [4670] Initialize the needel array.
 			$needles = array();
-			// [4598]Create the link but don't add the id.
+			// [4672]Create the link but don't add the id.
 			$link = 'index.php?option=com_costbenefitprojection&view=companyresults';
 		}
 		if ($catid > 1)
@@ -161,18 +202,18 @@ abstract class CostbenefitprojectionHelperRoute
 	{
 		if ($id > 0)
 		{
-			// [4587] Initialize the needel array.
+			// [4661] Initialize the needel array.
 			$needles = array(
 				'combinedresults'  => array((int) $id)
 			);
-			// [4591] Create the link
+			// [4665] Create the link
 			$link = 'index.php?option=com_costbenefitprojection&view=combinedresults&id='. $id;
 		}
 		else
 		{
-			// [4596] Initialize the needel array.
+			// [4670] Initialize the needel array.
 			$needles = array();
-			// [4598]Create the link but don't add the id.
+			// [4672]Create the link but don't add the id.
 			$link = 'index.php?option=com_costbenefitprojection&view=combinedresults';
 		}
 		if ($catid > 1)

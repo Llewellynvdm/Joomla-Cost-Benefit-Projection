@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.9
-	@build			2nd December, 2015
+	@version		3.1.0
+	@build			17th December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -86,27 +86,27 @@ class CostbenefitprojectionViewCurrency extends JViewLegacy
 		$isNew = $this->item->id == 0;
 
 		JToolbarHelper::title( JText::_($isNew ? 'COM_COSTBENEFITPROJECTION_CURRENCY_NEW' : 'COM_COSTBENEFITPROJECTION_CURRENCY_EDIT'), 'pencil-2 article-add');
-		// [10278] Built the actions for new and existing records.
+		// [10354] Built the actions for new and existing records.
 		if ($this->refid || $this->ref)
 		{
 			if ($this->canDo->get('currency.create') && $isNew)
 			{
-				// [10290] We can create the record.
+				// [10366] We can create the record.
 				JToolBarHelper::save('currency.save', 'JTOOLBAR_SAVE');
 			}
 			elseif ($this->canDo->get('currency.edit'))
 			{
-				// [10302] We can save the record.
+				// [10378] We can save the record.
 				JToolBarHelper::save('currency.save', 'JTOOLBAR_SAVE');
 			}
 			if ($isNew)
 			{
-				// [10307] Do not creat but cancel.
+				// [10383] Do not creat but cancel.
 				JToolBarHelper::cancel('currency.cancel', 'JTOOLBAR_CANCEL');
 			}
 			else
 			{
-				// [10312] We can close it.
+				// [10388] We can close it.
 				JToolBarHelper::cancel('currency.cancel', 'JTOOLBAR_CLOSE');
 			}
 		}
@@ -114,7 +114,7 @@ class CostbenefitprojectionViewCurrency extends JViewLegacy
 		{
 			if ($isNew)
 			{
-				// [10320] For new records, check the create permission.
+				// [10396] For new records, check the create permission.
 				if ($this->canDo->get('currency.create'))
 				{
 					JToolBarHelper::apply('currency.apply', 'JTOOLBAR_APPLY');
@@ -127,11 +127,11 @@ class CostbenefitprojectionViewCurrency extends JViewLegacy
 			{
 				if ($this->canDo->get('currency.edit'))
 				{
-					// [10347] We can save the new record
+					// [10423] We can save the new record
 					JToolBarHelper::apply('currency.apply', 'JTOOLBAR_APPLY');
 					JToolBarHelper::save('currency.save', 'JTOOLBAR_SAVE');
-					// [10350] We can save this record, but check the create permission to see
-					// [10351] if we can return to make a new one.
+					// [10426] We can save this record, but check the create permission to see
+					// [10427] if we can return to make a new one.
 					if ($this->canDo->get('currency.create'))
 					{
 						JToolBarHelper::custom('currency.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);
@@ -150,7 +150,7 @@ class CostbenefitprojectionViewCurrency extends JViewLegacy
 			}
 		}
 		JToolbarHelper::divider();
-		// [10387] set help url for this view if found
+		// [10463] set help url for this view if found
 		$help_url = CostbenefitprojectionHelper::getHelpUrl('currency');
 		if (CostbenefitprojectionHelper::checkString($help_url))
 		{

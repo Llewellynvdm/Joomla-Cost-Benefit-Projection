@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.9
-	@build			2nd December, 2015
+	@version		3.1.0
+	@build			17th December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		service_providers.php
@@ -107,16 +107,16 @@ class CostbenefitprojectionModelService_providers extends JModelList
 	 */
 	public function getItems()
 	{ 
-		// [10545] check in items
+		// [10621] check in items
 		$this->checkInNow();
 
 		// load parent items
 		$items = parent::getItems();
 
-		// [10620] set values to display correctly.
+		// [10696] set values to display correctly.
 		if (CostbenefitprojectionHelper::checkArray($items))
 		{
-			// [10623] get user object.
+			// [10699] get user object.
 			$user = JFactory::getUser();
 			foreach ($items as $nr => &$item)
 			{
@@ -141,16 +141,16 @@ class CostbenefitprojectionModelService_providers extends JModelList
 	 */
 	protected function getListQuery()
 	{
-		// [7406] Get the user object.
+		// [7482] Get the user object.
 		$user = JFactory::getUser();
-		// [7408] Create a new query object.
+		// [7484] Create a new query object.
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(true);
 
-		// [7411] Select some fields
+		// [7487] Select some fields
 		$query->select('a.*');
 
-		// [7418] From the costbenefitprojection_item table
+		// [7494] From the costbenefitprojection_item table
 		$query->from($db->quoteName('#__costbenefitprojection_service_provider', 'a'));
 
 		// Filter the providers (admin sees all)
@@ -170,15 +170,15 @@ class CostbenefitprojectionModelService_providers extends JModelList
 			}
 		}
 
-		// [7559] From the users table.
+		// [7635] From the users table.
 		$query->select($db->quoteName('g.name','user_name'));
 		$query->join('LEFT', $db->quoteName('#__users', 'g') . ' ON (' . $db->quoteName('a.user') . ' = ' . $db->quoteName('g.id') . ')');
 
-		// [7559] From the costbenefitprojection_country table.
+		// [7635] From the costbenefitprojection_country table.
 		$query->select($db->quoteName('h.name','country_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_country', 'h') . ' ON (' . $db->quoteName('a.country') . ' = ' . $db->quoteName('h.id') . ')');
 
-		// [7432] Filter by published state
+		// [7508] Filter by published state
 		$published = $this->getState('filter.published');
 		if (is_numeric($published))
 		{
@@ -188,7 +188,7 @@ class CostbenefitprojectionModelService_providers extends JModelList
 		{
 			$query->where('(a.published = 0 OR a.published = 1)');
 		}
-		// [7529] Filter by search.
+		// [7605] Filter by search.
 		$search = $this->getState('filter.search');
 		if (!empty($search))
 		{
@@ -203,13 +203,13 @@ class CostbenefitprojectionModelService_providers extends JModelList
 			}
 		}
 
-		// [7763] Filter by country.
+		// [7839] Filter by country.
 		if ($country = $this->getState('filter.country'))
 		{
 			$query->where('a.country = ' . $db->quote($db->escape($country, true)));
 		}
 
-		// [7488] Add the list ordering clause.
+		// [7564] Add the list ordering clause.
 		$orderCol = $this->state->get('list.ordering', 'a.id');
 		$orderDirn = $this->state->get('list.direction', 'asc');	
 		if ($orderCol != '')
@@ -227,19 +227,19 @@ class CostbenefitprojectionModelService_providers extends JModelList
 	*/
 	public function getExportData($pks)
 	{
-		// [7196] setup the query
+		// [7272] setup the query
 		if (CostbenefitprojectionHelper::checkArray($pks))
 		{
-			// [7199] Get the user object.
+			// [7275] Get the user object.
 			$user = JFactory::getUser();
-			// [7201] Create a new query object.
+			// [7277] Create a new query object.
 			$db = JFactory::getDBO();
 			$query = $db->getQuery(true);
 
-			// [7204] Select some fields
+			// [7280] Select some fields
 			$query->select('a.*');
 
-			// [7206] From the costbenefitprojection_service_provider table
+			// [7282] From the costbenefitprojection_service_provider table
 			$query->from($db->quoteName('#__costbenefitprojection_service_provider', 'a'));
 			$query->where('a.id IN (' . implode(',',$pks) . ')');
 
@@ -260,20 +260,20 @@ class CostbenefitprojectionModelService_providers extends JModelList
 			}
 		}
 
-			// [7223] Order the results by ordering
+			// [7299] Order the results by ordering
 			$query->order('a.ordering  ASC');
 
-			// [7225] Load the items
+			// [7301] Load the items
 			$db->setQuery($query);
 			$db->execute();
 			if ($db->getNumRows())
 			{
 				$items = $db->loadObjectList();
 
-				// [10620] set values to display correctly.
+				// [10696] set values to display correctly.
 				if (CostbenefitprojectionHelper::checkArray($items))
 				{
-					// [10623] get user object.
+					// [10699] get user object.
 					$user = JFactory::getUser();
 					foreach ($items as $nr => &$item)
 					{
@@ -284,13 +284,13 @@ class CostbenefitprojectionModelService_providers extends JModelList
 							continue;
 						}
 
-						// [10833] unset the values we don't want exported.
+						// [10909] unset the values we don't want exported.
 						unset($item->asset_id);
 						unset($item->checked_out);
 						unset($item->checked_out_time);
 					}
 				}
-				// [10842] Add headers to items array.
+				// [10918] Add headers to items array.
 				$headers = $this->getExImPortHeaders();
 				if (CostbenefitprojectionHelper::checkObject($headers))
 				{
@@ -309,13 +309,13 @@ class CostbenefitprojectionModelService_providers extends JModelList
 	*/
 	public function getExImPortHeaders()
 	{
-		// [7245] Get a db connection.
+		// [7321] Get a db connection.
 		$db = JFactory::getDbo();
-		// [7247] get the columns
+		// [7323] get the columns
 		$columns = $db->getTableColumns("#__costbenefitprojection_service_provider");
 		if (CostbenefitprojectionHelper::checkArray($columns))
 		{
-			// [7251] remove the headers you don't import/export.
+			// [7327] remove the headers you don't import/export.
 			unset($columns['asset_id']);
 			unset($columns['checked_out']);
 			unset($columns['checked_out_time']);
@@ -337,7 +337,7 @@ class CostbenefitprojectionModelService_providers extends JModelList
 	 */
 	protected function getStoreId($id = '')
 	{
-		// [10168] Compile the store id.
+		// [10244] Compile the store id.
 		$id .= ':' . $this->getState('filter.id');
 		$id .= ':' . $this->getState('filter.search');
 		$id .= ':' . $this->getState('filter.published');
@@ -361,15 +361,15 @@ class CostbenefitprojectionModelService_providers extends JModelList
 	*/
 	protected function checkInNow()
 	{
-		// [10561] Get set check in time
+		// [10637] Get set check in time
 		$time = JComponentHelper::getParams('com_costbenefitprojection')->get('check_in');
 		
 		if ($time)
 		{
 
-			// [10566] Get a db connection.
+			// [10642] Get a db connection.
 			$db = JFactory::getDbo();
-			// [10568] reset query
+			// [10644] reset query
 			$query = $db->getQuery(true);
 			$query->select('*');
 			$query->from($db->quoteName('#__costbenefitprojection_service_provider'));
@@ -377,24 +377,24 @@ class CostbenefitprojectionModelService_providers extends JModelList
 			$db->execute();
 			if ($db->getNumRows())
 			{
-				// [10576] Get Yesterdays date
+				// [10652] Get Yesterdays date
 				$date = JFactory::getDate()->modify($time)->toSql();
-				// [10578] reset query
+				// [10654] reset query
 				$query = $db->getQuery(true);
 
-				// [10580] Fields to update.
+				// [10656] Fields to update.
 				$fields = array(
 					$db->quoteName('checked_out_time') . '=\'0000-00-00 00:00:00\'',
 					$db->quoteName('checked_out') . '=0'
 				);
 
-				// [10585] Conditions for which records should be updated.
+				// [10661] Conditions for which records should be updated.
 				$conditions = array(
 					$db->quoteName('checked_out') . '!=0', 
 					$db->quoteName('checked_out_time') . '<\''.$date.'\''
 				);
 
-				// [10590] Check table
+				// [10666] Check table
 				$query->update($db->quoteName('#__costbenefitprojection_service_provider'))->set($fields)->where($conditions); 
 
 				$db->setQuery($query);

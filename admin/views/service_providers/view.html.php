@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.0.9
-	@build			2nd December, 2015
+	@version		3.1.0
+	@build			17th December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -196,11 +196,11 @@ class CostbenefitprojectionViewService_providers extends JViewLegacy
 			);
                 }  
 
-		// [9116] Set Country Name Selection
+		// [9192] Set Country Name Selection
 		$this->countryNameOptions = JFormHelper::loadFieldType('Countries')->getOptions();
 		if ($this->countryNameOptions)
 		{
-			// [9120] Country Name Filter
+			// [9196] Country Name Filter
 			JHtmlSidebar::addFilter(
 				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_COUNTRY_LABEL').' -',
 				'filter_country',
@@ -209,7 +209,7 @@ class CostbenefitprojectionViewService_providers extends JViewLegacy
 
 			if ($this->canBatch && $this->canCreate && $this->canEdit)
 			{
-				// [9129] Country Name Batch Selection
+				// [9205] Country Name Batch Selection
 				JHtmlBatch_::addListSelection(
 					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_COUNTRY_LABEL').' -',
 					'batch[country]',
