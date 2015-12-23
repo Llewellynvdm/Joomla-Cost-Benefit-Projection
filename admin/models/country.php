@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.1.0
-	@build			17th December, 2015
+	@build			23rd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		country.php
@@ -91,7 +91,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 
 			if (!empty($item->causesrisks))
 			{
-				// [4059] JSON Decode causesrisks.
+				// [4223] JSON Decode causesrisks.
 				$item->causesrisks = json_decode($item->causesrisks);
 			}
 			
@@ -101,8 +101,8 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 				$item->tags->getTagIds($item->id, 'com_costbenefitprojection.country');
 			}
 		}
-		$this->countryoxci = $item->id;
-		$this->countrykeau = $item->id;
+		$this->countryiuwf = $item->id;
+		$this->countryxnwk = $item->id;
 
 		return $item;
 	}
@@ -112,18 +112,18 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getXrcservice_providers()
+	public function getZrcservice_providers()
 	{
-		// [7030] Get the user object.
+		// [7197] Get the user object.
 		$user = JFactory::getUser();
-		// [7032] Create a new query object.
+		// [7199] Create a new query object.
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(true);
 
-		// [7035] Select some fields
+		// [7202] Select some fields
 		$query->select('a.*');
 
-		// [7042] From the costbenefitprojection_service_provider table
+		// [7209] From the costbenefitprojection_service_provider table
 		$query->from($db->quoteName('#__costbenefitprojection_service_provider', 'a'));
 
 		// Filter the providers (admin sees all)
@@ -143,43 +143,43 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 			}
 		}
 
-		// [7635] From the users table.
+		// [7802] From the users table.
 		$query->select($db->quoteName('g.name','user_name'));
 		$query->join('LEFT', $db->quoteName('#__users', 'g') . ' ON (' . $db->quoteName('a.user') . ' = ' . $db->quoteName('g.id') . ')');
 
-		// [7635] From the costbenefitprojection_country table.
+		// [7802] From the costbenefitprojection_country table.
 		$query->select($db->quoteName('h.name','country_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_country', 'h') . ' ON (' . $db->quoteName('a.country') . ' = ' . $db->quoteName('h.id') . ')');
 
-		// [7058] Filter by countryoxci global.
-		$countryoxci = $this->countryoxci;
-		if (is_numeric($countryoxci ))
+		// [7225] Filter by countryiuwf global.
+		$countryiuwf = $this->countryiuwf;
+		if (is_numeric($countryiuwf ))
 		{
-			$query->where('a.country = ' . (int) $countryoxci );
+			$query->where('a.country = ' . (int) $countryiuwf );
 		}
-		elseif (is_string($countryoxci))
+		elseif (is_string($countryiuwf))
 		{
-			$query->where('a.country = ' . $db->quote($countryoxci));
+			$query->where('a.country = ' . $db->quote($countryiuwf));
 		}
 		else
 		{
 			$query->where('a.country = -5');
 		}
 
-		// [7090] Order the results by ordering
+		// [7257] Order the results by ordering
 		$query->order('a.ordering  ASC');
 
-		// [7092] Load the items
+		// [7259] Load the items
 		$db->setQuery($query);
 		$db->execute();
 		if ($db->getNumRows())
 		{
 			$items = $db->loadObjectList();
 
-			// [10696] set values to display correctly.
+			// [10867] set values to display correctly.
 			if (CostbenefitprojectionHelper::checkArray($items))
 			{
-				// [10699] get user object.
+				// [10870] get user object.
 				$user = JFactory::getUser();
 				foreach ($items as $nr => &$item)
 				{
@@ -202,18 +202,18 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getTnpcompanies()
+	public function getMyzcompanies()
 	{
-		// [7030] Get the user object.
+		// [7197] Get the user object.
 		$user = JFactory::getUser();
-		// [7032] Create a new query object.
+		// [7199] Create a new query object.
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(true);
 
-		// [7035] Select some fields
+		// [7202] Select some fields
 		$query->select('a.*');
 
-		// [7042] From the costbenefitprojection_company table
+		// [7209] From the costbenefitprojection_company table
 		$query->from($db->quoteName('#__costbenefitprojection_company', 'a'));
 
 		// Filter by companies (admin sees all)
@@ -233,62 +233,62 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 			}
 		}
 
-		// [7635] From the users table.
+		// [7802] From the users table.
 		$query->select($db->quoteName('g.name','user_name'));
 		$query->join('LEFT', $db->quoteName('#__users', 'g') . ' ON (' . $db->quoteName('a.user') . ' = ' . $db->quoteName('g.id') . ')');
 
-		// [7635] From the costbenefitprojection_country table.
+		// [7802] From the costbenefitprojection_country table.
 		$query->select($db->quoteName('h.name','country_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_country', 'h') . ' ON (' . $db->quoteName('a.country') . ' = ' . $db->quoteName('h.id') . ')');
 
-		// [7635] From the costbenefitprojection_service_provider table.
+		// [7802] From the costbenefitprojection_service_provider table.
 		$query->select($db->quoteName('i.user','serviceprovider_user'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_service_provider', 'i') . ' ON (' . $db->quoteName('a.serviceprovider') . ' = ' . $db->quoteName('i.id') . ')');
 
-		// [7058] Filter by countrykeau global.
-		$countrykeau = $this->countrykeau;
-		if (is_numeric($countrykeau ))
+		// [7225] Filter by countryxnwk global.
+		$countryxnwk = $this->countryxnwk;
+		if (is_numeric($countryxnwk ))
 		{
-			$query->where('a.country = ' . (int) $countrykeau );
+			$query->where('a.country = ' . (int) $countryxnwk );
 		}
-		elseif (is_string($countrykeau))
+		elseif (is_string($countryxnwk))
 		{
-			$query->where('a.country = ' . $db->quote($countrykeau));
+			$query->where('a.country = ' . $db->quote($countryxnwk));
 		}
 		else
 		{
 			$query->where('a.country = -5');
 		}
 
-		// [7075] Join over the asset groups.
+		// [7242] Join over the asset groups.
 		$query->select('ag.title AS access_level');
 		$query->join('LEFT', '#__viewlevels AS ag ON ag.id = a.access');
-		// [7078] Filter by access level.
+		// [7245] Filter by access level.
 		if ($access = $this->getState('filter.access'))
 		{
 			$query->where('a.access = ' . (int) $access);
 		}
-		// [7083] Implement View Level Access
+		// [7250] Implement View Level Access
 		if (!$user->authorise('core.options', 'com_costbenefitprojection'))
 		{
 			$groups = implode(',', $user->getAuthorisedViewLevels());
 			$query->where('a.access IN (' . $groups . ')');
 		}
 
-		// [7090] Order the results by ordering
+		// [7257] Order the results by ordering
 		$query->order('a.ordering  ASC');
 
-		// [7092] Load the items
+		// [7259] Load the items
 		$db->setQuery($query);
 		$db->execute();
 		if ($db->getNumRows())
 		{
 			$items = $db->loadObjectList();
 
-			// [10696] set values to display correctly.
+			// [10867] set values to display correctly.
 			if (CostbenefitprojectionHelper::checkArray($items))
 			{
-				// [10699] get user object.
+				// [10870] get user object.
 				$user = JFactory::getUser();
 				foreach ($items as $nr => &$item)
 				{
@@ -302,15 +302,15 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 				}
 			}
 
-			// [10962] set selection value to a translatable value
+			// [11133] set selection value to a translatable value
 			if (CostbenefitprojectionHelper::checkArray($items))
 			{
 				foreach ($items as $nr => &$item)
 				{
-					// [10969] convert department
-					$item->department = $this->selectionTranslationTnpcompanies($item->department, 'department');
-					// [10969] convert per
-					$item->per = $this->selectionTranslationTnpcompanies($item->per, 'per');
+					// [11140] convert department
+					$item->department = $this->selectionTranslationMyzcompanies($item->department, 'department');
+					// [11140] convert per
+					$item->per = $this->selectionTranslationMyzcompanies($item->per, 'per');
 				}
 			}
 
@@ -324,29 +324,29 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	*
 	* @return translatable string
 	*/
-	public function selectionTranslationTnpcompanies($value,$name)
+	public function selectionTranslationMyzcompanies($value,$name)
 	{
-		// [10995] Array of department language strings
+		// [11166] Array of department language strings
 		if ($name == 'department')
 		{
 			$departmentArray = array(
 				1 => 'COM_COSTBENEFITPROJECTION_COMPANY_BASIC',
 				2 => 'COM_COSTBENEFITPROJECTION_COMPANY_ADVANCED'
 			);
-			// [11026] Now check if value is found in this array
+			// [11197] Now check if value is found in this array
 			if (isset($departmentArray[$value]) && CostbenefitprojectionHelper::checkString($departmentArray[$value]))
 			{
 				return $departmentArray[$value];
 			}
 		}
-		// [10995] Array of per language strings
+		// [11166] Array of per language strings
 		if ($name == 'per')
 		{
 			$perArray = array(
 				1 => 'COM_COSTBENEFITPROJECTION_COMPANY_OPEN',
 				0 => 'COM_COSTBENEFITPROJECTION_COMPANY_LOCKED'
 			);
-			// [11026] Now check if value is found in this array
+			// [11197] Now check if value is found in this array
 			if (isset($perArray[$value]) && CostbenefitprojectionHelper::checkString($perArray[$value]))
 			{
 				return $perArray[$value];
@@ -366,7 +366,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	 * @since   1.6
 	 */
 	public function getForm($data = array(), $loadData = true)
-	{		// [9651] Get the form.
+	{		// [9818] Get the form.
 		$form = $this->loadForm('com_costbenefitprojection.country', 'country', array('control' => 'jform', 'load_data' => $loadData));
 
 		if (empty($form))
@@ -376,12 +376,12 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 
 		$jinput = JFactory::getApplication()->input;
 
-		// [9736] The front end calls this model and uses a_id to avoid id clashes so we need to check for that first.
+		// [9903] The front end calls this model and uses a_id to avoid id clashes so we need to check for that first.
 		if ($jinput->get('a_id'))
 		{
 			$id = $jinput->get('a_id', 0, 'INT');
 		}
-		// [9741] The back end uses id so we use that the rest of the time and set it to 0 by default.
+		// [9908] The back end uses id so we use that the rest of the time and set it to 0 by default.
 		else
 		{
 			$id = $jinput->get('id', 0, 'INT');
@@ -389,34 +389,34 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 
 		$user = JFactory::getUser();
 
-		// [9747] Check for existing item.
-		// [9748] Modify the form based on Edit State access controls.
+		// [9914] Check for existing item.
+		// [9915] Modify the form based on Edit State access controls.
 		if ($id != 0 && (!$user->authorise('country.edit.state', 'com_costbenefitprojection.country.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('country.edit.state', 'com_costbenefitprojection')))
 		{
-			// [9761] Disable fields for display.
+			// [9928] Disable fields for display.
 			$form->setFieldAttribute('ordering', 'disabled', 'true');
 			$form->setFieldAttribute('published', 'disabled', 'true');
-			// [9764] Disable fields while saving.
+			// [9931] Disable fields while saving.
 			$form->setFieldAttribute('ordering', 'filter', 'unset');
 			$form->setFieldAttribute('published', 'filter', 'unset');
 		}
-		// [9769] Modify the form based on Edit Creaded By access controls.
+		// [9936] Modify the form based on Edit Creaded By access controls.
 		if (!$user->authorise('core.edit.created_by', 'com_costbenefitprojection'))
 		{
-			// [9781] Disable fields for display.
+			// [9948] Disable fields for display.
 			$form->setFieldAttribute('created_by', 'disabled', 'true');
-			// [9783] Disable fields for display.
+			// [9950] Disable fields for display.
 			$form->setFieldAttribute('created_by', 'readonly', 'true');
-			// [9785] Disable fields while saving.
+			// [9952] Disable fields while saving.
 			$form->setFieldAttribute('created_by', 'filter', 'unset');
 		}
-		// [9788] Modify the form based on Edit Creaded Date access controls.
+		// [9955] Modify the form based on Edit Creaded Date access controls.
 		if (!$user->authorise('core.edit.created', 'com_costbenefitprojection'))
 		{
-			// [9800] Disable fields for display.
+			// [9967] Disable fields for display.
 			$form->setFieldAttribute('created', 'disabled', 'true');
-			// [9802] Disable fields while saving.
+			// [9969] Disable fields while saving.
 			$form->setFieldAttribute('created', 'filter', 'unset');
 		}
 
@@ -452,7 +452,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 			}
 
 			$user = JFactory::getUser();
-			// [9952] The record has been set. Check the record permissions.
+			// [10119] The record has been set. Check the record permissions.
 			return $user->authorise('country.delete', 'com_costbenefitprojection.country.' . (int) $record->id);
 		}
 		return false;
@@ -474,14 +474,14 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 
 		if ($recordId)
 		{
-			// [10039] The record has been set. Check the record permissions.
+			// [10206] The record has been set. Check the record permissions.
 			$permission = $user->authorise('country.edit.state', 'com_costbenefitprojection.country.' . (int) $recordId);
 			if (!$permission && !is_null($permission))
 			{
 				return false;
 			}
 		}
-		// [10056] In the absense of better information, revert to the component permissions.
+		// [10223] In the absense of better information, revert to the component permissions.
 		return $user->authorise('country.edit.state', 'com_costbenefitprojection');
 	}
     
@@ -496,7 +496,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	 */
 	protected function allowEdit($data = array(), $key = 'id')
 	{
-		// [9864] Check specific edit permission then general edit permission.
+		// [10031] Check specific edit permission then general edit permission.
 		$user = JFactory::getUser();
 		$recordId	= (int) isset($data[$key]) ? $data[$key] : 0;
 		if (!$user->authorise('core.options', 'com_costbenefitprojection'))
@@ -732,7 +732,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	{
 		if (empty($this->batchSet))
 		{
-			// [5015] Set some needed variables.
+			// [5179] Set some needed variables.
 			$this->user 		= JFactory::getUser();
 			$this->table 		= $this->getTable();
 			$this->tableClassName	= get_class($this->table);
@@ -777,12 +777,12 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 		}
 
 
-		// [5035] get list of uniqe fields
+		// [5199] get list of uniqe fields
 		$uniqeFields = $this->getUniqeFields();
-		// [5037] remove move_copy from array
+		// [5201] remove move_copy from array
 		unset($values['move_copy']);
 
-		// [5040] make sure published is set
+		// [5204] make sure published is set
 		if (!isset($values['published']))
 		{
 			$values['published'] = 0;
@@ -794,21 +794,21 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 
 		$newIds = array();
 
-		// [5077] Parent exists so let's proceed
+		// [5241] Parent exists so let's proceed
 		while (!empty($pks))
 		{
-			// [5080] Pop the first ID off the stack
+			// [5244] Pop the first ID off the stack
 			$pk = array_shift($pks);
 
 			$this->table->reset();
 
-			// [5085] only allow copy if user may edit this item.
+			// [5249] only allow copy if user may edit this item.
 
 			if (!$this->user->authorise('country.edit', $contexts[$pk]))
 
 			{
 
-				// [5095] Not fatal error
+				// [5259] Not fatal error
 
 				$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
 
@@ -816,19 +816,19 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 
 			}
 
-			// [5100] Check that the row actually exists
+			// [5264] Check that the row actually exists
 			if (!$this->table->load($pk))
 			{
 				if ($error = $this->table->getError())
 				{
-					// [5105] Fatal error
+					// [5269] Fatal error
 					$this->setError($error);
 
 					return false;
 				}
 				else
 				{
-					// [5112] Not fatal error
+					// [5276] Not fatal error
 					$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
 					continue;
 				}
@@ -836,7 +836,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 
 			list($this->table->name, $this->table->alias) = $this->_generateNewTitle($this->table->alias, $this->table->name);
 
-			// [5148] insert all set values
+			// [5312] insert all set values
 			if (CostbenefitprojectionHelper::checkArray($values))
 			{
 				foreach ($values as $key => $value)
@@ -848,7 +848,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 				}
 			}
 
-			// [5160] update all uniqe fields
+			// [5324] update all uniqe fields
 			if (CostbenefitprojectionHelper::checkArray($uniqeFields))
 			{
 				foreach ($uniqeFields as $uniqeField)
@@ -857,13 +857,13 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 				}
 			}
 
-			// [5169] Reset the ID because we are making a copy
+			// [5333] Reset the ID because we are making a copy
 			$this->table->id = 0;
 
-			// [5172] TODO: Deal with ordering?
-			// [5173] $this->table->ordering	= 1;
+			// [5336] TODO: Deal with ordering?
+			// [5337] $this->table->ordering	= 1;
 
-			// [5175] Check the row.
+			// [5339] Check the row.
 			if (!$this->table->check())
 			{
 				$this->setError($this->table->getError());
@@ -876,7 +876,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 				$this->createTagsHelper($this->tagsObserver, $this->type, $pk, $this->typeAlias, $this->table);
 			}
 
-			// [5188] Store the row.
+			// [5352] Store the row.
 			if (!$this->table->store())
 			{
 				$this->setError($this->table->getError());
@@ -884,14 +884,14 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 				return false;
 			}
 
-			// [5196] Get the new item ID
+			// [5360] Get the new item ID
 			$newId = $this->table->get('id');
 
-			// [5199] Add the new ID to the array
+			// [5363] Add the new ID to the array
 			$newIds[$pk] = $newId;
 		}
 
-		// [5203] Clean the cache
+		// [5367] Clean the cache
 		$this->cleanCache();
 
 		return $newIds;
@@ -912,7 +912,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	{
 		if (empty($this->batchSet))
 		{
-			// [4817] Set some needed variables.
+			// [4981] Set some needed variables.
 			$this->user		= JFactory::getUser();
 			$this->table		= $this->getTable();
 			$this->tableClassName	= get_class($this->table);
@@ -958,15 +958,15 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 		}
 
 
-		// [4839] make sure published only updates if user has the permission.
+		// [5003] make sure published only updates if user has the permission.
 		if (isset($values['published']) && !$this->canDo->get('country.edit.state'))
 		{
 			unset($values['published']);
 		}
-		// [4852] remove move_copy from array
+		// [5016] remove move_copy from array
 		unset($values['move_copy']);
 
-		// [4873] Parent exists so we proceed
+		// [5037] Parent exists so we proceed
 		foreach ($pks as $pk)
 		{
 			if (!$this->user->authorise('country.edit', $contexts[$pk]))
@@ -976,30 +976,30 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 				return false;
 			}
 
-			// [4890] Check that the row actually exists
+			// [5054] Check that the row actually exists
 			if (!$this->table->load($pk))
 			{
 				if ($error = $this->table->getError())
 				{
-					// [4895] Fatal error
+					// [5059] Fatal error
 					$this->setError($error);
 
 					return false;
 				}
 				else
 				{
-					// [4902] Not fatal error
+					// [5066] Not fatal error
 					$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
 					continue;
 				}
 			}
 
-			// [4908] insert all set values.
+			// [5072] insert all set values.
 			if (CostbenefitprojectionHelper::checkArray($values))
 			{
 				foreach ($values as $key => $value)
 				{
-					// [4913] Do special action for access.
+					// [5077] Do special action for access.
 					if ('access' == $key && strlen($value) > 0)
 					{
 						$this->table->$key = $value;
@@ -1012,7 +1012,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 			}
 
 
-			// [4925] Check the row.
+			// [5089] Check the row.
 			if (!$this->table->check())
 			{
 				$this->setError($this->table->getError());
@@ -1025,7 +1025,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 				$this->createTagsHelper($this->tagsObserver, $this->type, $pk, $this->typeAlias, $this->table);
 			}
 
-			// [4938] Store the row.
+			// [5102] Store the row.
 			if (!$this->table->store())
 			{
 				$this->setError($this->table->getError());
@@ -1034,7 +1034,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 			}
 		}
 
-		// [4947] Clean the cache
+		// [5111] Clean the cache
 		$this->cleanCache();
 
 		return true;
@@ -1064,7 +1064,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 			$data['metadata'] = (string) $metadata;
 		} 
 
-		// [4169] Set the causesrisks string to JSON string.
+		// [4333] Set the causesrisks string to JSON string.
 		if (isset($data['causesrisks']))
 		{
 			$data['causesrisks'] = (string) json_encode($data['causesrisks']);
@@ -1078,7 +1078,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 			$data['params'] = (string) $params;
 		}
 
-		// [5229] Alter the name for save as copy
+		// [5393] Alter the name for save as copy
 		if ($input->get('task') == 'save2copy')
 		{
 			$origTable = clone $this->getTable();
@@ -1101,7 +1101,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 			$data['published'] = 0;
 		}
 
-		// [5256] Automatic handling of alias for empty fields
+		// [5420] Automatic handling of alias for empty fields
 		if (in_array($input->get('task'), array('apply', 'save', 'save2new')) && (int) $input->get('id') == 0)
 		{
 			if ($data['alias'] == null)
@@ -1132,10 +1132,10 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 			}
 		}
 
-		// [5295] Alter the uniqe field for save as copy
+		// [5459] Alter the uniqe field for save as copy
 		if ($input->get('task') == 'save2copy')
 		{
-			// [5298] Automatic handling of other uniqe fields
+			// [5462] Automatic handling of other uniqe fields
 			$uniqeFields = $this->getUniqeFields();
 			if (CostbenefitprojectionHelper::checkArray($uniqeFields))
 			{
@@ -1189,7 +1189,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	protected function _generateNewTitle($alias, $title)
 	{
 
-		// [5329] Alter the title & alias
+		// [5493] Alter the title & alias
 		$table = $this->getTable();
 
 		while ($table->load(array('alias' => $alias)))

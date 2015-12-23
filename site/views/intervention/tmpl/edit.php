@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.1.0
-	@build			17th December, 2015
+	@build			23rd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -103,33 +103,33 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_type listeners for type_hhqVuoH function
+// #jform_type listeners for type_JxOMJHD function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_hhqVuoH = jQuery("#jform_type input[type='radio']:checked").val();
-	hhqVuoH(type_hhqVuoH);
+	var type_JxOMJHD = jQuery("#jform_type input[type='radio']:checked").val();
+	JxOMJHD(type_JxOMJHD);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_hhqVuoH = jQuery("#jform_type input[type='radio']:checked").val();
-	hhqVuoH(type_hhqVuoH);
+	var type_JxOMJHD = jQuery("#jform_type input[type='radio']:checked").val();
+	JxOMJHD(type_JxOMJHD);
 
 });
 
-// #jform_type listeners for type_LZHLLUr function
+// #jform_type listeners for type_SnkLovW function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_LZHLLUr = jQuery("#jform_type input[type='radio']:checked").val();
-	LZHLLUr(type_LZHLLUr);
+	var type_SnkLovW = jQuery("#jform_type input[type='radio']:checked").val();
+	SnkLovW(type_SnkLovW);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_LZHLLUr = jQuery("#jform_type input[type='radio']:checked").val();
-	LZHLLUr(type_LZHLLUr);
+	var type_SnkLovW = jQuery("#jform_type input[type='radio']:checked").val();
+	SnkLovW(type_SnkLovW);
 
 });
 

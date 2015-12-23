@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.1.0
-	@build			17th December, 2015
+	@build			23rd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		health_data.php
@@ -54,13 +54,13 @@ class CostbenefitprojectionControllerHealth_data extends JControllerForm
 	 */
 	protected function allowAdd($data = array())
 	{
-		// [9404] Access check.
+		// [9571] Access check.
 		$access = JFactory::getUser()->authorise('health_data.access', 'com_costbenefitprojection');
 		if (!$access)
 		{
 			return false;
 		}
-		// [9415] In the absense of better information, revert to the component permissions.
+		// [9582] In the absense of better information, revert to the component permissions.
 		return JFactory::getUser()->authorise('health_data.create', $this->option);
 	}
 
@@ -76,9 +76,9 @@ class CostbenefitprojectionControllerHealth_data extends JControllerForm
 	 */
 	protected function allowEdit($data = array(), $key = 'id')
 	{
-		// [9558] get user object.
+		// [9725] get user object.
 		$user		= JFactory::getUser();
-		// [9560] get record id.
+		// [9727] get record id.
 		$recordId	= (int) isset($data[$key]) ? $data[$key] : 0;
 		if (!$user->authorise('core.options', 'com_costbenefitprojection'))
 		{
@@ -92,7 +92,7 @@ class CostbenefitprojectionControllerHealth_data extends JControllerForm
 			}
 		}
 
-		// [9567] Access check.
+		// [9734] Access check.
 		$access = ($user->authorise('health_data.access', 'com_costbenefitprojection.health_data.' . (int) $recordId) &&  $user->authorise('health_data.access', 'com_costbenefitprojection'));
 		if (!$access)
 		{
@@ -101,17 +101,17 @@ class CostbenefitprojectionControllerHealth_data extends JControllerForm
 
 		if ($recordId)
 		{
-			// [9576] The record has been set. Check the record permissions.
+			// [9743] The record has been set. Check the record permissions.
 			$permission = $user->authorise('health_data.edit', 'com_costbenefitprojection.health_data.' . (int) $recordId);
 			if (!$permission && !is_null($permission))
 			{
 				if ($user->authorise('health_data.edit.own', 'com_costbenefitprojection.health_data.' . $recordId))
 				{
-					// [9598] Now test the owner is the user.
+					// [9765] Now test the owner is the user.
 					$ownerId = (int) isset($data['created_by']) ? $data['created_by'] : 0;
 					if (empty($ownerId))
 					{
-						// [9602] Need to do a lookup from the model.
+						// [9769] Need to do a lookup from the model.
 						$record = $this->getModel()->getItem($recordId);
 
 						if (empty($record))
@@ -121,7 +121,7 @@ class CostbenefitprojectionControllerHealth_data extends JControllerForm
 						$ownerId = $record->created_by;
 					}
 
-					// [9610] If the owner matches 'me' then allow.
+					// [9777] If the owner matches 'me' then allow.
 					if ($ownerId == $user->id)
 					{
 						if ($user->authorise('health_data.edit.own', 'com_costbenefitprojection'))
@@ -133,7 +133,7 @@ class CostbenefitprojectionControllerHealth_data extends JControllerForm
 				return false;
 			}
 		}
-		// [9632] Since there is no permission, revert to the component permissions.
+		// [9799] Since there is no permission, revert to the component permissions.
 		return $user->authorise('health_data.edit', $this->option);
 	}
 

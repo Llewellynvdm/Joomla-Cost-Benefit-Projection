@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.1.0
-	@build			17th December, 2015
+	@build			23rd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		help_document.php
@@ -47,7 +47,7 @@ class CostbenefitprojectionTableHelp_document extends JTable
 	{
 		parent::__construct('#__costbenefitprojection_help_document', 'id', $db);
 
-		// [4277] Adding History Options
+		// [4441] Adding History Options
 		JTableObserverContenthistory::createObserver($this, array('typeAlias' => 'com_costbenefitprojection.help_document')); 
 	}	
  

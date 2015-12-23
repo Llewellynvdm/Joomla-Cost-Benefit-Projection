@@ -3,7 +3,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.1.0
-	@build			17th December, 2015
+	@build			23rd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		intervention.js
@@ -17,54 +17,54 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // Some Global Values
-jform_hhqVuoHOHO_required = false;
+jform_JxOMJHDKko_required = false;
 
 // Initial Script
 jQuery(document).ready(function()
 {
-	var type_hhqVuoH = jQuery("#jform_type input[type='radio']:checked").val();
-	hhqVuoH(type_hhqVuoH);
+	var type_JxOMJHD = jQuery("#jform_type input[type='radio']:checked").val();
+	JxOMJHD(type_JxOMJHD);
 
-	var type_LZHLLUr = jQuery("#jform_type input[type='radio']:checked").val();
-	LZHLLUr(type_LZHLLUr);
+	var type_SnkLovW = jQuery("#jform_type input[type='radio']:checked").val();
+	SnkLovW(type_SnkLovW);
 });
 
-// the hhqVuoH function
-function hhqVuoH(type_hhqVuoH)
+// the JxOMJHD function
+function JxOMJHD(type_JxOMJHD)
 {
-	// [8093] set the function logic
-	if (type_hhqVuoH == 2)
+	// [8260] set the function logic
+	if (type_JxOMJHD == 2)
 	{
 		jQuery('#jform_interventions').closest('.control-group').show();
-		if (jform_hhqVuoHOHO_required)
+		if (jform_JxOMJHDKko_required)
 		{
 			updateFieldRequired('interventions',0);
 			jQuery('#jform_interventions').prop('required','required');
 			jQuery('#jform_interventions').attr('aria-required',true);
 			jQuery('#jform_interventions').addClass('required');
-			jform_hhqVuoHOHO_required = false;
+			jform_JxOMJHDKko_required = false;
 		}
 
 	}
 	else
 	{
 		jQuery('#jform_interventions').closest('.control-group').hide();
-		if (!jform_hhqVuoHOHO_required)
+		if (!jform_JxOMJHDKko_required)
 		{
 			updateFieldRequired('interventions',1);
 			jQuery('#jform_interventions').removeAttr('required');
 			jQuery('#jform_interventions').removeAttr('aria-required');
 			jQuery('#jform_interventions').removeClass('required');
-			jform_hhqVuoHOHO_required = true;
+			jform_JxOMJHDKko_required = true;
 		}
 	}
 }
 
-// the LZHLLUr function
-function LZHLLUr(type_LZHLLUr)
+// the SnkLovW function
+function SnkLovW(type_SnkLovW)
 {
-	// [8093] set the function logic
-	if (type_LZHLLUr == 1)
+	// [8260] set the function logic
+	if (type_SnkLovW == 1)
 	{
 		jQuery('#jform_intervention').closest('.control-group').show();
 	}

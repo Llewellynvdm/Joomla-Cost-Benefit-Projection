@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.1.0
-	@build			17th December, 2015
+	@build			23rd December, 2015
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		countries.php
@@ -111,16 +111,16 @@ class CostbenefitprojectionModelCountries extends JModelList
 	 */
 	public function getItems()
 	{ 
-		// [10621] check in items
+		// [10792] check in items
 		$this->checkInNow();
 
 		// load parent items
 		$items = parent::getItems();
 
-		// [10696] set values to display correctly.
+		// [10867] set values to display correctly.
 		if (CostbenefitprojectionHelper::checkArray($items))
 		{
-			// [10699] get user object.
+			// [10870] get user object.
 			$user = JFactory::getUser();
 			foreach ($items as $nr => &$item)
 			{
@@ -145,16 +145,16 @@ class CostbenefitprojectionModelCountries extends JModelList
 	 */
 	protected function getListQuery()
 	{
-		// [7482] Get the user object.
+		// [7649] Get the user object.
 		$user = JFactory::getUser();
-		// [7484] Create a new query object.
+		// [7651] Create a new query object.
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(true);
 
-		// [7487] Select some fields
+		// [7654] Select some fields
 		$query->select('a.*');
 
-		// [7494] From the costbenefitprojection_item table
+		// [7661] From the costbenefitprojection_item table
 		$query->from($db->quoteName('#__costbenefitprojection_country', 'a'));
 
 		// Filter the countries (admin sees all)
@@ -173,15 +173,15 @@ class CostbenefitprojectionModelCountries extends JModelList
 			}
 		}
 
-		// [7635] From the users table.
+		// [7802] From the users table.
 		$query->select($db->quoteName('g.name','user_name'));
 		$query->join('LEFT', $db->quoteName('#__users', 'g') . ' ON (' . $db->quoteName('a.user') . ' = ' . $db->quoteName('g.id') . ')');
 
-		// [7635] From the costbenefitprojection_currency table.
+		// [7802] From the costbenefitprojection_currency table.
 		$query->select($db->quoteName('h.name','currency_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_currency', 'h') . ' ON (' . $db->quoteName('a.currency') . ' = ' . $db->quoteName('h.codethree') . ')');
 
-		// [7508] Filter by published state
+		// [7675] Filter by published state
 		$published = $this->getState('filter.published');
 		if (is_numeric($published))
 		{
@@ -192,21 +192,21 @@ class CostbenefitprojectionModelCountries extends JModelList
 			$query->where('(a.published = 0 OR a.published = 1)');
 		}
 
-		// [7520] Join over the asset groups.
+		// [7687] Join over the asset groups.
 		$query->select('ag.title AS access_level');
 		$query->join('LEFT', '#__viewlevels AS ag ON ag.id = a.access');
-		// [7523] Filter by access level.
+		// [7690] Filter by access level.
 		if ($access = $this->getState('filter.access'))
 		{
 			$query->where('a.access = ' . (int) $access);
 		}
-		// [7528] Implement View Level Access
+		// [7695] Implement View Level Access
 		if (!$user->authorise('core.options', 'com_costbenefitprojection'))
 		{
 			$groups = implode(',', $user->getAuthorisedViewLevels());
 			$query->where('a.access IN (' . $groups . ')');
 		}
-		// [7605] Filter by search.
+		// [7772] Filter by search.
 		$search = $this->getState('filter.search');
 		if (!empty($search))
 		{
@@ -221,13 +221,13 @@ class CostbenefitprojectionModelCountries extends JModelList
 			}
 		}
 
-		// [7839] Filter by currency.
+		// [8006] Filter by currency.
 		if ($currency = $this->getState('filter.currency'))
 		{
 			$query->where('a.currency = ' . $db->quote($db->escape($currency, true)));
 		}
 
-		// [7564] Add the list ordering clause.
+		// [7731] Add the list ordering clause.
 		$orderCol = $this->state->get('list.ordering', 'a.id');
 		$orderDirn = $this->state->get('list.direction', 'asc');	
 		if ($orderCol != '')
@@ -245,19 +245,19 @@ class CostbenefitprojectionModelCountries extends JModelList
 	*/
 	public function getExportData($pks)
 	{
-		// [7272] setup the query
+		// [7439] setup the query
 		if (CostbenefitprojectionHelper::checkArray($pks))
 		{
-			// [7275] Get the user object.
+			// [7442] Get the user object.
 			$user = JFactory::getUser();
-			// [7277] Create a new query object.
+			// [7444] Create a new query object.
 			$db = JFactory::getDBO();
 			$query = $db->getQuery(true);
 
-			// [7280] Select some fields
+			// [7447] Select some fields
 			$query->select('a.*');
 
-			// [7282] From the costbenefitprojection_country table
+			// [7449] From the costbenefitprojection_country table
 			$query->from($db->quoteName('#__costbenefitprojection_country', 'a'));
 			$query->where('a.id IN (' . implode(',',$pks) . ')');
 
@@ -276,27 +276,27 @@ class CostbenefitprojectionModelCountries extends JModelList
 				$query->where('a.id = -4');
 			}
 		}
-			// [7292] Implement View Level Access
+			// [7459] Implement View Level Access
 			if (!$user->authorise('core.options', 'com_costbenefitprojection'))
 			{
 				$groups = implode(',', $user->getAuthorisedViewLevels());
 				$query->where('a.access IN (' . $groups . ')');
 			}
 
-			// [7299] Order the results by ordering
+			// [7466] Order the results by ordering
 			$query->order('a.ordering  ASC');
 
-			// [7301] Load the items
+			// [7468] Load the items
 			$db->setQuery($query);
 			$db->execute();
 			if ($db->getNumRows())
 			{
 				$items = $db->loadObjectList();
 
-				// [10696] set values to display correctly.
+				// [10867] set values to display correctly.
 				if (CostbenefitprojectionHelper::checkArray($items))
 				{
-					// [10699] get user object.
+					// [10870] get user object.
 					$user = JFactory::getUser();
 					foreach ($items as $nr => &$item)
 					{
@@ -307,13 +307,13 @@ class CostbenefitprojectionModelCountries extends JModelList
 							continue;
 						}
 
-						// [10909] unset the values we don't want exported.
+						// [11080] unset the values we don't want exported.
 						unset($item->asset_id);
 						unset($item->checked_out);
 						unset($item->checked_out_time);
 					}
 				}
-				// [10918] Add headers to items array.
+				// [11089] Add headers to items array.
 				$headers = $this->getExImPortHeaders();
 				if (CostbenefitprojectionHelper::checkObject($headers))
 				{
@@ -332,13 +332,13 @@ class CostbenefitprojectionModelCountries extends JModelList
 	*/
 	public function getExImPortHeaders()
 	{
-		// [7321] Get a db connection.
+		// [7488] Get a db connection.
 		$db = JFactory::getDbo();
-		// [7323] get the columns
+		// [7490] get the columns
 		$columns = $db->getTableColumns("#__costbenefitprojection_country");
 		if (CostbenefitprojectionHelper::checkArray($columns))
 		{
-			// [7327] remove the headers you don't import/export.
+			// [7494] remove the headers you don't import/export.
 			unset($columns['asset_id']);
 			unset($columns['checked_out']);
 			unset($columns['checked_out_time']);
@@ -360,7 +360,7 @@ class CostbenefitprojectionModelCountries extends JModelList
 	 */
 	protected function getStoreId($id = '')
 	{
-		// [10244] Compile the store id.
+		// [10415] Compile the store id.
 		$id .= ':' . $this->getState('filter.id');
 		$id .= ':' . $this->getState('filter.search');
 		$id .= ':' . $this->getState('filter.published');
@@ -385,15 +385,15 @@ class CostbenefitprojectionModelCountries extends JModelList
 	*/
 	protected function checkInNow()
 	{
-		// [10637] Get set check in time
+		// [10808] Get set check in time
 		$time = JComponentHelper::getParams('com_costbenefitprojection')->get('check_in');
 		
 		if ($time)
 		{
 
-			// [10642] Get a db connection.
+			// [10813] Get a db connection.
 			$db = JFactory::getDbo();
-			// [10644] reset query
+			// [10815] reset query
 			$query = $db->getQuery(true);
 			$query->select('*');
 			$query->from($db->quoteName('#__costbenefitprojection_country'));
@@ -401,24 +401,24 @@ class CostbenefitprojectionModelCountries extends JModelList
 			$db->execute();
 			if ($db->getNumRows())
 			{
-				// [10652] Get Yesterdays date
+				// [10823] Get Yesterdays date
 				$date = JFactory::getDate()->modify($time)->toSql();
-				// [10654] reset query
+				// [10825] reset query
 				$query = $db->getQuery(true);
 
-				// [10656] Fields to update.
+				// [10827] Fields to update.
 				$fields = array(
 					$db->quoteName('checked_out_time') . '=\'0000-00-00 00:00:00\'',
 					$db->quoteName('checked_out') . '=0'
 				);
 
-				// [10661] Conditions for which records should be updated.
+				// [10832] Conditions for which records should be updated.
 				$conditions = array(
 					$db->quoteName('checked_out') . '!=0', 
 					$db->quoteName('checked_out_time') . '<\''.$date.'\''
 				);
 
-				// [10666] Check table
+				// [10837] Check table
 				$query->update($db->quoteName('#__costbenefitprojection_country'))->set($fields)->where($conditions); 
 
 				$db->setQuery($query);
