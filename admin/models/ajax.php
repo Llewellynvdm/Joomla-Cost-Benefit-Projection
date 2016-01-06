@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.1.0
-	@build			23rd December, 2015
+	@build			6th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		ajax.php
@@ -37,13 +37,13 @@ class CostbenefitprojectionModelAjax extends JModelList
 		
 	}
 
-	// [9168] Used in company
+	// [9177] Used in company
 	public function getCalculatedResult($id,$data)
 	{
 		return CostbenefitprojectionHelper::calculate($id,$data);
 	}
 
-	// [9168] Used in intervention
+	// [9177] Used in intervention
 public function getInterventionBuildTable($idName,$oject,$cluster)
 	{
 		if (CostbenefitprojectionHelper::isJson($oject) && CostbenefitprojectionHelper::checkString($idName))

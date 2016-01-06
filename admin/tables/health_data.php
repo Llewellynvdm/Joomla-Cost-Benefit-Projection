@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.1.0
-	@build			23rd December, 2015
+	@build			6th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		health_data.php
@@ -47,7 +47,7 @@ class CostbenefitprojectionTableHealth_data extends JTable
 	{
 		parent::__construct('#__costbenefitprojection_health_data', 'id', $db);
 
-		// [4441] Adding History Options
+		// [4450] Adding History Options
 		JTableObserverContenthistory::createObserver($this, array('typeAlias' => 'com_costbenefitprojection.health_data')); 
 	}	
  

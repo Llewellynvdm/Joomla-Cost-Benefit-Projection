@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.1.0
-	@build			23rd December, 2015
+	@build			6th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -752,23 +752,23 @@ abstract class CostbenefitprojectionHelper
 						$targetgroups = json_decode($help->groups, true);
 						if (!array_intersect($targetgroups, $groups))
 						{
-							// [1482] if user not in those target groups then remove the item
+							// [1487] if user not in those target groups then remove the item
 							unset($helps[$nr]);
 							continue;
 						}
 					}
-					// [1487] set the return type
+					// [1492] set the return type
 					switch ($help->type)
 					{
-						// [1490] set joomla article
+						// [1495] set joomla article
 						case 1:
 							return self::loadArticleLink($help->article);
 						break;
-						// [1494] set help text
+						// [1499] set help text
 						case 2:
 							return self::loadHelpTextLink($help->id);
 						break;
-						// [1498] set Link
+						// [1503] set Link
 						case 3:
 							return $help->url;
 						break;
@@ -848,33 +848,33 @@ abstract class CostbenefitprojectionHelper
 	*/
 	public static function createUser($new)
 	{
-		// [1716] load the user component language files if there is an error.
+		// [1721] load the user component language files if there is an error.
 		$lang = JFactory::getLanguage();
 		$extension = 'com_users';
 		$base_dir = JPATH_SITE;
 		$language_tag = 'en-GB';
 		$reload = true;
 		$lang->load($extension, $base_dir, $language_tag, $reload);
-		// [1723] load the user regestration model
+		// [1728] load the user regestration model
 		$model = self::getModel('registration', JPATH_ROOT. '/components/com_users', 'Users');
-		// [1725] make sure no activation is needed
+		// [1730] make sure no activation is needed
 		$useractivation = self::setParams('com_users','useractivation',0);
-		// [1727] make sure password is send
+		// [1732] make sure password is send
 		$sendpassword = self::setParams('com_users','sendpassword',1);
-		// [1729] Check if password was set
+		// [1734] Check if password was set
 		if (isset($new['password']) && isset($new['password2']) && self::checkString($new['password']) && self::checkString($new['password2']))
 		{
-			// [1732] Use the users passwords
+			// [1737] Use the users passwords
 			$password = $new['password'];
 			$password2 = $new['password2'];
 		}
 		else
 		{
-			// [1738] Set random password
+			// [1743] Set random password
 			$password = self::randomkey(8);
 			$password2 = $password;
 		}
-		// [1742] set username
+		// [1747] set username
 		if (isset($new['username']) && self::checkString($new['username']))
 		{
 			$new['username'] = self::safeString($new['username']);
@@ -883,7 +883,7 @@ abstract class CostbenefitprojectionHelper
 		{
 			$new['username'] = self::safeString($new['name']);			
 		}
-		// [1751] linup new user data
+		// [1756] linup new user data
 		$data = array(
 			'username' => $new['username'],
 			'name' => $new['name'],
@@ -891,13 +891,13 @@ abstract class CostbenefitprojectionHelper
 			'password1' => $password, // First password field
 			'password2' => $password2, // Confirm password field
 			'block' => 0 );
-		// [1759] register the new user
+		// [1764] register the new user
 		$userId = $model->register($data);
-		// [1761] set activation back to default
+		// [1766] set activation back to default
 		self::setParams('com_users','useractivation',$useractivation);
-		// [1763] set send password back to default
+		// [1768] set send password back to default
 		self::setParams('com_users','sendpassword',$sendpassword);
-		// [1765] if user is created
+		// [1770] if user is created
 		if ($userId > 0)
 		{
 			return $userId;
@@ -907,21 +907,21 @@ abstract class CostbenefitprojectionHelper
 
 	protected static function setParams($component,$target,$value)
 	{
-		// [1775] Get the params and set the new values
+		// [1780] Get the params and set the new values
 		$params = JComponentHelper::getParams($component);
 		$was = $params->get($target, null);
 		if ($was != $value)
 		{
 			$params->set($target, $value);
-			// [1781] Get a new database query instance
+			// [1786] Get a new database query instance
 			$db = JFactory::getDBO();
 			$query = $db->getQuery(true);
-			// [1784] Build the query
+			// [1789] Build the query
 			$query->update('#__extensions AS a');
 			$query->set('a.params = ' . $db->quote((string)$params));
 			$query->where('a.element = ' . $db->quote((string)$component));
 			
-			// [1789] Execute the query
+			// [1794] Execute the query
 			$db->setQuery($query);
 			$db->query();
 		}
@@ -997,7 +997,7 @@ abstract class CostbenefitprojectionHelper
 	{
 		if (strpos($content,'class="uk-') !== false)
 		{
-			// [2726] reset
+			// [2731] reset
 			$temp = array();
 			foreach (self::$uk_components as $looking => $add)
 			{
@@ -1006,15 +1006,15 @@ abstract class CostbenefitprojectionHelper
 					$temp[] = $looking;
 				}
 			}
-			// [2735] make sure uikit is loaded to config
+			// [2740] make sure uikit is loaded to config
 			if (strpos($content,'class="uk-') !== false)
 			{
 				self::$uikit = true;
 			}
-			// [2740] sorter
+			// [2745] sorter
 			if (self::checkArray($temp))
 			{
-				// [2743] merger
+				// [2748] merger
 				if (self::checkArray($classes))
 				{
 					$newTemp = array_merge($temp,$classes);
@@ -1035,37 +1035,37 @@ abstract class CostbenefitprojectionHelper
 	 */
 	public static function xls($rows,$fileName = null,$title = null,$subjectTab = null,$creator = 'Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb',$description = null,$category = null,$keywords = null,$modified = null)
 	{
-		// [1537] set the user
+		// [1542] set the user
 		$user = JFactory::getUser();
 		
-		// [1540] set fieldname if not set
+		// [1545] set fieldname if not set
 		if (!$fileName)
 		{
 			$fileName = 'exported_'.JFactory::getDate()->format('jS_F_Y');
 		}
-		// [1545] set modiefied if not set
+		// [1550] set modiefied if not set
 		if (!$modified)
 		{
 			$modified = $user->name;
 		}
-		// [1550] set title if not set
+		// [1555] set title if not set
 		if (!$title)
 		{
 			$title = 'Book1';
 		}
-		// [1555] set tab name if not set
+		// [1560] set tab name if not set
 		if (!$subjectTab)
 		{
 			$subjectTab = 'Sheet1';
 		}
 		
-		// [1561] make sure the file is loaded		
+		// [1566] make sure the file is loaded		
 		JLoader::import('PHPExcel', JPATH_COMPONENT_ADMINISTRATOR . '/helpers');
 		
-		// [1564] Create new PHPExcel object
+		// [1569] Create new PHPExcel object
 		$objPHPExcel = new PHPExcel();
 		
-		// [1567] Set document properties
+		// [1572] Set document properties
 		$objPHPExcel->getProperties()->setCreator($creator)
 									 ->setCompany('Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb')
 									 ->setLastModifiedBy($modified)
@@ -1084,7 +1084,7 @@ abstract class CostbenefitprojectionHelper
 			$objPHPExcel->getProperties()->setCategory($category);
 		}
 		
-		// [1586] Some styles
+		// [1591] Some styles
 		$headerStyles = array(
 			'font'  => array(
 				'bold'  => true,
@@ -1106,7 +1106,7 @@ abstract class CostbenefitprojectionHelper
 				'name'  => 'Verdana'
 		));
 		
-		// [1608] Add some data
+		// [1613] Add some data
 		if (self::checkArray($rows))
 		{
 			$i = 1;
@@ -1133,20 +1133,20 @@ abstract class CostbenefitprojectionHelper
 			return false;
 		}
 		
-		// [1635] Rename worksheet
+		// [1640] Rename worksheet
 		$objPHPExcel->getActiveSheet()->setTitle($subjectTab);
 		
-		// [1638] Set active sheet index to the first sheet, so Excel opens this as the first sheet
+		// [1643] Set active sheet index to the first sheet, so Excel opens this as the first sheet
 		$objPHPExcel->setActiveSheetIndex(0);
 		
-		// [1641] Redirect output to a client's web browser (Excel5)
+		// [1646] Redirect output to a client's web browser (Excel5)
 		header('Content-Type: application/vnd.ms-excel');
 		header('Content-Disposition: attachment;filename="'.$fileName.'.xls"');
 		header('Cache-Control: max-age=0');
-		// [1645] If you're serving to IE 9, then the following may be needed
+		// [1650] If you're serving to IE 9, then the following may be needed
 		header('Cache-Control: max-age=1');
 		
-		// [1648] If you're serving to IE over SSL, then the following may be needed
+		// [1653] If you're serving to IE over SSL, then the following may be needed
 		header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
 		header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
 		header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
@@ -1162,13 +1162,13 @@ abstract class CostbenefitprojectionHelper
 	*/
 	public static function getFileHeaders($dataType)
 	{		
-		// [1664] make sure the file is loaded		
+		// [1669] make sure the file is loaded		
 		JLoader::import('PHPExcel', JPATH_COMPONENT_ADMINISTRATOR . '/helpers');
-		// [1666] get session object
+		// [1671] get session object
 		$session 	= JFactory::getSession();
 		$package	= $session->get('package', null);
 		$package	= json_decode($package, true);
-		// [1670] set the headers
+		// [1675] set the headers
 		if(isset($package['dir']))
 		{
 			$inputFileType = PHPExcel_IOFactory::identify($package['dir']);
@@ -1969,12 +1969,12 @@ abstract class CostbenefitprojectionHelper
 	{
 		if ('advanced' == $type)
 		{
-			// [1289] Get the global params
+			// [1294] Get the global params
 			$params = JComponentHelper::getParams('com_costbenefitprojection', true);
 			$advanced_key = $params->get('advanced_key', null);
 			if ($advanced_key)
 			{
-				// [1294] load the file
+				// [1299] load the file
 				JLoader::import( 'vdm', JPATH_COMPONENT_ADMINISTRATOR);
 
 				$the = new VDM($advanced_key);

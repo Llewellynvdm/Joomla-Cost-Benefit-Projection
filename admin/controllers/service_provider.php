@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.1.0
-	@build			23rd December, 2015
+	@build			6th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		service_provider.php
@@ -54,13 +54,13 @@ class CostbenefitprojectionControllerService_provider extends JControllerForm
 	 */
 	protected function allowAdd($data = array())
 	{
-		// [9571] Access check.
+		// [9580] Access check.
 		$access = JFactory::getUser()->authorise('service_provider.access', 'com_costbenefitprojection');
 		if (!$access)
 		{
 			return false;
 		}
-		// [9582] In the absense of better information, revert to the component permissions.
+		// [9591] In the absense of better information, revert to the component permissions.
 		return JFactory::getUser()->authorise('service_provider.create', $this->option);
 	}
 
@@ -76,9 +76,9 @@ class CostbenefitprojectionControllerService_provider extends JControllerForm
 	 */
 	protected function allowEdit($data = array(), $key = 'id')
 	{
-		// [9725] get user object.
+		// [9734] get user object.
 		$user		= JFactory::getUser();
-		// [9727] get record id.
+		// [9736] get record id.
 		$recordId	= (int) isset($data[$key]) ? $data[$key] : 0;
 		if (!$user->authorise('core.options', 'com_costbenefitprojection'))
 		{
@@ -90,7 +90,7 @@ class CostbenefitprojectionControllerService_provider extends JControllerForm
 			}
 		}
 
-		// [9734] Access check.
+		// [9743] Access check.
 		$access = ($user->authorise('service_provider.access', 'com_costbenefitprojection.service_provider.' . (int) $recordId) &&  $user->authorise('service_provider.access', 'com_costbenefitprojection'));
 		if (!$access)
 		{
@@ -99,17 +99,17 @@ class CostbenefitprojectionControllerService_provider extends JControllerForm
 
 		if ($recordId)
 		{
-			// [9743] The record has been set. Check the record permissions.
+			// [9752] The record has been set. Check the record permissions.
 			$permission = $user->authorise('service_provider.edit', 'com_costbenefitprojection.service_provider.' . (int) $recordId);
 			if (!$permission && !is_null($permission))
 			{
 				if ($user->authorise('service_provider.edit.own', 'com_costbenefitprojection.service_provider.' . $recordId))
 				{
-					// [9765] Now test the owner is the user.
+					// [9774] Now test the owner is the user.
 					$ownerId = (int) isset($data['created_by']) ? $data['created_by'] : 0;
 					if (empty($ownerId))
 					{
-						// [9769] Need to do a lookup from the model.
+						// [9778] Need to do a lookup from the model.
 						$record = $this->getModel()->getItem($recordId);
 
 						if (empty($record))
@@ -119,7 +119,7 @@ class CostbenefitprojectionControllerService_provider extends JControllerForm
 						$ownerId = $record->created_by;
 					}
 
-					// [9777] If the owner matches 'me' then allow.
+					// [9786] If the owner matches 'me' then allow.
 					if ($ownerId == $user->id)
 					{
 						if ($user->authorise('service_provider.edit.own', 'com_costbenefitprojection'))
@@ -131,7 +131,7 @@ class CostbenefitprojectionControllerService_provider extends JControllerForm
 				return false;
 			}
 		}
-		// [9799] Since there is no permission, revert to the component permissions.
+		// [9808] Since there is no permission, revert to the component permissions.
 		return $user->authorise('service_provider.edit', $this->option);
 	}
 

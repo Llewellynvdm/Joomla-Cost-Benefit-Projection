@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.1.0
-	@build			23rd December, 2015
+	@build			6th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		import.php
@@ -190,10 +190,13 @@ class CostbenefitprojectionModelImport extends JModelLegacy
 	 * @return spreadsheet definition or false on failure
 	 */
 	protected function _getPackageFromUpload()
-	{
+	{		
 		// Get the uploaded file information
-		$userfile = JRequest::getVar('import_package', null, 'files', 'array');
+		$input    = JFactory::getApplication()->input;
 
+		// Do not change the filter type 'raw'. We need this to let files containing PHP code to upload. See JInputFiles::get.
+		$userfile = $input->files->get('import_package', null, 'raw');
+		
 		// Make sure that file uploads are enabled in php
 		if (!(bool) ini_get('file_uploads'))
 		{

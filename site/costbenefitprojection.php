@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.1.0
-	@build			23rd December, 2015
+	@build			6th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -36,7 +36,8 @@ jimport('joomla.application.component.controller');
 $controller = JControllerLegacy::getInstance('Costbenefitprojection');
 
 // Perform the request task
-$controller->execute(JRequest::getCmd('task'));
+$jinput = JFactory::getApplication()->input;
+$controller->execute($jinput->get('task', null, 'CMD'));
 
 // Redirect if set by the controller
 $controller->redirect();

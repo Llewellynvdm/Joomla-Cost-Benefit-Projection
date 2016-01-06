@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.1.0
-	@build			23rd December, 2015
+	@build			6th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		causerisk.php
@@ -110,7 +110,7 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 	 * @since   1.6
 	 */
 	public function getForm($data = array(), $loadData = true)
-	{		// [9818] Get the form.
+	{		// [9827] Get the form.
 		$form = $this->loadForm('com_costbenefitprojection.causerisk', 'causerisk', array('control' => 'jform', 'load_data' => $loadData));
 
 		if (empty($form))
@@ -120,12 +120,12 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 
 		$jinput = JFactory::getApplication()->input;
 
-		// [9903] The front end calls this model and uses a_id to avoid id clashes so we need to check for that first.
+		// [9912] The front end calls this model and uses a_id to avoid id clashes so we need to check for that first.
 		if ($jinput->get('a_id'))
 		{
 			$id = $jinput->get('a_id', 0, 'INT');
 		}
-		// [9908] The back end uses id so we use that the rest of the time and set it to 0 by default.
+		// [9917] The back end uses id so we use that the rest of the time and set it to 0 by default.
 		else
 		{
 			$id = $jinput->get('id', 0, 'INT');
@@ -133,34 +133,34 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 
 		$user = JFactory::getUser();
 
-		// [9914] Check for existing item.
-		// [9915] Modify the form based on Edit State access controls.
+		// [9923] Check for existing item.
+		// [9924] Modify the form based on Edit State access controls.
 		if ($id != 0 && (!$user->authorise('causerisk.edit.state', 'com_costbenefitprojection.causerisk.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('causerisk.edit.state', 'com_costbenefitprojection')))
 		{
-			// [9928] Disable fields for display.
+			// [9937] Disable fields for display.
 			$form->setFieldAttribute('ordering', 'disabled', 'true');
 			$form->setFieldAttribute('published', 'disabled', 'true');
-			// [9931] Disable fields while saving.
+			// [9940] Disable fields while saving.
 			$form->setFieldAttribute('ordering', 'filter', 'unset');
 			$form->setFieldAttribute('published', 'filter', 'unset');
 		}
-		// [9936] Modify the form based on Edit Creaded By access controls.
+		// [9945] Modify the form based on Edit Creaded By access controls.
 		if (!$user->authorise('core.edit.created_by', 'com_costbenefitprojection'))
 		{
-			// [9948] Disable fields for display.
+			// [9957] Disable fields for display.
 			$form->setFieldAttribute('created_by', 'disabled', 'true');
-			// [9950] Disable fields for display.
+			// [9959] Disable fields for display.
 			$form->setFieldAttribute('created_by', 'readonly', 'true');
-			// [9952] Disable fields while saving.
+			// [9961] Disable fields while saving.
 			$form->setFieldAttribute('created_by', 'filter', 'unset');
 		}
-		// [9955] Modify the form based on Edit Creaded Date access controls.
+		// [9964] Modify the form based on Edit Creaded Date access controls.
 		if (!$user->authorise('core.edit.created', 'com_costbenefitprojection'))
 		{
-			// [9967] Disable fields for display.
+			// [9976] Disable fields for display.
 			$form->setFieldAttribute('created', 'disabled', 'true');
-			// [9969] Disable fields while saving.
+			// [9978] Disable fields while saving.
 			$form->setFieldAttribute('created', 'filter', 'unset');
 		}
 
@@ -196,7 +196,7 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 			}
 
 			$user = JFactory::getUser();
-			// [10119] The record has been set. Check the record permissions.
+			// [10128] The record has been set. Check the record permissions.
 			return $user->authorise('causerisk.delete', 'com_costbenefitprojection.causerisk.' . (int) $record->id);
 		}
 		return false;
@@ -218,14 +218,14 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 
 		if ($recordId)
 		{
-			// [10206] The record has been set. Check the record permissions.
+			// [10215] The record has been set. Check the record permissions.
 			$permission = $user->authorise('causerisk.edit.state', 'com_costbenefitprojection.causerisk.' . (int) $recordId);
 			if (!$permission && !is_null($permission))
 			{
 				return false;
 			}
 		}
-		// [10223] In the absense of better information, revert to the component permissions.
+		// [10232] In the absense of better information, revert to the component permissions.
 		return $user->authorise('causerisk.edit.state', 'com_costbenefitprojection');
 	}
     
@@ -240,7 +240,7 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 	 */
 	protected function allowEdit($data = array(), $key = 'id')
 	{
-		// [10031] Check specific edit permission then general edit permission.
+		// [10040] Check specific edit permission then general edit permission.
 		$user = JFactory::getUser();
 
 		return $user->authorise('causerisk.edit', 'com_costbenefitprojection.causerisk.'. ((int) isset($data[$key]) ? $data[$key] : 0)) or $user->authorise('causerisk.edit',  'com_costbenefitprojection');
@@ -466,7 +466,7 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 	{
 		if (empty($this->batchSet))
 		{
-			// [5179] Set some needed variables.
+			// [5188] Set some needed variables.
 			$this->user 		= JFactory::getUser();
 			$this->table 		= $this->getTable();
 			$this->tableClassName	= get_class($this->table);
@@ -480,12 +480,12 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 			return false;
 		}
 
-		// [5199] get list of uniqe fields
+		// [5208] get list of uniqe fields
 		$uniqeFields = $this->getUniqeFields();
-		// [5201] remove move_copy from array
+		// [5210] remove move_copy from array
 		unset($values['move_copy']);
 
-		// [5204] make sure published is set
+		// [5213] make sure published is set
 		if (!isset($values['published']))
 		{
 			$values['published'] = 0;
@@ -497,21 +497,21 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 
 		$newIds = array();
 
-		// [5241] Parent exists so let's proceed
+		// [5250] Parent exists so let's proceed
 		while (!empty($pks))
 		{
-			// [5244] Pop the first ID off the stack
+			// [5253] Pop the first ID off the stack
 			$pk = array_shift($pks);
 
 			$this->table->reset();
 
-			// [5249] only allow copy if user may edit this item.
+			// [5258] only allow copy if user may edit this item.
 
 			if (!$this->user->authorise('causerisk.edit', $contexts[$pk]))
 
 			{
 
-				// [5259] Not fatal error
+				// [5268] Not fatal error
 
 				$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
 
@@ -519,19 +519,19 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 
 			}
 
-			// [5264] Check that the row actually exists
+			// [5273] Check that the row actually exists
 			if (!$this->table->load($pk))
 			{
 				if ($error = $this->table->getError())
 				{
-					// [5269] Fatal error
+					// [5278] Fatal error
 					$this->setError($error);
 
 					return false;
 				}
 				else
 				{
-					// [5276] Not fatal error
+					// [5285] Not fatal error
 					$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
 					continue;
 				}
@@ -539,7 +539,7 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 
 			list($this->table->name, $this->table->alias) = $this->_generateNewTitle($this->table->alias, $this->table->name);
 
-			// [5312] insert all set values
+			// [5321] insert all set values
 			if (CostbenefitprojectionHelper::checkArray($values))
 			{
 				foreach ($values as $key => $value)
@@ -551,7 +551,7 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 				}
 			}
 
-			// [5324] update all uniqe fields
+			// [5333] update all uniqe fields
 			if (CostbenefitprojectionHelper::checkArray($uniqeFields))
 			{
 				foreach ($uniqeFields as $uniqeField)
@@ -560,13 +560,13 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 				}
 			}
 
-			// [5333] Reset the ID because we are making a copy
+			// [5342] Reset the ID because we are making a copy
 			$this->table->id = 0;
 
-			// [5336] TODO: Deal with ordering?
-			// [5337] $this->table->ordering	= 1;
+			// [5345] TODO: Deal with ordering?
+			// [5346] $this->table->ordering	= 1;
 
-			// [5339] Check the row.
+			// [5348] Check the row.
 			if (!$this->table->check())
 			{
 				$this->setError($this->table->getError());
@@ -579,7 +579,7 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 				$this->createTagsHelper($this->tagsObserver, $this->type, $pk, $this->typeAlias, $this->table);
 			}
 
-			// [5352] Store the row.
+			// [5361] Store the row.
 			if (!$this->table->store())
 			{
 				$this->setError($this->table->getError());
@@ -587,14 +587,14 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 				return false;
 			}
 
-			// [5360] Get the new item ID
+			// [5369] Get the new item ID
 			$newId = $this->table->get('id');
 
-			// [5363] Add the new ID to the array
+			// [5372] Add the new ID to the array
 			$newIds[$pk] = $newId;
 		}
 
-		// [5367] Clean the cache
+		// [5376] Clean the cache
 		$this->cleanCache();
 
 		return $newIds;
@@ -615,7 +615,7 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 	{
 		if (empty($this->batchSet))
 		{
-			// [4981] Set some needed variables.
+			// [4990] Set some needed variables.
 			$this->user		= JFactory::getUser();
 			$this->table		= $this->getTable();
 			$this->tableClassName	= get_class($this->table);
@@ -630,15 +630,15 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 			return false;
 		}
 
-		// [5003] make sure published only updates if user has the permission.
+		// [5012] make sure published only updates if user has the permission.
 		if (isset($values['published']) && !$this->canDo->get('causerisk.edit.state'))
 		{
 			unset($values['published']);
 		}
-		// [5016] remove move_copy from array
+		// [5025] remove move_copy from array
 		unset($values['move_copy']);
 
-		// [5037] Parent exists so we proceed
+		// [5046] Parent exists so we proceed
 		foreach ($pks as $pk)
 		{
 			if (!$this->user->authorise('causerisk.edit', $contexts[$pk]))
@@ -648,30 +648,30 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 				return false;
 			}
 
-			// [5054] Check that the row actually exists
+			// [5063] Check that the row actually exists
 			if (!$this->table->load($pk))
 			{
 				if ($error = $this->table->getError())
 				{
-					// [5059] Fatal error
+					// [5068] Fatal error
 					$this->setError($error);
 
 					return false;
 				}
 				else
 				{
-					// [5066] Not fatal error
+					// [5075] Not fatal error
 					$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
 					continue;
 				}
 			}
 
-			// [5072] insert all set values.
+			// [5081] insert all set values.
 			if (CostbenefitprojectionHelper::checkArray($values))
 			{
 				foreach ($values as $key => $value)
 				{
-					// [5077] Do special action for access.
+					// [5086] Do special action for access.
 					if ('access' == $key && strlen($value) > 0)
 					{
 						$this->table->$key = $value;
@@ -684,7 +684,7 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 			}
 
 
-			// [5089] Check the row.
+			// [5098] Check the row.
 			if (!$this->table->check())
 			{
 				$this->setError($this->table->getError());
@@ -697,7 +697,7 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 				$this->createTagsHelper($this->tagsObserver, $this->type, $pk, $this->typeAlias, $this->table);
 			}
 
-			// [5102] Store the row.
+			// [5111] Store the row.
 			if (!$this->table->store())
 			{
 				$this->setError($this->table->getError());
@@ -706,7 +706,7 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 			}
 		}
 
-		// [5111] Clean the cache
+		// [5120] Clean the cache
 		$this->cleanCache();
 
 		return true;
@@ -744,7 +744,7 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 			$data['params'] = (string) $params;
 		}
 
-		// [5393] Alter the name for save as copy
+		// [5402] Alter the name for save as copy
 		if ($input->get('task') == 'save2copy')
 		{
 			$origTable = clone $this->getTable();
@@ -767,7 +767,7 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 			$data['published'] = 0;
 		}
 
-		// [5420] Automatic handling of alias for empty fields
+		// [5429] Automatic handling of alias for empty fields
 		if (in_array($input->get('task'), array('apply', 'save', 'save2new')) && (int) $input->get('id') == 0)
 		{
 			if ($data['alias'] == null)
@@ -798,10 +798,10 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 			}
 		}
 
-		// [5459] Alter the uniqe field for save as copy
+		// [5468] Alter the uniqe field for save as copy
 		if ($input->get('task') == 'save2copy')
 		{
-			// [5462] Automatic handling of other uniqe fields
+			// [5471] Automatic handling of other uniqe fields
 			$uniqeFields = $this->getUniqeFields();
 			if (CostbenefitprojectionHelper::checkArray($uniqeFields))
 			{
@@ -855,7 +855,7 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 	protected function _generateNewTitle($alias, $title)
 	{
 
-		// [5493] Alter the title & alias
+		// [5502] Alter the title & alias
 		$table = $this->getTable();
 
 		while ($table->load(array('alias' => $alias)))

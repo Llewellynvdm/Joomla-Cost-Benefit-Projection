@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.1.0
-	@build			23rd December, 2015
+	@build			6th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -86,27 +86,27 @@ class CostbenefitprojectionViewHelp_document extends JViewLegacy
 		$isNew = $this->item->id == 0;
 
 		JToolbarHelper::title( JText::_($isNew ? 'COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_NEW' : 'COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_EDIT'), 'pencil-2 article-add');
-		// [10525] Built the actions for new and existing records.
+		// [10534] Built the actions for new and existing records.
 		if ($this->refid || $this->ref)
 		{
 			if ($this->canDo->get('help_document.create') && $isNew)
 			{
-				// [10537] We can create the record.
+				// [10546] We can create the record.
 				JToolBarHelper::save('help_document.save', 'JTOOLBAR_SAVE');
 			}
 			elseif ($this->canDo->get('help_document.edit'))
 			{
-				// [10549] We can save the record.
+				// [10558] We can save the record.
 				JToolBarHelper::save('help_document.save', 'JTOOLBAR_SAVE');
 			}
 			if ($isNew)
 			{
-				// [10554] Do not creat but cancel.
+				// [10563] Do not creat but cancel.
 				JToolBarHelper::cancel('help_document.cancel', 'JTOOLBAR_CANCEL');
 			}
 			else
 			{
-				// [10559] We can close it.
+				// [10568] We can close it.
 				JToolBarHelper::cancel('help_document.cancel', 'JTOOLBAR_CLOSE');
 			}
 		}
@@ -114,7 +114,7 @@ class CostbenefitprojectionViewHelp_document extends JViewLegacy
 		{
 			if ($isNew)
 			{
-				// [10567] For new records, check the create permission.
+				// [10576] For new records, check the create permission.
 				if ($this->canDo->get('help_document.create'))
 				{
 					JToolBarHelper::apply('help_document.apply', 'JTOOLBAR_APPLY');
@@ -127,11 +127,11 @@ class CostbenefitprojectionViewHelp_document extends JViewLegacy
 			{
 				if ($this->canDo->get('help_document.edit'))
 				{
-					// [10594] We can save the new record
+					// [10603] We can save the new record
 					JToolBarHelper::apply('help_document.apply', 'JTOOLBAR_APPLY');
 					JToolBarHelper::save('help_document.save', 'JTOOLBAR_SAVE');
-					// [10597] We can save this record, but check the create permission to see
-					// [10598] if we can return to make a new one.
+					// [10606] We can save this record, but check the create permission to see
+					// [10607] if we can return to make a new one.
 					if ($this->canDo->get('help_document.create'))
 					{
 						JToolBarHelper::custom('help_document.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);
@@ -150,7 +150,7 @@ class CostbenefitprojectionViewHelp_document extends JViewLegacy
 			}
 		}
 		JToolbarHelper::divider();
-		// [10634] set help url for this view if found
+		// [10643] set help url for this view if found
 		$help_url = CostbenefitprojectionHelper::getHelpUrl('help_document');
 		if (CostbenefitprojectionHelper::checkString($help_url))
 		{

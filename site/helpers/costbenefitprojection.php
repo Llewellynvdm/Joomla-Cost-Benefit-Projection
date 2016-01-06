@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.1.0
-	@build			23rd December, 2015
+	@build			6th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -711,23 +711,23 @@ abstract class CostbenefitprojectionHelper
 						$targetgroups = json_decode($help->groups, true);
 						if (!array_intersect($targetgroups, $groups))
 						{
-							// [1482] if user not in those target groups then remove the item
+							// [1487] if user not in those target groups then remove the item
 							unset($helps[$nr]);
 							continue;
 						}
 					}
-					// [1487] set the return type
+					// [1492] set the return type
 					switch ($help->type)
 					{
-						// [1490] set joomla article
+						// [1495] set joomla article
 						case 1:
 							return self::loadArticleLink($help->article);
 						break;
-						// [1494] set help text
+						// [1499] set help text
 						case 2:
 							return self::loadHelpTextLink($help->id);
 						break;
-						// [1498] set Link
+						// [1503] set Link
 						case 3:
 							return $help->url;
 						break;
@@ -977,7 +977,7 @@ abstract class CostbenefitprojectionHelper
 	{
 		if (strpos($content,'class="uk-') !== false)
 		{
-			// [2726] reset
+			// [2731] reset
 			$temp = array();
 			foreach (self::$uk_components as $looking => $add)
 			{
@@ -986,15 +986,15 @@ abstract class CostbenefitprojectionHelper
 					$temp[] = $looking;
 				}
 			}
-			// [2735] make sure uikit is loaded to config
+			// [2740] make sure uikit is loaded to config
 			if (strpos($content,'class="uk-') !== false)
 			{
 				self::$uikit = true;
 			}
-			// [2740] sorter
+			// [2745] sorter
 			if (self::checkArray($temp))
 			{
-				// [2743] merger
+				// [2748] merger
 				if (self::checkArray($classes))
 				{
 					$newTemp = array_merge($temp,$classes);
@@ -1015,33 +1015,33 @@ abstract class CostbenefitprojectionHelper
 	*/
 	public static function createUser($new)
 	{
-		// [1716] load the user component language files if there is an error.
+		// [1721] load the user component language files if there is an error.
 		$lang = JFactory::getLanguage();
 		$extension = 'com_users';
 		$base_dir = JPATH_SITE;
 		$language_tag = 'en-GB';
 		$reload = true;
 		$lang->load($extension, $base_dir, $language_tag, $reload);
-		// [1723] load the user regestration model
+		// [1728] load the user regestration model
 		$model = self::getModel('registration', JPATH_ROOT. '/components/com_users', 'Users');
-		// [1725] make sure no activation is needed
+		// [1730] make sure no activation is needed
 		$useractivation = self::setParams('com_users','useractivation',0);
-		// [1727] make sure password is send
+		// [1732] make sure password is send
 		$sendpassword = self::setParams('com_users','sendpassword',1);
-		// [1729] Check if password was set
+		// [1734] Check if password was set
 		if (isset($new['password']) && isset($new['password2']) && self::checkString($new['password']) && self::checkString($new['password2']))
 		{
-			// [1732] Use the users passwords
+			// [1737] Use the users passwords
 			$password = $new['password'];
 			$password2 = $new['password2'];
 		}
 		else
 		{
-			// [1738] Set random password
+			// [1743] Set random password
 			$password = self::randomkey(8);
 			$password2 = $password;
 		}
-		// [1742] set username
+		// [1747] set username
 		if (isset($new['username']) && self::checkString($new['username']))
 		{
 			$new['username'] = self::safeString($new['username']);
@@ -1050,7 +1050,7 @@ abstract class CostbenefitprojectionHelper
 		{
 			$new['username'] = self::safeString($new['name']);			
 		}
-		// [1751] linup new user data
+		// [1756] linup new user data
 		$data = array(
 			'username' => $new['username'],
 			'name' => $new['name'],
@@ -1058,13 +1058,13 @@ abstract class CostbenefitprojectionHelper
 			'password1' => $password, // First password field
 			'password2' => $password2, // Confirm password field
 			'block' => 0 );
-		// [1759] register the new user
+		// [1764] register the new user
 		$userId = $model->register($data);
-		// [1761] set activation back to default
+		// [1766] set activation back to default
 		self::setParams('com_users','useractivation',$useractivation);
-		// [1763] set send password back to default
+		// [1768] set send password back to default
 		self::setParams('com_users','sendpassword',$sendpassword);
-		// [1765] if user is created
+		// [1770] if user is created
 		if ($userId > 0)
 		{
 			return $userId;
@@ -1074,21 +1074,21 @@ abstract class CostbenefitprojectionHelper
 
 	protected static function setParams($component,$target,$value)
 	{
-		// [1775] Get the params and set the new values
+		// [1780] Get the params and set the new values
 		$params = JComponentHelper::getParams($component);
 		$was = $params->get($target, null);
 		if ($was != $value)
 		{
 			$params->set($target, $value);
-			// [1781] Get a new database query instance
+			// [1786] Get a new database query instance
 			$db = JFactory::getDBO();
 			$query = $db->getQuery(true);
-			// [1784] Build the query
+			// [1789] Build the query
 			$query->update('#__extensions AS a');
 			$query->set('a.params = ' . $db->quote((string)$params));
 			$query->where('a.element = ' . $db->quote((string)$component));
 			
-			// [1789] Execute the query
+			// [1794] Execute the query
 			$db->setQuery($query);
 			$db->query();
 		}
@@ -1646,12 +1646,12 @@ abstract class CostbenefitprojectionHelper
 	{
 		if ('advanced' == $type)
 		{
-			// [1289] Get the global params
+			// [1294] Get the global params
 			$params = JComponentHelper::getParams('com_costbenefitprojection', true);
 			$advanced_key = $params->get('advanced_key', null);
 			if ($advanced_key)
 			{
-				// [1294] load the file
+				// [1299] load the file
 				JLoader::import( 'vdm', JPATH_COMPONENT_ADMINISTRATOR);
 
 				$the = new VDM($advanced_key);

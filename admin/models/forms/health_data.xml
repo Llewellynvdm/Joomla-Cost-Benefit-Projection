@@ -4,15 +4,15 @@
 	addfieldpath="/administrator/components/com_costbenefitprojection/models/fields"
 >
 	<fieldset name="details">
-		<!-- [11275] Default Fields. -->
-		<!-- [11276] Id Field. Type: Text (joomla) -->
+		<!-- [11284] Default Fields. -->
+		<!-- [11285] Id Field. Type: Text (joomla) -->
 		<field
 			name="id"
 			type="text" class="readonly" label="JGLOBAL_FIELD_ID_LABEL"
 			description ="JGLOBAL_FIELD_ID_DESC" size="10" default="0"
 			readonly="true"
 		/>
-		<!-- [11283] Date Created Field. Type: Calendar (joomla) -->
+		<!-- [11292] Date Created Field. Type: Calendar (joomla) -->
 		<field
 			name="created"
 			type="calendar"
@@ -22,14 +22,14 @@
 			format="%Y-%m-%d %H:%M:%S"
 			filter="user_utc"
 		/>
-		<!-- [11294] User Created Field. Type: User (joomla) -->
+		<!-- [11303] User Created Field. Type: User (joomla) -->
 		<field
 			name="created_by"
 			type="user"
 			label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_CREATED_BY_LABEL"
 			description="COM_COSTBENEFITPROJECTION_HEALTH_DATA_CREATED_BY_DESC"
 		/>
-		<!-- [11302] Published Field. Type: List (joomla) -->
+		<!-- [11311] Published Field. Type: List (joomla) -->
 		<field name="published" type="list" label="JSTATUS"
 			description="JFIELD_PUBLISHED_DESC" class="chzn-color-state"
 			filter="intval" size="1" default="1" >
@@ -42,18 +42,18 @@
 			<option value="-2">
 				JTRASHED</option>
 		</field>
-		<!-- [11317] Date Modified Field. Type: Calendar (joomla) -->
+		<!-- [11326] Date Modified Field. Type: Calendar (joomla) -->
 		<field name="modified" type="calendar" class="readonly"
 			label="JGLOBAL_FIELD_MODIFIED_LABEL" description="COM_CONTENT_FIELD_MODIFIED_DESC"
 			size="22" readonly="true" format="%Y-%m-%d %H:%M:%S" filter="user_utc" />
-		<!-- [11321] User Modified Field. Type: User (joomla) -->
+		<!-- [11330] User Modified Field. Type: User (joomla) -->
 		<field name="modified_by" type="user"
 			label="JGLOBAL_FIELD_MODIFIED_BY_LABEL"
 			class="readonly"
 			readonly="true"
 			filter="unset"
 		/>
-		<!-- [11331] Access Field. Type: Accesslevel (joomla) -->
+		<!-- [11340] Access Field. Type: Accesslevel (joomla) -->
 		<field name="access"
 			type="accesslevel"
 			label="JFIELD_ACCESS_LABEL"
@@ -61,7 +61,7 @@
 			default="1"
 			required="false"
 		/>
-		<!-- [11341] Ordering Field. Type: Numbers (joomla) -->
+		<!-- [11350] Ordering Field. Type: Numbers (joomla) -->
 		<field
 			name="ordering"
 			type="number"
@@ -72,7 +72,7 @@
 			size="6"
 			required="false"
 		/>
-		<!-- [11353] Version Field. Type: Text (joomla) -->
+		<!-- [11362] Version Field. Type: Text (joomla) -->
 		<field
 			name="version"
 			type="text"
@@ -83,8 +83,8 @@
 			readonly="true"
 			filter="unset"
 		/>
-		<!-- [11386] Dynamic Fields. -->
-		<!-- [11743] Causerisk Field. Type: Causesrisks. (custom) -->
+		<!-- [11395] Dynamic Fields. -->
+		<!-- [11752] Causerisk Field. Type: Causesrisks. (custom) -->
 		<field
 			type="causesrisks"
 			name="causerisk"
@@ -94,7 +94,7 @@
 			multiple="false"
 			default="0"
 		/>
-		<!-- [11536] Year Field. Type: List. (joomla) -->
+		<!-- [11545] Year Field. Type: List. (joomla) -->
 		<field
 			type="list"
 			name="year"
@@ -103,7 +103,7 @@
 			multiple="false"
 			filter="INT"
 			required="true">
-			<!-- [11608] Option Set. -->
+			<!-- [11617] Option Set. -->
 			<option value="">
 				COM_COSTBENEFITPROJECTION_HEALTH_DATA_SELECT_A_YEAR</option>
 			<option value="2010">
@@ -137,7 +137,7 @@
 			<option value="2024">
 				COM_COSTBENEFITPROJECTION_HEALTH_DATA_TWO_THOUSAND_AND_TWENTY_FOUR</option>
 		</field>
-		<!-- [11743] Country Field. Type: Countries. (custom) -->
+		<!-- [11752] Country Field. Type: Countries. (custom) -->
 		<field
 			type="countries"
 			name="country"
@@ -148,7 +148,7 @@
 			default="0"
 			required="true"
 		/>
-		<!-- [11653] Femaledeath Field. Type: Repeatable. (joomla) -->
+		<!-- [11662] Femaledeath Field. Type: Repeatable. (joomla) -->
 		<field
 			type="repeatable"
 			name="femaledeath"
@@ -161,7 +161,7 @@
 			maximum="10">
 			<fields name="femaledeath_fields" label="">
 				<fieldset hidden="true" name="femaledeath_modal" repeat="true">
-					<!-- [11536] Age Field. Type: List. (joomla) -->
+					<!-- [11545] Age Field. Type: List. (joomla) -->
 					<field
 						type="list"
 						name="age"
@@ -169,7 +169,7 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD">
-						<!-- [11608] Option Set. -->
+						<!-- [11617] Option Set. -->
 						<option value="15-19">
 							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTEENNINETEEN</option>
 						<option value="20-24">
@@ -191,7 +191,7 @@
 						<option value="60-64">
 							COM_COSTBENEFITPROJECTION_HEALTH_DATA_SIXTYSIXTY_FOUR</option>
 					</field>
-					<!-- [11622] Number Field. Type: Text. (joomla) -->
+					<!-- [11631] Number Field. Type: Text. (joomla) -->
 					<field
 						type="text"
 						name="number"
@@ -208,7 +208,7 @@
 				</fieldset>
 			</fields>
 		</field>
-		<!-- [11653] Maleyld Field. Type: Repeatable. (joomla) -->
+		<!-- [11662] Maleyld Field. Type: Repeatable. (joomla) -->
 		<field
 			type="repeatable"
 			name="maleyld"
@@ -221,7 +221,7 @@
 			maximum="10">
 			<fields name="maleyld_fields" label="">
 				<fieldset hidden="true" name="maleyld_modal" repeat="true">
-					<!-- [11536] Age Field. Type: List. (joomla) -->
+					<!-- [11545] Age Field. Type: List. (joomla) -->
 					<field
 						type="list"
 						name="age"
@@ -229,7 +229,7 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD">
-						<!-- [11608] Option Set. -->
+						<!-- [11617] Option Set. -->
 						<option value="15-19">
 							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTEENNINETEEN</option>
 						<option value="20-24">
@@ -251,7 +251,7 @@
 						<option value="60-64">
 							COM_COSTBENEFITPROJECTION_HEALTH_DATA_SIXTYSIXTY_FOUR</option>
 					</field>
-					<!-- [11622] Number Field. Type: Text. (joomla) -->
+					<!-- [11631] Number Field. Type: Text. (joomla) -->
 					<field
 						type="text"
 						name="number"
@@ -268,7 +268,7 @@
 				</fieldset>
 			</fields>
 		</field>
-		<!-- [11653] Maledeath Field. Type: Repeatable. (joomla) -->
+		<!-- [11662] Maledeath Field. Type: Repeatable. (joomla) -->
 		<field
 			type="repeatable"
 			name="maledeath"
@@ -281,7 +281,7 @@
 			maximum="10">
 			<fields name="maledeath_fields" label="">
 				<fieldset hidden="true" name="maledeath_modal" repeat="true">
-					<!-- [11536] Age Field. Type: List. (joomla) -->
+					<!-- [11545] Age Field. Type: List. (joomla) -->
 					<field
 						type="list"
 						name="age"
@@ -289,7 +289,7 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD">
-						<!-- [11608] Option Set. -->
+						<!-- [11617] Option Set. -->
 						<option value="15-19">
 							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTEENNINETEEN</option>
 						<option value="20-24">
@@ -311,7 +311,7 @@
 						<option value="60-64">
 							COM_COSTBENEFITPROJECTION_HEALTH_DATA_SIXTYSIXTY_FOUR</option>
 					</field>
-					<!-- [11622] Number Field. Type: Text. (joomla) -->
+					<!-- [11631] Number Field. Type: Text. (joomla) -->
 					<field
 						type="text"
 						name="number"
@@ -328,7 +328,7 @@
 				</fieldset>
 			</fields>
 		</field>
-		<!-- [11653] Femaleyld Field. Type: Repeatable. (joomla) -->
+		<!-- [11662] Femaleyld Field. Type: Repeatable. (joomla) -->
 		<field
 			type="repeatable"
 			name="femaleyld"
@@ -341,7 +341,7 @@
 			maximum="10">
 			<fields name="femaleyld_fields" label="">
 				<fieldset hidden="true" name="femaleyld_modal" repeat="true">
-					<!-- [11536] Age Field. Type: List. (joomla) -->
+					<!-- [11545] Age Field. Type: List. (joomla) -->
 					<field
 						type="list"
 						name="age"
@@ -349,7 +349,7 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD">
-						<!-- [11608] Option Set. -->
+						<!-- [11617] Option Set. -->
 						<option value="15-19">
 							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTEENNINETEEN</option>
 						<option value="20-24">
@@ -371,7 +371,7 @@
 						<option value="60-64">
 							COM_COSTBENEFITPROJECTION_HEALTH_DATA_SIXTYSIXTY_FOUR</option>
 					</field>
-					<!-- [11622] Number Field. Type: Text. (joomla) -->
+					<!-- [11631] Number Field. Type: Text. (joomla) -->
 					<field
 						type="text"
 						name="number"
@@ -390,15 +390,15 @@
 		</field>
 	</fieldset>
 	
-	<!-- [10308] Access Control Fields. -->
+	<!-- [10317] Access Control Fields. -->
 	<fieldset name="accesscontrol">
-		<!-- [10310] Asset Id Field. Type: Hidden (joomla) -->
+		<!-- [10319] Asset Id Field. Type: Hidden (joomla) -->
 		<field
 			name="asset_id"
 			type="hidden"
 			filter="unset"
 		/>
-		<!-- [10316] Rules Field. Type: Rules (joomla) -->
+		<!-- [10325] Rules Field. Type: Rules (joomla) -->
 		<field
 			name="rules"
 			type="rules"

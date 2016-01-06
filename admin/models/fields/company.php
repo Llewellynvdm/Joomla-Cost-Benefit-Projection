@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.1.0
-	@build			23rd December, 2015
+	@build			6th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		company.php
@@ -44,36 +44,36 @@ class JFormFieldCompany extends JFormFieldList
 	 */
 	protected function getInput()
 	{
-		// [7943] see if we should add buttons
+		// [7952] see if we should add buttons
 		$setButton = $this->getAttribute('button');
-		// [7945] get html
+		// [7954] get html
 		$html = parent::getInput();
-		// [7947] if true set button
+		// [7956] if true set button
 		if ($setButton === 'true')
 		{
 			$user = JFactory::getUser();
-			// [7951] only add if user allowed to create company
+			// [7960] only add if user allowed to create company
 			if ($user->authorise('company.create', 'com_costbenefitprojection'))
 			{
-				// [7969] get the input from url
+				// [7978] get the input from url
 				$jinput = JFactory::getApplication()->input;
-				// [7971] get the view name & id
+				// [7980] get the view name & id
 				$values = $jinput->getArray(array(
 					'id' => 'int',
 					'view' => 'word'
 				));
-				// [7976] check if new item
+				// [7985] check if new item
 				$ref = '';
 				if (!is_null($values['id']) && strlen($values['view']))
 				{
-					// [7980] only load referal if not new item.
+					// [7989] only load referal if not new item.
 					$ref = '&amp;ref=' . $values['view'] . '&amp;refid=' . $values['id'];
 				}
-				// [7983] build the button
+				// [7992] build the button
 				$button = '<a class="btn btn-small btn-success"
 					href="index.php?option=com_costbenefitprojection&amp;view=company&amp;layout=edit'.$ref.'" >
 					<span class="icon-new icon-white"></span>' . JText::_('COM_COSTBENEFITPROJECTION_NEW') . '</a>';
-				// [7987] return the button attached to input field
+				// [7996] return the button attached to input field
 				return $html . $button;
 			}
 		}
