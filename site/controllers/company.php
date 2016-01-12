@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.1.0
-	@build			6th January, 2016
+	@version		3.2.0
+	@build			12th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		company.php
@@ -54,13 +54,13 @@ class CostbenefitprojectionControllerCompany extends JControllerForm
 	 */
 	protected function allowAdd($data = array())
 	{
-		// [9580] Access check.
+		// [9618] Access check.
 		$access = JFactory::getUser()->authorise('company.access', 'com_costbenefitprojection');
 		if (!$access)
 		{
 			return false;
 		}
-		// [9591] In the absense of better information, revert to the component permissions.
+		// [9629] In the absense of better information, revert to the component permissions.
 		return JFactory::getUser()->authorise('company.create', $this->option);
 	}
 
@@ -76,9 +76,9 @@ class CostbenefitprojectionControllerCompany extends JControllerForm
 	 */
 	protected function allowEdit($data = array(), $key = 'id')
 	{
-		// [9734] get user object.
+		// [9772] get user object.
 		$user		= JFactory::getUser();
-		// [9736] get record id.
+		// [9774] get record id.
 		$recordId	= (int) isset($data[$key]) ? $data[$key] : 0;
 		if (!$user->authorise('core.options', 'com_costbenefitprojection'))
 		{
@@ -97,7 +97,7 @@ class CostbenefitprojectionControllerCompany extends JControllerForm
 			return false;
 		}
 
-		// [9743] Access check.
+		// [9781] Access check.
 		$access = ($user->authorise('company.access', 'com_costbenefitprojection.company.' . (int) $recordId) &&  $user->authorise('company.access', 'com_costbenefitprojection'));
 		if (!$access)
 		{
@@ -106,17 +106,17 @@ class CostbenefitprojectionControllerCompany extends JControllerForm
 
 		if ($recordId)
 		{
-			// [9752] The record has been set. Check the record permissions.
+			// [9790] The record has been set. Check the record permissions.
 			$permission = $user->authorise('company.edit', 'com_costbenefitprojection.company.' . (int) $recordId);
 			if (!$permission && !is_null($permission))
 			{
 				if ($user->authorise('company.edit.own', 'com_costbenefitprojection.company.' . $recordId))
 				{
-					// [9774] Now test the owner is the user.
+					// [9812] Now test the owner is the user.
 					$ownerId = (int) isset($data['created_by']) ? $data['created_by'] : 0;
 					if (empty($ownerId))
 					{
-						// [9778] Need to do a lookup from the model.
+						// [9816] Need to do a lookup from the model.
 						$record = $this->getModel()->getItem($recordId);
 
 						if (empty($record))
@@ -126,7 +126,7 @@ class CostbenefitprojectionControllerCompany extends JControllerForm
 						$ownerId = $record->created_by;
 					}
 
-					// [9786] If the owner matches 'me' then allow.
+					// [9824] If the owner matches 'me' then allow.
 					if ($ownerId == $user->id)
 					{
 						if ($user->authorise('company.edit.own', 'com_costbenefitprojection'))
@@ -138,7 +138,7 @@ class CostbenefitprojectionControllerCompany extends JControllerForm
 				return false;
 			}
 		}
-		// [9808] Since there is no permission, revert to the component permissions.
+		// [9846] Since there is no permission, revert to the component permissions.
 		return $user->authorise('company.edit', $this->option);
 	}
 
@@ -509,7 +509,28 @@ class CostbenefitprojectionControllerCompany extends JControllerForm
 				 
 				// Set the query using our newly populated query object and execute it.
 				$db->setQuery($query);
-				$db->execute();
+				$done = $db->execute();
+				if ($done)
+				{
+					// we must set the assets
+					foreach ($insert as $causerisk)
+					{
+						// get all the ids. Create a new query object.
+						$query = $db->getQuery(true);
+						$query->select($db->quoteName(array('id')));
+						$query->from($db->quoteName('#__costbenefitprojection_scaling_factor'));
+						$query->where($db->quoteName('causerisk') . ' = '. (int) $causerisk);
+						$query->where($db->quoteName('company') . ' = '. (int) $company);
+						$db->setQuery($query);
+						$db->execute();
+						if ($db->getNumRows())
+						{
+							$aId = $db->loadResult();
+							// make sure the access of asset is set
+							CostbenefitprojectionHelper::setAsset($aId,'scaling_factor');
+						}
+					}
+				}
 			}
 		}
 

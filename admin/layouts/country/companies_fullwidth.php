@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.1.0
-	@build			6th January, 2016
+	@version		3.2.0
+	@build			12th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		companies_fullwidth.php
@@ -22,7 +22,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // set the defaults
-$items	= $displayData->goxcompanies;
+$items	= $displayData->ahbcompanies;
 $user	= JFactory::getUser();
 $id	= $displayData->item->id;
 $edit	= "index.php?option=com_costbenefitprojection&view=companies&task=company.edit";

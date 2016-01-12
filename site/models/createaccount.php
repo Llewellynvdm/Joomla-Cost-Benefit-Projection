@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.1.0
-	@build			6th January, 2016
+	@version		3.2.0
+	@build			12th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		createaccount.php
@@ -59,15 +59,15 @@ class CostbenefitprojectionModelCreateaccount extends JModelList
 		$this->app		= JFactory::getApplication();
 		$this->input		= $this->app->input;
 		$this->initSet		= true; 
-		// [3038] Make sure all records load, since no pagination allowed.
+		// [3048] Make sure all records load, since no pagination allowed.
 		$this->setState('list.limit', 0);
-		// [3040] Get a db connection.
+		// [3050] Get a db connection.
 		$db = JFactory::getDbo();
 
-		// [3043] Create a new query object.
+		// [3053] Create a new query object.
 		$query = $db->getQuery(true);
 
-		// [1906] Get from #__costbenefitprojection_country as a
+		// [1916] Get from #__costbenefitprojection_country as a
 		$query->select($db->quoteName(
 			array('a.id','a.user','a.name','a.publicname','a.publicemail','a.publicnumber','a.publicaddress'),
 			array('id','user','name','publicname','publicemail','publicnumber','publicaddress')));
@@ -82,7 +82,7 @@ class CostbenefitprojectionModelCreateaccount extends JModelList
 		$query->where('a.published = 1');
 		$query->order('a.name ASC');
 
-		// [3056] return the query object
+		// [3066] return the query object
 		return $query;
 	}
 
@@ -108,16 +108,16 @@ class CostbenefitprojectionModelCreateaccount extends JModelList
 		// Get the global params
 		$globalParams = JComponentHelper::getParams('com_costbenefitprojection', true);
 
-		// [3071] Convert the parameter fields into objects.
+		// [3081] Convert the parameter fields into objects.
 		foreach ($items as $nr => &$item)
 		{
-			// [3074] Always create a slug for sef URL's
+			// [3084] Always create a slug for sef URL's
 			$item->slug = (isset($item->alias)) ? $item->id.':'.$item->alias : $item->id;
-			// [2123] Make sure the content prepare plugins fire on publicaddress.
+			// [2133] Make sure the content prepare plugins fire on publicaddress.
 			$item->publicaddress = JHtml::_('content.prepare',$item->publicaddress);
-			// [2125] Checking if publicaddress has uikit components that must be loaded.
+			// [2135] Checking if publicaddress has uikit components that must be loaded.
 			$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->publicaddress,$this->uikitComp);
-			// [2156] set idCountryService_providerB to the $item object.
+			// [2166] set idCountryService_providerB to the $item object.
 			$item->idCountryService_providerB = $this->getIdCountryService_providerCace_B($item->id);
 		} 
 
@@ -133,13 +133,13 @@ class CostbenefitprojectionModelCreateaccount extends JModelList
 	*/
 	public function getIdCountryService_providerCace_B($id)
 	{
-		// [2836] Get a db connection.
+		// [2846] Get a db connection.
 		$db = JFactory::getDbo();
 
-		// [2838] Create a new query object.
+		// [2848] Create a new query object.
 		$query = $db->getQuery(true);
 
-		// [2840] Get from #__costbenefitprojection_service_provider as b
+		// [2850] Get from #__costbenefitprojection_service_provider as b
 		$query->select($db->quoteName(
 			array('b.id','b.user','b.publicname','b.publicemail','b.publicnumber','b.publicaddress'),
 			array('id','user','publicname','publicemail','publicnumber','publicaddress')));
@@ -148,21 +148,21 @@ class CostbenefitprojectionModelCreateaccount extends JModelList
 		$query->where('b.published = 1');
 		$query->order('b.publicname ASC');
 
-		// [2894] Reset the query using our newly populated query object.
+		// [2904] Reset the query using our newly populated query object.
 		$db->setQuery($query);
 		$db->execute();
 
-		// [2897] check if there was data returned
+		// [2907] check if there was data returned
 		if ($db->getNumRows())
 		{
 			$items = $db->loadObjectList();
 
-			// [2950] Convert the parameter fields into objects.
+			// [2960] Convert the parameter fields into objects.
 			foreach ($items as $nr => &$item)
 			{
-				// [2123] Make sure the content prepare plugins fire on publicaddress.
+				// [2133] Make sure the content prepare plugins fire on publicaddress.
 				$item->publicaddress = JHtml::_('content.prepare',$item->publicaddress);
-				// [2125] Checking if publicaddress has uikit components that must be loaded.
+				// [2135] Checking if publicaddress has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->publicaddress,$this->uikitComp);
 			}
 			return $items;

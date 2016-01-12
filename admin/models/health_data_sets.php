@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.1.0
-	@build			6th January, 2016
+	@version		3.2.0
+	@build			12th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		health_data_sets.php
@@ -99,16 +99,16 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 	 */
 	public function getItems()
 	{ 
-		// [10801] check in items
+		// [10839] check in items
 		$this->checkInNow();
 
 		// load parent items
 		$items = parent::getItems();
 
-		// [10876] set values to display correctly.
+		// [10914] set values to display correctly.
 		if (CostbenefitprojectionHelper::checkArray($items))
 		{
-			// [10879] get user object.
+			// [10917] get user object.
 			$user = JFactory::getUser();
 			foreach ($items as $nr => &$item)
 			{
@@ -122,12 +122,12 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 			}
 		} 
 
-		// [11142] set selection value to a translatable value
+		// [11180] set selection value to a translatable value
 		if (CostbenefitprojectionHelper::checkArray($items))
 		{
 			foreach ($items as $nr => &$item)
 			{
-				// [11149] convert year
+				// [11187] convert year
 				$item->year = $this->selectionTranslation($item->year, 'year');
 			}
 		}
@@ -144,7 +144,7 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 	*/
 	public function selectionTranslation($value,$name)
 	{
-		// [11175] Array of year language strings
+		// [11213] Array of year language strings
 		if ($name == 'year')
 		{
 			$yearArray = array(
@@ -165,7 +165,7 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 				2023 => 'COM_COSTBENEFITPROJECTION_HEALTH_DATA_TWO_THOUSAND_AND_TWENTY_THREE',
 				2024 => 'COM_COSTBENEFITPROJECTION_HEALTH_DATA_TWO_THOUSAND_AND_TWENTY_FOUR'
 			);
-			// [11206] Now check if value is found in this array
+			// [11244] Now check if value is found in this array
 			if (isset($yearArray[$value]) && CostbenefitprojectionHelper::checkString($yearArray[$value]))
 			{
 				return $yearArray[$value];
@@ -181,16 +181,16 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 	 */
 	protected function getListQuery()
 	{
-		// [7658] Get the user object.
+		// [7696] Get the user object.
 		$user = JFactory::getUser();
-		// [7660] Create a new query object.
+		// [7698] Create a new query object.
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(true);
 
-		// [7663] Select some fields
+		// [7701] Select some fields
 		$query->select('a.*');
 
-		// [7670] From the costbenefitprojection_item table
+		// [7708] From the costbenefitprojection_item table
 		$query->from($db->quoteName('#__costbenefitprojection_health_data', 'a'));
 
 		// Filter by countries (admin sees all)
@@ -211,15 +211,15 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 			}
 		}
 
-		// [7811] From the costbenefitprojection_causerisk table.
+		// [7849] From the costbenefitprojection_causerisk table.
 		$query->select($db->quoteName('g.name','causerisk_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_causerisk', 'g') . ' ON (' . $db->quoteName('a.causerisk') . ' = ' . $db->quoteName('g.id') . ')');
 
-		// [7811] From the costbenefitprojection_country table.
+		// [7849] From the costbenefitprojection_country table.
 		$query->select($db->quoteName('h.name','country_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_country', 'h') . ' ON (' . $db->quoteName('a.country') . ' = ' . $db->quoteName('h.id') . ')');
 
-		// [7684] Filter by published state
+		// [7722] Filter by published state
 		$published = $this->getState('filter.published');
 		if (is_numeric($published))
 		{
@@ -230,21 +230,21 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 			$query->where('(a.published = 0 OR a.published = 1)');
 		}
 
-		// [7696] Join over the asset groups.
+		// [7734] Join over the asset groups.
 		$query->select('ag.title AS access_level');
 		$query->join('LEFT', '#__viewlevels AS ag ON ag.id = a.access');
-		// [7699] Filter by access level.
+		// [7737] Filter by access level.
 		if ($access = $this->getState('filter.access'))
 		{
 			$query->where('a.access = ' . (int) $access);
 		}
-		// [7704] Implement View Level Access
+		// [7742] Implement View Level Access
 		if (!$user->authorise('core.options', 'com_costbenefitprojection'))
 		{
 			$groups = implode(',', $user->getAuthorisedViewLevels());
 			$query->where('a.access IN (' . $groups . ')');
 		}
-		// [7781] Filter by search.
+		// [7819] Filter by search.
 		$search = $this->getState('filter.search');
 		if (!empty($search))
 		{
@@ -259,23 +259,23 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 			}
 		}
 
-		// [8015] Filter by causerisk.
+		// [8053] Filter by causerisk.
 		if ($causerisk = $this->getState('filter.causerisk'))
 		{
 			$query->where('a.causerisk = ' . $db->quote($db->escape($causerisk, true)));
 		}
-		// [8024] Filter by Year.
+		// [8062] Filter by Year.
 		if ($year = $this->getState('filter.year'))
 		{
 			$query->where('a.year = ' . $db->quote($db->escape($year, true)));
 		}
-		// [8015] Filter by country.
+		// [8053] Filter by country.
 		if ($country = $this->getState('filter.country'))
 		{
 			$query->where('a.country = ' . $db->quote($db->escape($country, true)));
 		}
 
-		// [7740] Add the list ordering clause.
+		// [7778] Add the list ordering clause.
 		$orderCol = $this->state->get('list.ordering', 'a.id');
 		$orderDirn = $this->state->get('list.direction', 'asc');	
 		if ($orderCol != '')
@@ -293,19 +293,19 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 	*/
 	public function getExportData($pks)
 	{
-		// [7448] setup the query
+		// [7486] setup the query
 		if (CostbenefitprojectionHelper::checkArray($pks))
 		{
-			// [7451] Get the user object.
+			// [7489] Get the user object.
 			$user = JFactory::getUser();
-			// [7453] Create a new query object.
+			// [7491] Create a new query object.
 			$db = JFactory::getDBO();
 			$query = $db->getQuery(true);
 
-			// [7456] Select some fields
+			// [7494] Select some fields
 			$query->select('a.*');
 
-			// [7458] From the costbenefitprojection_health_data table
+			// [7496] From the costbenefitprojection_health_data table
 			$query->from($db->quoteName('#__costbenefitprojection_health_data', 'a'));
 			$query->where('a.id IN (' . implode(',',$pks) . ')');
 
@@ -326,27 +326,27 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 				$query->where('a.country = -4');
 			}
 		}
-			// [7468] Implement View Level Access
+			// [7506] Implement View Level Access
 			if (!$user->authorise('core.options', 'com_costbenefitprojection'))
 			{
 				$groups = implode(',', $user->getAuthorisedViewLevels());
 				$query->where('a.access IN (' . $groups . ')');
 			}
 
-			// [7475] Order the results by ordering
+			// [7513] Order the results by ordering
 			$query->order('a.ordering  ASC');
 
-			// [7477] Load the items
+			// [7515] Load the items
 			$db->setQuery($query);
 			$db->execute();
 			if ($db->getNumRows())
 			{
 				$items = $db->loadObjectList();
 
-				// [10876] set values to display correctly.
+				// [10914] set values to display correctly.
 				if (CostbenefitprojectionHelper::checkArray($items))
 				{
-					// [10879] get user object.
+					// [10917] get user object.
 					$user = JFactory::getUser();
 					foreach ($items as $nr => &$item)
 					{
@@ -357,13 +357,13 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 							continue;
 						}
 
-						// [11089] unset the values we don't want exported.
+						// [11127] unset the values we don't want exported.
 						unset($item->asset_id);
 						unset($item->checked_out);
 						unset($item->checked_out_time);
 					}
 				}
-				// [11098] Add headers to items array.
+				// [11136] Add headers to items array.
 				$headers = $this->getExImPortHeaders();
 				if (CostbenefitprojectionHelper::checkObject($headers))
 				{
@@ -382,13 +382,13 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 	*/
 	public function getExImPortHeaders()
 	{
-		// [7497] Get a db connection.
+		// [7535] Get a db connection.
 		$db = JFactory::getDbo();
-		// [7499] get the columns
+		// [7537] get the columns
 		$columns = $db->getTableColumns("#__costbenefitprojection_health_data");
 		if (CostbenefitprojectionHelper::checkArray($columns))
 		{
-			// [7503] remove the headers you don't import/export.
+			// [7541] remove the headers you don't import/export.
 			unset($columns['asset_id']);
 			unset($columns['checked_out']);
 			unset($columns['checked_out_time']);
@@ -410,7 +410,7 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 	 */
 	protected function getStoreId($id = '')
 	{
-		// [10424] Compile the store id.
+		// [10462] Compile the store id.
 		$id .= ':' . $this->getState('filter.id');
 		$id .= ':' . $this->getState('filter.search');
 		$id .= ':' . $this->getState('filter.published');
@@ -432,15 +432,15 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 	*/
 	protected function checkInNow()
 	{
-		// [10817] Get set check in time
+		// [10855] Get set check in time
 		$time = JComponentHelper::getParams('com_costbenefitprojection')->get('check_in');
 		
 		if ($time)
 		{
 
-			// [10822] Get a db connection.
+			// [10860] Get a db connection.
 			$db = JFactory::getDbo();
-			// [10824] reset query
+			// [10862] reset query
 			$query = $db->getQuery(true);
 			$query->select('*');
 			$query->from($db->quoteName('#__costbenefitprojection_health_data'));
@@ -448,24 +448,24 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 			$db->execute();
 			if ($db->getNumRows())
 			{
-				// [10832] Get Yesterdays date
+				// [10870] Get Yesterdays date
 				$date = JFactory::getDate()->modify($time)->toSql();
-				// [10834] reset query
+				// [10872] reset query
 				$query = $db->getQuery(true);
 
-				// [10836] Fields to update.
+				// [10874] Fields to update.
 				$fields = array(
 					$db->quoteName('checked_out_time') . '=\'0000-00-00 00:00:00\'',
 					$db->quoteName('checked_out') . '=0'
 				);
 
-				// [10841] Conditions for which records should be updated.
+				// [10879] Conditions for which records should be updated.
 				$conditions = array(
 					$db->quoteName('checked_out') . '!=0', 
 					$db->quoteName('checked_out_time') . '<\''.$date.'\''
 				);
 
-				// [10846] Check table
+				// [10884] Check table
 				$query->update($db->quoteName('#__costbenefitprojection_health_data'))->set($fields)->where($conditions); 
 
 				$db->setQuery($query);

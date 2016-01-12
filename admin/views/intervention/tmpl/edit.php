@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.1.0
-	@build			6th January, 2016
+	@version		3.2.0
+	@build			12th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -101,33 +101,33 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_type listeners for type_JMYrTla function
+// #jform_type listeners for type_XCAjMWF function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_JMYrTla = jQuery("#jform_type input[type='radio']:checked").val();
-	JMYrTla(type_JMYrTla);
+	var type_XCAjMWF = jQuery("#jform_type input[type='radio']:checked").val();
+	XCAjMWF(type_XCAjMWF);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_JMYrTla = jQuery("#jform_type input[type='radio']:checked").val();
-	JMYrTla(type_JMYrTla);
+	var type_XCAjMWF = jQuery("#jform_type input[type='radio']:checked").val();
+	XCAjMWF(type_XCAjMWF);
 
 });
 
-// #jform_type listeners for type_XScnblT function
+// #jform_type listeners for type_MmytgLk function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_XScnblT = jQuery("#jform_type input[type='radio']:checked").val();
-	XScnblT(type_XScnblT);
+	var type_MmytgLk = jQuery("#jform_type input[type='radio']:checked").val();
+	MmytgLk(type_MmytgLk);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_XScnblT = jQuery("#jform_type input[type='radio']:checked").val();
-	XScnblT(type_XScnblT);
+	var type_MmytgLk = jQuery("#jform_type input[type='radio']:checked").val();
+	MmytgLk(type_MmytgLk);
 
 });
 

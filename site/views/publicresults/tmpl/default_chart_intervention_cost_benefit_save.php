@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.1.0
-	@build			6th January, 2016
+	@version		3.2.0
+	@build			12th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_chart_intervention_cost_benefit_save.php
@@ -121,5 +121,5 @@ if(isset($this->results->interventions) && CostbenefitprojectionHelper::checkArr
 <?php endif; ?>
 </div>
 <?php else: ?>
-	<div class="uk-alert uk-alert-warning alert alert-warning"><?php echo JText::_('COM_COSTBENEFITPROJECTION_NO_INTERVENTION_SELECTED'); ?></div>
+	<div class="uk-alert uk-alert-warning alert alert-warning"><?php echo JText::_('COM_COSTBENEFITPROJECTION_NO_INTERVENTIONS_SELECTED_PLEASE_SELECT_AN_INTERVENTIONS'); ?></div>
 <?php endif; ?>

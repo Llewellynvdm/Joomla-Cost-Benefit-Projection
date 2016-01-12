@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.1.0
-	@build			6th January, 2016
+	@version		3.2.0
+	@build			12th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -135,33 +135,33 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_department listeners for department_ITAyurR function
+// #jform_department listeners for department_SnIDlNn function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_ITAyurR = jQuery("#jform_department input[type='radio']:checked").val();
-	ITAyurR(department_ITAyurR);
+	var department_SnIDlNn = jQuery("#jform_department input[type='radio']:checked").val();
+	SnIDlNn(department_SnIDlNn);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_ITAyurR = jQuery("#jform_department input[type='radio']:checked").val();
-	ITAyurR(department_ITAyurR);
+	var department_SnIDlNn = jQuery("#jform_department input[type='radio']:checked").val();
+	SnIDlNn(department_SnIDlNn);
 
 });
 
-// #jform_department listeners for department_kwIPpkn function
+// #jform_department listeners for department_WskNCQq function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_kwIPpkn = jQuery("#jform_department input[type='radio']:checked").val();
-	kwIPpkn(department_kwIPpkn);
+	var department_WskNCQq = jQuery("#jform_department input[type='radio']:checked").val();
+	WskNCQq(department_WskNCQq);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_kwIPpkn = jQuery("#jform_department input[type='radio']:checked").val();
-	kwIPpkn(department_kwIPpkn);
+	var department_WskNCQq = jQuery("#jform_department input[type='radio']:checked").val();
+	WskNCQq(department_WskNCQq);
 
 });
 

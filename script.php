@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.1.0
-	@build			6th January, 2016
+	@version		3.2.0
+	@build			12th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		script.php
@@ -47,794 +47,794 @@ class com_costbenefitprojectionInstallerScript
 	 */
 	function uninstall($parent)
 	{
-		// [4475] Get Application object
+		// [4513] Get Application object
 		$app = JFactory::getApplication();
 
-		// [4477] Get The Database object
+		// [4515] Get The Database object
 		$db = JFactory::getDbo();
 
-		// [4486] Create a new query object.
+		// [4524] Create a new query object.
 		$query = $db->getQuery(true);
-		// [4488] Select id from content type table
+		// [4526] Select id from content type table
 		$query->select($db->quoteName('type_id'));
 		$query->from($db->quoteName('#__content_types'));
-		// [4491] Where Company alias is found
+		// [4529] Where Company alias is found
 		$query->where( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.company') );
 		$db->setQuery($query);
-		// [4494] Execute query to see if alias is found
+		// [4532] Execute query to see if alias is found
 		$db->execute();
 		$company_found = $db->getNumRows();
-		// [4497] Now check if there were any rows
+		// [4535] Now check if there were any rows
 		if ($company_found)
 		{
-			// [4500] Since there are load the needed  company type ids
+			// [4538] Since there are load the needed  company type ids
 			$company_ids = $db->loadColumn();
-			// [4504] Remove Company from the content type table
+			// [4542] Remove Company from the content type table
 			$company_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.company') );
-			// [4506] Create a new query object.
+			// [4544] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__content_types'));
 			$query->where($company_condition);
 			$db->setQuery($query);
-			// [4511] Execute the query to remove Company items
+			// [4549] Execute the query to remove Company items
 			$company_done = $db->execute();
 			if ($company_done);
 			{
-				// [4515] If succesfully remove Company add queued success message.
+				// [4553] If succesfully remove Company add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.company) type alias was removed from the <b>#__content_type</b> table'));
 			}
 
-			// [4521] Remove Company items from the contentitem tag map table
+			// [4559] Remove Company items from the contentitem tag map table
 			$company_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.company') );
-			// [4523] Create a new query object.
+			// [4561] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__contentitem_tag_map'));
 			$query->where($company_condition);
 			$db->setQuery($query);
-			// [4528] Execute the query to remove Company items
+			// [4566] Execute the query to remove Company items
 			$company_done = $db->execute();
 			if ($company_done);
 			{
-				// [4532] If succesfully remove Company add queued success message.
+				// [4570] If succesfully remove Company add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.company) type alias was removed from the <b>#__contentitem_tag_map</b> table'));
 			}
 
-			// [4538] Remove Company items from the ucm content table
+			// [4576] Remove Company items from the ucm content table
 			$company_condition = array( $db->quoteName('core_type_alias') . ' = ' . $db->quote('com_costbenefitprojection.company') );
-			// [4540] Create a new query object.
+			// [4578] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__ucm_content'));
 			$query->where($company_condition);
 			$db->setQuery($query);
-			// [4545] Execute the query to remove Company items
+			// [4583] Execute the query to remove Company items
 			$company_done = $db->execute();
 			if ($company_done);
 			{
-				// [4549] If succesfully remove Company add queued success message.
+				// [4587] If succesfully remove Company add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.company) type alias was removed from the <b>#__ucm_content</b> table'));
 			}
 
-			// [4555] Make sure that all the Company items are cleared from DB
+			// [4593] Make sure that all the Company items are cleared from DB
 			foreach ($company_ids as $company_id)
 			{
-				// [4560] Remove Company items from the ucm base table
+				// [4598] Remove Company items from the ucm base table
 				$company_condition = array( $db->quoteName('ucm_type_id') . ' = ' . $company_id);
-				// [4562] Create a new query object.
+				// [4600] Create a new query object.
 				$query = $db->getQuery(true);
 				$query->delete($db->quoteName('#__ucm_base'));
 				$query->where($company_condition);
 				$db->setQuery($query);
-				// [4567] Execute the query to remove Company items
+				// [4605] Execute the query to remove Company items
 				$db->execute();
 
-				// [4571] Remove Company items from the ucm history table
+				// [4609] Remove Company items from the ucm history table
 				$company_condition = array( $db->quoteName('ucm_type_id') . ' = ' . $company_id);
-				// [4573] Create a new query object.
+				// [4611] Create a new query object.
 				$query = $db->getQuery(true);
 				$query->delete($db->quoteName('#__ucm_history'));
 				$query->where($company_condition);
 				$db->setQuery($query);
-				// [4578] Execute the query to remove Company items
+				// [4616] Execute the query to remove Company items
 				$db->execute();
 			}
 		}
 
-		// [4486] Create a new query object.
+		// [4524] Create a new query object.
 		$query = $db->getQuery(true);
-		// [4488] Select id from content type table
+		// [4526] Select id from content type table
 		$query->select($db->quoteName('type_id'));
 		$query->from($db->quoteName('#__content_types'));
-		// [4491] Where Service_provider alias is found
+		// [4529] Where Service_provider alias is found
 		$query->where( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.service_provider') );
 		$db->setQuery($query);
-		// [4494] Execute query to see if alias is found
+		// [4532] Execute query to see if alias is found
 		$db->execute();
 		$service_provider_found = $db->getNumRows();
-		// [4497] Now check if there were any rows
+		// [4535] Now check if there were any rows
 		if ($service_provider_found)
 		{
-			// [4500] Since there are load the needed  service_provider type ids
+			// [4538] Since there are load the needed  service_provider type ids
 			$service_provider_ids = $db->loadColumn();
-			// [4504] Remove Service_provider from the content type table
+			// [4542] Remove Service_provider from the content type table
 			$service_provider_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.service_provider') );
-			// [4506] Create a new query object.
+			// [4544] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__content_types'));
 			$query->where($service_provider_condition);
 			$db->setQuery($query);
-			// [4511] Execute the query to remove Service_provider items
+			// [4549] Execute the query to remove Service_provider items
 			$service_provider_done = $db->execute();
 			if ($service_provider_done);
 			{
-				// [4515] If succesfully remove Service_provider add queued success message.
+				// [4553] If succesfully remove Service_provider add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.service_provider) type alias was removed from the <b>#__content_type</b> table'));
 			}
 
-			// [4521] Remove Service_provider items from the contentitem tag map table
+			// [4559] Remove Service_provider items from the contentitem tag map table
 			$service_provider_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.service_provider') );
-			// [4523] Create a new query object.
+			// [4561] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__contentitem_tag_map'));
 			$query->where($service_provider_condition);
 			$db->setQuery($query);
-			// [4528] Execute the query to remove Service_provider items
+			// [4566] Execute the query to remove Service_provider items
 			$service_provider_done = $db->execute();
 			if ($service_provider_done);
 			{
-				// [4532] If succesfully remove Service_provider add queued success message.
+				// [4570] If succesfully remove Service_provider add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.service_provider) type alias was removed from the <b>#__contentitem_tag_map</b> table'));
 			}
 
-			// [4538] Remove Service_provider items from the ucm content table
+			// [4576] Remove Service_provider items from the ucm content table
 			$service_provider_condition = array( $db->quoteName('core_type_alias') . ' = ' . $db->quote('com_costbenefitprojection.service_provider') );
-			// [4540] Create a new query object.
+			// [4578] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__ucm_content'));
 			$query->where($service_provider_condition);
 			$db->setQuery($query);
-			// [4545] Execute the query to remove Service_provider items
+			// [4583] Execute the query to remove Service_provider items
 			$service_provider_done = $db->execute();
 			if ($service_provider_done);
 			{
-				// [4549] If succesfully remove Service_provider add queued success message.
+				// [4587] If succesfully remove Service_provider add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.service_provider) type alias was removed from the <b>#__ucm_content</b> table'));
 			}
 
-			// [4555] Make sure that all the Service_provider items are cleared from DB
+			// [4593] Make sure that all the Service_provider items are cleared from DB
 			foreach ($service_provider_ids as $service_provider_id)
 			{
-				// [4560] Remove Service_provider items from the ucm base table
+				// [4598] Remove Service_provider items from the ucm base table
 				$service_provider_condition = array( $db->quoteName('ucm_type_id') . ' = ' . $service_provider_id);
-				// [4562] Create a new query object.
+				// [4600] Create a new query object.
 				$query = $db->getQuery(true);
 				$query->delete($db->quoteName('#__ucm_base'));
 				$query->where($service_provider_condition);
 				$db->setQuery($query);
-				// [4567] Execute the query to remove Service_provider items
+				// [4605] Execute the query to remove Service_provider items
 				$db->execute();
 
-				// [4571] Remove Service_provider items from the ucm history table
+				// [4609] Remove Service_provider items from the ucm history table
 				$service_provider_condition = array( $db->quoteName('ucm_type_id') . ' = ' . $service_provider_id);
-				// [4573] Create a new query object.
+				// [4611] Create a new query object.
 				$query = $db->getQuery(true);
 				$query->delete($db->quoteName('#__ucm_history'));
 				$query->where($service_provider_condition);
 				$db->setQuery($query);
-				// [4578] Execute the query to remove Service_provider items
+				// [4616] Execute the query to remove Service_provider items
 				$db->execute();
 			}
 		}
 
-		// [4486] Create a new query object.
+		// [4524] Create a new query object.
 		$query = $db->getQuery(true);
-		// [4488] Select id from content type table
+		// [4526] Select id from content type table
 		$query->select($db->quoteName('type_id'));
 		$query->from($db->quoteName('#__content_types'));
-		// [4491] Where Country alias is found
+		// [4529] Where Country alias is found
 		$query->where( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.country') );
 		$db->setQuery($query);
-		// [4494] Execute query to see if alias is found
+		// [4532] Execute query to see if alias is found
 		$db->execute();
 		$country_found = $db->getNumRows();
-		// [4497] Now check if there were any rows
+		// [4535] Now check if there were any rows
 		if ($country_found)
 		{
-			// [4500] Since there are load the needed  country type ids
+			// [4538] Since there are load the needed  country type ids
 			$country_ids = $db->loadColumn();
-			// [4504] Remove Country from the content type table
+			// [4542] Remove Country from the content type table
 			$country_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.country') );
-			// [4506] Create a new query object.
+			// [4544] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__content_types'));
 			$query->where($country_condition);
 			$db->setQuery($query);
-			// [4511] Execute the query to remove Country items
+			// [4549] Execute the query to remove Country items
 			$country_done = $db->execute();
 			if ($country_done);
 			{
-				// [4515] If succesfully remove Country add queued success message.
+				// [4553] If succesfully remove Country add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.country) type alias was removed from the <b>#__content_type</b> table'));
 			}
 
-			// [4521] Remove Country items from the contentitem tag map table
+			// [4559] Remove Country items from the contentitem tag map table
 			$country_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.country') );
-			// [4523] Create a new query object.
+			// [4561] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__contentitem_tag_map'));
 			$query->where($country_condition);
 			$db->setQuery($query);
-			// [4528] Execute the query to remove Country items
+			// [4566] Execute the query to remove Country items
 			$country_done = $db->execute();
 			if ($country_done);
 			{
-				// [4532] If succesfully remove Country add queued success message.
+				// [4570] If succesfully remove Country add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.country) type alias was removed from the <b>#__contentitem_tag_map</b> table'));
 			}
 
-			// [4538] Remove Country items from the ucm content table
+			// [4576] Remove Country items from the ucm content table
 			$country_condition = array( $db->quoteName('core_type_alias') . ' = ' . $db->quote('com_costbenefitprojection.country') );
-			// [4540] Create a new query object.
+			// [4578] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__ucm_content'));
 			$query->where($country_condition);
 			$db->setQuery($query);
-			// [4545] Execute the query to remove Country items
+			// [4583] Execute the query to remove Country items
 			$country_done = $db->execute();
 			if ($country_done);
 			{
-				// [4549] If succesfully remove Country add queued success message.
+				// [4587] If succesfully remove Country add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.country) type alias was removed from the <b>#__ucm_content</b> table'));
 			}
 
-			// [4555] Make sure that all the Country items are cleared from DB
+			// [4593] Make sure that all the Country items are cleared from DB
 			foreach ($country_ids as $country_id)
 			{
-				// [4560] Remove Country items from the ucm base table
+				// [4598] Remove Country items from the ucm base table
 				$country_condition = array( $db->quoteName('ucm_type_id') . ' = ' . $country_id);
-				// [4562] Create a new query object.
+				// [4600] Create a new query object.
 				$query = $db->getQuery(true);
 				$query->delete($db->quoteName('#__ucm_base'));
 				$query->where($country_condition);
 				$db->setQuery($query);
-				// [4567] Execute the query to remove Country items
+				// [4605] Execute the query to remove Country items
 				$db->execute();
 
-				// [4571] Remove Country items from the ucm history table
+				// [4609] Remove Country items from the ucm history table
 				$country_condition = array( $db->quoteName('ucm_type_id') . ' = ' . $country_id);
-				// [4573] Create a new query object.
+				// [4611] Create a new query object.
 				$query = $db->getQuery(true);
 				$query->delete($db->quoteName('#__ucm_history'));
 				$query->where($country_condition);
 				$db->setQuery($query);
-				// [4578] Execute the query to remove Country items
+				// [4616] Execute the query to remove Country items
 				$db->execute();
 			}
 		}
 
-		// [4486] Create a new query object.
+		// [4524] Create a new query object.
 		$query = $db->getQuery(true);
-		// [4488] Select id from content type table
+		// [4526] Select id from content type table
 		$query->select($db->quoteName('type_id'));
 		$query->from($db->quoteName('#__content_types'));
-		// [4491] Where Causerisk alias is found
+		// [4529] Where Causerisk alias is found
 		$query->where( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.causerisk') );
 		$db->setQuery($query);
-		// [4494] Execute query to see if alias is found
+		// [4532] Execute query to see if alias is found
 		$db->execute();
 		$causerisk_found = $db->getNumRows();
-		// [4497] Now check if there were any rows
+		// [4535] Now check if there were any rows
 		if ($causerisk_found)
 		{
-			// [4500] Since there are load the needed  causerisk type ids
+			// [4538] Since there are load the needed  causerisk type ids
 			$causerisk_ids = $db->loadColumn();
-			// [4504] Remove Causerisk from the content type table
+			// [4542] Remove Causerisk from the content type table
 			$causerisk_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.causerisk') );
-			// [4506] Create a new query object.
+			// [4544] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__content_types'));
 			$query->where($causerisk_condition);
 			$db->setQuery($query);
-			// [4511] Execute the query to remove Causerisk items
+			// [4549] Execute the query to remove Causerisk items
 			$causerisk_done = $db->execute();
 			if ($causerisk_done);
 			{
-				// [4515] If succesfully remove Causerisk add queued success message.
+				// [4553] If succesfully remove Causerisk add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.causerisk) type alias was removed from the <b>#__content_type</b> table'));
 			}
 
-			// [4521] Remove Causerisk items from the contentitem tag map table
+			// [4559] Remove Causerisk items from the contentitem tag map table
 			$causerisk_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.causerisk') );
-			// [4523] Create a new query object.
+			// [4561] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__contentitem_tag_map'));
 			$query->where($causerisk_condition);
 			$db->setQuery($query);
-			// [4528] Execute the query to remove Causerisk items
+			// [4566] Execute the query to remove Causerisk items
 			$causerisk_done = $db->execute();
 			if ($causerisk_done);
 			{
-				// [4532] If succesfully remove Causerisk add queued success message.
+				// [4570] If succesfully remove Causerisk add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.causerisk) type alias was removed from the <b>#__contentitem_tag_map</b> table'));
 			}
 
-			// [4538] Remove Causerisk items from the ucm content table
+			// [4576] Remove Causerisk items from the ucm content table
 			$causerisk_condition = array( $db->quoteName('core_type_alias') . ' = ' . $db->quote('com_costbenefitprojection.causerisk') );
-			// [4540] Create a new query object.
+			// [4578] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__ucm_content'));
 			$query->where($causerisk_condition);
 			$db->setQuery($query);
-			// [4545] Execute the query to remove Causerisk items
+			// [4583] Execute the query to remove Causerisk items
 			$causerisk_done = $db->execute();
 			if ($causerisk_done);
 			{
-				// [4549] If succesfully remove Causerisk add queued success message.
+				// [4587] If succesfully remove Causerisk add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.causerisk) type alias was removed from the <b>#__ucm_content</b> table'));
 			}
 
-			// [4555] Make sure that all the Causerisk items are cleared from DB
+			// [4593] Make sure that all the Causerisk items are cleared from DB
 			foreach ($causerisk_ids as $causerisk_id)
 			{
-				// [4560] Remove Causerisk items from the ucm base table
+				// [4598] Remove Causerisk items from the ucm base table
 				$causerisk_condition = array( $db->quoteName('ucm_type_id') . ' = ' . $causerisk_id);
-				// [4562] Create a new query object.
+				// [4600] Create a new query object.
 				$query = $db->getQuery(true);
 				$query->delete($db->quoteName('#__ucm_base'));
 				$query->where($causerisk_condition);
 				$db->setQuery($query);
-				// [4567] Execute the query to remove Causerisk items
+				// [4605] Execute the query to remove Causerisk items
 				$db->execute();
 
-				// [4571] Remove Causerisk items from the ucm history table
+				// [4609] Remove Causerisk items from the ucm history table
 				$causerisk_condition = array( $db->quoteName('ucm_type_id') . ' = ' . $causerisk_id);
-				// [4573] Create a new query object.
+				// [4611] Create a new query object.
 				$query = $db->getQuery(true);
 				$query->delete($db->quoteName('#__ucm_history'));
 				$query->where($causerisk_condition);
 				$db->setQuery($query);
-				// [4578] Execute the query to remove Causerisk items
+				// [4616] Execute the query to remove Causerisk items
 				$db->execute();
 			}
 		}
 
-		// [4486] Create a new query object.
+		// [4524] Create a new query object.
 		$query = $db->getQuery(true);
-		// [4488] Select id from content type table
+		// [4526] Select id from content type table
 		$query->select($db->quoteName('type_id'));
 		$query->from($db->quoteName('#__content_types'));
-		// [4491] Where Health_data alias is found
+		// [4529] Where Health_data alias is found
 		$query->where( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.health_data') );
 		$db->setQuery($query);
-		// [4494] Execute query to see if alias is found
+		// [4532] Execute query to see if alias is found
 		$db->execute();
 		$health_data_found = $db->getNumRows();
-		// [4497] Now check if there were any rows
+		// [4535] Now check if there were any rows
 		if ($health_data_found)
 		{
-			// [4500] Since there are load the needed  health_data type ids
+			// [4538] Since there are load the needed  health_data type ids
 			$health_data_ids = $db->loadColumn();
-			// [4504] Remove Health_data from the content type table
+			// [4542] Remove Health_data from the content type table
 			$health_data_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.health_data') );
-			// [4506] Create a new query object.
+			// [4544] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__content_types'));
 			$query->where($health_data_condition);
 			$db->setQuery($query);
-			// [4511] Execute the query to remove Health_data items
+			// [4549] Execute the query to remove Health_data items
 			$health_data_done = $db->execute();
 			if ($health_data_done);
 			{
-				// [4515] If succesfully remove Health_data add queued success message.
+				// [4553] If succesfully remove Health_data add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.health_data) type alias was removed from the <b>#__content_type</b> table'));
 			}
 
-			// [4521] Remove Health_data items from the contentitem tag map table
+			// [4559] Remove Health_data items from the contentitem tag map table
 			$health_data_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.health_data') );
-			// [4523] Create a new query object.
+			// [4561] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__contentitem_tag_map'));
 			$query->where($health_data_condition);
 			$db->setQuery($query);
-			// [4528] Execute the query to remove Health_data items
+			// [4566] Execute the query to remove Health_data items
 			$health_data_done = $db->execute();
 			if ($health_data_done);
 			{
-				// [4532] If succesfully remove Health_data add queued success message.
+				// [4570] If succesfully remove Health_data add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.health_data) type alias was removed from the <b>#__contentitem_tag_map</b> table'));
 			}
 
-			// [4538] Remove Health_data items from the ucm content table
+			// [4576] Remove Health_data items from the ucm content table
 			$health_data_condition = array( $db->quoteName('core_type_alias') . ' = ' . $db->quote('com_costbenefitprojection.health_data') );
-			// [4540] Create a new query object.
+			// [4578] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__ucm_content'));
 			$query->where($health_data_condition);
 			$db->setQuery($query);
-			// [4545] Execute the query to remove Health_data items
+			// [4583] Execute the query to remove Health_data items
 			$health_data_done = $db->execute();
 			if ($health_data_done);
 			{
-				// [4549] If succesfully remove Health_data add queued success message.
+				// [4587] If succesfully remove Health_data add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.health_data) type alias was removed from the <b>#__ucm_content</b> table'));
 			}
 
-			// [4555] Make sure that all the Health_data items are cleared from DB
+			// [4593] Make sure that all the Health_data items are cleared from DB
 			foreach ($health_data_ids as $health_data_id)
 			{
-				// [4560] Remove Health_data items from the ucm base table
+				// [4598] Remove Health_data items from the ucm base table
 				$health_data_condition = array( $db->quoteName('ucm_type_id') . ' = ' . $health_data_id);
-				// [4562] Create a new query object.
+				// [4600] Create a new query object.
 				$query = $db->getQuery(true);
 				$query->delete($db->quoteName('#__ucm_base'));
 				$query->where($health_data_condition);
 				$db->setQuery($query);
-				// [4567] Execute the query to remove Health_data items
+				// [4605] Execute the query to remove Health_data items
 				$db->execute();
 
-				// [4571] Remove Health_data items from the ucm history table
+				// [4609] Remove Health_data items from the ucm history table
 				$health_data_condition = array( $db->quoteName('ucm_type_id') . ' = ' . $health_data_id);
-				// [4573] Create a new query object.
+				// [4611] Create a new query object.
 				$query = $db->getQuery(true);
 				$query->delete($db->quoteName('#__ucm_history'));
 				$query->where($health_data_condition);
 				$db->setQuery($query);
-				// [4578] Execute the query to remove Health_data items
+				// [4616] Execute the query to remove Health_data items
 				$db->execute();
 			}
 		}
 
-		// [4486] Create a new query object.
+		// [4524] Create a new query object.
 		$query = $db->getQuery(true);
-		// [4488] Select id from content type table
+		// [4526] Select id from content type table
 		$query->select($db->quoteName('type_id'));
 		$query->from($db->quoteName('#__content_types'));
-		// [4491] Where Scaling_factor alias is found
+		// [4529] Where Scaling_factor alias is found
 		$query->where( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.scaling_factor') );
 		$db->setQuery($query);
-		// [4494] Execute query to see if alias is found
+		// [4532] Execute query to see if alias is found
 		$db->execute();
 		$scaling_factor_found = $db->getNumRows();
-		// [4497] Now check if there were any rows
+		// [4535] Now check if there were any rows
 		if ($scaling_factor_found)
 		{
-			// [4500] Since there are load the needed  scaling_factor type ids
+			// [4538] Since there are load the needed  scaling_factor type ids
 			$scaling_factor_ids = $db->loadColumn();
-			// [4504] Remove Scaling_factor from the content type table
+			// [4542] Remove Scaling_factor from the content type table
 			$scaling_factor_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.scaling_factor') );
-			// [4506] Create a new query object.
+			// [4544] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__content_types'));
 			$query->where($scaling_factor_condition);
 			$db->setQuery($query);
-			// [4511] Execute the query to remove Scaling_factor items
+			// [4549] Execute the query to remove Scaling_factor items
 			$scaling_factor_done = $db->execute();
 			if ($scaling_factor_done);
 			{
-				// [4515] If succesfully remove Scaling_factor add queued success message.
+				// [4553] If succesfully remove Scaling_factor add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.scaling_factor) type alias was removed from the <b>#__content_type</b> table'));
 			}
 
-			// [4521] Remove Scaling_factor items from the contentitem tag map table
+			// [4559] Remove Scaling_factor items from the contentitem tag map table
 			$scaling_factor_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.scaling_factor') );
-			// [4523] Create a new query object.
+			// [4561] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__contentitem_tag_map'));
 			$query->where($scaling_factor_condition);
 			$db->setQuery($query);
-			// [4528] Execute the query to remove Scaling_factor items
+			// [4566] Execute the query to remove Scaling_factor items
 			$scaling_factor_done = $db->execute();
 			if ($scaling_factor_done);
 			{
-				// [4532] If succesfully remove Scaling_factor add queued success message.
+				// [4570] If succesfully remove Scaling_factor add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.scaling_factor) type alias was removed from the <b>#__contentitem_tag_map</b> table'));
 			}
 
-			// [4538] Remove Scaling_factor items from the ucm content table
+			// [4576] Remove Scaling_factor items from the ucm content table
 			$scaling_factor_condition = array( $db->quoteName('core_type_alias') . ' = ' . $db->quote('com_costbenefitprojection.scaling_factor') );
-			// [4540] Create a new query object.
+			// [4578] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__ucm_content'));
 			$query->where($scaling_factor_condition);
 			$db->setQuery($query);
-			// [4545] Execute the query to remove Scaling_factor items
+			// [4583] Execute the query to remove Scaling_factor items
 			$scaling_factor_done = $db->execute();
 			if ($scaling_factor_done);
 			{
-				// [4549] If succesfully remove Scaling_factor add queued success message.
+				// [4587] If succesfully remove Scaling_factor add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.scaling_factor) type alias was removed from the <b>#__ucm_content</b> table'));
 			}
 
-			// [4555] Make sure that all the Scaling_factor items are cleared from DB
+			// [4593] Make sure that all the Scaling_factor items are cleared from DB
 			foreach ($scaling_factor_ids as $scaling_factor_id)
 			{
-				// [4560] Remove Scaling_factor items from the ucm base table
+				// [4598] Remove Scaling_factor items from the ucm base table
 				$scaling_factor_condition = array( $db->quoteName('ucm_type_id') . ' = ' . $scaling_factor_id);
-				// [4562] Create a new query object.
+				// [4600] Create a new query object.
 				$query = $db->getQuery(true);
 				$query->delete($db->quoteName('#__ucm_base'));
 				$query->where($scaling_factor_condition);
 				$db->setQuery($query);
-				// [4567] Execute the query to remove Scaling_factor items
+				// [4605] Execute the query to remove Scaling_factor items
 				$db->execute();
 
-				// [4571] Remove Scaling_factor items from the ucm history table
+				// [4609] Remove Scaling_factor items from the ucm history table
 				$scaling_factor_condition = array( $db->quoteName('ucm_type_id') . ' = ' . $scaling_factor_id);
-				// [4573] Create a new query object.
+				// [4611] Create a new query object.
 				$query = $db->getQuery(true);
 				$query->delete($db->quoteName('#__ucm_history'));
 				$query->where($scaling_factor_condition);
 				$db->setQuery($query);
-				// [4578] Execute the query to remove Scaling_factor items
+				// [4616] Execute the query to remove Scaling_factor items
 				$db->execute();
 			}
 		}
 
-		// [4486] Create a new query object.
+		// [4524] Create a new query object.
 		$query = $db->getQuery(true);
-		// [4488] Select id from content type table
+		// [4526] Select id from content type table
 		$query->select($db->quoteName('type_id'));
 		$query->from($db->quoteName('#__content_types'));
-		// [4491] Where Intervention alias is found
+		// [4529] Where Intervention alias is found
 		$query->where( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.intervention') );
 		$db->setQuery($query);
-		// [4494] Execute query to see if alias is found
+		// [4532] Execute query to see if alias is found
 		$db->execute();
 		$intervention_found = $db->getNumRows();
-		// [4497] Now check if there were any rows
+		// [4535] Now check if there were any rows
 		if ($intervention_found)
 		{
-			// [4500] Since there are load the needed  intervention type ids
+			// [4538] Since there are load the needed  intervention type ids
 			$intervention_ids = $db->loadColumn();
-			// [4504] Remove Intervention from the content type table
+			// [4542] Remove Intervention from the content type table
 			$intervention_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.intervention') );
-			// [4506] Create a new query object.
+			// [4544] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__content_types'));
 			$query->where($intervention_condition);
 			$db->setQuery($query);
-			// [4511] Execute the query to remove Intervention items
+			// [4549] Execute the query to remove Intervention items
 			$intervention_done = $db->execute();
 			if ($intervention_done);
 			{
-				// [4515] If succesfully remove Intervention add queued success message.
+				// [4553] If succesfully remove Intervention add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.intervention) type alias was removed from the <b>#__content_type</b> table'));
 			}
 
-			// [4521] Remove Intervention items from the contentitem tag map table
+			// [4559] Remove Intervention items from the contentitem tag map table
 			$intervention_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.intervention') );
-			// [4523] Create a new query object.
+			// [4561] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__contentitem_tag_map'));
 			$query->where($intervention_condition);
 			$db->setQuery($query);
-			// [4528] Execute the query to remove Intervention items
+			// [4566] Execute the query to remove Intervention items
 			$intervention_done = $db->execute();
 			if ($intervention_done);
 			{
-				// [4532] If succesfully remove Intervention add queued success message.
+				// [4570] If succesfully remove Intervention add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.intervention) type alias was removed from the <b>#__contentitem_tag_map</b> table'));
 			}
 
-			// [4538] Remove Intervention items from the ucm content table
+			// [4576] Remove Intervention items from the ucm content table
 			$intervention_condition = array( $db->quoteName('core_type_alias') . ' = ' . $db->quote('com_costbenefitprojection.intervention') );
-			// [4540] Create a new query object.
+			// [4578] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__ucm_content'));
 			$query->where($intervention_condition);
 			$db->setQuery($query);
-			// [4545] Execute the query to remove Intervention items
+			// [4583] Execute the query to remove Intervention items
 			$intervention_done = $db->execute();
 			if ($intervention_done);
 			{
-				// [4549] If succesfully remove Intervention add queued success message.
+				// [4587] If succesfully remove Intervention add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.intervention) type alias was removed from the <b>#__ucm_content</b> table'));
 			}
 
-			// [4555] Make sure that all the Intervention items are cleared from DB
+			// [4593] Make sure that all the Intervention items are cleared from DB
 			foreach ($intervention_ids as $intervention_id)
 			{
-				// [4560] Remove Intervention items from the ucm base table
+				// [4598] Remove Intervention items from the ucm base table
 				$intervention_condition = array( $db->quoteName('ucm_type_id') . ' = ' . $intervention_id);
-				// [4562] Create a new query object.
+				// [4600] Create a new query object.
 				$query = $db->getQuery(true);
 				$query->delete($db->quoteName('#__ucm_base'));
 				$query->where($intervention_condition);
 				$db->setQuery($query);
-				// [4567] Execute the query to remove Intervention items
+				// [4605] Execute the query to remove Intervention items
 				$db->execute();
 
-				// [4571] Remove Intervention items from the ucm history table
+				// [4609] Remove Intervention items from the ucm history table
 				$intervention_condition = array( $db->quoteName('ucm_type_id') . ' = ' . $intervention_id);
-				// [4573] Create a new query object.
+				// [4611] Create a new query object.
 				$query = $db->getQuery(true);
 				$query->delete($db->quoteName('#__ucm_history'));
 				$query->where($intervention_condition);
 				$db->setQuery($query);
-				// [4578] Execute the query to remove Intervention items
+				// [4616] Execute the query to remove Intervention items
 				$db->execute();
 			}
 		}
 
-		// [4486] Create a new query object.
+		// [4524] Create a new query object.
 		$query = $db->getQuery(true);
-		// [4488] Select id from content type table
+		// [4526] Select id from content type table
 		$query->select($db->quoteName('type_id'));
 		$query->from($db->quoteName('#__content_types'));
-		// [4491] Where Currency alias is found
+		// [4529] Where Currency alias is found
 		$query->where( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.currency') );
 		$db->setQuery($query);
-		// [4494] Execute query to see if alias is found
+		// [4532] Execute query to see if alias is found
 		$db->execute();
 		$currency_found = $db->getNumRows();
-		// [4497] Now check if there were any rows
+		// [4535] Now check if there were any rows
 		if ($currency_found)
 		{
-			// [4500] Since there are load the needed  currency type ids
+			// [4538] Since there are load the needed  currency type ids
 			$currency_ids = $db->loadColumn();
-			// [4504] Remove Currency from the content type table
+			// [4542] Remove Currency from the content type table
 			$currency_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.currency') );
-			// [4506] Create a new query object.
+			// [4544] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__content_types'));
 			$query->where($currency_condition);
 			$db->setQuery($query);
-			// [4511] Execute the query to remove Currency items
+			// [4549] Execute the query to remove Currency items
 			$currency_done = $db->execute();
 			if ($currency_done);
 			{
-				// [4515] If succesfully remove Currency add queued success message.
+				// [4553] If succesfully remove Currency add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.currency) type alias was removed from the <b>#__content_type</b> table'));
 			}
 
-			// [4521] Remove Currency items from the contentitem tag map table
+			// [4559] Remove Currency items from the contentitem tag map table
 			$currency_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.currency') );
-			// [4523] Create a new query object.
+			// [4561] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__contentitem_tag_map'));
 			$query->where($currency_condition);
 			$db->setQuery($query);
-			// [4528] Execute the query to remove Currency items
+			// [4566] Execute the query to remove Currency items
 			$currency_done = $db->execute();
 			if ($currency_done);
 			{
-				// [4532] If succesfully remove Currency add queued success message.
+				// [4570] If succesfully remove Currency add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.currency) type alias was removed from the <b>#__contentitem_tag_map</b> table'));
 			}
 
-			// [4538] Remove Currency items from the ucm content table
+			// [4576] Remove Currency items from the ucm content table
 			$currency_condition = array( $db->quoteName('core_type_alias') . ' = ' . $db->quote('com_costbenefitprojection.currency') );
-			// [4540] Create a new query object.
+			// [4578] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__ucm_content'));
 			$query->where($currency_condition);
 			$db->setQuery($query);
-			// [4545] Execute the query to remove Currency items
+			// [4583] Execute the query to remove Currency items
 			$currency_done = $db->execute();
 			if ($currency_done);
 			{
-				// [4549] If succesfully remove Currency add queued success message.
+				// [4587] If succesfully remove Currency add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.currency) type alias was removed from the <b>#__ucm_content</b> table'));
 			}
 
-			// [4555] Make sure that all the Currency items are cleared from DB
+			// [4593] Make sure that all the Currency items are cleared from DB
 			foreach ($currency_ids as $currency_id)
 			{
-				// [4560] Remove Currency items from the ucm base table
+				// [4598] Remove Currency items from the ucm base table
 				$currency_condition = array( $db->quoteName('ucm_type_id') . ' = ' . $currency_id);
-				// [4562] Create a new query object.
+				// [4600] Create a new query object.
 				$query = $db->getQuery(true);
 				$query->delete($db->quoteName('#__ucm_base'));
 				$query->where($currency_condition);
 				$db->setQuery($query);
-				// [4567] Execute the query to remove Currency items
+				// [4605] Execute the query to remove Currency items
 				$db->execute();
 
-				// [4571] Remove Currency items from the ucm history table
+				// [4609] Remove Currency items from the ucm history table
 				$currency_condition = array( $db->quoteName('ucm_type_id') . ' = ' . $currency_id);
-				// [4573] Create a new query object.
+				// [4611] Create a new query object.
 				$query = $db->getQuery(true);
 				$query->delete($db->quoteName('#__ucm_history'));
 				$query->where($currency_condition);
 				$db->setQuery($query);
-				// [4578] Execute the query to remove Currency items
+				// [4616] Execute the query to remove Currency items
 				$db->execute();
 			}
 		}
 
-		// [4486] Create a new query object.
+		// [4524] Create a new query object.
 		$query = $db->getQuery(true);
-		// [4488] Select id from content type table
+		// [4526] Select id from content type table
 		$query->select($db->quoteName('type_id'));
 		$query->from($db->quoteName('#__content_types'));
-		// [4491] Where Help_document alias is found
+		// [4529] Where Help_document alias is found
 		$query->where( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.help_document') );
 		$db->setQuery($query);
-		// [4494] Execute query to see if alias is found
+		// [4532] Execute query to see if alias is found
 		$db->execute();
 		$help_document_found = $db->getNumRows();
-		// [4497] Now check if there were any rows
+		// [4535] Now check if there were any rows
 		if ($help_document_found)
 		{
-			// [4500] Since there are load the needed  help_document type ids
+			// [4538] Since there are load the needed  help_document type ids
 			$help_document_ids = $db->loadColumn();
-			// [4504] Remove Help_document from the content type table
+			// [4542] Remove Help_document from the content type table
 			$help_document_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.help_document') );
-			// [4506] Create a new query object.
+			// [4544] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__content_types'));
 			$query->where($help_document_condition);
 			$db->setQuery($query);
-			// [4511] Execute the query to remove Help_document items
+			// [4549] Execute the query to remove Help_document items
 			$help_document_done = $db->execute();
 			if ($help_document_done);
 			{
-				// [4515] If succesfully remove Help_document add queued success message.
+				// [4553] If succesfully remove Help_document add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.help_document) type alias was removed from the <b>#__content_type</b> table'));
 			}
 
-			// [4521] Remove Help_document items from the contentitem tag map table
+			// [4559] Remove Help_document items from the contentitem tag map table
 			$help_document_condition = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.help_document') );
-			// [4523] Create a new query object.
+			// [4561] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__contentitem_tag_map'));
 			$query->where($help_document_condition);
 			$db->setQuery($query);
-			// [4528] Execute the query to remove Help_document items
+			// [4566] Execute the query to remove Help_document items
 			$help_document_done = $db->execute();
 			if ($help_document_done);
 			{
-				// [4532] If succesfully remove Help_document add queued success message.
+				// [4570] If succesfully remove Help_document add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.help_document) type alias was removed from the <b>#__contentitem_tag_map</b> table'));
 			}
 
-			// [4538] Remove Help_document items from the ucm content table
+			// [4576] Remove Help_document items from the ucm content table
 			$help_document_condition = array( $db->quoteName('core_type_alias') . ' = ' . $db->quote('com_costbenefitprojection.help_document') );
-			// [4540] Create a new query object.
+			// [4578] Create a new query object.
 			$query = $db->getQuery(true);
 			$query->delete($db->quoteName('#__ucm_content'));
 			$query->where($help_document_condition);
 			$db->setQuery($query);
-			// [4545] Execute the query to remove Help_document items
+			// [4583] Execute the query to remove Help_document items
 			$help_document_done = $db->execute();
 			if ($help_document_done);
 			{
-				// [4549] If succesfully remove Help_document add queued success message.
+				// [4587] If succesfully remove Help_document add queued success message.
 				$app->enqueueMessage(JText::_('The (com_costbenefitprojection.help_document) type alias was removed from the <b>#__ucm_content</b> table'));
 			}
 
-			// [4555] Make sure that all the Help_document items are cleared from DB
+			// [4593] Make sure that all the Help_document items are cleared from DB
 			foreach ($help_document_ids as $help_document_id)
 			{
-				// [4560] Remove Help_document items from the ucm base table
+				// [4598] Remove Help_document items from the ucm base table
 				$help_document_condition = array( $db->quoteName('ucm_type_id') . ' = ' . $help_document_id);
-				// [4562] Create a new query object.
+				// [4600] Create a new query object.
 				$query = $db->getQuery(true);
 				$query->delete($db->quoteName('#__ucm_base'));
 				$query->where($help_document_condition);
 				$db->setQuery($query);
-				// [4567] Execute the query to remove Help_document items
+				// [4605] Execute the query to remove Help_document items
 				$db->execute();
 
-				// [4571] Remove Help_document items from the ucm history table
+				// [4609] Remove Help_document items from the ucm history table
 				$help_document_condition = array( $db->quoteName('ucm_type_id') . ' = ' . $help_document_id);
-				// [4573] Create a new query object.
+				// [4611] Create a new query object.
 				$query = $db->getQuery(true);
 				$query->delete($db->quoteName('#__ucm_history'));
 				$query->where($help_document_condition);
 				$db->setQuery($query);
-				// [4578] Execute the query to remove Help_document items
+				// [4616] Execute the query to remove Help_document items
 				$db->execute();
 			}
 		}
 
-		// [4586] If All related items was removed queued success message.
+		// [4624] If All related items was removed queued success message.
 		$app->enqueueMessage(JText::_('All related items was removed from the <b>#__ucm_base</b> table'));
 		$app->enqueueMessage(JText::_('All related items was removed from the <b>#__ucm_history</b> table'));
 
-		// [4591] Remove costbenefitprojection assets from the assets table
+		// [4629] Remove costbenefitprojection assets from the assets table
 		$costbenefitprojection_condition = array( $db->quoteName('name') . ' LIKE ' . $db->quote('com_costbenefitprojection%') );
 
-		// [4593] Create a new query object.
+		// [4631] Create a new query object.
 		$query = $db->getQuery(true);
 		$query->delete($db->quoteName('#__assets'));
 		$query->where($costbenefitprojection_condition);
@@ -842,7 +842,7 @@ class com_costbenefitprojectionInstallerScript
 		$help_document_done = $db->execute();
 		if ($help_document_done);
 		{
-			// [4601] If succesfully remove costbenefitprojection add queued success message.
+			// [4639] If succesfully remove costbenefitprojection add queued success message.
 			$app->enqueueMessage(JText::_('All related items was removed from the <b>#__assets</b> table'));
 		}
 
@@ -896,11 +896,11 @@ class com_costbenefitprojectionInstallerScript
 		if ($type == 'install')
 		{
 
-			// [4647] Get The Database object
+			// [4685] Get The Database object
 
 			$db = JFactory::getDbo();
 
-			// [4654] Create the company content type object.
+			// [4692] Create the company content type object.
 			$company = new stdClass();
 			$company->type_title = 'Costbenefitprojection Company';
 			$company->type_alias = 'com_costbenefitprojection.company';
@@ -909,10 +909,10 @@ class com_costbenefitprojectionInstallerScript
 			$company->router = 'CostbenefitprojectionHelperRoute::getCompanyRoute';
 			$company->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/company.xml","hideFields": ["asset_id","checked_out","checked_out_time","version","not_required"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","user","department","country","serviceprovider","per","working_days","not_required"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "access","targetTable": "#__viewlevels","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "user","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "country","targetTable": "#__costbenefitprojection_country","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "serviceprovider","targetTable": "#__costbenefitprojection_service_provider","targetColumn": "id","displayColumn": "user"},{"sourceColumn": "causesrisks","targetTable": "#__costbenefitprojection_causerisk","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "datayear","targetTable": "#__costbenefitprojection_health_data","targetColumn": "year","displayColumn": "country"}]}';
 
-			// [4660] Insert the object into the content types table.
+			// [4698] Insert the object into the content types table.
 			$companyInserted = $db->insertObject('#__content_types', $company);
 
-			// [4654] Create the service_provider content type object.
+			// [4692] Create the service_provider content type object.
 			$service_provider = new stdClass();
 			$service_provider->type_title = 'Costbenefitprojection Service_provider';
 			$service_provider->type_alias = 'com_costbenefitprojection.service_provider';
@@ -921,10 +921,10 @@ class com_costbenefitprojectionInstallerScript
 			$service_provider->router = 'CostbenefitprojectionHelperRoute::getService_providerRoute';
 			$service_provider->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/service_provider.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","user","country"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "user","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "country","targetTable": "#__costbenefitprojection_country","targetColumn": "id","displayColumn": "name"}]}';
 
-			// [4660] Insert the object into the content types table.
+			// [4698] Insert the object into the content types table.
 			$service_providerInserted = $db->insertObject('#__content_types', $service_provider);
 
-			// [4654] Create the country content type object.
+			// [4692] Create the country content type object.
 			$country = new stdClass();
 			$country->type_title = 'Costbenefitprojection Country';
 			$country->type_alias = 'com_costbenefitprojection.country';
@@ -933,10 +933,10 @@ class com_costbenefitprojectionInstallerScript
 			$country->router = 'CostbenefitprojectionHelperRoute::getCountryRoute';
 			$country->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/country.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","user","working_days"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "access","targetTable": "#__viewlevels","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "user","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "currency","targetTable": "#__costbenefitprojection_currency","targetColumn": "codethree","displayColumn": "name"},{"sourceColumn": "datayear","targetTable": "#__costbenefitprojection_health_data","targetColumn": "year","displayColumn": "country"},{"sourceColumn": "causesrisks","targetTable": "#__costbenefitprojection_causerisk","targetColumn": "id","displayColumn": "name"}]}';
 
-			// [4660] Insert the object into the content types table.
+			// [4698] Insert the object into the content types table.
 			$countryInserted = $db->insertObject('#__content_types', $country);
 
-			// [4654] Create the causerisk content type object.
+			// [4692] Create the causerisk content type object.
 			$causerisk = new stdClass();
 			$causerisk->type_title = 'Costbenefitprojection Causerisk';
 			$causerisk->type_alias = 'com_costbenefitprojection.causerisk';
@@ -945,10 +945,10 @@ class com_costbenefitprojectionInstallerScript
 			$causerisk->router = 'CostbenefitprojectionHelperRoute::getCauseriskRoute';
 			$causerisk->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/causerisk.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "access","targetTable": "#__viewlevels","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"}]}';
 
-			// [4660] Insert the object into the content types table.
+			// [4698] Insert the object into the content types table.
 			$causeriskInserted = $db->insertObject('#__content_types', $causerisk);
 
-			// [4654] Create the health_data content type object.
+			// [4692] Create the health_data content type object.
 			$health_data = new stdClass();
 			$health_data->type_title = 'Costbenefitprojection Health_data';
 			$health_data->type_alias = 'com_costbenefitprojection.health_data';
@@ -957,10 +957,10 @@ class com_costbenefitprojectionInstallerScript
 			$health_data->router = 'CostbenefitprojectionHelperRoute::getHealth_dataRoute';
 			$health_data->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/health_data.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","causerisk","country"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "access","targetTable": "#__viewlevels","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "causerisk","targetTable": "#__costbenefitprojection_causerisk","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "country","targetTable": "#__costbenefitprojection_country","targetColumn": "id","displayColumn": "name"}]}';
 
-			// [4660] Insert the object into the content types table.
+			// [4698] Insert the object into the content types table.
 			$health_dataInserted = $db->insertObject('#__content_types', $health_data);
 
-			// [4654] Create the scaling_factor content type object.
+			// [4692] Create the scaling_factor content type object.
 			$scaling_factor = new stdClass();
 			$scaling_factor->type_title = 'Costbenefitprojection Scaling_factor';
 			$scaling_factor->type_alias = 'com_costbenefitprojection.scaling_factor';
@@ -969,10 +969,10 @@ class com_costbenefitprojectionInstallerScript
 			$scaling_factor->router = 'CostbenefitprojectionHelperRoute::getScaling_factorRoute';
 			$scaling_factor->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/scaling_factor.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","causerisk","company"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "causerisk","targetTable": "#__costbenefitprojection_causerisk","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "company","targetTable": "#__costbenefitprojection_company","targetColumn": "id","displayColumn": "name"}]}';
 
-			// [4660] Insert the object into the content types table.
+			// [4698] Insert the object into the content types table.
 			$scaling_factorInserted = $db->insertObject('#__content_types', $scaling_factor);
 
-			// [4654] Create the intervention content type object.
+			// [4692] Create the intervention content type object.
 			$intervention = new stdClass();
 			$intervention->type_title = 'Costbenefitprojection Intervention';
 			$intervention->type_alias = 'com_costbenefitprojection.intervention';
@@ -981,10 +981,10 @@ class com_costbenefitprojectionInstallerScript
 			$intervention->router = 'CostbenefitprojectionHelperRoute::getInterventionRoute';
 			$intervention->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/intervention.xml","hideFields": ["asset_id","checked_out","checked_out_time","version","not_required"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","company","type","coverage","duration","share","not_required"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "company","targetTable": "#__costbenefitprojection_company","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "interventions","targetTable": "#__costbenefitprojection_intervention","targetColumn": "id","displayColumn": "name"}]}';
 
-			// [4660] Insert the object into the content types table.
+			// [4698] Insert the object into the content types table.
 			$interventionInserted = $db->insertObject('#__content_types', $intervention);
 
-			// [4654] Create the currency content type object.
+			// [4692] Create the currency content type object.
 			$currency = new stdClass();
 			$currency->type_title = 'Costbenefitprojection Currency';
 			$currency->type_alias = 'com_costbenefitprojection.currency';
@@ -993,10 +993,10 @@ class com_costbenefitprojectionInstallerScript
 			$currency->router = 'CostbenefitprojectionHelperRoute::getCurrencyRoute';
 			$currency->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/currency.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","numericcode","decimalplace"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "access","targetTable": "#__viewlevels","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"}]}';
 
-			// [4660] Insert the object into the content types table.
+			// [4698] Insert the object into the content types table.
 			$currencyInserted = $db->insertObject('#__content_types', $currency);
 
-			// [4654] Create the help_document content type object.
+			// [4692] Create the help_document content type object.
 			$help_document = new stdClass();
 			$help_document->type_title = 'Costbenefitprojection Help_document';
 			$help_document->type_alias = 'com_costbenefitprojection.help_document';
@@ -1005,19 +1005,19 @@ class com_costbenefitprojectionInstallerScript
 			$help_document->router = 'CostbenefitprojectionHelperRoute::getHelp_documentRoute';
 			$help_document->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/help_document.xml","hideFields": ["asset_id","checked_out","checked_out_time","version","not_required"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","type","location","target","article","not_required"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "article","targetTable": "#__content","targetColumn": "id","displayColumn": "title"}]}';
 
-			// [4660] Insert the object into the content types table.
+			// [4698] Insert the object into the content types table.
 			$help_documentInserted = $db->insertObject('#__content_types', $help_document);
 
 
-			// [4672] Install the global extenstion params.
+			// [4710] Install the global extenstion params.
 			$query = $db->getQuery(true);
 
-			// [4680] Field to update.
+			// [4718] Field to update.
 			$fields = array(
 				$db->quoteName('params') . ' = ' . $db->quote('{"autorName":"Llewellyn van der Merwe","autorEmail":"llewellyn@vdm.io","check_in":"-1 day","save_history":"1","history_limit":"10","titleContributor1":"Health Economist","nameContributor1":"Patrick Hanlon, M.Sc. PH","emailContributor1":"Patrick.Hanlon@unibas.ch","linkContributor1":"http://www.swisstph.ch/about-us/staff/detailview.html?tx_x4epersdb_pi1[showUid]=2267&amp;cHash=1b1c5db0808e04d3f1afe0f3a3f67998","useContributor1":"2","showContributor1":"3","titleContributor2":"Development Advisor","nameContributor2":"Matthew Black","emailContributor2":"matthew.black@giz.de","linkContributor2":"http://www.giz.de","useContributor2":"2","showContributor2":"3","titleContributor3":"Associate Expert","nameContributor3":"Dr. Pascal Geldsetzer","emailContributor3":"pascal.geldsetzer@giz.de","linkContributor3":"http://www.giz.de","useContributor3":"2","showContributor3":"1","memberuser":["2"],"serviceprovideruser":["2"],"countryuser":["2"],"uikit_load":"1","uikit_min":"","uikit_style":"","admin_chartbackground":"#F7F7FA","admin_mainwidth":"1000","admin_chartareatop":"20","admin_chartarealeft":"20","admin_chartareawidth":"170","admin_legendtextstylefontcolor":"10","admin_legendtextstylefontsize":"20","admin_vaxistextstylefontcolor":"#63B1F2","admin_haxistextstylefontcolor":"#63B1F2","admin_haxistitletextstylefontcolor":"#63B1F2","site_chartbackground":"#F7F7FA","site_mainwidth":"1000","site_chartareatop":"20","site_chartarealeft":"20","site_chartareawidth":"170","site_legendtextstylefontcolor":"10","site_legendtextstylefontsize":"20","site_vaxistextstylefontcolor":"#63B1F2","site_haxistextstylefontcolor":"#63B1F2","site_haxistitletextstylefontcolor":"#63B1F2"}'),
 			);
 
-			// [4684] Condition.
+			// [4722] Condition.
 			$conditions = array(
 				$db->quoteName('element') . ' = ' . $db->quote('com_costbenefitprojection')
 			);
@@ -1035,7 +1035,7 @@ class com_costbenefitprojectionInstallerScript
 			echo '<a target="_blank" href="http://www.vdm.io" title="Cost Benefit Projection">
 				<img src="components/com_costbenefitprojection/assets/images/component-300.jpg"/>
 				</a>
-				<h3>Upgrade to Version 3.1.0 Was Successful! Let us know if anything is not working as expected.</h3>';
+				<h3>Upgrade to Version 3.2.0 Was Successful! Let us know if anything is not working as expected.</h3>';
 		}
 	}
 }

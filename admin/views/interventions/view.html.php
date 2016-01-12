@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.1.0
-	@build			6th January, 2016
+	@version		3.2.0
+	@build			12th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -196,11 +196,11 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 			);
                 }  
 
-		// [9368] Set Company Name Selection
+		// [9406] Set Company Name Selection
 		$this->companyNameOptions = JFormHelper::loadFieldType('Company')->getOptions();
 		if ($this->companyNameOptions)
 		{
-			// [9372] Company Name Filter
+			// [9410] Company Name Filter
 			JHtmlSidebar::addFilter(
 				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_COMPANY_LABEL').' -',
 				'filter_company',
@@ -209,7 +209,7 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 
 			if ($this->canBatch && $this->canCreate && $this->canEdit)
 			{
-				// [9381] Company Name Batch Selection
+				// [9419] Company Name Batch Selection
 				JHtmlBatch_::addListSelection(
 					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_COMPANY_LABEL').' -',
 					'batch[company]',
@@ -218,11 +218,11 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 			}
 		}
 
-		// [9402] Set Type Selection
+		// [9440] Set Type Selection
 		$this->typeOptions = $this->getTheTypeSelections();
 		if ($this->typeOptions)
 		{
-			// [9406] Type Filter
+			// [9444] Type Filter
 			JHtmlSidebar::addFilter(
 				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_TYPE_LABEL').' -',
 				'filter_type',
@@ -231,7 +231,7 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 
 			if ($this->canBatch && $this->canCreate && $this->canEdit)
 			{
-				// [9415] Type Batch Selection
+				// [9453] Type Batch Selection
 				JHtmlBatch_::addListSelection(
 					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_TYPE_LABEL').' -',
 					'batch[type]',
@@ -240,11 +240,11 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 			}
 		}
 
-		// [9402] Set Coverage Selection
+		// [9440] Set Coverage Selection
 		$this->coverageOptions = $this->getTheCoverageSelections();
 		if ($this->coverageOptions)
 		{
-			// [9406] Coverage Filter
+			// [9444] Coverage Filter
 			JHtmlSidebar::addFilter(
 				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_COVERAGE_LABEL').' -',
 				'filter_coverage',
@@ -253,7 +253,7 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 
 			if ($this->canBatch && $this->canCreate && $this->canEdit)
 			{
-				// [9415] Coverage Batch Selection
+				// [9453] Coverage Batch Selection
 				JHtmlBatch_::addListSelection(
 					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_COVERAGE_LABEL').' -',
 					'batch[coverage]',
@@ -262,11 +262,11 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 			}
 		}
 
-		// [9402] Set Duration Selection
+		// [9440] Set Duration Selection
 		$this->durationOptions = $this->getTheDurationSelections();
 		if ($this->durationOptions)
 		{
-			// [9406] Duration Filter
+			// [9444] Duration Filter
 			JHtmlSidebar::addFilter(
 				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_DURATION_LABEL').' -',
 				'filter_duration',
@@ -275,7 +275,7 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 
 			if ($this->canBatch && $this->canCreate && $this->canEdit)
 			{
-				// [9415] Duration Batch Selection
+				// [9453] Duration Batch Selection
 				JHtmlBatch_::addListSelection(
 					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_DURATION_LABEL').' -',
 					'batch[duration]',
@@ -337,33 +337,33 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 
 	protected function getTheTypeSelections()
 	{
-		// [9278] Get a db connection.
+		// [9316] Get a db connection.
 		$db = JFactory::getDbo();
 
-		// [9280] Create a new query object.
+		// [9318] Create a new query object.
 		$query = $db->getQuery(true);
 
-		// [9282] Select the text.
+		// [9320] Select the text.
 		$query->select($db->quoteName('type'));
 		$query->from($db->quoteName('#__costbenefitprojection_intervention'));
 		$query->order($db->quoteName('type') . ' ASC');
 
-		// [9286] Reset the query using our newly populated query object.
+		// [9324] Reset the query using our newly populated query object.
 		$db->setQuery($query);
 
 		$results = $db->loadColumn();
 
 		if ($results)
 		{
-			// [9294] get model
+			// [9332] get model
 			$model = $this->getModel();
 			$results = array_unique($results);
 			$filter = array();
 			foreach ($results as $type)
 			{
-				// [9305] Translate the type selection
+				// [9343] Translate the type selection
 				$text = $model->selectionTranslation($type,'type');
-				// [9307] Now add the type and its text to the options array
+				// [9345] Now add the type and its text to the options array
 				$filter[] = JHtml::_('select.option', $type, JText::_($text));
 			}
 			return $filter;
@@ -373,18 +373,18 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 
 	protected function getTheCoverageSelections()
 	{
-		// [9278] Get a db connection.
+		// [9316] Get a db connection.
 		$db = JFactory::getDbo();
 
-		// [9280] Create a new query object.
+		// [9318] Create a new query object.
 		$query = $db->getQuery(true);
 
-		// [9282] Select the text.
+		// [9320] Select the text.
 		$query->select($db->quoteName('coverage'));
 		$query->from($db->quoteName('#__costbenefitprojection_intervention'));
 		$query->order($db->quoteName('coverage') . ' ASC');
 
-		// [9286] Reset the query using our newly populated query object.
+		// [9324] Reset the query using our newly populated query object.
 		$db->setQuery($query);
 
 		$results = $db->loadColumn();
@@ -395,7 +395,7 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 			$filter = array();
 			foreach ($results as $coverage)
 			{
-				// [9312] Now add the coverage and its text to the options array
+				// [9350] Now add the coverage and its text to the options array
 				$filter[] = JHtml::_('select.option', $coverage, $coverage);
 			}
 			return $filter;
@@ -405,18 +405,18 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 
 	protected function getTheDurationSelections()
 	{
-		// [9278] Get a db connection.
+		// [9316] Get a db connection.
 		$db = JFactory::getDbo();
 
-		// [9280] Create a new query object.
+		// [9318] Create a new query object.
 		$query = $db->getQuery(true);
 
-		// [9282] Select the text.
+		// [9320] Select the text.
 		$query->select($db->quoteName('duration'));
 		$query->from($db->quoteName('#__costbenefitprojection_intervention'));
 		$query->order($db->quoteName('duration') . ' ASC');
 
-		// [9286] Reset the query using our newly populated query object.
+		// [9324] Reset the query using our newly populated query object.
 		$db->setQuery($query);
 
 		$results = $db->loadColumn();
@@ -427,7 +427,7 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 			$filter = array();
 			foreach ($results as $duration)
 			{
-				// [9312] Now add the duration and its text to the options array
+				// [9350] Now add the duration and its text to the options array
 				$filter[] = JHtml::_('select.option', $duration, $duration);
 			}
 			return $filter;

@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.1.0
-	@build			6th January, 2016
+	@version		3.2.0
+	@build			12th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		datayear.php
@@ -44,36 +44,36 @@ class JFormFieldDatayear extends JFormFieldList
 	 */
 	protected function getInput()
 	{
-		// [7952] see if we should add buttons
+		// [7990] see if we should add buttons
 		$setButton = $this->getAttribute('button');
-		// [7954] get html
+		// [7992] get html
 		$html = parent::getInput();
-		// [7956] if true set button
+		// [7994] if true set button
 		if ($setButton === 'true')
 		{
 			$user = JFactory::getUser();
-			// [7960] only add if user allowed to create health_data
+			// [7998] only add if user allowed to create health_data
 			if ($user->authorise('health_data.create', 'com_costbenefitprojection'))
 			{
-				// [7978] get the input from url
+				// [8016] get the input from url
 				$jinput = JFactory::getApplication()->input;
-				// [7980] get the view name & id
+				// [8018] get the view name & id
 				$values = $jinput->getArray(array(
 					'id' => 'int',
 					'view' => 'word'
 				));
-				// [7985] check if new item
+				// [8023] check if new item
 				$ref = '';
 				if (!is_null($values['id']) && strlen($values['view']))
 				{
-					// [7989] only load referal if not new item.
+					// [8027] only load referal if not new item.
 					$ref = '&amp;ref=' . $values['view'] . '&amp;refid=' . $values['id'];
 				}
-				// [7992] build the button
+				// [8030] build the button
 				$button = '<a class="btn btn-small btn-success"
 					href="index.php?option=com_costbenefitprojection&amp;view=health_data&amp;layout=edit'.$ref.'" >
 					<span class="icon-new icon-white"></span>' . JText::_('COM_COSTBENEFITPROJECTION_NEW') . '</a>';
-				// [7996] return the button attached to input field
+				// [8034] return the button attached to input field
 				return $html . $button;
 			}
 		}
