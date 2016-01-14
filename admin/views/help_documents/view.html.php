@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.2.0
-	@build			12th January, 2016
+	@version		3.3.0
+	@build			14th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -196,11 +196,11 @@ class CostbenefitprojectionViewHelp_documents extends JViewLegacy
 			);
                 }  
 
-		// [9440] Set Type Selection
+		// Set Type Selection
 		$this->typeOptions = $this->getTheTypeSelections();
 		if ($this->typeOptions)
 		{
-			// [9444] Type Filter
+			// Type Filter
 			JHtmlSidebar::addFilter(
 				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_TYPE_LABEL').' -',
 				'filter_type',
@@ -209,7 +209,7 @@ class CostbenefitprojectionViewHelp_documents extends JViewLegacy
 
 			if ($this->canBatch && $this->canCreate && $this->canEdit)
 			{
-				// [9453] Type Batch Selection
+				// Type Batch Selection
 				JHtmlBatch_::addListSelection(
 					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_TYPE_LABEL').' -',
 					'batch[type]',
@@ -218,11 +218,11 @@ class CostbenefitprojectionViewHelp_documents extends JViewLegacy
 			}
 		}
 
-		// [9440] Set Location Selection
+		// Set Location Selection
 		$this->locationOptions = $this->getTheLocationSelections();
 		if ($this->locationOptions)
 		{
-			// [9444] Location Filter
+			// Location Filter
 			JHtmlSidebar::addFilter(
 				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_LOCATION_LABEL').' -',
 				'filter_location',
@@ -231,7 +231,7 @@ class CostbenefitprojectionViewHelp_documents extends JViewLegacy
 
 			if ($this->canBatch && $this->canCreate && $this->canEdit)
 			{
-				// [9453] Location Batch Selection
+				// Location Batch Selection
 				JHtmlBatch_::addListSelection(
 					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_LOCATION_LABEL').' -',
 					'batch[location]',
@@ -240,11 +240,11 @@ class CostbenefitprojectionViewHelp_documents extends JViewLegacy
 			}
 		}
 
-		// [9440] Set Admin View Selection
+		// Set Admin View Selection
 		$this->admin_viewOptions = $this->getTheAdmin_viewSelections();
 		if ($this->admin_viewOptions)
 		{
-			// [9444] Admin View Filter
+			// Admin View Filter
 			JHtmlSidebar::addFilter(
 				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_ADMIN_VIEW_LABEL').' -',
 				'filter_admin_view',
@@ -253,7 +253,7 @@ class CostbenefitprojectionViewHelp_documents extends JViewLegacy
 
 			if ($this->canBatch && $this->canCreate && $this->canEdit)
 			{
-				// [9453] Admin View Batch Selection
+				// Admin View Batch Selection
 				JHtmlBatch_::addListSelection(
 					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_ADMIN_VIEW_LABEL').' -',
 					'batch[admin_view]',
@@ -262,11 +262,11 @@ class CostbenefitprojectionViewHelp_documents extends JViewLegacy
 			}
 		}
 
-		// [9440] Set Site View Selection
+		// Set Site View Selection
 		$this->site_viewOptions = $this->getTheSite_viewSelections();
 		if ($this->site_viewOptions)
 		{
-			// [9444] Site View Filter
+			// Site View Filter
 			JHtmlSidebar::addFilter(
 				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_SITE_VIEW_LABEL').' -',
 				'filter_site_view',
@@ -275,7 +275,7 @@ class CostbenefitprojectionViewHelp_documents extends JViewLegacy
 
 			if ($this->canBatch && $this->canCreate && $this->canEdit)
 			{
-				// [9453] Site View Batch Selection
+				// Site View Batch Selection
 				JHtmlBatch_::addListSelection(
 					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_SITE_VIEW_LABEL').' -',
 					'batch[site_view]',
@@ -336,33 +336,33 @@ class CostbenefitprojectionViewHelp_documents extends JViewLegacy
 
 	protected function getTheTypeSelections()
 	{
-		// [9316] Get a db connection.
+		// Get a db connection.
 		$db = JFactory::getDbo();
 
-		// [9318] Create a new query object.
+		// Create a new query object.
 		$query = $db->getQuery(true);
 
-		// [9320] Select the text.
+		// Select the text.
 		$query->select($db->quoteName('type'));
 		$query->from($db->quoteName('#__costbenefitprojection_help_document'));
 		$query->order($db->quoteName('type') . ' ASC');
 
-		// [9324] Reset the query using our newly populated query object.
+		// Reset the query using our newly populated query object.
 		$db->setQuery($query);
 
 		$results = $db->loadColumn();
 
 		if ($results)
 		{
-			// [9332] get model
+			// get model
 			$model = $this->getModel();
 			$results = array_unique($results);
 			$filter = array();
 			foreach ($results as $type)
 			{
-				// [9343] Translate the type selection
+				// Translate the type selection
 				$text = $model->selectionTranslation($type,'type');
-				// [9345] Now add the type and its text to the options array
+				// Now add the type and its text to the options array
 				$filter[] = JHtml::_('select.option', $type, JText::_($text));
 			}
 			return $filter;
@@ -372,33 +372,33 @@ class CostbenefitprojectionViewHelp_documents extends JViewLegacy
 
 	protected function getTheLocationSelections()
 	{
-		// [9316] Get a db connection.
+		// Get a db connection.
 		$db = JFactory::getDbo();
 
-		// [9318] Create a new query object.
+		// Create a new query object.
 		$query = $db->getQuery(true);
 
-		// [9320] Select the text.
+		// Select the text.
 		$query->select($db->quoteName('location'));
 		$query->from($db->quoteName('#__costbenefitprojection_help_document'));
 		$query->order($db->quoteName('location') . ' ASC');
 
-		// [9324] Reset the query using our newly populated query object.
+		// Reset the query using our newly populated query object.
 		$db->setQuery($query);
 
 		$results = $db->loadColumn();
 
 		if ($results)
 		{
-			// [9332] get model
+			// get model
 			$model = $this->getModel();
 			$results = array_unique($results);
 			$filter = array();
 			foreach ($results as $location)
 			{
-				// [9343] Translate the location selection
+				// Translate the location selection
 				$text = $model->selectionTranslation($location,'location');
-				// [9345] Now add the location and its text to the options array
+				// Now add the location and its text to the options array
 				$filter[] = JHtml::_('select.option', $location, JText::_($text));
 			}
 			return $filter;
@@ -408,18 +408,18 @@ class CostbenefitprojectionViewHelp_documents extends JViewLegacy
 
 	protected function getTheAdmin_viewSelections()
 	{
-		// [9316] Get a db connection.
+		// Get a db connection.
 		$db = JFactory::getDbo();
 
-		// [9318] Create a new query object.
+		// Create a new query object.
 		$query = $db->getQuery(true);
 
-		// [9320] Select the text.
+		// Select the text.
 		$query->select($db->quoteName('admin_view'));
 		$query->from($db->quoteName('#__costbenefitprojection_help_document'));
 		$query->order($db->quoteName('admin_view') . ' ASC');
 
-		// [9324] Reset the query using our newly populated query object.
+		// Reset the query using our newly populated query object.
 		$db->setQuery($query);
 
 		$results = $db->loadColumn();
@@ -430,7 +430,7 @@ class CostbenefitprojectionViewHelp_documents extends JViewLegacy
 			$filter = array();
 			foreach ($results as $admin_view)
 			{
-				// [9350] Now add the admin_view and its text to the options array
+				// Now add the admin_view and its text to the options array
 				$filter[] = JHtml::_('select.option', $admin_view, $admin_view);
 			}
 			return $filter;
@@ -440,18 +440,18 @@ class CostbenefitprojectionViewHelp_documents extends JViewLegacy
 
 	protected function getTheSite_viewSelections()
 	{
-		// [9316] Get a db connection.
+		// Get a db connection.
 		$db = JFactory::getDbo();
 
-		// [9318] Create a new query object.
+		// Create a new query object.
 		$query = $db->getQuery(true);
 
-		// [9320] Select the text.
+		// Select the text.
 		$query->select($db->quoteName('site_view'));
 		$query->from($db->quoteName('#__costbenefitprojection_help_document'));
 		$query->order($db->quoteName('site_view') . ' ASC');
 
-		// [9324] Reset the query using our newly populated query object.
+		// Reset the query using our newly populated query object.
 		$db->setQuery($query);
 
 		$results = $db->loadColumn();
@@ -462,7 +462,7 @@ class CostbenefitprojectionViewHelp_documents extends JViewLegacy
 			$filter = array();
 			foreach ($results as $site_view)
 			{
-				// [9350] Now add the site_view and its text to the options array
+				// Now add the site_view and its text to the options array
 				$filter[] = JHtml::_('select.option', $site_view, $site_view);
 			}
 			return $filter;

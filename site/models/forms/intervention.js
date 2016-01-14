@@ -2,8 +2,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.2.0
-	@build			12th January, 2016
+	@version		3.3.0
+	@build			14th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		intervention.js
@@ -17,54 +17,58 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // Some Global Values
-jform_XCAjMWFmeI_required = false;
+jform_viqBsKTGpV_required = false;
+jform_XhROPycIll_required = false;
 
 // Initial Script
 jQuery(document).ready(function()
 {
-	var type_XCAjMWF = jQuery("#jform_type input[type='radio']:checked").val();
-	XCAjMWF(type_XCAjMWF);
+	var type_viqBsKT = jQuery("#jform_type input[type='radio']:checked").val();
+	viqBsKT(type_viqBsKT);
 
-	var type_MmytgLk = jQuery("#jform_type input[type='radio']:checked").val();
-	MmytgLk(type_MmytgLk);
+	var type_wWWuclt = jQuery("#jform_type input[type='radio']:checked").val();
+	wWWuclt(type_wWWuclt);
+
+	var company_XhROPyc = jQuery("#jform_company").val();
+	XhROPyc(company_XhROPyc);
 });
 
-// the XCAjMWF function
-function XCAjMWF(type_XCAjMWF)
+// the viqBsKT function
+function viqBsKT(type_viqBsKT)
 {
-	// [8307] set the function logic
-	if (type_XCAjMWF == 2)
+	// set the function logic
+	if (type_viqBsKT == 2)
 	{
 		jQuery('#jform_interventions').closest('.control-group').show();
-		if (jform_XCAjMWFmeI_required)
+		if (jform_viqBsKTGpV_required)
 		{
 			updateFieldRequired('interventions',0);
 			jQuery('#jform_interventions').prop('required','required');
 			jQuery('#jform_interventions').attr('aria-required',true);
 			jQuery('#jform_interventions').addClass('required');
-			jform_XCAjMWFmeI_required = false;
+			jform_viqBsKTGpV_required = false;
 		}
 
 	}
 	else
 	{
 		jQuery('#jform_interventions').closest('.control-group').hide();
-		if (!jform_XCAjMWFmeI_required)
+		if (!jform_viqBsKTGpV_required)
 		{
 			updateFieldRequired('interventions',1);
 			jQuery('#jform_interventions').removeAttr('required');
 			jQuery('#jform_interventions').removeAttr('aria-required');
 			jQuery('#jform_interventions').removeClass('required');
-			jform_XCAjMWFmeI_required = true;
+			jform_viqBsKTGpV_required = true;
 		}
 	}
 }
 
-// the MmytgLk function
-function MmytgLk(type_MmytgLk)
+// the wWWuclt function
+function wWWuclt(type_wWWuclt)
 {
-	// [8307] set the function logic
-	if (type_MmytgLk == 1)
+	// set the function logic
+	if (type_wWWuclt == 1)
 	{
 		jQuery('#jform_intervention').closest('.control-group').show();
 	}
@@ -72,6 +76,61 @@ function MmytgLk(type_MmytgLk)
 	{
 		jQuery('#jform_intervention').closest('.control-group').hide();
 	}
+}
+
+// the XhROPyc function
+function XhROPyc(company_XhROPyc)
+{
+	if (isSet(company_XhROPyc) && company_XhROPyc.constructor !== Array)
+	{
+		var temp_XhROPyc = company_XhROPyc;
+		var company_XhROPyc = [];
+		company_XhROPyc.push(temp_XhROPyc);
+	}
+	else if (!isSet(company_XhROPyc))
+	{
+		var company_XhROPyc = [];
+	}
+	var company = company_XhROPyc.some(company_XhROPyc_SomeFunc);
+
+
+	// set this function logic
+	if (company)
+	{
+		jQuery('#jform_country').closest('.control-group').show();
+		if (jform_XhROPycIll_required)
+		{
+			updateFieldRequired('country',0);
+			jQuery('#jform_country').prop('required','required');
+			jQuery('#jform_country').attr('aria-required',true);
+			jQuery('#jform_country').addClass('required');
+			jform_XhROPycIll_required = false;
+		}
+
+	}
+	else
+	{
+		jQuery('#jform_country').closest('.control-group').hide();
+		if (!jform_XhROPycIll_required)
+		{
+			updateFieldRequired('country',1);
+			jQuery('#jform_country').removeAttr('required');
+			jQuery('#jform_country').removeAttr('aria-required');
+			jQuery('#jform_country').removeClass('required');
+			jform_XhROPycIll_required = true;
+		}
+	}
+}
+
+// the XhROPyc Some function
+function company_XhROPyc_SomeFunc(company_XhROPyc)
+{
+	// set the function logic
+	if (company_XhROPyc == 0)
+	{
+		return true;
+	}
+	return false;
 }
 
 // update required fields

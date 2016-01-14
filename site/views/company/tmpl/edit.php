@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.2.0
-	@build			12th January, 2016
+	@version		3.3.0
+	@build			14th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -137,33 +137,33 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_department listeners for department_SnIDlNn function
+// #jform_department listeners for department_rVlgHfN function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_SnIDlNn = jQuery("#jform_department input[type='radio']:checked").val();
-	SnIDlNn(department_SnIDlNn);
+	var department_rVlgHfN = jQuery("#jform_department input[type='radio']:checked").val();
+	rVlgHfN(department_rVlgHfN);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_SnIDlNn = jQuery("#jform_department input[type='radio']:checked").val();
-	SnIDlNn(department_SnIDlNn);
+	var department_rVlgHfN = jQuery("#jform_department input[type='radio']:checked").val();
+	rVlgHfN(department_rVlgHfN);
 
 });
 
-// #jform_department listeners for department_WskNCQq function
+// #jform_department listeners for department_otRDwfE function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_WskNCQq = jQuery("#jform_department input[type='radio']:checked").val();
-	WskNCQq(department_WskNCQq);
+	var department_otRDwfE = jQuery("#jform_department input[type='radio']:checked").val();
+	otRDwfE(department_otRDwfE);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_WskNCQq = jQuery("#jform_department input[type='radio']:checked").val();
-	WskNCQq(department_WskNCQq);
+	var department_otRDwfE = jQuery("#jform_department input[type='radio']:checked").val();
+	otRDwfE(department_otRDwfE);
 
 });
 

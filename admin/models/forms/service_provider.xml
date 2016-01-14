@@ -4,15 +4,15 @@
 	addfieldpath="/administrator/components/com_costbenefitprojection/models/fields"
 >
 	<fieldset name="details">
-		<!-- [11322] Default Fields. -->
-		<!-- [11323] Id Field. Type: Text (joomla) -->
+		<!-- Default Fields. -->
+		<!-- Id Field. Type: Text (joomla) -->
 		<field
 			name="id"
 			type="text" class="readonly" label="JGLOBAL_FIELD_ID_LABEL"
 			description ="JGLOBAL_FIELD_ID_DESC" size="10" default="0"
 			readonly="true"
 		/>
-		<!-- [11330] Date Created Field. Type: Calendar (joomla) -->
+		<!-- Date Created Field. Type: Calendar (joomla) -->
 		<field
 			name="created"
 			type="calendar"
@@ -22,14 +22,14 @@
 			format="%Y-%m-%d %H:%M:%S"
 			filter="user_utc"
 		/>
-		<!-- [11341] User Created Field. Type: User (joomla) -->
+		<!-- User Created Field. Type: User (joomla) -->
 		<field
 			name="created_by"
 			type="user"
 			label="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_CREATED_BY_LABEL"
 			description="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_CREATED_BY_DESC"
 		/>
-		<!-- [11349] Published Field. Type: List (joomla) -->
+		<!-- Published Field. Type: List (joomla) -->
 		<field name="published" type="list" label="JSTATUS"
 			description="JFIELD_PUBLISHED_DESC" class="chzn-color-state"
 			filter="intval" size="1" default="1" >
@@ -42,18 +42,18 @@
 			<option value="-2">
 				JTRASHED</option>
 		</field>
-		<!-- [11364] Date Modified Field. Type: Calendar (joomla) -->
+		<!-- Date Modified Field. Type: Calendar (joomla) -->
 		<field name="modified" type="calendar" class="readonly"
 			label="JGLOBAL_FIELD_MODIFIED_LABEL" description="COM_CONTENT_FIELD_MODIFIED_DESC"
 			size="22" readonly="true" format="%Y-%m-%d %H:%M:%S" filter="user_utc" />
-		<!-- [11368] User Modified Field. Type: User (joomla) -->
+		<!-- User Modified Field. Type: User (joomla) -->
 		<field name="modified_by" type="user"
 			label="JGLOBAL_FIELD_MODIFIED_BY_LABEL"
 			class="readonly"
 			readonly="true"
 			filter="unset"
 		/>
-		<!-- [11388] Ordering Field. Type: Numbers (joomla) -->
+		<!-- Ordering Field. Type: Numbers (joomla) -->
 		<field
 			name="ordering"
 			type="number"
@@ -64,7 +64,7 @@
 			size="6"
 			required="false"
 		/>
-		<!-- [11400] Version Field. Type: Text (joomla) -->
+		<!-- Version Field. Type: Text (joomla) -->
 		<field
 			name="version"
 			type="text"
@@ -75,8 +75,8 @@
 			readonly="true"
 			filter="unset"
 		/>
-		<!-- [11433] Dynamic Fields. -->
-		<!-- [11790] User Field. Type: Serviceprovideruser. (custom) -->
+		<!-- Dynamic Fields. -->
+		<!-- User Field. Type: Serviceprovideruser. (custom) -->
 		<field
 			type="serviceprovideruser"
 			name="user"
@@ -84,7 +84,7 @@
 			description="JFIELD_TITLE_DESC"
 			hint="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_USER_HINT"
 		/>
-		<!-- [11790] Country Field. Type: Countries. (custom) -->
+		<!-- Country Field. Type: Countries. (custom) -->
 		<field
 			type="countries"
 			name="country"
@@ -95,7 +95,7 @@
 			default="0"
 			required="true"
 		/>
-		<!-- [11669] Publicname Field. Type: Text. (joomla) -->
+		<!-- Publicname Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="publicname"
@@ -110,7 +110,7 @@
 			message="Error! Please add public name here."
 			hint="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_PUBLICNAME_HINT"
 		/>
-		<!-- [11669] Publicemail Field. Type: Text. (joomla) -->
+		<!-- Publicemail Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="publicemail"
@@ -124,7 +124,7 @@
 			message="Error! Please public email address here."
 			hint="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_PUBLICEMAIL_HINT"
 		/>
-		<!-- [11669] Publicnumber Field. Type: Tel. (joomla) -->
+		<!-- Publicnumber Field. Type: Tel. (joomla) -->
 		<field
 			type="tel"
 			name="publicnumber"
@@ -138,7 +138,7 @@
 			message="Error! Please add public phone number here."
 			hint="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_PUBLICNUMBER_HINT"
 		/>
-		<!-- [11669] Publicaddress Field. Type: Editor. (joomla) -->
+		<!-- Publicaddress Field. Type: Editor. (joomla) -->
 		<field
 			type="editor"
 			name="publicaddress"
@@ -148,19 +148,19 @@
 			buttons="false"
 			filter="safehtml"
 		/>
-		<!-- [11683] Public_details_note Field. Type: Note. A None Database Field. (joomla) -->
+		<!-- Public_details_note Field. Type: Note. A None Database Field. (joomla) -->
 		<field type="note" name="public_details_note" description="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_PUBLIC_DETAILS_NOTE_DESCRIPTION" class="alert alert-info, public_details_note" />
 	</fieldset>
 	
-	<!-- [10355] Access Control Fields. -->
+	<!-- Access Control Fields. -->
 	<fieldset name="accesscontrol">
-		<!-- [10357] Asset Id Field. Type: Hidden (joomla) -->
+		<!-- Asset Id Field. Type: Hidden (joomla) -->
 		<field
 			name="asset_id"
 			type="hidden"
 			filter="unset"
 		/>
-		<!-- [10363] Rules Field. Type: Rules (joomla) -->
+		<!-- Rules Field. Type: Rules (joomla) -->
 		<field
 			name="rules"
 			type="rules"

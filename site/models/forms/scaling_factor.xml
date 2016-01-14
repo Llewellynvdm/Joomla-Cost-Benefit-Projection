@@ -4,15 +4,15 @@
 	addfieldpath="/administrator/components/com_costbenefitprojection/models/fields"
 >
 	<fieldset name="details">
-		<!-- [11322] Default Fields. -->
-		<!-- [11323] Id Field. Type: Text (joomla) -->
+		<!-- Default Fields. -->
+		<!-- Id Field. Type: Text (joomla) -->
 		<field
 			name="id"
 			type="text" class="readonly" label="JGLOBAL_FIELD_ID_LABEL"
 			description ="JGLOBAL_FIELD_ID_DESC" size="10" default="0"
 			readonly="true"
 		/>
-		<!-- [11330] Date Created Field. Type: Calendar (joomla) -->
+		<!-- Date Created Field. Type: Calendar (joomla) -->
 		<field
 			name="created"
 			type="calendar"
@@ -22,14 +22,14 @@
 			format="%Y-%m-%d %H:%M:%S"
 			filter="user_utc"
 		/>
-		<!-- [11341] User Created Field. Type: User (joomla) -->
+		<!-- User Created Field. Type: User (joomla) -->
 		<field
 			name="created_by"
 			type="user"
 			label="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_CREATED_BY_LABEL"
 			description="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_CREATED_BY_DESC"
 		/>
-		<!-- [11349] Published Field. Type: List (joomla) -->
+		<!-- Published Field. Type: List (joomla) -->
 		<field name="published" type="list" label="JSTATUS"
 			description="JFIELD_PUBLISHED_DESC" class="chzn-color-state"
 			filter="intval" size="1" default="1" >
@@ -42,18 +42,18 @@
 			<option value="-2">
 				JTRASHED</option>
 		</field>
-		<!-- [11364] Date Modified Field. Type: Calendar (joomla) -->
+		<!-- Date Modified Field. Type: Calendar (joomla) -->
 		<field name="modified" type="calendar" class="readonly"
 			label="JGLOBAL_FIELD_MODIFIED_LABEL" description="COM_CONTENT_FIELD_MODIFIED_DESC"
 			size="22" readonly="true" format="%Y-%m-%d %H:%M:%S" filter="user_utc" />
-		<!-- [11368] User Modified Field. Type: User (joomla) -->
+		<!-- User Modified Field. Type: User (joomla) -->
 		<field name="modified_by" type="user"
 			label="JGLOBAL_FIELD_MODIFIED_BY_LABEL"
 			class="readonly"
 			readonly="true"
 			filter="unset"
 		/>
-		<!-- [11388] Ordering Field. Type: Numbers (joomla) -->
+		<!-- Ordering Field. Type: Numbers (joomla) -->
 		<field
 			name="ordering"
 			type="number"
@@ -64,7 +64,7 @@
 			size="6"
 			required="false"
 		/>
-		<!-- [11400] Version Field. Type: Text (joomla) -->
+		<!-- Version Field. Type: Text (joomla) -->
 		<field
 			name="version"
 			type="text"
@@ -75,8 +75,8 @@
 			readonly="true"
 			filter="unset"
 		/>
-		<!-- [11433] Dynamic Fields. -->
-		<!-- [11790] Causerisk Field. Type: Causesrisks. (custom) -->
+		<!-- Dynamic Fields. -->
+		<!-- Causerisk Field. Type: Causesrisks. (custom) -->
 		<field
 			type="causesrisks"
 			name="causerisk"
@@ -86,7 +86,7 @@
 			multiple="false"
 			default="0"
 		/>
-		<!-- [11790] Company Field. Type: Company. (custom) -->
+		<!-- Company Field. Type: Company. (custom) -->
 		<field
 			type="company"
 			name="company"
@@ -96,19 +96,7 @@
 			default="0"
 			button="true"
 		/>
-		<!-- [11669] Reference Field. Type: Textarea. (joomla) -->
-		<field
-			type="textarea"
-			name="reference"
-			label="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_REFERENCE_LABEL"
-			rows="10"
-			cols="5"
-			description="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_REFERENCE_DESCRIPTION"
-			class="text_area span12"
-			filter="HTML"
-			hint="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_REFERENCE_HINT"
-		/>
-		<!-- [11669] Yld_scaling_factor_males Field. Type: Text. (joomla) -->
+		<!-- Yld_scaling_factor_males Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="yld_scaling_factor_males"
@@ -125,7 +113,7 @@
 			message="Error! Please add scaling factor for males here."
 			hint="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_YLD_SCALING_FACTOR_MALES_HINT"
 		/>
-		<!-- [11669] Yld_scaling_factor_females Field. Type: Text. (joomla) -->
+		<!-- Yld_scaling_factor_females Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="yld_scaling_factor_females"
@@ -142,7 +130,7 @@
 			message="Error! Please add scaling factor for females here."
 			hint="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_YLD_SCALING_FACTOR_FEMALES_HINT"
 		/>
-		<!-- [11669] Mortality_scaling_factor_males Field. Type: Text. (joomla) -->
+		<!-- Mortality_scaling_factor_males Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="mortality_scaling_factor_males"
@@ -159,7 +147,7 @@
 			message="Error! Please add scaling factor for males here."
 			hint="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_MORTALITY_SCALING_FACTOR_MALES_HINT"
 		/>
-		<!-- [11669] Mortality_scaling_factor_females Field. Type: Text. (joomla) -->
+		<!-- Mortality_scaling_factor_females Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="mortality_scaling_factor_females"
@@ -176,7 +164,7 @@
 			message="Error! Please add scaling factor for females here."
 			hint="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_MORTALITY_SCALING_FACTOR_FEMALES_HINT"
 		/>
-		<!-- [11669] Presenteeism_scaling_factor_males Field. Type: Text. (joomla) -->
+		<!-- Presenteeism_scaling_factor_males Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="presenteeism_scaling_factor_males"
@@ -193,7 +181,7 @@
 			message="Error! Please add scaling factor for males here."
 			hint="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_PRESENTEEISM_SCALING_FACTOR_MALES_HINT"
 		/>
-		<!-- [11669] Presenteeism_scaling_factor_females Field. Type: Text. (joomla) -->
+		<!-- Presenteeism_scaling_factor_females Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="presenteeism_scaling_factor_females"
@@ -210,7 +198,30 @@
 			message="Error! Please add scaling factor for females here."
 			hint="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_PRESENTEEISM_SCALING_FACTOR_FEMALES_HINT"
 		/>
-		<!-- [11669] Health_scaling_factor Field. Type: Text. (joomla) -->
+		<!-- Reference Field. Type: Textarea. (joomla) -->
+		<field
+			type="textarea"
+			name="reference"
+			label="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_REFERENCE_LABEL"
+			rows="10"
+			cols="5"
+			description="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_REFERENCE_DESCRIPTION"
+			class="text_area span12"
+			filter="HTML"
+			hint="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_REFERENCE_HINT"
+		/>
+		<!-- Country Field. Type: Countries. (custom) -->
+		<field
+			type="countries"
+			name="country"
+			label="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_COUNTRY_LABEL"
+			description="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_COUNTRY_DESCRIPTION"
+			class="list_class"
+			multiple="false"
+			default="0"
+			required="true"
+		/>
+		<!-- Health_scaling_factor Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="health_scaling_factor"
@@ -229,15 +240,15 @@
 		/>
 	</fieldset>
 	
-	<!-- [10355] Access Control Fields. -->
+	<!-- Access Control Fields. -->
 	<fieldset name="accesscontrol">
-		<!-- [10357] Asset Id Field. Type: Hidden (joomla) -->
+		<!-- Asset Id Field. Type: Hidden (joomla) -->
 		<field
 			name="asset_id"
 			type="hidden"
 			filter="unset"
 		/>
-		<!-- [10363] Rules Field. Type: Rules (joomla) -->
+		<!-- Rules Field. Type: Rules (joomla) -->
 		<field
 			name="rules"
 			type="rules"

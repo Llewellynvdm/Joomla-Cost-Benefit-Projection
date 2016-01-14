@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.2.0
-	@build			12th January, 2016
+	@version		3.3.0
+	@build			14th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		sum.php
@@ -89,7 +89,7 @@ class Sum
 			$removeArray = array(
 				'asset_id','not_required','published','created_by','country_created_by','country_created','country_version','country_hits','country_ordering',
 				'modified_by','country_asset_id','created','modified','version','hits','ordering','country_published','country_modified_by','country_modified',
-				'idCompanyScaling_factorC',$cKey.'CountryHealth_dataB',$cKey.'CountryHealth_dataBB','causesrisksIdCauseriskG','causesrisksIdCauseriskGG','idCompanyInterventionD');
+				'idCompanyScaling_factorC',$cKey.'CountryHealth_dataB',$cKey.'CountryHealth_dataBB','causesrisksIdCauseriskG','causesrisksIdCauseriskGG','idCompanyInterventionD','countryCountryInterventionDD','idCountryInterventionDD');
 			foreach ($jsonObjects as $jsonObject)
 			{
 				if (isset($this->company->$jsonObject) && CostbenefitprojectionHelper::isJson($this->company->$jsonObject))
@@ -393,6 +393,42 @@ class Sum
 					}
 				}
 			}
+			elseif ($usecountry || (isset($this->company->{$cKey.'CountryInterventionDD'}) && CostbenefitprojectionHelper::checkArray($this->company->{$cKey.'CountryInterventionDD'})))
+			{
+				foreach ($this->company->{$cKey.'CountryInterventionDD'} as $key => $intervention)
+				{
+					$insterventionBucket[$key] = new stdClass();
+					foreach ($keepData as $keep)
+					{
+						$insterventionBucket[$key]->$keep = $intervention->$keep;
+					}
+					// load the most important part, the actual intervention data
+					$array = json_decode($intervention->intervention,true);
+					if (CostbenefitprojectionHelper::checkArray($array))
+					{
+						$insterventionBucket[$key]->data = array();
+						foreach ($array as $option => $values)
+						{
+							if (CostbenefitprojectionHelper::checkArray($values))
+							{
+								foreach ($values as $nr => $value)
+								{
+									if ('causerisk' == $option)
+									{
+										$insterventionBucket[$key]->data[$nr]['id'] = $value;
+										$insterventionBucket[$key]->data[$nr]['allias'] = CostbenefitprojectionHelper::getVar('causerisk', $value, 'id', 'alias');
+									}
+									else
+									{
+										// set values
+										$insterventionBucket[$key]->data[$nr][$option] = $value;
+									}
+								}
+							}
+						}
+					}
+				}
+			}			
 			// set intervention to company data
 			$this->company->interventions = $insterventionBucket;
 			unset($insterventionBucket);

@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.2.0
-	@build			12th January, 2016
+	@version		3.3.0
+	@build			14th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
@@ -24,30 +24,14 @@ defined('_JEXEC') or die('Restricted access');
 $useris =  CostbenefitprojectionHelper::userIs($this->user->id);
 $usergroup =  CostbenefitprojectionHelper::setGroupNames($this->user->get('groups'));
 // load modules if public
-$login_cp = array();
-$public_cp = array();
+$login_cp = false;
+$public_cp = false;
 $top_cp = array();
 if(!$useris)
 {
-	jimport('joomla.application.module.helper');
-	// this is where you want to load your module position
-	$modulesl = JModuleHelper::getModules('login-cp'); 
-	foreach($modulesl as $module)
-	{
-		$login_cp[] = JModuleHelper::renderModule($module);
-	}
-	// this where you want to load you module position
-	$modulesp = JModuleHelper::getModules('public-cp'); 
-	foreach($modulesp as $module)
-	{
-		$public_cp[] = JModuleHelper::renderModule($module);
-	}
-	// this is where you want to load your module position
-	$modulest = JModuleHelper::getModules('top-cp'); 
-	foreach($modulest as $module)
-	{
-		$top_cp[] = JModuleHelper::renderModule($module);
-	}
+	$login_cp = $this->getModules('login-cp','div','uk-panel');
+	$public_cp = $this->getModules('public-cp','div','uk-panel');
+	$top_cp = $this->getModules('top_cp','array');
 }
 // quick header fix function
 function setHeaderString($n)
@@ -285,8 +269,8 @@ function setIntervention($item)
 	<div class="uk-panel">
 		<a class="uk-button uk-button-primary uk-width-1-1 uk-margin-bottom" href="<?php echo JRoute::_('index.php?option=com_costbenefitprojection&view=createaccount'); ?>"><i class="uk-icon-check"></i> <?php echo JText::_('COM_COSTBENEFITPROJECTION_OPEN_FREE_ACCOUNT_NOW'); ?></a>
 	</div>
-	<?php if (CostbenefitprojectionHelper::checkArray($login_cp)): ?>
-		<div class="uk-panel"><?php echo implode('</div><div class="uk-panel">',$login_cp); ?></div>
+	<?php if ($login_cp): ?>
+		<?php echo $login_cp; ?>
 	<?php else: ?>
 		<div class="uk-alert"><?php echo JText::_('COM_COSTBENEFITPROJECTION_SOON_THE_MEMBER_ACCESS_WILL_BE_READY'); ?></div>
 	<?php endif; ?>
@@ -300,8 +284,8 @@ function setIntervention($item)
 	<div class="uk-panel">
 		<a class="uk-button uk-button-primary uk-width-1-1 uk-margin-bottom" href="<?php echo JRoute::_('index.php?option=com_costbenefitprojection&view=createaccount'); ?>"><i class="uk-icon-check"></i> <?php echo JText::_('COM_COSTBENEFITPROJECTION_OPEN_FREE_ACCOUNT_NOW'); ?></a>
 	</div>
-	<?php if (CostbenefitprojectionHelper::checkArray($public_cp)): ?>
-		<div class="uk-panel"><?php echo implode('</div><div class="uk-panel">',$public_cp); ?></div>
+	<?php if ($public_cp): ?>
+		<?php echo $public_cp; ?>
 	<?php else: ?>
 		<div class="uk-alert"><?php echo JText::_('COM_COSTBENEFITPROJECTION_SOON_THE_PUBLIC_ACCESS_WILL_BE_READY'); ?></div>
 	<?php endif; ?>

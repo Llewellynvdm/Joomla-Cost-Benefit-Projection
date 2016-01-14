@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.2.0
-	@build			12th January, 2016
+	@version		3.3.0
+	@build			14th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -103,33 +103,48 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_type listeners for type_XCAjMWF function
+// #jform_type listeners for type_viqBsKT function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_XCAjMWF = jQuery("#jform_type input[type='radio']:checked").val();
-	XCAjMWF(type_XCAjMWF);
+	var type_viqBsKT = jQuery("#jform_type input[type='radio']:checked").val();
+	viqBsKT(type_viqBsKT);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_XCAjMWF = jQuery("#jform_type input[type='radio']:checked").val();
-	XCAjMWF(type_XCAjMWF);
+	var type_viqBsKT = jQuery("#jform_type input[type='radio']:checked").val();
+	viqBsKT(type_viqBsKT);
 
 });
 
-// #jform_type listeners for type_MmytgLk function
+// #jform_type listeners for type_wWWuclt function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_MmytgLk = jQuery("#jform_type input[type='radio']:checked").val();
-	MmytgLk(type_MmytgLk);
+	var type_wWWuclt = jQuery("#jform_type input[type='radio']:checked").val();
+	wWWuclt(type_wWWuclt);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_MmytgLk = jQuery("#jform_type input[type='radio']:checked").val();
-	MmytgLk(type_MmytgLk);
+	var type_wWWuclt = jQuery("#jform_type input[type='radio']:checked").val();
+	wWWuclt(type_wWWuclt);
+
+});
+
+// #jform_company listeners for company_XhROPyc function
+jQuery('#jform_company').on('keyup',function()
+{
+	var company_XhROPyc = jQuery("#jform_company").val();
+	XhROPyc(company_XhROPyc);
+
+});
+jQuery('#adminForm').on('change', '#jform_company',function (e)
+{
+	e.preventDefault();
+	var company_XhROPyc = jQuery("#jform_company").val();
+	XhROPyc(company_XhROPyc);
 
 });
 

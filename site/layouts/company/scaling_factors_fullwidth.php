@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.2.0
-	@build			12th January, 2016
+	@version		3.3.0
+	@build			14th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		scaling_factors_fullwidth.php
@@ -22,7 +22,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // set the defaults
-$items	= $displayData->vgascaling_factors;
+$items	= $displayData->xpxscaling_factors;
 $user	= JFactory::getUser();
 $id	= $displayData->item->id;
 $edit	= "index.php?option=com_costbenefitprojection&view=scaling_factors&task=scaling_factor.edit";
@@ -40,9 +40,6 @@ $edit	= "index.php?option=com_costbenefitprojection&view=scaling_factors&task=sc
 			<?php echo JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTOR_COMPANY_LABEL'); ?>
 		</th>
 		<th data-hide="phone">
-			<?php echo JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTOR_REFERENCE_LABEL'); ?>
-		</th>
-		<th data-hide="phone,tablet">
 			<?php echo JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTOR_YLD_SCALING_FACTOR_MALES_LABEL'); ?>
 		</th>
 		<th data-hide="phone,tablet">
@@ -51,7 +48,7 @@ $edit	= "index.php?option=com_costbenefitprojection&view=scaling_factors&task=sc
 		<th data-hide="phone,tablet">
 			<?php echo JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTOR_MORTALITY_SCALING_FACTOR_MALES_LABEL'); ?>
 		</th>
-		<th data-hide="all">
+		<th data-hide="phone,tablet">
 			<?php echo JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTOR_MORTALITY_SCALING_FACTOR_FEMALES_LABEL'); ?>
 		</th>
 		<th data-hide="all">
@@ -88,9 +85,6 @@ $edit	= "index.php?option=com_costbenefitprojection&view=scaling_factors&task=sc
 		</td>
 		<td>
 			<?php echo $displayData->escape($item->company_name); ?>
-		</td>
-		<td>
-			<?php echo $displayData->escape($item->reference); ?>
 		</td>
 		<td>
 			<?php echo $displayData->escape($item->yld_scaling_factor_males); ?>
@@ -143,7 +137,7 @@ $edit	= "index.php?option=com_costbenefitprojection&view=scaling_factors&task=sc
 </tbody>
 <tfoot class="hide-if-no-paging">
 	<tr>
-		<td colspan="11">
+		<td colspan="10">
 			<div class="pagination pagination-centered"></div>
 		</td>
 	</tr>

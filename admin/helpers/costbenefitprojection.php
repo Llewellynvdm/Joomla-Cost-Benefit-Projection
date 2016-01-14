@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.2.0
-	@build			12th January, 2016
+	@version		3.3.0
+	@build			14th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -752,23 +752,23 @@ abstract class CostbenefitprojectionHelper
 						$targetgroups = json_decode($help->groups, true);
 						if (!array_intersect($targetgroups, $groups))
 						{
-							// [1497] if user not in those target groups then remove the item
+							// if user not in those target groups then remove the item
 							unset($helps[$nr]);
 							continue;
 						}
 					}
-					// [1502] set the return type
+					// set the return type
 					switch ($help->type)
 					{
-						// [1505] set joomla article
+						// set joomla article
 						case 1:
 							return self::loadArticleLink($help->article);
 						break;
-						// [1509] set help text
+						// set help text
 						case 2:
 							return self::loadHelpTextLink($help->id);
 						break;
-						// [1513] set Link
+						// set Link
 						case 3:
 							return $help->url;
 						break;
@@ -848,33 +848,33 @@ abstract class CostbenefitprojectionHelper
 	*/
 	public static function createUser($new)
 	{
-		// [1731] load the user component language files if there is an error.
+		// load the user component language files if there is an error.
 		$lang = JFactory::getLanguage();
 		$extension = 'com_users';
 		$base_dir = JPATH_SITE;
 		$language_tag = 'en-GB';
 		$reload = true;
 		$lang->load($extension, $base_dir, $language_tag, $reload);
-		// [1738] load the user regestration model
+		// load the user regestration model
 		$model = self::getModel('registration', JPATH_ROOT. '/components/com_users', 'Users');
-		// [1740] make sure no activation is needed
+		// make sure no activation is needed
 		$useractivation = self::setParams('com_users','useractivation',0);
-		// [1742] make sure password is send
+		// make sure password is send
 		$sendpassword = self::setParams('com_users','sendpassword',1);
-		// [1744] Check if password was set
+		// Check if password was set
 		if (isset($new['password']) && isset($new['password2']) && self::checkString($new['password']) && self::checkString($new['password2']))
 		{
-			// [1747] Use the users passwords
+			// Use the users passwords
 			$password = $new['password'];
 			$password2 = $new['password2'];
 		}
 		else
 		{
-			// [1753] Set random password
+			// Set random password
 			$password = self::randomkey(8);
 			$password2 = $password;
 		}
-		// [1757] set username
+		// set username
 		if (isset($new['username']) && self::checkString($new['username']))
 		{
 			$new['username'] = self::safeString($new['username']);
@@ -883,7 +883,7 @@ abstract class CostbenefitprojectionHelper
 		{
 			$new['username'] = self::safeString($new['name']);			
 		}
-		// [1766] linup new user data
+		// linup new user data
 		$data = array(
 			'username' => $new['username'],
 			'name' => $new['name'],
@@ -891,13 +891,13 @@ abstract class CostbenefitprojectionHelper
 			'password1' => $password, // First password field
 			'password2' => $password2, // Confirm password field
 			'block' => 0 );
-		// [1774] register the new user
+		// register the new user
 		$userId = $model->register($data);
-		// [1776] set activation back to default
+		// set activation back to default
 		self::setParams('com_users','useractivation',$useractivation);
-		// [1778] set send password back to default
+		// set send password back to default
 		self::setParams('com_users','sendpassword',$sendpassword);
-		// [1780] if user is created
+		// if user is created
 		if ($userId > 0)
 		{
 			return $userId;
@@ -907,21 +907,21 @@ abstract class CostbenefitprojectionHelper
 
 	protected static function setParams($component,$target,$value)
 	{
-		// [1790] Get the params and set the new values
+		// Get the params and set the new values
 		$params = JComponentHelper::getParams($component);
 		$was = $params->get($target, null);
 		if ($was != $value)
 		{
 			$params->set($target, $value);
-			// [1796] Get a new database query instance
+			// Get a new database query instance
 			$db = JFactory::getDBO();
 			$query = $db->getQuery(true);
-			// [1799] Build the query
+			// Build the query
 			$query->update('#__extensions AS a');
 			$query->set('a.params = ' . $db->quote((string)$params));
 			$query->where('a.element = ' . $db->quote((string)$component));
 			
-			// [1804] Execute the query
+			// Execute the query
 			$db->setQuery($query);
 			$db->query();
 		}
@@ -997,7 +997,7 @@ abstract class CostbenefitprojectionHelper
 	{
 		if (strpos($content,'class="uk-') !== false)
 		{
-			// [2741] reset
+			// reset
 			$temp = array();
 			foreach (self::$uk_components as $looking => $add)
 			{
@@ -1006,15 +1006,15 @@ abstract class CostbenefitprojectionHelper
 					$temp[] = $looking;
 				}
 			}
-			// [2750] make sure uikit is loaded to config
+			// make sure uikit is loaded to config
 			if (strpos($content,'class="uk-') !== false)
 			{
 				self::$uikit = true;
 			}
-			// [2755] sorter
+			// sorter
 			if (self::checkArray($temp))
 			{
-				// [2758] merger
+				// merger
 				if (self::checkArray($classes))
 				{
 					$newTemp = array_merge($temp,$classes);
@@ -1035,37 +1035,37 @@ abstract class CostbenefitprojectionHelper
 	 */
 	public static function xls($rows,$fileName = null,$title = null,$subjectTab = null,$creator = 'Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb',$description = null,$category = null,$keywords = null,$modified = null)
 	{
-		// [1552] set the user
+		// set the user
 		$user = JFactory::getUser();
 		
-		// [1555] set fieldname if not set
+		// set fieldname if not set
 		if (!$fileName)
 		{
 			$fileName = 'exported_'.JFactory::getDate()->format('jS_F_Y');
 		}
-		// [1560] set modiefied if not set
+		// set modiefied if not set
 		if (!$modified)
 		{
 			$modified = $user->name;
 		}
-		// [1565] set title if not set
+		// set title if not set
 		if (!$title)
 		{
 			$title = 'Book1';
 		}
-		// [1570] set tab name if not set
+		// set tab name if not set
 		if (!$subjectTab)
 		{
 			$subjectTab = 'Sheet1';
 		}
 		
-		// [1576] make sure the file is loaded		
+		// make sure the file is loaded		
 		JLoader::import('PHPExcel', JPATH_COMPONENT_ADMINISTRATOR . '/helpers');
 		
-		// [1579] Create new PHPExcel object
+		// Create new PHPExcel object
 		$objPHPExcel = new PHPExcel();
 		
-		// [1582] Set document properties
+		// Set document properties
 		$objPHPExcel->getProperties()->setCreator($creator)
 									 ->setCompany('Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb')
 									 ->setLastModifiedBy($modified)
@@ -1084,7 +1084,7 @@ abstract class CostbenefitprojectionHelper
 			$objPHPExcel->getProperties()->setCategory($category);
 		}
 		
-		// [1601] Some styles
+		// Some styles
 		$headerStyles = array(
 			'font'  => array(
 				'bold'  => true,
@@ -1106,7 +1106,7 @@ abstract class CostbenefitprojectionHelper
 				'name'  => 'Verdana'
 		));
 		
-		// [1623] Add some data
+		// Add some data
 		if (self::checkArray($rows))
 		{
 			$i = 1;
@@ -1133,20 +1133,20 @@ abstract class CostbenefitprojectionHelper
 			return false;
 		}
 		
-		// [1650] Rename worksheet
+		// Rename worksheet
 		$objPHPExcel->getActiveSheet()->setTitle($subjectTab);
 		
-		// [1653] Set active sheet index to the first sheet, so Excel opens this as the first sheet
+		// Set active sheet index to the first sheet, so Excel opens this as the first sheet
 		$objPHPExcel->setActiveSheetIndex(0);
 		
-		// [1656] Redirect output to a client's web browser (Excel5)
+		// Redirect output to a client's web browser (Excel5)
 		header('Content-Type: application/vnd.ms-excel');
 		header('Content-Disposition: attachment;filename="'.$fileName.'.xls"');
 		header('Cache-Control: max-age=0');
-		// [1660] If you're serving to IE 9, then the following may be needed
+		// If you're serving to IE 9, then the following may be needed
 		header('Cache-Control: max-age=1');
 		
-		// [1663] If you're serving to IE over SSL, then the following may be needed
+		// If you're serving to IE over SSL, then the following may be needed
 		header ('Expires: Mon, 26 Jul 1997 05:00:00 GMT'); // Date in the past
 		header ('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT'); // always modified
 		header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
@@ -1162,13 +1162,13 @@ abstract class CostbenefitprojectionHelper
 	*/
 	public static function getFileHeaders($dataType)
 	{		
-		// [1679] make sure the file is loaded		
+		// make sure the file is loaded		
 		JLoader::import('PHPExcel', JPATH_COMPONENT_ADMINISTRATOR . '/helpers');
-		// [1681] get session object
+		// get session object
 		$session 	= JFactory::getSession();
 		$package	= $session->get('package', null);
 		$package	= json_decode($package, true);
-		// [1685] set the headers
+		// set the headers
 		if(isset($package['dir']))
 		{
 			$inputFileType = PHPExcel_IOFactory::identify($package['dir']);
@@ -1969,12 +1969,12 @@ abstract class CostbenefitprojectionHelper
 	{
 		if ('advanced' == $type)
 		{
-			// [1304] Get the global params
+			// Get the global params
 			$params = JComponentHelper::getParams('com_costbenefitprojection', true);
 			$advanced_key = $params->get('advanced_key', null);
 			if ($advanced_key)
 			{
-				// [1309] load the file
+				// load the file
 				JLoader::import( 'vdm', JPATH_COMPONENT_ADMINISTRATOR);
 
 				$the = new VDM($advanced_key);
