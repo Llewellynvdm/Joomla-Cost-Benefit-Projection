@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.2.0
-	@build			12th January, 2016
+	@version		3.3.0
+	@build			14th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		scaling_factor.php
@@ -110,7 +110,7 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 	 * @since   1.6
 	 */
 	public function getForm($data = array(), $loadData = true)
-	{		// [9865] Get the form.
+	{		// Get the form.
 		$form = $this->loadForm('com_costbenefitprojection.scaling_factor', 'scaling_factor', array('control' => 'jform', 'load_data' => $loadData));
 
 		if (empty($form))
@@ -120,12 +120,12 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 
 		$jinput = JFactory::getApplication()->input;
 
-		// [9950] The front end calls this model and uses a_id to avoid id clashes so we need to check for that first.
+		// The front end calls this model and uses a_id to avoid id clashes so we need to check for that first.
 		if ($jinput->get('a_id'))
 		{
 			$id = $jinput->get('a_id', 0, 'INT');
 		}
-		// [9955] The back end uses id so we use that the rest of the time and set it to 0 by default.
+		// The back end uses id so we use that the rest of the time and set it to 0 by default.
 		else
 		{
 			$id = $jinput->get('id', 0, 'INT');
@@ -133,34 +133,34 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 
 		$user = JFactory::getUser();
 
-		// [9961] Check for existing item.
-		// [9962] Modify the form based on Edit State access controls.
+		// Check for existing item.
+		// Modify the form based on Edit State access controls.
 		if ($id != 0 && (!$user->authorise('scaling_factor.edit.state', 'com_costbenefitprojection.scaling_factor.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('scaling_factor.edit.state', 'com_costbenefitprojection')))
 		{
-			// [9975] Disable fields for display.
+			// Disable fields for display.
 			$form->setFieldAttribute('ordering', 'disabled', 'true');
 			$form->setFieldAttribute('published', 'disabled', 'true');
-			// [9978] Disable fields while saving.
+			// Disable fields while saving.
 			$form->setFieldAttribute('ordering', 'filter', 'unset');
 			$form->setFieldAttribute('published', 'filter', 'unset');
 		}
-		// [9983] Modify the form based on Edit Creaded By access controls.
+		// Modify the form based on Edit Creaded By access controls.
 		if (!$user->authorise('core.edit.created_by', 'com_costbenefitprojection'))
 		{
-			// [9995] Disable fields for display.
+			// Disable fields for display.
 			$form->setFieldAttribute('created_by', 'disabled', 'true');
-			// [9997] Disable fields for display.
+			// Disable fields for display.
 			$form->setFieldAttribute('created_by', 'readonly', 'true');
-			// [9999] Disable fields while saving.
+			// Disable fields while saving.
 			$form->setFieldAttribute('created_by', 'filter', 'unset');
 		}
-		// [10002] Modify the form based on Edit Creaded Date access controls.
+		// Modify the form based on Edit Creaded Date access controls.
 		if (!$user->authorise('core.edit.created', 'com_costbenefitprojection'))
 		{
-			// [10014] Disable fields for display.
+			// Disable fields for display.
 			$form->setFieldAttribute('created', 'disabled', 'true');
-			// [10016] Disable fields while saving.
+			// Disable fields while saving.
 			$form->setFieldAttribute('created', 'filter', 'unset');
 		}
 
@@ -196,7 +196,7 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 			}
 
 			$user = JFactory::getUser();
-			// [10166] The record has been set. Check the record permissions.
+			// The record has been set. Check the record permissions.
 			return $user->authorise('scaling_factor.delete', 'com_costbenefitprojection.scaling_factor.' . (int) $record->id);
 		}
 		return false;
@@ -218,14 +218,14 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 
 		if ($recordId)
 		{
-			// [10253] The record has been set. Check the record permissions.
+			// The record has been set. Check the record permissions.
 			$permission = $user->authorise('scaling_factor.edit.state', 'com_costbenefitprojection.scaling_factor.' . (int) $recordId);
 			if (!$permission && !is_null($permission))
 			{
 				return false;
 			}
 		}
-		// [10270] In the absense of better information, revert to the component permissions.
+		// In the absense of better information, revert to the component permissions.
 		return $user->authorise('scaling_factor.edit.state', 'com_costbenefitprojection');
 	}
     
@@ -240,7 +240,7 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 	 */
 	protected function allowEdit($data = array(), $key = 'id')
 	{
-		// [10078] Check specific edit permission then general edit permission.
+		// Check specific edit permission then general edit permission.
 		$user = JFactory::getUser();
 		$recordId	= (int) isset($data[$key]) ? $data[$key] : 0;
 		if (!$user->authorise('core.options', 'com_costbenefitprojection'))
@@ -332,6 +332,42 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 		}
 
 		return $data;
+	}
+
+	/**
+	* Method to validate the form data.
+	*
+	* @param   JForm   $form   The form to validate against.
+	* @param   array   $data   The data to validate.
+	* @param   string  $group  The name of the field group to validate.
+	*
+	* @return  mixed  Array of filtered data if valid, false otherwise.
+	*
+	* @see     JFormRule
+	* @see     JFilterInput
+	* @since   12.2
+	*/
+	public function validate($form, $data, $group = null)
+	{
+		// check if the not_required field is set
+		if (CostbenefitprojectionHelper::checkString($data['not_required']))
+		{
+			$requiredFields = (array) explode(',',(string) $data['not_required']);
+			$requiredFields = array_unique($requiredFields);
+			// now change the required field attributes value
+			foreach ($requiredFields as $requiredField)
+			{
+				// make sure there is a string value
+				if (CostbenefitprojectionHelper::checkString($requiredField))
+				{
+					// change to false
+					$form->setFieldAttribute($requiredField, 'required', 'false');
+					// also clear the data set
+					$data[$requiredField] = '';
+				}
+			}
+		}
+		return parent::validate($form, $data, $group);
 	} 
 
 	/**
@@ -476,7 +512,7 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 	{
 		if (empty($this->batchSet))
 		{
-			// [5226] Set some needed variables.
+			// Set some needed variables.
 			$this->user 		= JFactory::getUser();
 			$this->table 		= $this->getTable();
 			$this->tableClassName	= get_class($this->table);
@@ -520,12 +556,12 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 			}
 		}
 
-		// [5246] get list of uniqe fields
+		// get list of uniqe fields
 		$uniqeFields = $this->getUniqeFields();
-		// [5248] remove move_copy from array
+		// remove move_copy from array
 		unset($values['move_copy']);
 
-		// [5251] make sure published is set
+		// make sure published is set
 		if (!isset($values['published']))
 		{
 			$values['published'] = 0;
@@ -537,21 +573,21 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 
 		$newIds = array();
 
-		// [5288] Parent exists so let's proceed
+		// Parent exists so let's proceed
 		while (!empty($pks))
 		{
-			// [5291] Pop the first ID off the stack
+			// Pop the first ID off the stack
 			$pk = array_shift($pks);
 
 			$this->table->reset();
 
-			// [5296] only allow copy if user may edit this item.
+			// only allow copy if user may edit this item.
 
 			if (!$this->user->authorise('scaling_factor.edit', $contexts[$pk]))
 
 			{
 
-				// [5306] Not fatal error
+				// Not fatal error
 
 				$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
 
@@ -559,19 +595,19 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 
 			}
 
-			// [5311] Check that the row actually exists
+			// Check that the row actually exists
 			if (!$this->table->load($pk))
 			{
 				if ($error = $this->table->getError())
 				{
-					// [5316] Fatal error
+					// Fatal error
 					$this->setError($error);
 
 					return false;
 				}
 				else
 				{
-					// [5323] Not fatal error
+					// Not fatal error
 					$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
 					continue;
 				}
@@ -579,7 +615,7 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 
 			$this->table->causerisk = $this->generateUniqe('causerisk',$this->table->causerisk);
 
-			// [5359] insert all set values
+			// insert all set values
 			if (CostbenefitprojectionHelper::checkArray($values))
 			{
 				foreach ($values as $key => $value)
@@ -591,7 +627,7 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 				}
 			}
 
-			// [5371] update all uniqe fields
+			// update all uniqe fields
 			if (CostbenefitprojectionHelper::checkArray($uniqeFields))
 			{
 				foreach ($uniqeFields as $uniqeField)
@@ -600,13 +636,13 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 				}
 			}
 
-			// [5380] Reset the ID because we are making a copy
+			// Reset the ID because we are making a copy
 			$this->table->id = 0;
 
-			// [5383] TODO: Deal with ordering?
-			// [5384] $this->table->ordering	= 1;
+			// TODO: Deal with ordering?
+			// $this->table->ordering	= 1;
 
-			// [5386] Check the row.
+			// Check the row.
 			if (!$this->table->check())
 			{
 				$this->setError($this->table->getError());
@@ -619,7 +655,7 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 				$this->createTagsHelper($this->tagsObserver, $this->type, $pk, $this->typeAlias, $this->table);
 			}
 
-			// [5399] Store the row.
+			// Store the row.
 			if (!$this->table->store())
 			{
 				$this->setError($this->table->getError());
@@ -627,14 +663,14 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 				return false;
 			}
 
-			// [5407] Get the new item ID
+			// Get the new item ID
 			$newId = $this->table->get('id');
 
-			// [5410] Add the new ID to the array
+			// Add the new ID to the array
 			$newIds[$pk] = $newId;
 		}
 
-		// [5414] Clean the cache
+		// Clean the cache
 		$this->cleanCache();
 
 		return $newIds;
@@ -655,7 +691,7 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 	{
 		if (empty($this->batchSet))
 		{
-			// [5028] Set some needed variables.
+			// Set some needed variables.
 			$this->user		= JFactory::getUser();
 			$this->table		= $this->getTable();
 			$this->tableClassName	= get_class($this->table);
@@ -700,15 +736,15 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 			}
 		}
 
-		// [5050] make sure published only updates if user has the permission.
+		// make sure published only updates if user has the permission.
 		if (isset($values['published']) && !$this->canDo->get('scaling_factor.edit.state'))
 		{
 			unset($values['published']);
 		}
-		// [5063] remove move_copy from array
+		// remove move_copy from array
 		unset($values['move_copy']);
 
-		// [5084] Parent exists so we proceed
+		// Parent exists so we proceed
 		foreach ($pks as $pk)
 		{
 			if (!$this->user->authorise('scaling_factor.edit', $contexts[$pk]))
@@ -718,30 +754,30 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 				return false;
 			}
 
-			// [5101] Check that the row actually exists
+			// Check that the row actually exists
 			if (!$this->table->load($pk))
 			{
 				if ($error = $this->table->getError())
 				{
-					// [5106] Fatal error
+					// Fatal error
 					$this->setError($error);
 
 					return false;
 				}
 				else
 				{
-					// [5113] Not fatal error
+					// Not fatal error
 					$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
 					continue;
 				}
 			}
 
-			// [5119] insert all set values.
+			// insert all set values.
 			if (CostbenefitprojectionHelper::checkArray($values))
 			{
 				foreach ($values as $key => $value)
 				{
-					// [5124] Do special action for access.
+					// Do special action for access.
 					if ('access' == $key && strlen($value) > 0)
 					{
 						$this->table->$key = $value;
@@ -754,7 +790,7 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 			}
 
 
-			// [5136] Check the row.
+			// Check the row.
 			if (!$this->table->check())
 			{
 				$this->setError($this->table->getError());
@@ -767,7 +803,7 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 				$this->createTagsHelper($this->tagsObserver, $this->type, $pk, $this->typeAlias, $this->table);
 			}
 
-			// [5149] Store the row.
+			// Store the row.
 			if (!$this->table->store())
 			{
 				$this->setError($this->table->getError());
@@ -776,7 +812,7 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 			}
 		}
 
-		// [5158] Clean the cache
+		// Clean the cache
 		$this->cleanCache();
 
 		return true;
@@ -814,10 +850,10 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 			$data['params'] = (string) $params;
 		}
 
-		// [5506] Alter the uniqe field for save as copy
+		// Alter the uniqe field for save as copy
 		if ($input->get('task') == 'save2copy')
 		{
-			// [5509] Automatic handling of other uniqe fields
+			// Automatic handling of other uniqe fields
 			$uniqeFields = $this->getUniqeFields();
 			if (CostbenefitprojectionHelper::checkArray($uniqeFields))
 			{
@@ -870,7 +906,7 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 	protected function _generateNewTitle($title)
 	{
 
-		// [5564] Alter the title
+		// Alter the title
 		$table = $this->getTable();
 
 		while ($table->load(array('title' => $title)))

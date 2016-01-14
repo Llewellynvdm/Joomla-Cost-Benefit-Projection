@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.2.0
-	@build			12th January, 2016
+	@version		3.3.0
+	@build			14th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		currency.php
@@ -44,36 +44,36 @@ class JFormFieldCurrency extends JFormFieldList
 	 */
 	protected function getInput()
 	{
-		// [7990] see if we should add buttons
+		// see if we should add buttons
 		$setButton = $this->getAttribute('button');
-		// [7992] get html
+		// get html
 		$html = parent::getInput();
-		// [7994] if true set button
+		// if true set button
 		if ($setButton === 'true')
 		{
 			$user = JFactory::getUser();
-			// [7998] only add if user allowed to create currency
+			// only add if user allowed to create currency
 			if ($user->authorise('currency.create', 'com_costbenefitprojection'))
 			{
-				// [8016] get the input from url
+				// get the input from url
 				$jinput = JFactory::getApplication()->input;
-				// [8018] get the view name & id
+				// get the view name & id
 				$values = $jinput->getArray(array(
 					'id' => 'int',
 					'view' => 'word'
 				));
-				// [8023] check if new item
+				// check if new item
 				$ref = '';
 				if (!is_null($values['id']) && strlen($values['view']))
 				{
-					// [8027] only load referal if not new item.
+					// only load referal if not new item.
 					$ref = '&amp;ref=' . $values['view'] . '&amp;refid=' . $values['id'];
 				}
-				// [8030] build the button
+				// build the button
 				$button = '<a class="btn btn-small btn-success"
 					href="index.php?option=com_costbenefitprojection&amp;view=currency&amp;layout=edit'.$ref.'" >
 					<span class="icon-new icon-white"></span>' . JText::_('COM_COSTBENEFITPROJECTION_NEW') . '</a>';
-				// [8034] return the button attached to input field
+				// return the button attached to input field
 				return $html . $button;
 			}
 		}

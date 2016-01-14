@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.2.0
-	@build			12th January, 2016
+	@version		3.3.0
+	@build			14th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -135,33 +135,33 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_department listeners for department_SnIDlNn function
+// #jform_department listeners for department_swircAV function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_SnIDlNn = jQuery("#jform_department input[type='radio']:checked").val();
-	SnIDlNn(department_SnIDlNn);
+	var department_swircAV = jQuery("#jform_department input[type='radio']:checked").val();
+	swircAV(department_swircAV);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_SnIDlNn = jQuery("#jform_department input[type='radio']:checked").val();
-	SnIDlNn(department_SnIDlNn);
+	var department_swircAV = jQuery("#jform_department input[type='radio']:checked").val();
+	swircAV(department_swircAV);
 
 });
 
-// #jform_department listeners for department_WskNCQq function
+// #jform_department listeners for department_KbJXrPw function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_WskNCQq = jQuery("#jform_department input[type='radio']:checked").val();
-	WskNCQq(department_WskNCQq);
+	var department_KbJXrPw = jQuery("#jform_department input[type='radio']:checked").val();
+	KbJXrPw(department_KbJXrPw);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_WskNCQq = jQuery("#jform_department input[type='radio']:checked").val();
-	WskNCQq(department_WskNCQq);
+	var department_KbJXrPw = jQuery("#jform_department input[type='radio']:checked").val();
+	KbJXrPw(department_KbJXrPw);
 
 });
 

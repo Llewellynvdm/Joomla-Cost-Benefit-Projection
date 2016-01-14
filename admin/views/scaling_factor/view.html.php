@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.2.0
-	@build			12th January, 2016
+	@version		3.3.0
+	@build			14th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -86,27 +86,27 @@ class CostbenefitprojectionViewScaling_factor extends JViewLegacy
 		$isNew = $this->item->id == 0;
 
 		JToolbarHelper::title( JText::_($isNew ? 'COM_COSTBENEFITPROJECTION_SCALING_FACTOR_NEW' : 'COM_COSTBENEFITPROJECTION_SCALING_FACTOR_EDIT'), 'pencil-2 article-add');
-		// [10572] Built the actions for new and existing records.
+		// Built the actions for new and existing records.
 		if ($this->refid || $this->ref)
 		{
 			if ($this->canDo->get('scaling_factor.create') && $isNew)
 			{
-				// [10584] We can create the record.
+				// We can create the record.
 				JToolBarHelper::save('scaling_factor.save', 'JTOOLBAR_SAVE');
 			}
 			elseif ($this->canDo->get('scaling_factor.edit'))
 			{
-				// [10596] We can save the record.
+				// We can save the record.
 				JToolBarHelper::save('scaling_factor.save', 'JTOOLBAR_SAVE');
 			}
 			if ($isNew)
 			{
-				// [10601] Do not creat but cancel.
+				// Do not creat but cancel.
 				JToolBarHelper::cancel('scaling_factor.cancel', 'JTOOLBAR_CANCEL');
 			}
 			else
 			{
-				// [10606] We can close it.
+				// We can close it.
 				JToolBarHelper::cancel('scaling_factor.cancel', 'JTOOLBAR_CLOSE');
 			}
 		}
@@ -114,7 +114,7 @@ class CostbenefitprojectionViewScaling_factor extends JViewLegacy
 		{
 			if ($isNew)
 			{
-				// [10614] For new records, check the create permission.
+				// For new records, check the create permission.
 				if ($this->canDo->get('scaling_factor.create'))
 				{
 					JToolBarHelper::apply('scaling_factor.apply', 'JTOOLBAR_APPLY');
@@ -127,11 +127,11 @@ class CostbenefitprojectionViewScaling_factor extends JViewLegacy
 			{
 				if ($this->canDo->get('scaling_factor.edit'))
 				{
-					// [10641] We can save the new record
+					// We can save the new record
 					JToolBarHelper::apply('scaling_factor.apply', 'JTOOLBAR_APPLY');
 					JToolBarHelper::save('scaling_factor.save', 'JTOOLBAR_SAVE');
-					// [10644] We can save this record, but check the create permission to see
-					// [10645] if we can return to make a new one.
+					// We can save this record, but check the create permission to see
+					// if we can return to make a new one.
 					if ($this->canDo->get('scaling_factor.create'))
 					{
 						JToolBarHelper::custom('scaling_factor.save2new', 'save-new.png', 'save-new_f2.png', 'JTOOLBAR_SAVE_AND_NEW', false);
@@ -150,7 +150,7 @@ class CostbenefitprojectionViewScaling_factor extends JViewLegacy
 			}
 		}
 		JToolbarHelper::divider();
-		// [10681] set help url for this view if found
+		// set help url for this view if found
 		$help_url = CostbenefitprojectionHelper::getHelpUrl('scaling_factor');
 		if (CostbenefitprojectionHelper::checkString($help_url))
 		{

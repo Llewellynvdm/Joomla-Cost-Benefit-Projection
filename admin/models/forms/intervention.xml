@@ -4,15 +4,15 @@
 	addfieldpath="/administrator/components/com_costbenefitprojection/models/fields"
 >
 	<fieldset name="details">
-		<!-- [11322] Default Fields. -->
-		<!-- [11323] Id Field. Type: Text (joomla) -->
+		<!-- Default Fields. -->
+		<!-- Id Field. Type: Text (joomla) -->
 		<field
 			name="id"
 			type="text" class="readonly" label="JGLOBAL_FIELD_ID_LABEL"
 			description ="JGLOBAL_FIELD_ID_DESC" size="10" default="0"
 			readonly="true"
 		/>
-		<!-- [11330] Date Created Field. Type: Calendar (joomla) -->
+		<!-- Date Created Field. Type: Calendar (joomla) -->
 		<field
 			name="created"
 			type="calendar"
@@ -22,14 +22,14 @@
 			format="%Y-%m-%d %H:%M:%S"
 			filter="user_utc"
 		/>
-		<!-- [11341] User Created Field. Type: User (joomla) -->
+		<!-- User Created Field. Type: User (joomla) -->
 		<field
 			name="created_by"
 			type="user"
 			label="COM_COSTBENEFITPROJECTION_INTERVENTION_CREATED_BY_LABEL"
 			description="COM_COSTBENEFITPROJECTION_INTERVENTION_CREATED_BY_DESC"
 		/>
-		<!-- [11349] Published Field. Type: List (joomla) -->
+		<!-- Published Field. Type: List (joomla) -->
 		<field name="published" type="list" label="JSTATUS"
 			description="JFIELD_PUBLISHED_DESC" class="chzn-color-state"
 			filter="intval" size="1" default="1" >
@@ -42,18 +42,18 @@
 			<option value="-2">
 				JTRASHED</option>
 		</field>
-		<!-- [11364] Date Modified Field. Type: Calendar (joomla) -->
+		<!-- Date Modified Field. Type: Calendar (joomla) -->
 		<field name="modified" type="calendar" class="readonly"
 			label="JGLOBAL_FIELD_MODIFIED_LABEL" description="COM_CONTENT_FIELD_MODIFIED_DESC"
 			size="22" readonly="true" format="%Y-%m-%d %H:%M:%S" filter="user_utc" />
-		<!-- [11368] User Modified Field. Type: User (joomla) -->
+		<!-- User Modified Field. Type: User (joomla) -->
 		<field name="modified_by" type="user"
 			label="JGLOBAL_FIELD_MODIFIED_BY_LABEL"
 			class="readonly"
 			readonly="true"
 			filter="unset"
 		/>
-		<!-- [11388] Ordering Field. Type: Numbers (joomla) -->
+		<!-- Ordering Field. Type: Numbers (joomla) -->
 		<field
 			name="ordering"
 			type="number"
@@ -64,7 +64,7 @@
 			size="6"
 			required="false"
 		/>
-		<!-- [11400] Version Field. Type: Text (joomla) -->
+		<!-- Version Field. Type: Text (joomla) -->
 		<field
 			name="version"
 			type="text"
@@ -75,8 +75,8 @@
 			readonly="true"
 			filter="unset"
 		/>
-		<!-- [11433] Dynamic Fields. -->
-		<!-- [11669] Name Field. Type: Text. (joomla) -->
+		<!-- Dynamic Fields. -->
+		<!-- Name Field. Type: Text. (joomla) -->
 		<field
 			type="text"
 			name="name"
@@ -92,7 +92,7 @@
 			message="Error! Please add intervention name here."
 			hint="COM_COSTBENEFITPROJECTION_INTERVENTION_NAME_HINT"
 		/>
-		<!-- [11790] Company Field. Type: Company. (custom) -->
+		<!-- Company Field. Type: Company. (custom) -->
 		<field
 			type="company"
 			name="company"
@@ -102,7 +102,7 @@
 			default="0"
 			button="true"
 		/>
-		<!-- [11583] Type Field. Type: Radio. (joomla) -->
+		<!-- Type Field. Type: Radio. (joomla) -->
 		<field
 			type="radio"
 			name="type"
@@ -111,13 +111,13 @@
 			class="btn-group"
 			default="1"
 			required="true">
-			<!-- [11655] Option Set. -->
+			<!-- Option Set. -->
 			<option value="1">
 				COM_COSTBENEFITPROJECTION_INTERVENTION_SINGLE</option>
 			<option value="2">
 				COM_COSTBENEFITPROJECTION_INTERVENTION_CLUSTER</option>
 		</field>
-		<!-- [11669] Coverage Field. Type: Integer. (joomla) -->
+		<!-- Coverage Field. Type: Integer. (joomla) -->
 		<field
 			type="integer"
 			name="coverage"
@@ -128,7 +128,7 @@
 			last="100"
 			step="10"
 		/>
-		<!-- [11669] Duration Field. Type: Integer. (joomla) -->
+		<!-- Duration Field. Type: Integer. (joomla) -->
 		<field
 			type="integer"
 			name="duration"
@@ -140,7 +140,7 @@
 			last="20"
 			step="1"
 		/>
-		<!-- [11669] Description Field. Type: Textarea. (joomla) -->
+		<!-- Description Field. Type: Textarea. (joomla) -->
 		<field
 			type="textarea"
 			name="description"
@@ -152,7 +152,37 @@
 			filter="HTML"
 			hint="COM_COSTBENEFITPROJECTION_INTERVENTION_DESCRIPTION_HINT"
 		/>
-		<!-- [11700] Intervention Field. Type: Repeatable. (joomla) -->
+		<!-- Country Field. Type: Countries. (custom) -->
+		<field
+			type="countries"
+			name="country"
+			label="COM_COSTBENEFITPROJECTION_INTERVENTION_COUNTRY_LABEL"
+			description="COM_COSTBENEFITPROJECTION_INTERVENTION_COUNTRY_DESCRIPTION"
+			class="list_class"
+			multiple="false"
+			default="0"
+			required="true"
+		/>
+		<!-- Share Field. Type: List. (joomla) -->
+		<field
+			type="list"
+			name="share"
+			label="COM_COSTBENEFITPROJECTION_INTERVENTION_SHARE_LABEL"
+			description="COM_COSTBENEFITPROJECTION_INTERVENTION_SHARE_DESCRIPTION"
+			class="list_class"
+			multiple="false"
+			filter="INT"
+			required="true"
+			default="3">
+			<!-- Option Set. -->
+			<option value="3">
+				COM_COSTBENEFITPROJECTION_INTERVENTION_ALL_SERVICE_PROVIDERS_AND_ADMIN</option>
+			<option value="2">
+				COM_COSTBENEFITPROJECTION_INTERVENTION_ONLY_MY_SERVICE_PROVIDER</option>
+			<option value="1">
+				COM_COSTBENEFITPROJECTION_INTERVENTION_ONLY_ME</option>
+		</field>
+		<!-- Intervention Field. Type: Repeatable. (joomla) -->
 		<field
 			type="repeatable"
 			name="intervention"
@@ -165,7 +195,7 @@
 			maximum="100">
 			<fields name="intervention_fields" label="">
 				<fieldset hidden="true" name="intervention_modal" repeat="true">
-					<!-- [11790] Causerisk Field. Type: Causesrisks. (custom) -->
+					<!-- Causerisk Field. Type: Causesrisks. (custom) -->
 					<field
 						type="causesrisks"
 						name="causerisk"
@@ -175,7 +205,7 @@
 						default="0"
 						button="false"
 					/>
-					<!-- [11669] Cpe Field. Type: Text. (joomla) -->
+					<!-- Cpe Field. Type: Text. (joomla) -->
 					<field
 						type="text"
 						name="cpe"
@@ -186,7 +216,7 @@
 						class="text_area"
 						filter="INT"
 					/>
-					<!-- [11669] Mbr Field. Type: Text. (joomla) -->
+					<!-- Mbr Field. Type: Text. (joomla) -->
 					<field
 						type="text"
 						name="mbr"
@@ -197,7 +227,7 @@
 						class="text_area"
 						filter="INT"
 					/>
-					<!-- [11669] Mtr Field. Type: Text. (joomla) -->
+					<!-- Mtr Field. Type: Text. (joomla) -->
 					<field
 						type="text"
 						name="mtr"
@@ -211,7 +241,17 @@
 				</fieldset>
 			</fields>
 		</field>
-		<!-- [11669] Reference Field. Type: Textarea. (joomla) -->
+		<!-- Interventions Field. Type: Interventions. (custom) -->
+		<field
+			type="interventions"
+			name="interventions"
+			label="COM_COSTBENEFITPROJECTION_INTERVENTION_INTERVENTIONS_LABEL"
+			class="list_class"
+			multiple="true"
+			required="true"
+			button="false"
+		/>
+		<!-- Reference Field. Type: Textarea. (joomla) -->
 		<field
 			type="textarea"
 			name="reference"
@@ -223,36 +263,7 @@
 			filter="HTML"
 			hint="COM_COSTBENEFITPROJECTION_INTERVENTION_REFERENCE_HINT"
 		/>
-		<!-- [11790] Interventions Field. Type: Interventions. (custom) -->
-		<field
-			type="interventions"
-			name="interventions"
-			label="COM_COSTBENEFITPROJECTION_INTERVENTION_INTERVENTIONS_LABEL"
-			class="list_class"
-			multiple="true"
-			required="true"
-			button="false"
-		/>
-		<!-- [11583] Share Field. Type: List. (joomla) -->
-		<field
-			type="list"
-			name="share"
-			label="COM_COSTBENEFITPROJECTION_INTERVENTION_SHARE_LABEL"
-			description="COM_COSTBENEFITPROJECTION_INTERVENTION_SHARE_DESCRIPTION"
-			class="list_class"
-			multiple="false"
-			filter="INT"
-			required="true"
-			default="3">
-			<!-- [11655] Option Set. -->
-			<option value="3">
-				COM_COSTBENEFITPROJECTION_INTERVENTION_ALL_SERVICE_PROVIDERS_AND_ADMIN</option>
-			<option value="2">
-				COM_COSTBENEFITPROJECTION_INTERVENTION_ONLY_MY_SERVICE_PROVIDER</option>
-			<option value="1">
-				COM_COSTBENEFITPROJECTION_INTERVENTION_ONLY_ME</option>
-		</field>
-		<!-- [11669] Not_required Field. Type: Hidden. (joomla) -->
+		<!-- Not_required Field. Type: Hidden. (joomla) -->
 		<field
 			type="hidden"
 			name="not_required"
@@ -260,15 +271,15 @@
 		/>
 	</fieldset>
 	
-	<!-- [10355] Access Control Fields. -->
+	<!-- Access Control Fields. -->
 	<fieldset name="accesscontrol">
-		<!-- [10357] Asset Id Field. Type: Hidden (joomla) -->
+		<!-- Asset Id Field. Type: Hidden (joomla) -->
 		<field
 			name="asset_id"
 			type="hidden"
 			filter="unset"
 		/>
-		<!-- [10363] Rules Field. Type: Rules (joomla) -->
+		<!-- Rules Field. Type: Rules (joomla) -->
 		<field
 			name="rules"
 			type="rules"

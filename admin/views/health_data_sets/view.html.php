@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.2.0
-	@build			12th January, 2016
+	@version		3.3.0
+	@build			14th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -196,11 +196,11 @@ class CostbenefitprojectionViewHealth_data_sets extends JViewLegacy
 			);
                 }  
 
-		// [9406] Set Causerisk Name Selection
+		// Set Causerisk Name Selection
 		$this->causeriskNameOptions = JFormHelper::loadFieldType('Causesrisks')->getOptions();
 		if ($this->causeriskNameOptions)
 		{
-			// [9410] Causerisk Name Filter
+			// Causerisk Name Filter
 			JHtmlSidebar::addFilter(
 				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_HEALTH_DATA_CAUSERISK_LABEL').' -',
 				'filter_causerisk',
@@ -209,7 +209,7 @@ class CostbenefitprojectionViewHealth_data_sets extends JViewLegacy
 
 			if ($this->canBatch && $this->canCreate && $this->canEdit)
 			{
-				// [9419] Causerisk Name Batch Selection
+				// Causerisk Name Batch Selection
 				JHtmlBatch_::addListSelection(
 					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_HEALTH_DATA_CAUSERISK_LABEL').' -',
 					'batch[causerisk]',
@@ -218,11 +218,11 @@ class CostbenefitprojectionViewHealth_data_sets extends JViewLegacy
 			}
 		}
 
-		// [9440] Set Year Selection
+		// Set Year Selection
 		$this->yearOptions = $this->getTheYearSelections();
 		if ($this->yearOptions)
 		{
-			// [9444] Year Filter
+			// Year Filter
 			JHtmlSidebar::addFilter(
 				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_HEALTH_DATA_YEAR_LABEL').' -',
 				'filter_year',
@@ -231,7 +231,7 @@ class CostbenefitprojectionViewHealth_data_sets extends JViewLegacy
 
 			if ($this->canBatch && $this->canCreate && $this->canEdit)
 			{
-				// [9453] Year Batch Selection
+				// Year Batch Selection
 				JHtmlBatch_::addListSelection(
 					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_HEALTH_DATA_YEAR_LABEL').' -',
 					'batch[year]',
@@ -240,11 +240,11 @@ class CostbenefitprojectionViewHealth_data_sets extends JViewLegacy
 			}
 		}
 
-		// [9406] Set Country Name Selection
+		// Set Country Name Selection
 		$this->countryNameOptions = JFormHelper::loadFieldType('Countries')->getOptions();
 		if ($this->countryNameOptions)
 		{
-			// [9410] Country Name Filter
+			// Country Name Filter
 			JHtmlSidebar::addFilter(
 				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_HEALTH_DATA_COUNTRY_LABEL').' -',
 				'filter_country',
@@ -253,7 +253,7 @@ class CostbenefitprojectionViewHealth_data_sets extends JViewLegacy
 
 			if ($this->canBatch && $this->canCreate && $this->canEdit)
 			{
-				// [9419] Country Name Batch Selection
+				// Country Name Batch Selection
 				JHtmlBatch_::addListSelection(
 					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_HEALTH_DATA_COUNTRY_LABEL').' -',
 					'batch[country]',
@@ -312,33 +312,33 @@ class CostbenefitprojectionViewHealth_data_sets extends JViewLegacy
 
 	protected function getTheYearSelections()
 	{
-		// [9316] Get a db connection.
+		// Get a db connection.
 		$db = JFactory::getDbo();
 
-		// [9318] Create a new query object.
+		// Create a new query object.
 		$query = $db->getQuery(true);
 
-		// [9320] Select the text.
+		// Select the text.
 		$query->select($db->quoteName('year'));
 		$query->from($db->quoteName('#__costbenefitprojection_health_data'));
 		$query->order($db->quoteName('year') . ' ASC');
 
-		// [9324] Reset the query using our newly populated query object.
+		// Reset the query using our newly populated query object.
 		$db->setQuery($query);
 
 		$results = $db->loadColumn();
 
 		if ($results)
 		{
-			// [9332] get model
+			// get model
 			$model = $this->getModel();
 			$results = array_unique($results);
 			$filter = array();
 			foreach ($results as $year)
 			{
-				// [9343] Translate the year selection
+				// Translate the year selection
 				$text = $model->selectionTranslation($year,'year');
-				// [9345] Now add the year and its text to the options array
+				// Now add the year and its text to the options array
 				$filter[] = JHtml::_('select.option', $year, JText::_($text));
 			}
 			return $filter;

@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.2.0
-	@build			12th January, 2016
+	@version		3.3.0
+	@build			14th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		interventions.php
@@ -111,16 +111,16 @@ class CostbenefitprojectionModelInterventions extends JModelList
 	 */
 	public function getItems()
 	{ 
-		// [10839] check in items
+		// check in items
 		$this->checkInNow();
 
 		// load parent items
 		$items = parent::getItems();
 
-		// [10914] set values to display correctly.
+		// set values to display correctly.
 		if (CostbenefitprojectionHelper::checkArray($items))
 		{
-			// [10917] get user object.
+			// get user object.
 			$user = JFactory::getUser();
 			foreach ($items as $nr => &$item)
 			{
@@ -147,12 +147,12 @@ class CostbenefitprojectionModelInterventions extends JModelList
 			}
 		}  
 
-		// [11180] set selection value to a translatable value
+		// set selection value to a translatable value
 		if (CostbenefitprojectionHelper::checkArray($items))
 		{
 			foreach ($items as $nr => &$item)
 			{
-				// [11187] convert type
+				// convert type
 				$item->type = $this->selectionTranslation($item->type, 'type');
 			}
 		}
@@ -169,14 +169,14 @@ class CostbenefitprojectionModelInterventions extends JModelList
 	*/
 	public function selectionTranslation($value,$name)
 	{
-		// [11213] Array of type language strings
+		// Array of type language strings
 		if ($name == 'type')
 		{
 			$typeArray = array(
 				1 => 'COM_COSTBENEFITPROJECTION_INTERVENTION_SINGLE',
 				2 => 'COM_COSTBENEFITPROJECTION_INTERVENTION_CLUSTER'
 			);
-			// [11244] Now check if value is found in this array
+			// Now check if value is found in this array
 			if (isset($typeArray[$value]) && CostbenefitprojectionHelper::checkString($typeArray[$value]))
 			{
 				return $typeArray[$value];
@@ -192,16 +192,16 @@ class CostbenefitprojectionModelInterventions extends JModelList
 	 */
 	protected function getListQuery()
 	{
-		// [7696] Get the user object.
+		// Get the user object.
 		$user = JFactory::getUser();
-		// [7698] Create a new query object.
+		// Create a new query object.
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(true);
 
-		// [7701] Select some fields
+		// Select some fields
 		$query->select('a.*');
 
-		// [7708] From the costbenefitprojection_item table
+		// From the costbenefitprojection_item table
 		$query->from($db->quoteName('#__costbenefitprojection_intervention', 'a'));
 
 		// Filter the companies (admin sees all)
@@ -221,11 +221,11 @@ class CostbenefitprojectionModelInterventions extends JModelList
 			}
 		}
 
-		// [7849] From the costbenefitprojection_company table.
+		// From the costbenefitprojection_company table.
 		$query->select($db->quoteName('g.name','company_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_company', 'g') . ' ON (' . $db->quoteName('a.company') . ' = ' . $db->quoteName('g.id') . ')');
 
-		// [7722] Filter by published state
+		// Filter by published state
 		$published = $this->getState('filter.published');
 		if (is_numeric($published))
 		{
@@ -235,7 +235,7 @@ class CostbenefitprojectionModelInterventions extends JModelList
 		{
 			$query->where('(a.published = 0 OR a.published = 1)');
 		}
-		// [7819] Filter by search.
+		// Filter by search.
 		$search = $this->getState('filter.search');
 		if (!empty($search))
 		{
@@ -250,28 +250,28 @@ class CostbenefitprojectionModelInterventions extends JModelList
 			}
 		}
 
-		// [8053] Filter by company.
+		// Filter by company.
 		if ($company = $this->getState('filter.company'))
 		{
 			$query->where('a.company = ' . $db->quote($db->escape($company, true)));
 		}
-		// [8062] Filter by Type.
+		// Filter by Type.
 		if ($type = $this->getState('filter.type'))
 		{
 			$query->where('a.type = ' . $db->quote($db->escape($type, true)));
 		}
-		// [8062] Filter by Coverage.
+		// Filter by Coverage.
 		if ($coverage = $this->getState('filter.coverage'))
 		{
 			$query->where('a.coverage = ' . $db->quote($db->escape($coverage, true)));
 		}
-		// [8062] Filter by Duration.
+		// Filter by Duration.
 		if ($duration = $this->getState('filter.duration'))
 		{
 			$query->where('a.duration = ' . $db->quote($db->escape($duration, true)));
 		}
 
-		// [7778] Add the list ordering clause.
+		// Add the list ordering clause.
 		$orderCol = $this->state->get('list.ordering', 'a.id');
 		$orderDirn = $this->state->get('list.direction', 'asc');	
 		if ($orderCol != '')
@@ -289,19 +289,19 @@ class CostbenefitprojectionModelInterventions extends JModelList
 	*/
 	public function getExportData($pks)
 	{
-		// [7486] setup the query
+		// setup the query
 		if (CostbenefitprojectionHelper::checkArray($pks))
 		{
-			// [7489] Get the user object.
+			// Get the user object.
 			$user = JFactory::getUser();
-			// [7491] Create a new query object.
+			// Create a new query object.
 			$db = JFactory::getDBO();
 			$query = $db->getQuery(true);
 
-			// [7494] Select some fields
+			// Select some fields
 			$query->select('a.*');
 
-			// [7496] From the costbenefitprojection_intervention table
+			// From the costbenefitprojection_intervention table
 			$query->from($db->quoteName('#__costbenefitprojection_intervention', 'a'));
 			$query->where('a.id IN (' . implode(',',$pks) . ')');
 
@@ -322,20 +322,20 @@ class CostbenefitprojectionModelInterventions extends JModelList
 			}
 		}
 
-			// [7513] Order the results by ordering
+			// Order the results by ordering
 			$query->order('a.ordering  ASC');
 
-			// [7515] Load the items
+			// Load the items
 			$db->setQuery($query);
 			$db->execute();
 			if ($db->getNumRows())
 			{
 				$items = $db->loadObjectList();
 
-				// [10914] set values to display correctly.
+				// set values to display correctly.
 				if (CostbenefitprojectionHelper::checkArray($items))
 				{
-					// [10917] get user object.
+					// get user object.
 					$user = JFactory::getUser();
 					foreach ($items as $nr => &$item)
 					{
@@ -346,13 +346,13 @@ class CostbenefitprojectionModelInterventions extends JModelList
 							continue;
 						}
 
-						// [11127] unset the values we don't want exported.
+						// unset the values we don't want exported.
 						unset($item->asset_id);
 						unset($item->checked_out);
 						unset($item->checked_out_time);
 					}
 				}
-				// [11136] Add headers to items array.
+				// Add headers to items array.
 				$headers = $this->getExImPortHeaders();
 				if (CostbenefitprojectionHelper::checkObject($headers))
 				{
@@ -384,13 +384,13 @@ class CostbenefitprojectionModelInterventions extends JModelList
 	*/
 	public function getExImPortHeaders()
 	{
-		// [7535] Get a db connection.
+		// Get a db connection.
 		$db = JFactory::getDbo();
-		// [7537] get the columns
+		// get the columns
 		$columns = $db->getTableColumns("#__costbenefitprojection_intervention");
 		if (CostbenefitprojectionHelper::checkArray($columns))
 		{
-			// [7541] remove the headers you don't import/export.
+			// remove the headers you don't import/export.
 			unset($columns['asset_id']);
 			unset($columns['checked_out']);
 			unset($columns['checked_out_time']);
@@ -412,7 +412,7 @@ class CostbenefitprojectionModelInterventions extends JModelList
 	 */
 	protected function getStoreId($id = '')
 	{
-		// [10462] Compile the store id.
+		// Compile the store id.
 		$id .= ':' . $this->getState('filter.id');
 		$id .= ':' . $this->getState('filter.search');
 		$id .= ':' . $this->getState('filter.published');
@@ -437,15 +437,15 @@ class CostbenefitprojectionModelInterventions extends JModelList
 	*/
 	protected function checkInNow()
 	{
-		// [10855] Get set check in time
+		// Get set check in time
 		$time = JComponentHelper::getParams('com_costbenefitprojection')->get('check_in');
 		
 		if ($time)
 		{
 
-			// [10860] Get a db connection.
+			// Get a db connection.
 			$db = JFactory::getDbo();
-			// [10862] reset query
+			// reset query
 			$query = $db->getQuery(true);
 			$query->select('*');
 			$query->from($db->quoteName('#__costbenefitprojection_intervention'));
@@ -453,24 +453,24 @@ class CostbenefitprojectionModelInterventions extends JModelList
 			$db->execute();
 			if ($db->getNumRows())
 			{
-				// [10870] Get Yesterdays date
+				// Get Yesterdays date
 				$date = JFactory::getDate()->modify($time)->toSql();
-				// [10872] reset query
+				// reset query
 				$query = $db->getQuery(true);
 
-				// [10874] Fields to update.
+				// Fields to update.
 				$fields = array(
 					$db->quoteName('checked_out_time') . '=\'0000-00-00 00:00:00\'',
 					$db->quoteName('checked_out') . '=0'
 				);
 
-				// [10879] Conditions for which records should be updated.
+				// Conditions for which records should be updated.
 				$conditions = array(
 					$db->quoteName('checked_out') . '!=0', 
 					$db->quoteName('checked_out_time') . '<\''.$date.'\''
 				);
 
-				// [10884] Check table
+				// Check table
 				$query->update($db->quoteName('#__costbenefitprojection_intervention'))->set($fields)->where($conditions); 
 
 				$db->setQuery($query);

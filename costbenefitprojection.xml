@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="3.2" method="upgrade">
 	<name>COM_COSTBENEFITPROJECTION</name>
-	<creationDate>12th January, 2016</creationDate>
+	<creationDate>14th January, 2016</creationDate>
 	<author>Llewellyn van der Merwe</author>
 	<authorEmail>llewellyn@vdm.io</authorEmail>
 	<authorUrl>http://www.vdm.io</authorUrl>
 	<copyright>Copyright (C) 2015. All Rights Reserved</copyright>
 	<license>GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html</license>
-	<version>3.2.0</version>
+	<version>3.3.0</version>
 	<description><![CDATA[
-		<h1>Cost Benefit Projection (v.3.2.0)</h1>
+		<h1>Cost Benefit Projection (v.3.3.0)</h1>
 		<div style="clear: both;"></div>
 		<p>[Create Epidemiological Profiles] (https://www.staffhealthcbp.com/) for diseases and risks affecting your company. Detailed information on projected work days lost and costs. Create and edit activities and wellness responses for your workplace. Access to Small Business Modelling. Results displayed by gender. Network with other companies and wellness professionals.
 

@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.2.0
-	@build			12th January, 2016
+	@version		3.3.0
+	@build			14th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -196,11 +196,11 @@ class CostbenefitprojectionViewScaling_factors extends JViewLegacy
 			);
                 }  
 
-		// [9406] Set Causerisk Name Selection
+		// Set Causerisk Name Selection
 		$this->causeriskNameOptions = JFormHelper::loadFieldType('Causesrisks')->getOptions();
 		if ($this->causeriskNameOptions)
 		{
-			// [9410] Causerisk Name Filter
+			// Causerisk Name Filter
 			JHtmlSidebar::addFilter(
 				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTOR_CAUSERISK_LABEL').' -',
 				'filter_causerisk',
@@ -209,7 +209,7 @@ class CostbenefitprojectionViewScaling_factors extends JViewLegacy
 
 			if ($this->canBatch && $this->canCreate && $this->canEdit)
 			{
-				// [9419] Causerisk Name Batch Selection
+				// Causerisk Name Batch Selection
 				JHtmlBatch_::addListSelection(
 					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTOR_CAUSERISK_LABEL').' -',
 					'batch[causerisk]',
@@ -218,11 +218,11 @@ class CostbenefitprojectionViewScaling_factors extends JViewLegacy
 			}
 		}
 
-		// [9406] Set Company Name Selection
+		// Set Company Name Selection
 		$this->companyNameOptions = JFormHelper::loadFieldType('Company')->getOptions();
 		if ($this->companyNameOptions)
 		{
-			// [9410] Company Name Filter
+			// Company Name Filter
 			JHtmlSidebar::addFilter(
 				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTOR_COMPANY_LABEL').' -',
 				'filter_company',
@@ -231,7 +231,7 @@ class CostbenefitprojectionViewScaling_factors extends JViewLegacy
 
 			if ($this->canBatch && $this->canCreate && $this->canEdit)
 			{
-				// [9419] Company Name Batch Selection
+				// Company Name Batch Selection
 				JHtmlBatch_::addListSelection(
 					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTOR_COMPANY_LABEL').' -',
 					'batch[company]',

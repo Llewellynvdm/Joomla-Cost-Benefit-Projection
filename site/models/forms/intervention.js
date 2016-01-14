@@ -2,8 +2,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.2.0
-	@build			12th January, 2016
+	@version		3.3.0
+	@build			14th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		intervention.js
@@ -17,54 +17,58 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // Some Global Values
-jform_XCAjMWFmeI_required = false;
+jform_vgGWxQCckP_required = false;
+jform_YpxBiIHPFp_required = false;
 
 // Initial Script
 jQuery(document).ready(function()
 {
-	var type_XCAjMWF = jQuery("#jform_type input[type='radio']:checked").val();
-	XCAjMWF(type_XCAjMWF);
+	var type_vgGWxQC = jQuery("#jform_type input[type='radio']:checked").val();
+	vgGWxQC(type_vgGWxQC);
 
-	var type_MmytgLk = jQuery("#jform_type input[type='radio']:checked").val();
-	MmytgLk(type_MmytgLk);
+	var type_WpOusyg = jQuery("#jform_type input[type='radio']:checked").val();
+	WpOusyg(type_WpOusyg);
+
+	var company_YpxBiIH = jQuery("#jform_company").val();
+	YpxBiIH(company_YpxBiIH);
 });
 
-// the XCAjMWF function
-function XCAjMWF(type_XCAjMWF)
+// the vgGWxQC function
+function vgGWxQC(type_vgGWxQC)
 {
-	// [8307] set the function logic
-	if (type_XCAjMWF == 2)
+	// set the function logic
+	if (type_vgGWxQC == 2)
 	{
 		jQuery('#jform_interventions').closest('.control-group').show();
-		if (jform_XCAjMWFmeI_required)
+		if (jform_vgGWxQCckP_required)
 		{
 			updateFieldRequired('interventions',0);
 			jQuery('#jform_interventions').prop('required','required');
 			jQuery('#jform_interventions').attr('aria-required',true);
 			jQuery('#jform_interventions').addClass('required');
-			jform_XCAjMWFmeI_required = false;
+			jform_vgGWxQCckP_required = false;
 		}
 
 	}
 	else
 	{
 		jQuery('#jform_interventions').closest('.control-group').hide();
-		if (!jform_XCAjMWFmeI_required)
+		if (!jform_vgGWxQCckP_required)
 		{
 			updateFieldRequired('interventions',1);
 			jQuery('#jform_interventions').removeAttr('required');
 			jQuery('#jform_interventions').removeAttr('aria-required');
 			jQuery('#jform_interventions').removeClass('required');
-			jform_XCAjMWFmeI_required = true;
+			jform_vgGWxQCckP_required = true;
 		}
 	}
 }
 
-// the MmytgLk function
-function MmytgLk(type_MmytgLk)
+// the WpOusyg function
+function WpOusyg(type_WpOusyg)
 {
-	// [8307] set the function logic
-	if (type_MmytgLk == 1)
+	// set the function logic
+	if (type_WpOusyg == 1)
 	{
 		jQuery('#jform_intervention').closest('.control-group').show();
 	}
@@ -72,6 +76,61 @@ function MmytgLk(type_MmytgLk)
 	{
 		jQuery('#jform_intervention').closest('.control-group').hide();
 	}
+}
+
+// the YpxBiIH function
+function YpxBiIH(company_YpxBiIH)
+{
+	if (isSet(company_YpxBiIH) && company_YpxBiIH.constructor !== Array)
+	{
+		var temp_YpxBiIH = company_YpxBiIH;
+		var company_YpxBiIH = [];
+		company_YpxBiIH.push(temp_YpxBiIH);
+	}
+	else if (!isSet(company_YpxBiIH))
+	{
+		var company_YpxBiIH = [];
+	}
+	var company = company_YpxBiIH.some(company_YpxBiIH_SomeFunc);
+
+
+	// set this function logic
+	if (company)
+	{
+		jQuery('#jform_country').closest('.control-group').show();
+		if (jform_YpxBiIHPFp_required)
+		{
+			updateFieldRequired('country',0);
+			jQuery('#jform_country').prop('required','required');
+			jQuery('#jform_country').attr('aria-required',true);
+			jQuery('#jform_country').addClass('required');
+			jform_YpxBiIHPFp_required = false;
+		}
+
+	}
+	else
+	{
+		jQuery('#jform_country').closest('.control-group').hide();
+		if (!jform_YpxBiIHPFp_required)
+		{
+			updateFieldRequired('country',1);
+			jQuery('#jform_country').removeAttr('required');
+			jQuery('#jform_country').removeAttr('aria-required');
+			jQuery('#jform_country').removeClass('required');
+			jform_YpxBiIHPFp_required = true;
+		}
+	}
+}
+
+// the YpxBiIH Some function
+function company_YpxBiIH_SomeFunc(company_YpxBiIH)
+{
+	// set the function logic
+	if (company_YpxBiIH == 0)
+	{
+		return true;
+	}
+	return false;
 }
 
 // update required fields

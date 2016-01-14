@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.2.0
-	@build			12th January, 2016
+	@version		3.3.0
+	@build			14th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		country.php
@@ -54,13 +54,13 @@ class CostbenefitprojectionControllerCountry extends JControllerForm
 	 */
 	protected function allowAdd($data = array())
 	{
-		// [9618] Access check.
+		// Access check.
 		$access = JFactory::getUser()->authorise('country.access', 'com_costbenefitprojection');
 		if (!$access)
 		{
 			return false;
 		}
-		// [9629] In the absense of better information, revert to the component permissions.
+		// In the absense of better information, revert to the component permissions.
 		return JFactory::getUser()->authorise('country.create', $this->option);
 	}
 
@@ -76,9 +76,9 @@ class CostbenefitprojectionControllerCountry extends JControllerForm
 	 */
 	protected function allowEdit($data = array(), $key = 'id')
 	{
-		// [9772] get user object.
+		// get user object.
 		$user		= JFactory::getUser();
-		// [9774] get record id.
+		// get record id.
 		$recordId	= (int) isset($data[$key]) ? $data[$key] : 0;
 		if (!$user->authorise('core.options', 'com_costbenefitprojection'))
 		{
@@ -91,7 +91,7 @@ class CostbenefitprojectionControllerCountry extends JControllerForm
 			}
 		}
 
-		// [9781] Access check.
+		// Access check.
 		$access = ($user->authorise('country.access', 'com_costbenefitprojection.country.' . (int) $recordId) &&  $user->authorise('country.access', 'com_costbenefitprojection'));
 		if (!$access)
 		{
@@ -100,17 +100,17 @@ class CostbenefitprojectionControllerCountry extends JControllerForm
 
 		if ($recordId)
 		{
-			// [9790] The record has been set. Check the record permissions.
+			// The record has been set. Check the record permissions.
 			$permission = $user->authorise('country.edit', 'com_costbenefitprojection.country.' . (int) $recordId);
 			if (!$permission && !is_null($permission))
 			{
 				if ($user->authorise('country.edit.own', 'com_costbenefitprojection.country.' . $recordId))
 				{
-					// [9812] Now test the owner is the user.
+					// Now test the owner is the user.
 					$ownerId = (int) isset($data['created_by']) ? $data['created_by'] : 0;
 					if (empty($ownerId))
 					{
-						// [9816] Need to do a lookup from the model.
+						// Need to do a lookup from the model.
 						$record = $this->getModel()->getItem($recordId);
 
 						if (empty($record))
@@ -120,7 +120,7 @@ class CostbenefitprojectionControllerCountry extends JControllerForm
 						$ownerId = $record->created_by;
 					}
 
-					// [9824] If the owner matches 'me' then allow.
+					// If the owner matches 'me' then allow.
 					if ($ownerId == $user->id)
 					{
 						if ($user->authorise('country.edit.own', 'com_costbenefitprojection'))
@@ -132,7 +132,7 @@ class CostbenefitprojectionControllerCountry extends JControllerForm
 				return false;
 			}
 		}
-		// [9846] Since there is no permission, revert to the component permissions.
+		// Since there is no permission, revert to the component permissions.
 		return $user->authorise('country.edit', $this->option);
 	}
 
@@ -346,6 +346,147 @@ class CostbenefitprojectionControllerCountry extends JControllerForm
 					// add this user id to this country
 					$validData['user'] = $userId;
 					$model->save($validData);
+				}
+			}
+
+			// Get a db connection.
+			$db = JFactory::getDbo();
+			// Create a new query object.
+			$query = $db->getQuery(true);
+			// Select all records in scaling factors the belong to this company
+			$query->select($db->quoteName(array('id','causerisk','published')));
+			$query->from($db->quoteName('#__costbenefitprojection_scaling_factor'));
+			$query->where($db->quoteName('country') . ' = '. (int) $validData['id']);
+			$query->where($db->quoteName('company') . ' = 0');
+			$db->setQuery($query);
+			$db->execute();
+			if ($db->getNumRows())
+			{
+				// load the scaling factors already set
+				$already = $db->loadObjectList();
+				$publish = array();
+				$archive = array();
+				$bucket = array();
+				foreach ($already as $scale)
+				{
+					if (CostbenefitprojectionHelper::checkArray($validData['causesrisks']))
+					{
+						if (in_array($scale->causerisk, $validData['causesrisks']) && $scale->published != 1)
+						{
+							// publish the scaling factor (update)
+							$publish[$scale->id] = $scale->id;
+						}
+						elseif (!in_array($scale->causerisk, $validData['causesrisks']))
+						{
+							// archive the scaling factor (update)
+							$archive[$scale->id] = $scale->id;
+						}
+						$bucket[] = $scale->causerisk;
+					}
+					else
+					{
+						// archive the scaling factor (update)
+						$archive[$scale->id] = $scale->id;
+					}
+				}
+				// update the needed records
+				$types = array('publish' => 1,'archive' => 2);
+				foreach ($types as $type => $int)
+				{
+					if (CostbenefitprojectionHelper::checkArray(${$type}))
+					{
+						foreach (${$type} as $id)
+						{
+							$query = $db->getQuery(true);
+							// Fields to update.
+							$fields = array(
+								$db->quoteName('published') . ' = ' . (int) $int
+							);
+							// Conditions for which records should be updated.
+							$conditions = array(
+								$db->quoteName('id') . ' = ' . (int) $id
+							);
+							 
+							$query->update($db->quoteName('#__costbenefitprojection_scaling_factor'))->set($fields)->where($conditions);
+							$db->setQuery($query);
+							$db->execute();
+						}
+					}
+				}
+			}
+			if (CostbenefitprojectionHelper::checkArray($validData['causesrisks']))
+			{
+				// remove those already set from the saved list of causesrisks
+				if (CostbenefitprojectionHelper::checkArray($bucket))
+				{
+					$insert = array();
+					foreach ($validData['causesrisks'] as $causerisk)
+					{
+						if (!in_array($causerisk,$bucket))
+						{
+							$insert[] = $causerisk;
+						}
+					}
+				}
+				else
+				{
+					$insert = $validData['causesrisks'];
+				}
+			}
+			// insert the new records
+			if (CostbenefitprojectionHelper::checkArray($insert))
+			{
+				$created	= $db->quote(JFactory::getDate()->toSql());
+				$created_by	= JFactory::getUser()->get('id');
+				$company	= 0;
+				$country	= $validData['id'];
+				
+				// Create a new query object.
+				$query = $db->getQuery(true);
+				// Insert columns.
+				$columns = array(
+					'causerisk', 'company', 'country', 'mortality_scaling_factor_females', 
+					'mortality_scaling_factor_males', 'presenteeism_scaling_factor_females', 
+					'presenteeism_scaling_factor_males', 'yld_scaling_factor_females', 
+					'yld_scaling_factor_males', 'published', 
+					'created_by', 'created');
+				// setup the values
+				$values = array();
+				foreach ($insert as $new)
+				{
+					$array = array($new,$company,$country,1,1,1,1,1,1,1,$created_by,$created);
+					$values[] = implode(',',$array);
+				}
+				// Prepare the insert query.
+				$query
+					->insert($db->quoteName('#__costbenefitprojection_scaling_factor'))
+					->columns($db->quoteName($columns))
+					->values(implode('), (', $values));
+				 
+				// Set the query using our newly populated query object and execute it.
+				$db->setQuery($query);
+				$done = $db->execute();
+				if ($done)
+				{
+					// we must set the assets
+					foreach ($insert as $causerisk)
+					{
+						// get all the ids. Create a new query object.
+						$query = $db->getQuery(true);
+						$query->select($db->quoteName(array('id')));
+						$query->from($db->quoteName('#__costbenefitprojection_scaling_factor'));
+						$query->where($db->quoteName('causerisk') . ' = '. (int) $causerisk);
+						$query->where($db->quoteName('company') . ' = 0');
+						$query->where($db->quoteName('country') . ' = '. (int) $country);
+						$db->setQuery($query);
+						$db->execute();
+						if ($db->getNumRows())
+						{
+							$aId = $db->loadResult();
+							// make sure the access of asset is set
+							CostbenefitprojectionHelper::setAsset($aId,'scaling_factor');
+						}
+					}
 				}
 			}
 		}

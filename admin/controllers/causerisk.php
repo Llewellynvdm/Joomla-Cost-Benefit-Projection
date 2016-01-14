@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.2.0
-	@build			12th January, 2016
+	@version		3.3.0
+	@build			14th January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		causerisk.php
@@ -54,13 +54,13 @@ class CostbenefitprojectionControllerCauserisk extends JControllerForm
 	 */
 	protected function allowAdd($data = array())
 	{
-		// [9618] Access check.
+		// Access check.
 		$access = JFactory::getUser()->authorise('causerisk.access', 'com_costbenefitprojection');
 		if (!$access)
 		{
 			return false;
 		}
-		// [9629] In the absense of better information, revert to the component permissions.
+		// In the absense of better information, revert to the component permissions.
 		return JFactory::getUser()->authorise('causerisk.create', $this->option);
 	}
 
@@ -76,13 +76,13 @@ class CostbenefitprojectionControllerCauserisk extends JControllerForm
 	 */
 	protected function allowEdit($data = array(), $key = 'id')
 	{
-		// [9772] get user object.
+		// get user object.
 		$user		= JFactory::getUser();
-		// [9774] get record id.
+		// get record id.
 		$recordId	= (int) isset($data[$key]) ? $data[$key] : 0;
 
 
-		// [9781] Access check.
+		// Access check.
 		$access = ($user->authorise('causerisk.access', 'com_costbenefitprojection.causerisk.' . (int) $recordId) &&  $user->authorise('causerisk.access', 'com_costbenefitprojection'));
 		if (!$access)
 		{
@@ -91,17 +91,17 @@ class CostbenefitprojectionControllerCauserisk extends JControllerForm
 
 		if ($recordId)
 		{
-			// [9790] The record has been set. Check the record permissions.
+			// The record has been set. Check the record permissions.
 			$permission = $user->authorise('causerisk.edit', 'com_costbenefitprojection.causerisk.' . (int) $recordId);
 			if (!$permission && !is_null($permission))
 			{
 				if ($user->authorise('causerisk.edit.own', 'com_costbenefitprojection.causerisk.' . $recordId))
 				{
-					// [9812] Now test the owner is the user.
+					// Now test the owner is the user.
 					$ownerId = (int) isset($data['created_by']) ? $data['created_by'] : 0;
 					if (empty($ownerId))
 					{
-						// [9816] Need to do a lookup from the model.
+						// Need to do a lookup from the model.
 						$record = $this->getModel()->getItem($recordId);
 
 						if (empty($record))
@@ -111,7 +111,7 @@ class CostbenefitprojectionControllerCauserisk extends JControllerForm
 						$ownerId = $record->created_by;
 					}
 
-					// [9824] If the owner matches 'me' then allow.
+					// If the owner matches 'me' then allow.
 					if ($ownerId == $user->id)
 					{
 						if ($user->authorise('causerisk.edit.own', 'com_costbenefitprojection'))
@@ -123,7 +123,7 @@ class CostbenefitprojectionControllerCauserisk extends JControllerForm
 				return false;
 			}
 		}
-		// [9846] Since there is no permission, revert to the component permissions.
+		// Since there is no permission, revert to the component permissions.
 		return $user->authorise('causerisk.edit', $this->option);
 	}
 
