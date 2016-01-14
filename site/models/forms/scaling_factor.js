@@ -17,64 +17,64 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // Some Global Values
-jform_KGlUHkhgcJ_required = false;
+jform_fZNNjvpbby_required = false;
 
 // Initial Script
 jQuery(document).ready(function()
 {
-	var company_KGlUHkh = jQuery("#jform_company").val();
-	KGlUHkh(company_KGlUHkh);
+	var company_fZNNjvp = jQuery("#jform_company").val();
+	fZNNjvp(company_fZNNjvp);
 });
 
-// the KGlUHkh function
-function KGlUHkh(company_KGlUHkh)
+// the fZNNjvp function
+function fZNNjvp(company_fZNNjvp)
 {
-	if (isSet(company_KGlUHkh) && company_KGlUHkh.constructor !== Array)
+	if (isSet(company_fZNNjvp) && company_fZNNjvp.constructor !== Array)
 	{
-		var temp_KGlUHkh = company_KGlUHkh;
-		var company_KGlUHkh = [];
-		company_KGlUHkh.push(temp_KGlUHkh);
+		var temp_fZNNjvp = company_fZNNjvp;
+		var company_fZNNjvp = [];
+		company_fZNNjvp.push(temp_fZNNjvp);
 	}
-	else if (!isSet(company_KGlUHkh))
+	else if (!isSet(company_fZNNjvp))
 	{
-		var company_KGlUHkh = [];
+		var company_fZNNjvp = [];
 	}
-	var company = company_KGlUHkh.some(company_KGlUHkh_SomeFunc);
+	var company = company_fZNNjvp.some(company_fZNNjvp_SomeFunc);
 
 
 	// set this function logic
 	if (company)
 	{
 		jQuery('#jform_country').closest('.control-group').show();
-		if (jform_KGlUHkhgcJ_required)
+		if (jform_fZNNjvpbby_required)
 		{
 			updateFieldRequired('country',0);
 			jQuery('#jform_country').prop('required','required');
 			jQuery('#jform_country').attr('aria-required',true);
 			jQuery('#jform_country').addClass('required');
-			jform_KGlUHkhgcJ_required = false;
+			jform_fZNNjvpbby_required = false;
 		}
 
 	}
 	else
 	{
 		jQuery('#jform_country').closest('.control-group').hide();
-		if (!jform_KGlUHkhgcJ_required)
+		if (!jform_fZNNjvpbby_required)
 		{
 			updateFieldRequired('country',1);
 			jQuery('#jform_country').removeAttr('required');
 			jQuery('#jform_country').removeAttr('aria-required');
 			jQuery('#jform_country').removeClass('required');
-			jform_KGlUHkhgcJ_required = true;
+			jform_fZNNjvpbby_required = true;
 		}
 	}
 }
 
-// the KGlUHkh Some function
-function company_KGlUHkh_SomeFunc(company_KGlUHkh)
+// the fZNNjvp Some function
+function company_fZNNjvp_SomeFunc(company_fZNNjvp)
 {
 	// set the function logic
-	if (company_KGlUHkh == 0)
+	if (company_fZNNjvp == 0)
 	{
 		return true;
 	}

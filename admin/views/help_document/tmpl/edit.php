@@ -94,93 +94,93 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_location listeners for location_RymCTCN function
+// #jform_location listeners for location_mBfGmql function
 jQuery('#jform_location').on('keyup',function()
 {
-	var location_RymCTCN = jQuery("#jform_location input[type='radio']:checked").val();
-	RymCTCN(location_RymCTCN);
+	var location_mBfGmql = jQuery("#jform_location input[type='radio']:checked").val();
+	mBfGmql(location_mBfGmql);
 
 });
 jQuery('#adminForm').on('change', '#jform_location',function (e)
 {
 	e.preventDefault();
-	var location_RymCTCN = jQuery("#jform_location input[type='radio']:checked").val();
-	RymCTCN(location_RymCTCN);
+	var location_mBfGmql = jQuery("#jform_location input[type='radio']:checked").val();
+	mBfGmql(location_mBfGmql);
 
 });
 
-// #jform_location listeners for location_uTrizCf function
+// #jform_location listeners for location_mjJaAFh function
 jQuery('#jform_location').on('keyup',function()
 {
-	var location_uTrizCf = jQuery("#jform_location input[type='radio']:checked").val();
-	uTrizCf(location_uTrizCf);
+	var location_mjJaAFh = jQuery("#jform_location input[type='radio']:checked").val();
+	mjJaAFh(location_mjJaAFh);
 
 });
 jQuery('#adminForm').on('change', '#jform_location',function (e)
 {
 	e.preventDefault();
-	var location_uTrizCf = jQuery("#jform_location input[type='radio']:checked").val();
-	uTrizCf(location_uTrizCf);
+	var location_mjJaAFh = jQuery("#jform_location input[type='radio']:checked").val();
+	mjJaAFh(location_mjJaAFh);
 
 });
 
-// #jform_type listeners for type_WGaqBqH function
+// #jform_type listeners for type_TOXvREx function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_WGaqBqH = jQuery("#jform_type").val();
-	WGaqBqH(type_WGaqBqH);
+	var type_TOXvREx = jQuery("#jform_type").val();
+	TOXvREx(type_TOXvREx);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_WGaqBqH = jQuery("#jform_type").val();
-	WGaqBqH(type_WGaqBqH);
+	var type_TOXvREx = jQuery("#jform_type").val();
+	TOXvREx(type_TOXvREx);
 
 });
 
-// #jform_type listeners for type_plZzXlE function
+// #jform_type listeners for type_yNpeHRj function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_plZzXlE = jQuery("#jform_type").val();
-	plZzXlE(type_plZzXlE);
+	var type_yNpeHRj = jQuery("#jform_type").val();
+	yNpeHRj(type_yNpeHRj);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_plZzXlE = jQuery("#jform_type").val();
-	plZzXlE(type_plZzXlE);
+	var type_yNpeHRj = jQuery("#jform_type").val();
+	yNpeHRj(type_yNpeHRj);
 
 });
 
-// #jform_type listeners for type_mxsaRmr function
+// #jform_type listeners for type_LICWaSF function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_mxsaRmr = jQuery("#jform_type").val();
-	mxsaRmr(type_mxsaRmr);
+	var type_LICWaSF = jQuery("#jform_type").val();
+	LICWaSF(type_LICWaSF);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_mxsaRmr = jQuery("#jform_type").val();
-	mxsaRmr(type_mxsaRmr);
+	var type_LICWaSF = jQuery("#jform_type").val();
+	LICWaSF(type_LICWaSF);
 
 });
 
-// #jform_target listeners for target_fQAidiy function
+// #jform_target listeners for target_gtffPVJ function
 jQuery('#jform_target').on('keyup',function()
 {
-	var target_fQAidiy = jQuery("#jform_target input[type='radio']:checked").val();
-	fQAidiy(target_fQAidiy);
+	var target_gtffPVJ = jQuery("#jform_target input[type='radio']:checked").val();
+	gtffPVJ(target_gtffPVJ);
 
 });
 jQuery('#adminForm').on('change', '#jform_target',function (e)
 {
 	e.preventDefault();
-	var target_fQAidiy = jQuery("#jform_target input[type='radio']:checked").val();
-	fQAidiy(target_fQAidiy);
+	var target_gtffPVJ = jQuery("#jform_target input[type='radio']:checked").val();
+	gtffPVJ(target_gtffPVJ);
 
 });
 

@@ -69,7 +69,7 @@ if(isset($this->results->interventions) && CostbenefitprojectionHelper::checkArr
 			}  
 			$title .= ' | ' . JText::sprintf('COM_COSTBENEFITPROJECTION_COVERAGE_S', round($intervention->coverage)). '%';
 
-			$options =	array( 'title' => $main_title, 'colors' => array('#cc0000', '#ff9933', '#0070c0', '#70ad47'), 'backgroundColor' => $this->Chart['backgroundColor'], 'width' => $this->Chart['width'], 'height' => $height, 'chartArea' => $this->Chart['chartArea'], 'legend' => $this->Chart['legend'], 'vAxis' => $this->Chart['vAxis'], 'hAxis' => array('textStyle' => $this->Chart['hAxis']['textStyle'], 'title' => $title, 'titleTextStyle' => $this->Chart['hAxis']['titleTextStyle']));
+			$options =	array( 'title' => $main_title, 'colors' => array('#cc0000', '#ff9933', '#0070c0', '#70ad47'), 'backgroundColor' => $this->Chart['backgroundColor'], 'width' => 800, 'height' => $height, 'chartArea' => $this->Chart['chartArea'], 'legend' => $this->Chart['legend'], 'vAxis' => $this->Chart['vAxis'], 'hAxis' => array('textStyle' => $this->Chart['hAxis']['textStyle'], 'title' => $title, 'titleTextStyle' => $this->Chart['hAxis']['titleTextStyle']));
 
 			echo $chart->draw('public_int_'.$intervention_number.'_unscaled', $options);
 			$intervention_number++;
@@ -144,3 +144,4 @@ if(isset($this->results->interventions) && CostbenefitprojectionHelper::checkArr
 	<?php endif; ?>
     </div>   
 </div>
+<br /><br />

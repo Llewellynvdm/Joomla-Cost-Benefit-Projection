@@ -103,48 +103,48 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_type listeners for type_viqBsKT function
+// #jform_type listeners for type_GmAZQCM function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_viqBsKT = jQuery("#jform_type input[type='radio']:checked").val();
-	viqBsKT(type_viqBsKT);
+	var type_GmAZQCM = jQuery("#jform_type input[type='radio']:checked").val();
+	GmAZQCM(type_GmAZQCM);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_viqBsKT = jQuery("#jform_type input[type='radio']:checked").val();
-	viqBsKT(type_viqBsKT);
+	var type_GmAZQCM = jQuery("#jform_type input[type='radio']:checked").val();
+	GmAZQCM(type_GmAZQCM);
 
 });
 
-// #jform_type listeners for type_wWWuclt function
+// #jform_type listeners for type_teRAcAb function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_wWWuclt = jQuery("#jform_type input[type='radio']:checked").val();
-	wWWuclt(type_wWWuclt);
+	var type_teRAcAb = jQuery("#jform_type input[type='radio']:checked").val();
+	teRAcAb(type_teRAcAb);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_wWWuclt = jQuery("#jform_type input[type='radio']:checked").val();
-	wWWuclt(type_wWWuclt);
+	var type_teRAcAb = jQuery("#jform_type input[type='radio']:checked").val();
+	teRAcAb(type_teRAcAb);
 
 });
 
-// #jform_company listeners for company_XhROPyc function
+// #jform_company listeners for company_UepRipz function
 jQuery('#jform_company').on('keyup',function()
 {
-	var company_XhROPyc = jQuery("#jform_company").val();
-	XhROPyc(company_XhROPyc);
+	var company_UepRipz = jQuery("#jform_company").val();
+	UepRipz(company_UepRipz);
 
 });
 jQuery('#adminForm').on('change', '#jform_company',function (e)
 {
 	e.preventDefault();
-	var company_XhROPyc = jQuery("#jform_company").val();
-	XhROPyc(company_XhROPyc);
+	var company_UepRipz = jQuery("#jform_company").val();
+	UepRipz(company_UepRipz);
 
 });
 

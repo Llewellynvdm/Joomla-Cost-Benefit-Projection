@@ -17,58 +17,58 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // Some Global Values
-jform_viqBsKTGpV_required = false;
-jform_XhROPycIll_required = false;
+jform_GmAZQCMxWg_required = false;
+jform_UepRipzWGd_required = false;
 
 // Initial Script
 jQuery(document).ready(function()
 {
-	var type_viqBsKT = jQuery("#jform_type input[type='radio']:checked").val();
-	viqBsKT(type_viqBsKT);
+	var type_GmAZQCM = jQuery("#jform_type input[type='radio']:checked").val();
+	GmAZQCM(type_GmAZQCM);
 
-	var type_wWWuclt = jQuery("#jform_type input[type='radio']:checked").val();
-	wWWuclt(type_wWWuclt);
+	var type_teRAcAb = jQuery("#jform_type input[type='radio']:checked").val();
+	teRAcAb(type_teRAcAb);
 
-	var company_XhROPyc = jQuery("#jform_company").val();
-	XhROPyc(company_XhROPyc);
+	var company_UepRipz = jQuery("#jform_company").val();
+	UepRipz(company_UepRipz);
 });
 
-// the viqBsKT function
-function viqBsKT(type_viqBsKT)
+// the GmAZQCM function
+function GmAZQCM(type_GmAZQCM)
 {
 	// set the function logic
-	if (type_viqBsKT == 2)
+	if (type_GmAZQCM == 2)
 	{
 		jQuery('#jform_interventions').closest('.control-group').show();
-		if (jform_viqBsKTGpV_required)
+		if (jform_GmAZQCMxWg_required)
 		{
 			updateFieldRequired('interventions',0);
 			jQuery('#jform_interventions').prop('required','required');
 			jQuery('#jform_interventions').attr('aria-required',true);
 			jQuery('#jform_interventions').addClass('required');
-			jform_viqBsKTGpV_required = false;
+			jform_GmAZQCMxWg_required = false;
 		}
 
 	}
 	else
 	{
 		jQuery('#jform_interventions').closest('.control-group').hide();
-		if (!jform_viqBsKTGpV_required)
+		if (!jform_GmAZQCMxWg_required)
 		{
 			updateFieldRequired('interventions',1);
 			jQuery('#jform_interventions').removeAttr('required');
 			jQuery('#jform_interventions').removeAttr('aria-required');
 			jQuery('#jform_interventions').removeClass('required');
-			jform_viqBsKTGpV_required = true;
+			jform_GmAZQCMxWg_required = true;
 		}
 	}
 }
 
-// the wWWuclt function
-function wWWuclt(type_wWWuclt)
+// the teRAcAb function
+function teRAcAb(type_teRAcAb)
 {
 	// set the function logic
-	if (type_wWWuclt == 1)
+	if (type_teRAcAb == 1)
 	{
 		jQuery('#jform_intervention').closest('.control-group').show();
 	}
@@ -78,55 +78,55 @@ function wWWuclt(type_wWWuclt)
 	}
 }
 
-// the XhROPyc function
-function XhROPyc(company_XhROPyc)
+// the UepRipz function
+function UepRipz(company_UepRipz)
 {
-	if (isSet(company_XhROPyc) && company_XhROPyc.constructor !== Array)
+	if (isSet(company_UepRipz) && company_UepRipz.constructor !== Array)
 	{
-		var temp_XhROPyc = company_XhROPyc;
-		var company_XhROPyc = [];
-		company_XhROPyc.push(temp_XhROPyc);
+		var temp_UepRipz = company_UepRipz;
+		var company_UepRipz = [];
+		company_UepRipz.push(temp_UepRipz);
 	}
-	else if (!isSet(company_XhROPyc))
+	else if (!isSet(company_UepRipz))
 	{
-		var company_XhROPyc = [];
+		var company_UepRipz = [];
 	}
-	var company = company_XhROPyc.some(company_XhROPyc_SomeFunc);
+	var company = company_UepRipz.some(company_UepRipz_SomeFunc);
 
 
 	// set this function logic
 	if (company)
 	{
 		jQuery('#jform_country').closest('.control-group').show();
-		if (jform_XhROPycIll_required)
+		if (jform_UepRipzWGd_required)
 		{
 			updateFieldRequired('country',0);
 			jQuery('#jform_country').prop('required','required');
 			jQuery('#jform_country').attr('aria-required',true);
 			jQuery('#jform_country').addClass('required');
-			jform_XhROPycIll_required = false;
+			jform_UepRipzWGd_required = false;
 		}
 
 	}
 	else
 	{
 		jQuery('#jform_country').closest('.control-group').hide();
-		if (!jform_XhROPycIll_required)
+		if (!jform_UepRipzWGd_required)
 		{
 			updateFieldRequired('country',1);
 			jQuery('#jform_country').removeAttr('required');
 			jQuery('#jform_country').removeAttr('aria-required');
 			jQuery('#jform_country').removeClass('required');
-			jform_XhROPycIll_required = true;
+			jform_UepRipzWGd_required = true;
 		}
 	}
 }
 
-// the XhROPyc Some function
-function company_XhROPyc_SomeFunc(company_XhROPyc)
+// the UepRipz Some function
+function company_UepRipz_SomeFunc(company_UepRipz)
 {
 	// set the function logic
-	if (company_XhROPyc == 0)
+	if (company_UepRipz == 0)
 	{
 		return true;
 	}

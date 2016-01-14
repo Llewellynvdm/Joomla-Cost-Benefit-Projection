@@ -154,8 +154,8 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				$item->tags->getTagIds($item->id, 'com_costbenefitprojection.company');
 			}
 		}
-		$this->companygfcf = $item->id;
-		$this->companydzoi = $item->id;
+		$this->companypizd = $item->id;
+		$this->companyrmmb = $item->id;
 
 		return $item;
 	}
@@ -165,7 +165,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getXpxscaling_factors()
+	public function getSgvscaling_factors()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -204,15 +204,15 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 		$query->select($db->quoteName('h.name','company_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_company', 'h') . ' ON (' . $db->quoteName('a.company') . ' = ' . $db->quoteName('h.id') . ')');
 
-		// Filter by companygfcf global.
-		$companygfcf = $this->companygfcf;
-		if (is_numeric($companygfcf ))
+		// Filter by companypizd global.
+		$companypizd = $this->companypizd;
+		if (is_numeric($companypizd ))
 		{
-			$query->where('a.company = ' . (int) $companygfcf );
+			$query->where('a.company = ' . (int) $companypizd );
 		}
-		elseif (is_string($companygfcf))
+		elseif (is_string($companypizd))
 		{
-			$query->where('a.company = ' . $db->quote($companygfcf));
+			$query->where('a.company = ' . $db->quote($companypizd));
 		}
 		else
 		{
@@ -255,7 +255,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getZqbinterventions()
+	public function getNfuinterventions()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -290,15 +290,15 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 		$query->select($db->quoteName('g.name','company_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_company', 'g') . ' ON (' . $db->quoteName('a.company') . ' = ' . $db->quoteName('g.id') . ')');
 
-		// Filter by companydzoi global.
-		$companydzoi = $this->companydzoi;
-		if (is_numeric($companydzoi ))
+		// Filter by companyrmmb global.
+		$companyrmmb = $this->companyrmmb;
+		if (is_numeric($companyrmmb ))
 		{
-			$query->where('a.company = ' . (int) $companydzoi );
+			$query->where('a.company = ' . (int) $companyrmmb );
 		}
-		elseif (is_string($companydzoi))
+		elseif (is_string($companyrmmb))
 		{
-			$query->where('a.company = ' . $db->quote($companydzoi));
+			$query->where('a.company = ' . $db->quote($companyrmmb));
 		}
 		else
 		{
@@ -351,7 +351,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				foreach ($items as $nr => &$item)
 				{
 					// convert type
-					$item->type = $this->selectionTranslationZqbinterventions($item->type, 'type');
+					$item->type = $this->selectionTranslationNfuinterventions($item->type, 'type');
 				}
 			}
 
@@ -365,7 +365,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return translatable string
 	*/
-	public function selectionTranslationZqbinterventions($value,$name)
+	public function selectionTranslationNfuinterventions($value,$name)
 	{
 		// Array of type language strings
 		if ($name == 'type')
