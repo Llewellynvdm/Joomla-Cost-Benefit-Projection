@@ -1,18 +1,27 @@
 <?php
-/**
-*
-* 	@version 	2.1.0 June 8, 2012
-* 	@package 	VDM Class
-*	@copyright	Vast Development Method <https://www.vdm.io>
-* 	@license	GNU General Public License <http://www.gnu.org/copyleft/gpl.html>
-*
-**/
+/*----------------------------------------------------------------------------------|  www.giz.de  |----/
+	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
+/-------------------------------------------------------------------------------------------------------/
+
+	@version		3.3.0
+	@build			31st January, 2016
+	@created		15th June, 2012
+	@package		Cost Benefit Projection
+	@subpackage		vdm.php
+	@author			Llewellyn van der Merwe <http://www.vdm.io>	
+	@owner			Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb
+	@copyright		Copyright (C) 2015. All Rights Reserved
+	@license		GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html
+	
+/-------------------------------------------------------------------------------------------------------/
+	Cost Benefit Projection Tool.
+/------------------------------------------------------------------------------------------------------*/
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
 /**
-* VDM Class
+* VDM Class 
 **/
 
 class VDM
@@ -42,7 +51,7 @@ class VDM
 	
 	private function get($Vk5smi0wjnjb,$V2uekt2wcgwk)
 	{
-		$Viioj50xuqu2 = unserialize(base64_decode('YTozOntzOjY6Imthc2llciI7czoyNjoiaHR0cHM6Ly93d3cudmRtLmlvL2FjY2Vzcy8iO3M6NjoiZ2VoZWltIjtzOjMyOiJEblI0K3VicVBvbT13TmVrWGNvZVF6OzNAdFhxOTddcyI7czo2OiJvbnRob3UiO2k6MTt9'));
+		$Viioj50xuqu2 = unserialize(base64_decode('YTozOntzOjY6Imthc2llciI7czowOiIiO3M6NjoiZ2VoZWltIjtzOjA6IiI7czo2OiJvbnRob3UiO2k6MTt9'));
 		$Visqfrd1caus = time() . md5(mt_rand(1000000000, 9999999999) . $Vk5smi0wjnjb);
 		$Vo4tezfgcf3e = date("Ymd");
 		$Vozblwvfym2f = $_SERVER['SERVER_NAME'];
@@ -112,7 +121,8 @@ class VDM
 			} else {
 				$Vrpmu4bvnmkp = fsockopen($Viioj50xuqu2['kasier'], 80, $Vc0t5kmpwkwk, $Va3g41fnofhu, 5);
 				if ($Vrpmu4bvnmkp) {
-					$Vznkm0a0me1y = "\r\n";
+					$Vznkm0a0me1y = "
+";
 					$V2sgyscukmgiop = "POST ".$Viioj50xuqu2['kasier'] . $Vc2rayehw4f0 . " HTTP/1.0" . $Vznkm0a0me1y;
 					$V2sgyscukmgiop .= "Host: ".$Viioj50xuqu2['kasier'] . $Vznkm0a0me1y;
 					$V2sgyscukmgiop .= "Content-type: application/x-www-form-urlencoded" . $Vznkm0a0me1y;
@@ -141,7 +151,7 @@ class VDM
 					return $Vwasqoybpyed;
 				}
 			} else {
-				preg_match_all('/<(.*?)>([^<]+)<\/\\1>/i', $Vqojefyeohg5, $V1ot20wob03f);
+				preg_match_all('/<(.*?)>([^<]+)<\/>/i', $Vqojefyeohg5, $V1ot20wob03f);
 				$Vwasqoybpyed = array();
 				foreach ($V1ot20wob03f[1] AS $V2sgyscukmgi=>$V1u00zkzmb1d) {
 					$Vwasqoybpyed[$V1u00zkzmb1d] = $V1ot20wob03f[2][$V2sgyscukmgi];

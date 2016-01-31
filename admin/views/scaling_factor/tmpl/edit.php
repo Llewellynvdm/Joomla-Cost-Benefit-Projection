@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			14th January, 2016
+	@build			31st January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -86,18 +86,18 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_company listeners for company_fZNNjvp function
+// #jform_company listeners for company_VvzxxlE function
 jQuery('#jform_company').on('keyup',function()
 {
-	var company_fZNNjvp = jQuery("#jform_company").val();
-	fZNNjvp(company_fZNNjvp);
+	var company_VvzxxlE = jQuery("#jform_company").val();
+	VvzxxlE(company_VvzxxlE);
 
 });
 jQuery('#adminForm').on('change', '#jform_company',function (e)
 {
 	e.preventDefault();
-	var company_fZNNjvp = jQuery("#jform_company").val();
-	fZNNjvp(company_fZNNjvp);
+	var company_VvzxxlE = jQuery("#jform_company").val();
+	VvzxxlE(company_VvzxxlE);
 
 });
 

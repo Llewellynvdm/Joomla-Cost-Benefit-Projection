@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			14th January, 2016
+	@build			31st January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		script.php
@@ -1026,14 +1026,14 @@ class com_costbenefitprojectionInstallerScript
 			$db->setQuery($query);
 			$allDone = $db->execute();
 			echo '<a target="_blank" href="http://www.vdm.io" title="Cost Benefit Projection">
-				<img src="components/com_costbenefitprojection/assets/images/component-300.jpg"/>
+				<img src="components/com_costbenefitprojection/assets/images/component-300.png"/>
 				</a>';
 		}
 		// do any updates needed
 		if ($type == 'update')
 		{
 			echo '<a target="_blank" href="http://www.vdm.io" title="Cost Benefit Projection">
-				<img src="components/com_costbenefitprojection/assets/images/component-300.jpg"/>
+				<img src="components/com_costbenefitprojection/assets/images/component-300.png"/>
 				</a>
 				<h3>Upgrade to Version 3.3.0 Was Successful! Let us know if anything is not working as expected.</h3>';
 		}

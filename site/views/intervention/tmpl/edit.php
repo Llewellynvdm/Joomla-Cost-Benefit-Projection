@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			14th January, 2016
+	@build			31st January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -103,48 +103,48 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_type listeners for type_GmAZQCM function
+// #jform_type listeners for type_AwqsvJs function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_GmAZQCM = jQuery("#jform_type input[type='radio']:checked").val();
-	GmAZQCM(type_GmAZQCM);
+	var type_AwqsvJs = jQuery("#jform_type input[type='radio']:checked").val();
+	AwqsvJs(type_AwqsvJs);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_GmAZQCM = jQuery("#jform_type input[type='radio']:checked").val();
-	GmAZQCM(type_GmAZQCM);
+	var type_AwqsvJs = jQuery("#jform_type input[type='radio']:checked").val();
+	AwqsvJs(type_AwqsvJs);
 
 });
 
-// #jform_type listeners for type_teRAcAb function
+// #jform_type listeners for type_mBCpOXj function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_teRAcAb = jQuery("#jform_type input[type='radio']:checked").val();
-	teRAcAb(type_teRAcAb);
+	var type_mBCpOXj = jQuery("#jform_type input[type='radio']:checked").val();
+	mBCpOXj(type_mBCpOXj);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_teRAcAb = jQuery("#jform_type input[type='radio']:checked").val();
-	teRAcAb(type_teRAcAb);
+	var type_mBCpOXj = jQuery("#jform_type input[type='radio']:checked").val();
+	mBCpOXj(type_mBCpOXj);
 
 });
 
-// #jform_company listeners for company_UepRipz function
+// #jform_company listeners for company_RobjqDI function
 jQuery('#jform_company').on('keyup',function()
 {
-	var company_UepRipz = jQuery("#jform_company").val();
-	UepRipz(company_UepRipz);
+	var company_RobjqDI = jQuery("#jform_company").val();
+	RobjqDI(company_RobjqDI);
 
 });
 jQuery('#adminForm').on('change', '#jform_company',function (e)
 {
 	e.preventDefault();
-	var company_UepRipz = jQuery("#jform_company").val();
-	UepRipz(company_UepRipz);
+	var company_RobjqDI = jQuery("#jform_company").val();
+	RobjqDI(company_RobjqDI);
 
 });
 

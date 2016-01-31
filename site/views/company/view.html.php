@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			14th January, 2016
+	@build			31st January, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -65,10 +65,10 @@ class CostbenefitprojectionViewCompany extends JViewLegacy
                 }
 
 		// Get Linked view data
-		$this->sgvscaling_factors		= $this->get('Sgvscaling_factors');
+		$this->pfxscaling_factors		= $this->get('Pfxscaling_factors');
 
 		// Get Linked view data
-		$this->nfuinterventions		= $this->get('Nfuinterventions');
+		$this->vvpinterventions		= $this->get('Vvpinterventions');
 
 		// Set the toolbar
 		$this->addToolBar();
