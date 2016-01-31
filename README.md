@@ -2,7 +2,7 @@
 
 This is a [Joomla 3.x] (http://www.joomla.org/) component.
 
- ![Cost Benefit Projection image] (https://raw.githubusercontent.com/vdm-io/Joomla-Component-Builder/master/admin/assets/images/component-300.png "The Cost Benefit Projection")
+ ![Cost Benefit Projection image] (https://raw.githubusercontent.com/namibia/CBP-Joomla-3-Component/master/admin/assets/images/component-300.png "The Cost Benefit Projection")
 
 [Create Epidemiological Profiles] (https://www.staffhealthcbp.com/) for diseases and risks affecting your company. Detailed information on projected work days lost and costs. Create and edit activities and wellness responses for your workplace. Access to Small Business Modelling. Results displayed by gender. Network with other companies and wellness professionals.
 

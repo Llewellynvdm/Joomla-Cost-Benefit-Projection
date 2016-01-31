@@ -101,48 +101,48 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_type listeners for type_AwqsvJs function
+// #jform_type listeners for type_oSAonkb function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_AwqsvJs = jQuery("#jform_type input[type='radio']:checked").val();
-	AwqsvJs(type_AwqsvJs);
+	var type_oSAonkb = jQuery("#jform_type input[type='radio']:checked").val();
+	oSAonkb(type_oSAonkb);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_AwqsvJs = jQuery("#jform_type input[type='radio']:checked").val();
-	AwqsvJs(type_AwqsvJs);
+	var type_oSAonkb = jQuery("#jform_type input[type='radio']:checked").val();
+	oSAonkb(type_oSAonkb);
 
 });
 
-// #jform_type listeners for type_mBCpOXj function
+// #jform_type listeners for type_osTQPbV function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_mBCpOXj = jQuery("#jform_type input[type='radio']:checked").val();
-	mBCpOXj(type_mBCpOXj);
+	var type_osTQPbV = jQuery("#jform_type input[type='radio']:checked").val();
+	osTQPbV(type_osTQPbV);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_mBCpOXj = jQuery("#jform_type input[type='radio']:checked").val();
-	mBCpOXj(type_mBCpOXj);
+	var type_osTQPbV = jQuery("#jform_type input[type='radio']:checked").val();
+	osTQPbV(type_osTQPbV);
 
 });
 
-// #jform_company listeners for company_RobjqDI function
+// #jform_company listeners for company_XkMHBjZ function
 jQuery('#jform_company').on('keyup',function()
 {
-	var company_RobjqDI = jQuery("#jform_company").val();
-	RobjqDI(company_RobjqDI);
+	var company_XkMHBjZ = jQuery("#jform_company").val();
+	XkMHBjZ(company_XkMHBjZ);
 
 });
 jQuery('#adminForm').on('change', '#jform_company',function (e)
 {
 	e.preventDefault();
-	var company_RobjqDI = jQuery("#jform_company").val();
-	RobjqDI(company_RobjqDI);
+	var company_XkMHBjZ = jQuery("#jform_company").val();
+	XkMHBjZ(company_XkMHBjZ);
 
 });
 
