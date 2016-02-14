@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			31st January, 2016
+	@build			14th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		company.php
@@ -327,7 +327,7 @@ class CostbenefitprojectionControllerCompany extends JControllerForm
 	 *
 	 * @since   11.1
 	 */
-	protected function postSaveHook(JModelLegacy &$model, $validData = array())
+	protected function postSaveHook(JModelLegacy $model, $validData = array())
 	{
 		if ($validData['id']  >=  0)
 		{

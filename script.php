@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			31st January, 2016
+	@build			14th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		script.php
@@ -897,7 +897,6 @@ class com_costbenefitprojectionInstallerScript
 		{
 
 			// Get The Database object
-
 			$db = JFactory::getDbo();
 
 			// Create the company content type object.
@@ -909,8 +908,8 @@ class com_costbenefitprojectionInstallerScript
 			$company->router = 'CostbenefitprojectionHelperRoute::getCompanyRoute';
 			$company->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/company.xml","hideFields": ["asset_id","checked_out","checked_out_time","version","not_required"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","user","department","country","serviceprovider","per","working_days","not_required"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "access","targetTable": "#__viewlevels","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "user","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "country","targetTable": "#__costbenefitprojection_country","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "serviceprovider","targetTable": "#__costbenefitprojection_service_provider","targetColumn": "id","displayColumn": "user"},{"sourceColumn": "causesrisks","targetTable": "#__costbenefitprojection_causerisk","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "datayear","targetTable": "#__costbenefitprojection_health_data","targetColumn": "year","displayColumn": "country"}]}';
 
-			// Insert the object into the content types table.
-			$companyInserted = $db->insertObject('#__content_types', $company);
+			// Set the object into the content types table.
+			$company_Inserted = $db->insertObject('#__content_types', $company);
 
 			// Create the service_provider content type object.
 			$service_provider = new stdClass();
@@ -921,8 +920,8 @@ class com_costbenefitprojectionInstallerScript
 			$service_provider->router = 'CostbenefitprojectionHelperRoute::getService_providerRoute';
 			$service_provider->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/service_provider.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","user","country"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "user","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "country","targetTable": "#__costbenefitprojection_country","targetColumn": "id","displayColumn": "name"}]}';
 
-			// Insert the object into the content types table.
-			$service_providerInserted = $db->insertObject('#__content_types', $service_provider);
+			// Set the object into the content types table.
+			$service_provider_Inserted = $db->insertObject('#__content_types', $service_provider);
 
 			// Create the country content type object.
 			$country = new stdClass();
@@ -933,8 +932,8 @@ class com_costbenefitprojectionInstallerScript
 			$country->router = 'CostbenefitprojectionHelperRoute::getCountryRoute';
 			$country->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/country.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","user","working_days"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "access","targetTable": "#__viewlevels","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "user","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "currency","targetTable": "#__costbenefitprojection_currency","targetColumn": "codethree","displayColumn": "name"},{"sourceColumn": "datayear","targetTable": "#__costbenefitprojection_health_data","targetColumn": "year","displayColumn": "country"},{"sourceColumn": "causesrisks","targetTable": "#__costbenefitprojection_causerisk","targetColumn": "id","displayColumn": "name"}]}';
 
-			// Insert the object into the content types table.
-			$countryInserted = $db->insertObject('#__content_types', $country);
+			// Set the object into the content types table.
+			$country_Inserted = $db->insertObject('#__content_types', $country);
 
 			// Create the causerisk content type object.
 			$causerisk = new stdClass();
@@ -945,8 +944,8 @@ class com_costbenefitprojectionInstallerScript
 			$causerisk->router = 'CostbenefitprojectionHelperRoute::getCauseriskRoute';
 			$causerisk->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/causerisk.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "access","targetTable": "#__viewlevels","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"}]}';
 
-			// Insert the object into the content types table.
-			$causeriskInserted = $db->insertObject('#__content_types', $causerisk);
+			// Set the object into the content types table.
+			$causerisk_Inserted = $db->insertObject('#__content_types', $causerisk);
 
 			// Create the health_data content type object.
 			$health_data = new stdClass();
@@ -957,8 +956,8 @@ class com_costbenefitprojectionInstallerScript
 			$health_data->router = 'CostbenefitprojectionHelperRoute::getHealth_dataRoute';
 			$health_data->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/health_data.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","causerisk","country"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "access","targetTable": "#__viewlevels","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "causerisk","targetTable": "#__costbenefitprojection_causerisk","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "country","targetTable": "#__costbenefitprojection_country","targetColumn": "id","displayColumn": "name"}]}';
 
-			// Insert the object into the content types table.
-			$health_dataInserted = $db->insertObject('#__content_types', $health_data);
+			// Set the object into the content types table.
+			$health_data_Inserted = $db->insertObject('#__content_types', $health_data);
 
 			// Create the scaling_factor content type object.
 			$scaling_factor = new stdClass();
@@ -969,8 +968,8 @@ class com_costbenefitprojectionInstallerScript
 			$scaling_factor->router = 'CostbenefitprojectionHelperRoute::getScaling_factorRoute';
 			$scaling_factor->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/scaling_factor.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","causerisk","company","country"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "causerisk","targetTable": "#__costbenefitprojection_causerisk","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "company","targetTable": "#__costbenefitprojection_company","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "country","targetTable": "#__costbenefitprojection_country","targetColumn": "id","displayColumn": "name"}]}';
 
-			// Insert the object into the content types table.
-			$scaling_factorInserted = $db->insertObject('#__content_types', $scaling_factor);
+			// Set the object into the content types table.
+			$scaling_factor_Inserted = $db->insertObject('#__content_types', $scaling_factor);
 
 			// Create the intervention content type object.
 			$intervention = new stdClass();
@@ -981,8 +980,8 @@ class com_costbenefitprojectionInstallerScript
 			$intervention->router = 'CostbenefitprojectionHelperRoute::getInterventionRoute';
 			$intervention->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/intervention.xml","hideFields": ["asset_id","checked_out","checked_out_time","version","not_required"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","company","type","coverage","duration","country","share","not_required"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "company","targetTable": "#__costbenefitprojection_company","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "country","targetTable": "#__costbenefitprojection_country","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "interventions","targetTable": "#__costbenefitprojection_intervention","targetColumn": "id","displayColumn": "name"}]}';
 
-			// Insert the object into the content types table.
-			$interventionInserted = $db->insertObject('#__content_types', $intervention);
+			// Set the object into the content types table.
+			$intervention_Inserted = $db->insertObject('#__content_types', $intervention);
 
 			// Create the currency content type object.
 			$currency = new stdClass();
@@ -993,8 +992,8 @@ class com_costbenefitprojectionInstallerScript
 			$currency->router = 'CostbenefitprojectionHelperRoute::getCurrencyRoute';
 			$currency->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/currency.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","numericcode","decimalplace"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "access","targetTable": "#__viewlevels","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"}]}';
 
-			// Insert the object into the content types table.
-			$currencyInserted = $db->insertObject('#__content_types', $currency);
+			// Set the object into the content types table.
+			$currency_Inserted = $db->insertObject('#__content_types', $currency);
 
 			// Create the help_document content type object.
 			$help_document = new stdClass();
@@ -1005,8 +1004,8 @@ class com_costbenefitprojectionInstallerScript
 			$help_document->router = 'CostbenefitprojectionHelperRoute::getHelp_documentRoute';
 			$help_document->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/help_document.xml","hideFields": ["asset_id","checked_out","checked_out_time","version","not_required"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","type","location","target","article","not_required"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "article","targetTable": "#__content","targetColumn": "id","displayColumn": "title"}]}';
 
-			// Insert the object into the content types table.
-			$help_documentInserted = $db->insertObject('#__content_types', $help_document);
+			// Set the object into the content types table.
+			$help_document_Inserted = $db->insertObject('#__content_types', $help_document);
 
 
 			// Install the global extenstion params.
@@ -1019,19 +1018,285 @@ class com_costbenefitprojectionInstallerScript
 
 			// Condition.
 			$conditions = array(
-				$db->quoteName('element') . ' = ' . $db->quote('com_costbenefitprojection')
+				$db->quoteName('element') . ' = ' . $db->quote('com_')
 			);
 
 			$query->update($db->quoteName('#__extensions'))->set($fields)->where($conditions);
 			$db->setQuery($query);
 			$allDone = $db->execute();
 			echo '<a target="_blank" href="http://www.vdm.io" title="Cost Benefit Projection">
-				<img src="components/com_costbenefitprojection/assets/images/component-300.png"/>
+				<img src="components/com_/assets/images/component-300.png"/>
 				</a>';
 		}
 		// do any updates needed
 		if ($type == 'update')
 		{
+
+			// Get The Database object
+			$db = JFactory::getDbo();
+
+			// Create the company content type object.
+			$company = new stdClass();
+			$company->type_title = 'Costbenefitprojection Company';
+			$company->type_alias = 'com_costbenefitprojection.company';
+			$company->table = '{"special": {"dbtable": "#__costbenefitprojection_company","key": "id","type": "Company","prefix": "costbenefitprojectionTable","config": "array()"},"common": {"dbtable": "#__ucm_content","key": "ucm_id","type": "Corecontent","prefix": "JTable","config": "array()"}}';
+			$company->field_mappings = '{"common": {"core_content_item_id": "id","core_title": "name","core_state": "published","core_alias": "null","core_created_time": "created","core_modified_time": "modified","core_body": "null","core_hits": "hits","core_publish_up": "null","core_publish_down": "null","core_access": "access","core_params": "params","core_featured": "null","core_metadata": "null","core_language": "null","core_images": "null","core_urls": "null","core_version": "version","core_ordering": "ordering","core_metakey": "null","core_metadesc": "null","core_catid": "null","core_xreference": "null","asset_id": "asset_id"},"special": {"name":"name","email":"email","user":"user","department":"department","country":"country","serviceprovider":"serviceprovider","per":"per","medical_turnovers_males":"medical_turnovers_males","sick_leave_males":"sick_leave_males","males":"males","causesrisks":"causesrisks","females":"females","datayear":"datayear","medical_turnovers_females":"medical_turnovers_females","working_days":"working_days","sick_leave_females":"sick_leave_females","total_salary":"total_salary","total_healthcare":"total_healthcare","productivity_losses":"productivity_losses","not_required":"not_required"}}';
+			$company->router = 'CostbenefitprojectionHelperRoute::getCompanyRoute';
+			$company->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/company.xml","hideFields": ["asset_id","checked_out","checked_out_time","version","not_required"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","user","department","country","serviceprovider","per","working_days","not_required"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "access","targetTable": "#__viewlevels","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "user","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "country","targetTable": "#__costbenefitprojection_country","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "serviceprovider","targetTable": "#__costbenefitprojection_service_provider","targetColumn": "id","displayColumn": "user"},{"sourceColumn": "causesrisks","targetTable": "#__costbenefitprojection_causerisk","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "datayear","targetTable": "#__costbenefitprojection_health_data","targetColumn": "year","displayColumn": "country"}]}';
+
+			// Check if company type is already in content_type DB.
+			$company_id = null;
+			$query = $db->getQuery(true);
+			$query->select($db->quoteName(array('type_id')));
+			$query->from($db->quoteName('#__content_types'));
+			$query->where($db->quoteName('type_alias') . ' LIKE '. $db->quote($company->type_alias));
+			$db->setQuery($query);
+			$db->execute();
+
+			// Set the object into the content types table.
+			if ($db->getNumRows())
+			{
+				$company->type_id = $db->loadResult();
+				$company_Updated = $db->updateObject('#__content_types', $company, 'type_id');
+			}
+			else
+			{
+				$company_Inserted = $db->insertObject('#__content_types', $company);
+			}
+
+			// Create the service_provider content type object.
+			$service_provider = new stdClass();
+			$service_provider->type_title = 'Costbenefitprojection Service_provider';
+			$service_provider->type_alias = 'com_costbenefitprojection.service_provider';
+			$service_provider->table = '{"special": {"dbtable": "#__costbenefitprojection_service_provider","key": "id","type": "Service_provider","prefix": "costbenefitprojectionTable","config": "array()"},"common": {"dbtable": "#__ucm_content","key": "ucm_id","type": "Corecontent","prefix": "JTable","config": "array()"}}';
+			$service_provider->field_mappings = '{"common": {"core_content_item_id": "id","core_title": "user","core_state": "published","core_alias": "null","core_created_time": "created","core_modified_time": "modified","core_body": "publicaddress","core_hits": "hits","core_publish_up": "null","core_publish_down": "null","core_access": "null","core_params": "params","core_featured": "null","core_metadata": "null","core_language": "null","core_images": "null","core_urls": "null","core_version": "version","core_ordering": "ordering","core_metakey": "null","core_metadesc": "null","core_catid": "null","core_xreference": "null","asset_id": "asset_id"},"special": {"user":"user","country":"country","publicname":"publicname","publicemail":"publicemail","publicnumber":"publicnumber","publicaddress":"publicaddress"}}';
+			$service_provider->router = 'CostbenefitprojectionHelperRoute::getService_providerRoute';
+			$service_provider->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/service_provider.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","user","country"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "user","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "country","targetTable": "#__costbenefitprojection_country","targetColumn": "id","displayColumn": "name"}]}';
+
+			// Check if service_provider type is already in content_type DB.
+			$service_provider_id = null;
+			$query = $db->getQuery(true);
+			$query->select($db->quoteName(array('type_id')));
+			$query->from($db->quoteName('#__content_types'));
+			$query->where($db->quoteName('type_alias') . ' LIKE '. $db->quote($service_provider->type_alias));
+			$db->setQuery($query);
+			$db->execute();
+
+			// Set the object into the content types table.
+			if ($db->getNumRows())
+			{
+				$service_provider->type_id = $db->loadResult();
+				$service_provider_Updated = $db->updateObject('#__content_types', $service_provider, 'type_id');
+			}
+			else
+			{
+				$service_provider_Inserted = $db->insertObject('#__content_types', $service_provider);
+			}
+
+			// Create the country content type object.
+			$country = new stdClass();
+			$country->type_title = 'Costbenefitprojection Country';
+			$country->type_alias = 'com_costbenefitprojection.country';
+			$country->table = '{"special": {"dbtable": "#__costbenefitprojection_country","key": "id","type": "Country","prefix": "costbenefitprojectionTable","config": "array()"},"common": {"dbtable": "#__ucm_content","key": "ucm_id","type": "Corecontent","prefix": "JTable","config": "array()"}}';
+			$country->field_mappings = '{"common": {"core_content_item_id": "id","core_title": "name","core_state": "published","core_alias": "alias","core_created_time": "created","core_modified_time": "modified","core_body": "publicaddress","core_hits": "hits","core_publish_up": "null","core_publish_down": "null","core_access": "access","core_params": "params","core_featured": "null","core_metadata": "null","core_language": "null","core_images": "null","core_urls": "null","core_version": "version","core_ordering": "ordering","core_metakey": "null","core_metadesc": "null","core_catid": "null","core_xreference": "null","asset_id": "asset_id"},"special": {"name":"name","user":"user","currency":"currency","codethree":"codethree","codetwo":"codetwo","working_days":"working_days","productivity_losses":"productivity_losses","datayear":"datayear","worldzone":"worldzone","publicaddress":"publicaddress","publicemail":"publicemail","alias":"alias","publicname":"publicname","publicnumber":"publicnumber","presenteeism":"presenteeism","medical_turnovers":"medical_turnovers","causesrisks":"causesrisks","sick_leave":"sick_leave","healthcare":"healthcare"}}';
+			$country->router = 'CostbenefitprojectionHelperRoute::getCountryRoute';
+			$country->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/country.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","user","working_days"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "access","targetTable": "#__viewlevels","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "user","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "currency","targetTable": "#__costbenefitprojection_currency","targetColumn": "codethree","displayColumn": "name"},{"sourceColumn": "datayear","targetTable": "#__costbenefitprojection_health_data","targetColumn": "year","displayColumn": "country"},{"sourceColumn": "causesrisks","targetTable": "#__costbenefitprojection_causerisk","targetColumn": "id","displayColumn": "name"}]}';
+
+			// Check if country type is already in content_type DB.
+			$country_id = null;
+			$query = $db->getQuery(true);
+			$query->select($db->quoteName(array('type_id')));
+			$query->from($db->quoteName('#__content_types'));
+			$query->where($db->quoteName('type_alias') . ' LIKE '. $db->quote($country->type_alias));
+			$db->setQuery($query);
+			$db->execute();
+
+			// Set the object into the content types table.
+			if ($db->getNumRows())
+			{
+				$country->type_id = $db->loadResult();
+				$country_Updated = $db->updateObject('#__content_types', $country, 'type_id');
+			}
+			else
+			{
+				$country_Inserted = $db->insertObject('#__content_types', $country);
+			}
+
+			// Create the causerisk content type object.
+			$causerisk = new stdClass();
+			$causerisk->type_title = 'Costbenefitprojection Causerisk';
+			$causerisk->type_alias = 'com_costbenefitprojection.causerisk';
+			$causerisk->table = '{"special": {"dbtable": "#__costbenefitprojection_causerisk","key": "id","type": "Causerisk","prefix": "costbenefitprojectionTable","config": "array()"},"common": {"dbtable": "#__ucm_content","key": "ucm_id","type": "Corecontent","prefix": "JTable","config": "array()"}}';
+			$causerisk->field_mappings = '{"common": {"core_content_item_id": "id","core_title": "name","core_state": "published","core_alias": "alias","core_created_time": "created","core_modified_time": "modified","core_body": "null","core_hits": "hits","core_publish_up": "null","core_publish_down": "null","core_access": "access","core_params": "params","core_featured": "null","core_metadata": "null","core_language": "null","core_images": "null","core_urls": "null","core_version": "version","core_ordering": "ordering","core_metakey": "null","core_metadesc": "null","core_catid": "null","core_xreference": "null","asset_id": "asset_id"},"special": {"name":"name","ref":"ref","importname":"importname","description":"description","alias":"alias"}}';
+			$causerisk->router = 'CostbenefitprojectionHelperRoute::getCauseriskRoute';
+			$causerisk->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/causerisk.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "access","targetTable": "#__viewlevels","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"}]}';
+
+			// Check if causerisk type is already in content_type DB.
+			$causerisk_id = null;
+			$query = $db->getQuery(true);
+			$query->select($db->quoteName(array('type_id')));
+			$query->from($db->quoteName('#__content_types'));
+			$query->where($db->quoteName('type_alias') . ' LIKE '. $db->quote($causerisk->type_alias));
+			$db->setQuery($query);
+			$db->execute();
+
+			// Set the object into the content types table.
+			if ($db->getNumRows())
+			{
+				$causerisk->type_id = $db->loadResult();
+				$causerisk_Updated = $db->updateObject('#__content_types', $causerisk, 'type_id');
+			}
+			else
+			{
+				$causerisk_Inserted = $db->insertObject('#__content_types', $causerisk);
+			}
+
+			// Create the health_data content type object.
+			$health_data = new stdClass();
+			$health_data->type_title = 'Costbenefitprojection Health_data';
+			$health_data->type_alias = 'com_costbenefitprojection.health_data';
+			$health_data->table = '{"special": {"dbtable": "#__costbenefitprojection_health_data","key": "id","type": "Health_data","prefix": "costbenefitprojectionTable","config": "array()"},"common": {"dbtable": "#__ucm_content","key": "ucm_id","type": "Corecontent","prefix": "JTable","config": "array()"}}';
+			$health_data->field_mappings = '{"common": {"core_content_item_id": "id","core_title": "causerisk","core_state": "published","core_alias": "null","core_created_time": "created","core_modified_time": "modified","core_body": "null","core_hits": "hits","core_publish_up": "null","core_publish_down": "null","core_access": "access","core_params": "params","core_featured": "null","core_metadata": "null","core_language": "null","core_images": "null","core_urls": "null","core_version": "version","core_ordering": "ordering","core_metakey": "null","core_metadesc": "null","core_catid": "null","core_xreference": "null","asset_id": "asset_id"},"special": {"causerisk":"causerisk","year":"year","country":"country"}}';
+			$health_data->router = 'CostbenefitprojectionHelperRoute::getHealth_dataRoute';
+			$health_data->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/health_data.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","causerisk","country"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "access","targetTable": "#__viewlevels","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "causerisk","targetTable": "#__costbenefitprojection_causerisk","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "country","targetTable": "#__costbenefitprojection_country","targetColumn": "id","displayColumn": "name"}]}';
+
+			// Check if health_data type is already in content_type DB.
+			$health_data_id = null;
+			$query = $db->getQuery(true);
+			$query->select($db->quoteName(array('type_id')));
+			$query->from($db->quoteName('#__content_types'));
+			$query->where($db->quoteName('type_alias') . ' LIKE '. $db->quote($health_data->type_alias));
+			$db->setQuery($query);
+			$db->execute();
+
+			// Set the object into the content types table.
+			if ($db->getNumRows())
+			{
+				$health_data->type_id = $db->loadResult();
+				$health_data_Updated = $db->updateObject('#__content_types', $health_data, 'type_id');
+			}
+			else
+			{
+				$health_data_Inserted = $db->insertObject('#__content_types', $health_data);
+			}
+
+			// Create the scaling_factor content type object.
+			$scaling_factor = new stdClass();
+			$scaling_factor->type_title = 'Costbenefitprojection Scaling_factor';
+			$scaling_factor->type_alias = 'com_costbenefitprojection.scaling_factor';
+			$scaling_factor->table = '{"special": {"dbtable": "#__costbenefitprojection_scaling_factor","key": "id","type": "Scaling_factor","prefix": "costbenefitprojectionTable","config": "array()"},"common": {"dbtable": "#__ucm_content","key": "ucm_id","type": "Corecontent","prefix": "JTable","config": "array()"}}';
+			$scaling_factor->field_mappings = '{"common": {"core_content_item_id": "id","core_title": "causerisk","core_state": "published","core_alias": "null","core_created_time": "created","core_modified_time": "modified","core_body": "null","core_hits": "hits","core_publish_up": "null","core_publish_down": "null","core_access": "null","core_params": "params","core_featured": "null","core_metadata": "null","core_language": "null","core_images": "null","core_urls": "null","core_version": "version","core_ordering": "ordering","core_metakey": "null","core_metadesc": "null","core_catid": "null","core_xreference": "null","asset_id": "asset_id"},"special": {"causerisk":"causerisk","company":"company","yld_scaling_factor_males":"yld_scaling_factor_males","yld_scaling_factor_females":"yld_scaling_factor_females","mortality_scaling_factor_males":"mortality_scaling_factor_males","mortality_scaling_factor_females":"mortality_scaling_factor_females","presenteeism_scaling_factor_males":"presenteeism_scaling_factor_males","presenteeism_scaling_factor_females":"presenteeism_scaling_factor_females","reference":"reference","country":"country","health_scaling_factor":"health_scaling_factor"}}';
+			$scaling_factor->router = 'CostbenefitprojectionHelperRoute::getScaling_factorRoute';
+			$scaling_factor->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/scaling_factor.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","causerisk","company","country"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "causerisk","targetTable": "#__costbenefitprojection_causerisk","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "company","targetTable": "#__costbenefitprojection_company","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "country","targetTable": "#__costbenefitprojection_country","targetColumn": "id","displayColumn": "name"}]}';
+
+			// Check if scaling_factor type is already in content_type DB.
+			$scaling_factor_id = null;
+			$query = $db->getQuery(true);
+			$query->select($db->quoteName(array('type_id')));
+			$query->from($db->quoteName('#__content_types'));
+			$query->where($db->quoteName('type_alias') . ' LIKE '. $db->quote($scaling_factor->type_alias));
+			$db->setQuery($query);
+			$db->execute();
+
+			// Set the object into the content types table.
+			if ($db->getNumRows())
+			{
+				$scaling_factor->type_id = $db->loadResult();
+				$scaling_factor_Updated = $db->updateObject('#__content_types', $scaling_factor, 'type_id');
+			}
+			else
+			{
+				$scaling_factor_Inserted = $db->insertObject('#__content_types', $scaling_factor);
+			}
+
+			// Create the intervention content type object.
+			$intervention = new stdClass();
+			$intervention->type_title = 'Costbenefitprojection Intervention';
+			$intervention->type_alias = 'com_costbenefitprojection.intervention';
+			$intervention->table = '{"special": {"dbtable": "#__costbenefitprojection_intervention","key": "id","type": "Intervention","prefix": "costbenefitprojectionTable","config": "array()"},"common": {"dbtable": "#__ucm_content","key": "ucm_id","type": "Corecontent","prefix": "JTable","config": "array()"}}';
+			$intervention->field_mappings = '{"common": {"core_content_item_id": "id","core_title": "name","core_state": "published","core_alias": "null","core_created_time": "created","core_modified_time": "modified","core_body": "null","core_hits": "hits","core_publish_up": "null","core_publish_down": "null","core_access": "null","core_params": "params","core_featured": "null","core_metadata": "null","core_language": "null","core_images": "null","core_urls": "null","core_version": "version","core_ordering": "ordering","core_metakey": "null","core_metadesc": "null","core_catid": "null","core_xreference": "null","asset_id": "asset_id"},"special": {"name":"name","company":"company","type":"type","coverage":"coverage","duration":"duration","description":"description","country":"country","share":"share","interventions":"interventions","reference":"reference","not_required":"not_required"}}';
+			$intervention->router = 'CostbenefitprojectionHelperRoute::getInterventionRoute';
+			$intervention->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/intervention.xml","hideFields": ["asset_id","checked_out","checked_out_time","version","not_required"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","company","type","coverage","duration","country","share","not_required"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "company","targetTable": "#__costbenefitprojection_company","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "country","targetTable": "#__costbenefitprojection_country","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "interventions","targetTable": "#__costbenefitprojection_intervention","targetColumn": "id","displayColumn": "name"}]}';
+
+			// Check if intervention type is already in content_type DB.
+			$intervention_id = null;
+			$query = $db->getQuery(true);
+			$query->select($db->quoteName(array('type_id')));
+			$query->from($db->quoteName('#__content_types'));
+			$query->where($db->quoteName('type_alias') . ' LIKE '. $db->quote($intervention->type_alias));
+			$db->setQuery($query);
+			$db->execute();
+
+			// Set the object into the content types table.
+			if ($db->getNumRows())
+			{
+				$intervention->type_id = $db->loadResult();
+				$intervention_Updated = $db->updateObject('#__content_types', $intervention, 'type_id');
+			}
+			else
+			{
+				$intervention_Inserted = $db->insertObject('#__content_types', $intervention);
+			}
+
+			// Create the currency content type object.
+			$currency = new stdClass();
+			$currency->type_title = 'Costbenefitprojection Currency';
+			$currency->type_alias = 'com_costbenefitprojection.currency';
+			$currency->table = '{"special": {"dbtable": "#__costbenefitprojection_currency","key": "id","type": "Currency","prefix": "costbenefitprojectionTable","config": "array()"},"common": {"dbtable": "#__ucm_content","key": "ucm_id","type": "Corecontent","prefix": "JTable","config": "array()"}}';
+			$currency->field_mappings = '{"common": {"core_content_item_id": "id","core_title": "name","core_state": "published","core_alias": "alias","core_created_time": "created","core_modified_time": "modified","core_body": "null","core_hits": "hits","core_publish_up": "null","core_publish_down": "null","core_access": "access","core_params": "params","core_featured": "null","core_metadata": "null","core_language": "null","core_images": "null","core_urls": "null","core_version": "version","core_ordering": "ordering","core_metakey": "null","core_metadesc": "null","core_catid": "null","core_xreference": "null","asset_id": "asset_id"},"special": {"name":"name","codethree":"codethree","numericcode":"numericcode","symbol":"symbol","alias":"alias","positivestyle":"positivestyle","thousands":"thousands","decimalsymbol":"decimalsymbol","decimalplace":"decimalplace","negativestyle":"negativestyle"}}';
+			$currency->router = 'CostbenefitprojectionHelperRoute::getCurrencyRoute';
+			$currency->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/currency.xml","hideFields": ["asset_id","checked_out","checked_out_time","version"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","numericcode","decimalplace"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "access","targetTable": "#__viewlevels","targetColumn": "id","displayColumn": "title"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"}]}';
+
+			// Check if currency type is already in content_type DB.
+			$currency_id = null;
+			$query = $db->getQuery(true);
+			$query->select($db->quoteName(array('type_id')));
+			$query->from($db->quoteName('#__content_types'));
+			$query->where($db->quoteName('type_alias') . ' LIKE '. $db->quote($currency->type_alias));
+			$db->setQuery($query);
+			$db->execute();
+
+			// Set the object into the content types table.
+			if ($db->getNumRows())
+			{
+				$currency->type_id = $db->loadResult();
+				$currency_Updated = $db->updateObject('#__content_types', $currency, 'type_id');
+			}
+			else
+			{
+				$currency_Inserted = $db->insertObject('#__content_types', $currency);
+			}
+
+			// Create the help_document content type object.
+			$help_document = new stdClass();
+			$help_document->type_title = 'Costbenefitprojection Help_document';
+			$help_document->type_alias = 'com_costbenefitprojection.help_document';
+			$help_document->table = '{"special": {"dbtable": "#__costbenefitprojection_help_document","key": "id","type": "Help_document","prefix": "costbenefitprojectionTable","config": "array()"},"common": {"dbtable": "#__ucm_content","key": "ucm_id","type": "Corecontent","prefix": "JTable","config": "array()"}}';
+			$help_document->field_mappings = '{"common": {"core_content_item_id": "id","core_title": "title","core_state": "published","core_alias": "alias","core_created_time": "created","core_modified_time": "modified","core_body": "content","core_hits": "hits","core_publish_up": "null","core_publish_down": "null","core_access": "null","core_params": "params","core_featured": "null","core_metadata": "null","core_language": "null","core_images": "null","core_urls": "null","core_version": "version","core_ordering": "ordering","core_metakey": "null","core_metadesc": "null","core_catid": "null","core_xreference": "null","asset_id": "asset_id"},"special": {"title":"title","type":"type","groups":"groups","location":"location","admin_view":"admin_view","site_view":"site_view","target":"target","content":"content","alias":"alias","article":"article","url":"url","not_required":"not_required"}}';
+			$help_document->router = 'CostbenefitprojectionHelperRoute::getHelp_documentRoute';
+			$help_document->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/help_document.xml","hideFields": ["asset_id","checked_out","checked_out_time","version","not_required"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","type","location","target","article","not_required"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "article","targetTable": "#__content","targetColumn": "id","displayColumn": "title"}]}';
+
+			// Check if help_document type is already in content_type DB.
+			$help_document_id = null;
+			$query = $db->getQuery(true);
+			$query->select($db->quoteName(array('type_id')));
+			$query->from($db->quoteName('#__content_types'));
+			$query->where($db->quoteName('type_alias') . ' LIKE '. $db->quote($help_document->type_alias));
+			$db->setQuery($query);
+			$db->execute();
+
+			// Set the object into the content types table.
+			if ($db->getNumRows())
+			{
+				$help_document->type_id = $db->loadResult();
+				$help_document_Updated = $db->updateObject('#__content_types', $help_document, 'type_id');
+			}
+			else
+			{
+				$help_document_Inserted = $db->insertObject('#__content_types', $help_document);
+			}
+
+
 			echo '<a target="_blank" href="http://www.vdm.io" title="Cost Benefit Projection">
 				<img src="components/com_costbenefitprojection/assets/images/component-300.png"/>
 				</a>

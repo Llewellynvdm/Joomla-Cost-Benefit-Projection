@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			31st January, 2016
+	@build			14th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
@@ -43,7 +43,7 @@ else
 <div id="main_costbenefitprojection" style="display:none;">
 <div class="uk-alert uk-width-1-2"><h4><i class="uk-icon-gears"></i> <?php echo JText::_('COM_COSTBENEFITPROJECTION_COMBINED_RESULTS_OF'); ?> (<?php echo $this->names; ?>)</h4></div>
     <!-- SCALE SWITCH -->
-     <div class="uk-clearfix"><div class="uk-float-right"><button class="uk-button switch" type="button" onclick="controlSwitch()"><i class="switch-icon uk-icon-toggle-off"></i> <span class="switch-text"><?php echo JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTORS'); ?></span></button></div></div>
+     <div class="uk-clearfix"><div class="uk-float-right"><button class="uk-button switch footabletab" type="button" onclick="controlSwitch()"><i class="switch-icon uk-icon-toggle-off"></i> <span class="switch-text"><?php echo JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTORS'); ?></span></button></div></div>
     <div class="main clearfix">
 	<ul data-uk-switcher="{connect:'#results'}" class="uk-subnav uk-subnav-pill">
 		<li class="<?php echo $savings; ?>uk-text-small"><a href="#"> <?php echo JText::_('COM_COSTBENEFITPROJECTION_ANNUAL_SAVINGS'); ?></a></li>
@@ -68,10 +68,10 @@ else
 			<ul class="uk-switcher uk-margin" id="table-chart">
 				<li class="">
 					<ul id="table-switch" data-uk-tab="{connect:'#tables'}" class="uk-tab">
-						<li class="uk-text-small"><a href="#"><?php echo JText::_('COM_COSTBENEFITPROJECTION_WORK_DAYS_LOST_SUMMARY'); ?></a></li>
-						<li class="uk-text-small"><a href="#"><?php echo JText::_('COM_COSTBENEFITPROJECTION_COST_SUMMARY'); ?></a></li>
-						<li class="uk-active uk-text-small"><a href="#"><?php echo JText::_('COM_COSTBENEFITPROJECTION_CALCULATED_COSTS_IN_DETAIL'); ?></a></li>
-						<li class="uk-text-small"><a href="#"><?php echo JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_NET_BENEFIT'); ?></a></li>
+						<li class="uk-text-small footabletab"><a href="#"><?php echo JText::_('COM_COSTBENEFITPROJECTION_WORK_DAYS_LOST_SUMMARY'); ?></a></li>
+						<li class="uk-text-small footabletab"><a href="#"><?php echo JText::_('COM_COSTBENEFITPROJECTION_COST_SUMMARY'); ?></a></li>
+						<li class="uk-active uk-text-small footabletab"><a href="#"><?php echo JText::_('COM_COSTBENEFITPROJECTION_CALCULATED_COSTS_IN_DETAIL'); ?></a></li>
+						<li class="uk-text-small footabletab"><a href="#"><?php echo JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_NET_BENEFIT'); ?></a></li>
 					</ul>
 					<ul id="tables" class="uk-switcher uk-margin">
 						<li class="">
@@ -148,6 +148,15 @@ jQuery('[data-uk-switcher]').on('uk.switcher.show', function(event, area){
 jQuery('[data-uk-tab]').on('uk.switcher.show', function(event, area){
 	jQuery('li.uk-active .footable').trigger('footable_resize');
 });
+// foo table trigger on click
+jQuery('.footabletab').click(function(e){
+	 // use setTimeout() to execute
+	setTimeout( resizeFooTable, 200);
+});
+// funtion to resize the foo table 
+function resizeFooTable() {     
+	jQuery('.footable').trigger('footable_resize');
+}
 jQuery(function () {
     jQuery('table.data').footable().bind('footable_filtering', function(e){
       var selected = jQuery(this).prev('p').find('.filter-status').find(':selected').text();

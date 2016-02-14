@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			31st January, 2016
+	@build			14th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		router.php
@@ -76,11 +76,11 @@ class CostbenefitprojectionRouter extends JComponentRouterBase
 			return $segments;
 		}
 
-		if (isset($view) && isset($query['id']) && ($view == 'cpanel' || $view == 'publicresults' || $view == 'createaccount' || $view == 'companyresults' || $view == 'combinedresults'))
+		if (isset($view) && isset($query['id']) && ($view == 'company' || $view == 'scaling_factor' || $view == 'intervention' || $view == 'cpanel' || $view == 'publicresults' || $view == 'createaccount' || $view == 'companyresults' || $view == 'combinedresults'))
 		{
 			if ($mId != (int) $query['id'] || $mView != $view)
 			{
-				if (($view == 'cpanel' || $view == 'publicresults' || $view == 'createaccount' || $view == 'companyresults' || $view == 'combinedresults'))
+				if (($view == 'company' || $view == 'scaling_factor' || $view == 'intervention' || $view == 'cpanel' || $view == 'publicresults' || $view == 'createaccount' || $view == 'companyresults' || $view == 'combinedresults'))
 				{
 					$segments[] = $view;
 					$id = explode(':', $query['id']);
@@ -131,6 +131,51 @@ class CostbenefitprojectionRouter extends JComponentRouterBase
 		//Handle View and Identifier
 		switch($segments[0])
 		{
+			case 'company':
+				$vars['view'] = 'company';
+				if (is_numeric($segments[$count-1]))
+				{
+					$vars['id'] = (int) $segments[$count-1];
+				}
+				else
+				{
+					$id = $this->getVar('company', $segments[$count-1], 'alias', 'id');
+					if($id)
+					{
+						$vars['id'] = $id;
+					}
+				}
+				break;
+			case 'scaling_factor':
+				$vars['view'] = 'scaling_factor';
+				if (is_numeric($segments[$count-1]))
+				{
+					$vars['id'] = (int) $segments[$count-1];
+				}
+				else
+				{
+					$id = $this->getVar('scaling_factor', $segments[$count-1], 'alias', 'id');
+					if($id)
+					{
+						$vars['id'] = $id;
+					}
+				}
+				break;
+			case 'intervention':
+				$vars['view'] = 'intervention';
+				if (is_numeric($segments[$count-1]))
+				{
+					$vars['id'] = (int) $segments[$count-1];
+				}
+				else
+				{
+					$id = $this->getVar('intervention', $segments[$count-1], 'alias', 'id');
+					if($id)
+					{
+						$vars['id'] = $id;
+					}
+				}
+				break;
 			case 'cpanel':
 				$vars['view'] = 'cpanel';
 				if (is_numeric($segments[$count-1]))

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			31st January, 2016
+	@build			14th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -59,6 +59,7 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 		</div>
 	<?php echo JHtml::_('bootstrap.endTab'); ?>
 
+	<?php if ($this->canDo->get('intervention.delete') || $this->canDo->get('core.edit.created_by') || $this->canDo->get('intervention.edit.state') || $this->canDo->get('core.edit.created')) : ?>
 	<?php echo JHtml::_('bootstrap.addTab', 'interventionTab', 'publishing', JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_PUBLISHING', true)); ?>
 		<div class="row-fluid form-horizontal-desktop">
 			<div class="span6">
@@ -69,6 +70,7 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 			</div>
 		</div>
 	<?php echo JHtml::_('bootstrap.endTab'); ?>
+	<?php endif; ?>
 
 	<?php if ($this->canDo->get('core.admin')) : ?>
 	<?php echo JHtml::_('bootstrap.addTab', 'interventionTab', 'permissions', JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_PERMISSION', true)); ?>
@@ -103,48 +105,48 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_type listeners for type_oSAonkb function
+// #jform_type listeners for type_mHPeTPU function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_oSAonkb = jQuery("#jform_type input[type='radio']:checked").val();
-	oSAonkb(type_oSAonkb);
+	var type_mHPeTPU = jQuery("#jform_type input[type='radio']:checked").val();
+	mHPeTPU(type_mHPeTPU);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_oSAonkb = jQuery("#jform_type input[type='radio']:checked").val();
-	oSAonkb(type_oSAonkb);
+	var type_mHPeTPU = jQuery("#jform_type input[type='radio']:checked").val();
+	mHPeTPU(type_mHPeTPU);
 
 });
 
-// #jform_type listeners for type_osTQPbV function
+// #jform_type listeners for type_iOljoGp function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_osTQPbV = jQuery("#jform_type input[type='radio']:checked").val();
-	osTQPbV(type_osTQPbV);
+	var type_iOljoGp = jQuery("#jform_type input[type='radio']:checked").val();
+	iOljoGp(type_iOljoGp);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_osTQPbV = jQuery("#jform_type input[type='radio']:checked").val();
-	osTQPbV(type_osTQPbV);
+	var type_iOljoGp = jQuery("#jform_type input[type='radio']:checked").val();
+	iOljoGp(type_iOljoGp);
 
 });
 
-// #jform_company listeners for company_XkMHBjZ function
+// #jform_company listeners for company_imgMwkf function
 jQuery('#jform_company').on('keyup',function()
 {
-	var company_XkMHBjZ = jQuery("#jform_company").val();
-	XkMHBjZ(company_XkMHBjZ);
+	var company_imgMwkf = jQuery("#jform_company").val();
+	imgMwkf(company_imgMwkf);
 
 });
 jQuery('#adminForm').on('change', '#jform_company',function (e)
 {
 	e.preventDefault();
-	var company_XkMHBjZ = jQuery("#jform_company").val();
-	XkMHBjZ(company_XkMHBjZ);
+	var company_imgMwkf = jQuery("#jform_company").val();
+	imgMwkf(company_imgMwkf);
 
 });
 

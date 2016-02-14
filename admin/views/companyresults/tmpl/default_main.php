@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			31st January, 2016
+	@build			14th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_main.php
@@ -48,7 +48,7 @@ defined('_JEXEC') or die('Restricted access');
 					<?php foreach ($this->table_tabs as $item): ?>
                         <div class="dashboard-wraper">
                            <div class="dashboard-content"> 
-                                <a onclick="loadViews('<?php echo $item['view']; ?>')" class="icon CTsubmenu" href="javascript:void(0)">
+                                <a onclick="loadViews('<?php echo $item['view']; ?>')" class="icon CTsubmenu  footabletab" href="javascript:void(0)">
                                     <img alt="<?php echo $item['name']; ?>" src="<?php echo JURI::root().$item['img']; ?>">
                                     <span class="dashboard-title"><?php echo $item['name']; ?></span>
                                 </a>

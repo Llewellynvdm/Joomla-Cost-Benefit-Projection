@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			31st January, 2016
+	@build			14th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
@@ -60,7 +60,7 @@ JHtml::_('behavior.keepalive');
     <!-- SCALE SWITCH -->
     <div class="switchbox" >
         <div class="control_switch_sf" >
-            <div class="switch" onclick="controlSwitch()" >
+            <div class="switch footabletab" onclick="controlSwitch()" >
                 <span class="thumb"></span>
                 <input type="checkbox" />
             </div>
@@ -151,7 +151,7 @@ JHtml::_('behavior.keepalive');
                 <ul class="uk-nav-sub">
                      <?php foreach ($this->table_tabs as &$item): ?>
                     <li>
-                        <a onclick="loadViews('<?php echo $item['view']; ?>')" class="icon CTsubmenu" href="javascript:void(0)">
+                        <a onclick="loadViews('<?php echo $item['view']; ?>')" class="icon CTsubmenu footabletab" href="javascript:void(0)">
                             <?php echo $item['name']; ?>
                         </a>
                     </li>
@@ -177,6 +177,15 @@ jQuery(window).load(function() {
 		});
 	});
 });
+// foo table trigger on click
+jQuery('.footabletab').click(function(e){
+	 // use setTimeout() to execute
+	setTimeout( resizeFooTable, 200);
+});
+// funtion to resize the foo table 
+function resizeFooTable() {     
+	jQuery('.footable').trigger('footable_resize');
+}
 jQuery(function () {
     jQuery('table.data').footable().bind('footable_filtering', function(e){
       var selected = jQuery(this).prev('p').find('.filter-status').find(':selected').text();

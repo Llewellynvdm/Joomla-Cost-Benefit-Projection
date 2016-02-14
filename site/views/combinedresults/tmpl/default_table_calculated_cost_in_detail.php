@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			31st January, 2016
+	@build			14th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_table_calculated_cost_in_detail.php
@@ -29,13 +29,14 @@ $scaled = array('unscaled','scaled');
 <?php echo JText::_('COM_COSTBENEFITPROJECTION_COSTS_DUE_TO_PRESENTEEISM_LOST_PRODUCTIVITY_DUE_TO_SICKNESSBRDISEASE_COSTS_DUE_TO_PRESENTEEISM'); ?>
 <?php if (isset($this->results->items) && CostbenefitprojectionHelper::checkObject($this->results->items)) : ?>
 	<?php foreach ($scaled as $scale): ?>
-		<table id="theTableCCID_<?php echo $scale; ?>" class="table data metro-blue <?php echo $scale; ?>" style="display: <?php echo ($scale == 'unscaled') ? 'table' : 'none'; ?>;" data-page-size="50">
+		<table id="theTableCCID_<?php echo $scale; ?>" class="footable table data metro-blue <?php echo $scale; ?>" style="display: <?php echo ($scale == 'unscaled') ? 'table' : 'none'; ?>;" data-page-size="50">
 			<thead>        
 				<tr >
 					<th data-toggle="true"><?php echo JText::_('COM_COSTBENEFITPROJECTION_DISEASERISK_FACTOR'); ?></th>
-					<th width="20%"><?php echo JText::_('COM_COSTBENEFITPROJECTION_COSTS_MALE_EMPLOYEES'); ?></th>
-					<th width="20%"><?php echo JText::_('COM_COSTBENEFITPROJECTION_COSTS_FEMALE_EMPLOYEES'); ?></th>
+					<th width="20%" data-hide="phone"><?php echo JText::_('COM_COSTBENEFITPROJECTION_COSTS_MALE_EMPLOYEES'); ?></th>
+					<th width="20%" data-hide="phone"><?php echo JText::_('COM_COSTBENEFITPROJECTION_COSTS_FEMALE_EMPLOYEES'); ?></th>
 					<th width="25%"><?php echo JText::_('COM_COSTBENEFITPROJECTION_TOTAL_COSTS'); ?></th>
+					<th data-hide="all"><?php echo JText::_('COM_COSTBENEFITPROJECTION_DATA'); ?></th>
 				</tr>        
 			</thead>                                    
 			<tbody>
@@ -45,6 +46,7 @@ $scaled = array('unscaled','scaled');
 					<td data-value='<?php echo $item->{'male_cost_'.$scale}; ?>' ><?php echo $item->{'male_costmoney_'.$scale}; ?></td>
 					<td data-value='<?php echo $item->{'female_cost_'.$scale}; ?>' ><?php echo $item->{'female_costmoney_'.$scale}; ?></td>
 					<td data-value='<?php echo $item->{'subtotal_cost_'.$scale}; ?>' ><?php echo $item->{'subtotal_costmoney_'.$scale}; ?></td>
+					<td data-value='0' ><?php $item->_tmpType = 'cost'; $item->_tmpScale = $scale; echo JLayoutHelper::render('databreakdownmalefemale', $item); ?></td>
 				</tr>
 			<?php endforeach; ?>
 			</tbody>
@@ -54,6 +56,7 @@ $scaled = array('unscaled','scaled');
 					<td><?php echo $this->results->totals->{'males_costmoney_'.$scale}; ?></td>
 					<td><?php echo $this->results->totals->{'females_costmoney_'.$scale}; ?></td>
 					<td><?php echo $this->results->totals->{'total_costmoney_'.$scale}; ?></td>
+					<td>&nbsp;&nbsp;</td>
 				</tr>
 			</tfoot>                                
 		</table>

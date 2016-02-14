@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			31st January, 2016
+	@build			14th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -1187,7 +1187,7 @@ abstract class CostbenefitprojectionHelper
 		foreach ($actions as $action)
                 {
 			// set to use component default
-			$allow = true;
+			$fallback = true;
 			if (self::checkObject($record) && isset($record->id) && $record->id > 0 && !in_array($action->name,$componentActions))
 			{
 				// The record has been set. Check the record permissions.
@@ -1203,13 +1203,13 @@ abstract class CostbenefitprojectionHelper
 							{
 								$result->set($action->name, true);
 								// set not to use component default
-								$allow = false;
+								$fallback = false;
 							}
 							else
 							{
 								$result->set($action->name, false);
 								// set not to use component default
-								$allow = false;
+								$fallback = false;
 							}
 						}
 						elseif ($user->authorise($view.'edit.own', 'com_costbenefitprojection.'.$view.'.' . (int) $record->id))
@@ -1219,13 +1219,13 @@ abstract class CostbenefitprojectionHelper
 							{
 								$result->set($action->name, true);
 								// set not to use component default
-								$allow = false;
+								$fallback = false;
 							}
 							else
 							{
 								$result->set($action->name, false);
 								// set not to use component default
-								$allow = false;
+								$fallback = false;
 							}
 						}
 						elseif ($user->authorise('core.edit.own', 'com_costbenefitprojection'))
@@ -1235,13 +1235,13 @@ abstract class CostbenefitprojectionHelper
 							{
 								$result->set($action->name, true);
 								// set not to use component default
-								$allow = false;
+								$fallback = false;
 							}
 							else
 							{
 								$result->set($action->name, false);
 								// set not to use component default
-								$allow = false;
+								$fallback = false;
 							}
 						}
 						elseif ($user->authorise($view.'edit.own', 'com_costbenefitprojection'))
@@ -1251,13 +1251,13 @@ abstract class CostbenefitprojectionHelper
 							{
 								$result->set($action->name, true);
 								// set not to use component default
-								$allow = false;
+								$fallback = false;
 							}
 							else
 							{
 								$result->set($action->name, false);
 								// set not to use component default
-								$allow = false;
+								$fallback = false;
 							}
 						}
 					}
@@ -1287,13 +1287,13 @@ abstract class CostbenefitprojectionHelper
 								{
 									$result->set($action->name, true);
 									// set not to use component default
-									$allow = false;
+									$fallback = false;
 								}
 								else
 								{
 									$result->set($action->name, false);
 									// set not to use component default
-									$allow = false;
+									$fallback = false;
 								}
 							}
 							elseif ($user->authorise($view.'edit.own', 'com_costbenefitprojection.'.$views.'.category.' . (int) $record->catid))
@@ -1303,13 +1303,13 @@ abstract class CostbenefitprojectionHelper
 								{
 									$result->set($action->name, true);
 									// set not to use component default
-									$allow = false;
+									$fallback = false;
 								}
 								else
 								{
 									$result->set($action->name, false);
 									// set not to use component default
-									$allow = false;
+									$fallback = false;
 								}
 							}
 							elseif ($user->authorise('core.edit.own', 'com_costbenefitprojection'))
@@ -1319,13 +1319,13 @@ abstract class CostbenefitprojectionHelper
 								{
 									$result->set($action->name, true);
 									// set not to use component default
-									$allow = false;
+									$fallback = false;
 								}
 								else
 								{
 									$result->set($action->name, false);
 									// set not to use component default
-									$allow = false;
+									$fallback = false;
 								}
 							}
 							elseif ($user->authorise($view.'edit.own', 'com_costbenefitprojection'))
@@ -1335,21 +1335,21 @@ abstract class CostbenefitprojectionHelper
 								{
 									$result->set($action->name, true);
 									// set not to use component default
-									$allow = false;
+									$fallback = false;
 								}
 								else
 								{
 									$result->set($action->name, false);
 									// set not to use component default
-									$allow = false;
+									$fallback = false;
 								}
 							}
 						}
 					}
 				}
 			}
-			// if allowed then fall back on component global settings
-			if ($allow)
+			// if allowed then fallback on component global settings
+			if ($fallback)
 			{
 				$result->set($action->name, $user->authorise($action->name, 'com_costbenefitprojection'));
 			}

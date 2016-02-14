@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			31st January, 2016
+	@build			14th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
@@ -41,6 +41,7 @@ else
     </div>
 </div>
 <div id="main_costbenefitprojection" style="display:none;">
+	<?php echo $this->loadTemplate('cbpmenumodule'); ?>
 	<div class="uk-grid">
 		<div class="uk-width-medium-1-1">
 			<ul class="uk-tab uk-tab-grid uk-animation-slide-top" data-uk-tab="{connect:'#tab-public'}" >

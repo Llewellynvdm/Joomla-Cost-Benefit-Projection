@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			31st January, 2016
+	@build			14th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -42,6 +42,7 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 		</div>
 	<?php echo JHtml::_('bootstrap.endTab'); ?>
 
+	<?php if ($this->canDo->get('causerisk.delete') || $this->canDo->get('core.edit.created_by') || $this->canDo->get('causerisk.edit.state') || $this->canDo->get('core.edit.created')) : ?>
 	<?php echo JHtml::_('bootstrap.addTab', 'causeriskTab', 'publishing', JText::_('COM_COSTBENEFITPROJECTION_CAUSERISK_PUBLISHING', true)); ?>
 		<div class="row-fluid form-horizontal-desktop">
 			<div class="span6">
@@ -52,6 +53,7 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 			</div>
 		</div>
 	<?php echo JHtml::_('bootstrap.endTab'); ?>
+	<?php endif; ?>
 
 	<?php if ($this->canDo->get('core.admin')) : ?>
 	<?php echo JHtml::_('bootstrap.addTab', 'causeriskTab', 'permissions', JText::_('COM_COSTBENEFITPROJECTION_CAUSERISK_PERMISSION', true)); ?>

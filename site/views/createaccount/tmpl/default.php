@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			31st January, 2016
+	@build			14th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
@@ -67,6 +67,7 @@ if ($this->items)
 
 ?>
 <?php echo $this->toolbar->render(); ?> 
+<?php echo $this->loadTemplate('cbpmenumodule'); ?>
 <?php if ($this->items): ?>
 <div class="uk-alert uk-alert-success" data-uk-alert>
     <a href="" class="uk-alert-close uk-close"></a>

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			31st January, 2016
+	@build			14th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_table_cost_summary.php
@@ -28,14 +28,14 @@ $scaled = array('unscaled','scaled');
 <?php echo JText::_('COM_COSTBENEFITPROJECTION_TOTAL_COSTS_AND_CONTRIBUTION_OF_MORBIDITY_MORTALITY_AND_RISK_FACTORS'); ?>
 <?php if (isset($this->results->items) && CostbenefitprojectionHelper::checkObject($this->results->items)) : ?>
 	<?php foreach ($scaled as $scale): ?>
-		<table id="theTableCS_<?php echo $scale; ?>" class="table data metro-blue <?php echo $scale; ?>" style="display: <?php echo ($scale == 'unscaled') ? 'table' : 'none'; ?>;" data-page-size="50">
+		<table id="theTableCS_<?php echo $scale; ?>" class="footable table data metro-blue <?php echo $scale; ?>" style="display: <?php echo ($scale == 'unscaled') ? 'table' : 'none'; ?>;" data-page-size="50">
 			<thead>        
 				<tr >
 				    <th data-toggle="true"><?php echo JText::_('COM_COSTBENEFITPROJECTION_DISEASERISK_FACTOR'); ?></th>
-				    <th width="13%"><?php echo JText::_('COM_COSTBENEFITPROJECTION_COST_MORBIDITY'); ?></th>
-				    <th width="13%"><?php echo JText::_('COM_COSTBENEFITPROJECTION_COST_PRESENTEEISM_DUE_TO_MORBIDITY'); ?></th>
-				    <th width="13%"><?php echo JText::_('COM_COSTBENEFITPROJECTION_COST_MORTALITY'); ?></th>
-				    <th width="13%"><?php echo JText::_('COM_COSTBENEFITPROJECTION_TOTAL_COST_PER_DISEASERISK_FACTOR'); ?></th>
+				    <th width="13%" data-hide="phone,tablet"><?php echo JText::_('COM_COSTBENEFITPROJECTION_COST_MORBIDITY'); ?></th>
+				    <th width="13%" data-hide="phone,tablet"><?php echo JText::_('COM_COSTBENEFITPROJECTION_COST_PRESENTEEISM_DUE_TO_MORBIDITY'); ?></th>
+				    <th width="13%" data-hide="phone,tablet"><?php echo JText::_('COM_COSTBENEFITPROJECTION_COST_MORTALITY'); ?></th>
+				    <th width="13%" data-hide="phone"><?php echo JText::_('COM_COSTBENEFITPROJECTION_TOTAL_COST_PER_DISEASERISK_FACTOR'); ?></th>
 				    <th width="13%"><?php echo JText::_('COM_COSTBENEFITPROJECTION_PERCENT_OF_TOTAL_COST'); ?></th>
 				</tr>        
 			</thead>                                    

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			31st January, 2016
+	@build			14th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -47,6 +47,7 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 		</div>
 	<?php echo JHtml::_('bootstrap.endTab'); ?>
 
+	<?php if ($this->canDo->get('scaling_factor.delete') || $this->canDo->get('core.edit.created_by') || $this->canDo->get('scaling_factor.edit.state') || $this->canDo->get('core.edit.created')) : ?>
 	<?php echo JHtml::_('bootstrap.addTab', 'scaling_factorTab', 'publishing', JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTOR_PUBLISHING', true)); ?>
 		<div class="row-fluid form-horizontal-desktop">
 			<div class="span6">
@@ -57,6 +58,7 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 			</div>
 		</div>
 	<?php echo JHtml::_('bootstrap.endTab'); ?>
+	<?php endif; ?>
 
 	<?php if ($this->canDo->get('core.admin')) : ?>
 	<?php echo JHtml::_('bootstrap.addTab', 'scaling_factorTab', 'permissions', JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTOR_PERMISSION', true)); ?>
@@ -88,18 +90,18 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_company listeners for company_kDrKmDc function
+// #jform_company listeners for company_cfzxGEC function
 jQuery('#jform_company').on('keyup',function()
 {
-	var company_kDrKmDc = jQuery("#jform_company").val();
-	kDrKmDc(company_kDrKmDc);
+	var company_cfzxGEC = jQuery("#jform_company").val();
+	cfzxGEC(company_cfzxGEC);
 
 });
 jQuery('#adminForm').on('change', '#jform_company',function (e)
 {
 	e.preventDefault();
-	var company_kDrKmDc = jQuery("#jform_company").val();
-	kDrKmDc(company_kDrKmDc);
+	var company_cfzxGEC = jQuery("#jform_company").val();
+	cfzxGEC(company_cfzxGEC);
 
 });
 

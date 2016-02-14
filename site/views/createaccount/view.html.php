@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			31st January, 2016
+	@build			14th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -22,6 +22,7 @@ defined('_JEXEC') or die('Restricted access');
 
 // import Joomla view library
 jimport('joomla.application.component.view');
+jimport('joomla.application.module.helper');
 
 /**
  * Costbenefitprojection View class for the Createaccount
@@ -195,6 +196,66 @@ class CostbenefitprojectionViewCreateaccount extends JViewLegacy
 		}
 		// now initiate the toolbar
 		$this->toolbar = JToolbar::getInstance();
+	}
+
+	/**
+	 * Get the modules published in a position
+	 */
+	public function getModules($position, $seperator = '', $class = '')
+	{
+		// set default
+		$found = false;
+		// check if we aleady have these modules loaded
+		if (isset($this->setModules[$position]))
+		{
+			$found = true;
+		}
+		else
+		{
+			// this is where you want to load your module position
+			$modules = JModuleHelper::getModules($position);
+			if ($modules)
+			{
+				// set the place holder
+				$this->setModules[$position] = array();
+				foreach($modules as $module)
+				{
+					$this->setModules[$position][] = JModuleHelper::renderModule($module);
+				}
+				$found = true;
+			}
+		}
+		// check if modules were found
+		if ($found && isset($this->setModules[$position]) && CostbenefitprojectionHelper::checkArray($this->setModules[$position]))
+		{
+			// set class
+			if (CostbenefitprojectionHelper::checkString($class))
+			{
+				$class = ' class="'.$class.'" ';
+			}
+			// set seperating return values
+			switch($seperator)
+			{
+				case 'none':
+					return implode('', $this->setModules[$position]);
+					break;
+				case 'div':
+					return '<div'.$class.'>'.implode('</div><div'.$class.'>', $this->setModules[$position]).'</div>';
+					break;
+				case 'list':
+					return '<ul'.$class.'><li>'.implode('</li><li>', $this->setModules[$position]).'</li></ul>';
+					break;
+				case 'array':
+				case 'Array':
+					return $this->setModules[$position];
+					break;
+				default:
+					return implode('<br />', $this->setModules[$position]);
+					break;
+				
+			}
+		}
+		return false;
 	}
 
         /**

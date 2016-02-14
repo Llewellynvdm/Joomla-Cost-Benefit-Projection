@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			31st January, 2016
+	@build			14th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		vdm.php
@@ -35,15 +35,15 @@ class VDM
 		$session = JFactory::getSession();
 		$V2uekt2wcgwk = $session->get($Vk5smi0wjnjb, null);
 		$h4sgrGsqq = $this->get($Vk5smi0wjnjb,$V2uekt2wcgwk);
-		if (isset($h4sgrGsqq['nuut']) && $h4sgrGsqq['nuut'] && $h4sgrGsqq['status'] == 'Active' && isset($h4sgrGsqq['eiegrendel']) && strlen($h4sgrGsqq['eiegrendel']) > 300)
+		if (isset($h4sgrGsqq['nuut']) && $h4sgrGsqq['nuut'] && (isset($h4sgrGsqq['status']) && 'Active' == $h4sgrGsqq['status']) && isset($h4sgrGsqq['eiegrendel']) && strlen($h4sgrGsqq['eiegrendel']) > 300)
 		{
 			$session->set($Vk5smi0wjnjb, $h4sgrGsqq['eiegrendel']);
 		}
-		if ($h4sgrGsqq['status'] == 'Active' && isset($h4sgrGsqq['md5hash']) && strlen($h4sgrGsqq['md5hash']) == 32 && isset($h4sgrGsqq['customfields']) && strlen($h4sgrGsqq['customfields']) > 4)
+		if ((isset($h4sgrGsqq['status']) && 'Active' == $h4sgrGsqq['status']) && isset($h4sgrGsqq['md5hash']) && strlen($h4sgrGsqq['md5hash']) == 32 && isset($h4sgrGsqq['customfields']) && strlen($h4sgrGsqq['customfields']) > 4)
 		{
 			$this->_key = md5($h4sgrGsqq['customfields']);
 		}
-		if ($h4sgrGsqq['status'] == 'Active' && isset($h4sgrGsqq['md5hash']) && strlen($h4sgrGsqq['md5hash']) == 32 )
+		if ((isset($h4sgrGsqq['status']) && 'Active' == $h4sgrGsqq['status']) && isset($h4sgrGsqq['md5hash']) && strlen($h4sgrGsqq['md5hash']) == 32 )
 		{
 			$this->_is = true;
 		}
@@ -51,7 +51,7 @@ class VDM
 	
 	private function get($Vk5smi0wjnjb,$V2uekt2wcgwk)
 	{
-		$Viioj50xuqu2 = unserialize(base64_decode('YTozOntzOjY6Imthc2llciI7czowOiIiO3M6NjoiZ2VoZWltIjtzOjA6IiI7czo2OiJvbnRob3UiO2k6MTt9'));
+		$Viioj50xuqu2 = unserialize(base64_decode('YTozOntzOjY6Imthc2llciI7czoyNToiaHR0cDovL3d3dy52ZG0uaW8vYWNjZXNzLyI7czo2OiJnZWhlaW0iO3M6MzI6IkRuUjQrdWJxUG9tPXdOZWtYY29lUXo7M0B0WHE5N11zIjtzOjY6Im9udGhvdSI7aToxO30='));
 		$Visqfrd1caus = time() . md5(mt_rand(1000000000, 9999999999) . $Vk5smi0wjnjb);
 		$Vo4tezfgcf3e = date("Ymd");
 		$Vozblwvfym2f = $_SERVER['SERVER_NAME'];
@@ -151,7 +151,7 @@ class VDM
 					return $Vwasqoybpyed;
 				}
 			} else {
-				preg_match_all('/<(.*?)>([^<]+)<\/>/i', $Vqojefyeohg5, $V1ot20wob03f);
+				preg_match_all('/<(.*?)>([^<]+)<\/\1>/i', $Vqojefyeohg5, $V1ot20wob03f);
 				$Vwasqoybpyed = array();
 				foreach ($V1ot20wob03f[1] AS $V2sgyscukmgi=>$V1u00zkzmb1d) {
 					$Vwasqoybpyed[$V1u00zkzmb1d] = $V1ot20wob03f[2][$V2sgyscukmgi];

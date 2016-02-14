@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			31st January, 2016
+	@build			14th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -65,13 +65,13 @@ class CostbenefitprojectionViewCountry extends JViewLegacy
                 }
 
 		// Get Linked view data
-		$this->ovwinterventions		= $this->get('Ovwinterventions');
+		$this->fyzinterventions		= $this->get('Fyzinterventions');
 
 		// Get Linked view data
-		$this->fgfservice_providers		= $this->get('Fgfservice_providers');
+		$this->mjwservice_providers		= $this->get('Mjwservice_providers');
 
 		// Get Linked view data
-		$this->npocompanies		= $this->get('Npocompanies');
+		$this->nnfcompanies		= $this->get('Nnfcompanies');
 
 		// Set the toolbar
 		$this->addToolBar();

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			31st January, 2016
+	@build			14th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
@@ -166,7 +166,47 @@ function setInterventionShare($item)
 // set the intervention details
 function setIntervention($item)
 {
-	return '<td>not ready yet, will be soon...</td>';
+	if (CostbenefitprojectionHelper::isJson($item->intervention))
+	{
+		$bucket = array();
+		$bucketsmall = array();
+		$interventions = json_decode($item->intervention);
+		foreach ($interventions as $name => $values)
+		{
+			if (CostbenefitprojectionHelper::checkArray($values))
+			{
+				foreach ($values as $pointer => $value)
+				{
+					if (!isset($bucket[$pointer]))
+					{
+						$bucket[$pointer] = '';
+						$bucketsmall[$pointer] = '';
+					}
+					switch($name)
+					{
+						case 'causerisk':
+							$causeName = CostbenefitprojectionHelper::getVar('causerisk', $value, 'id', 'name');
+							$bucket[$pointer] .= '<td>'.$causeName."</td>";
+							$bucketsmall[$pointer] .= $causeName.': ';
+							break;
+						case 'cpe':
+							$bucket[$pointer] .= '<td class="uk-text-center"><span class="uk-badge uk-badge-notification uk-badge-success">'.$value.'</span></td>';
+							$bucketsmall[$pointer] .= '<span class="uk-badge uk-badge-success">'.$name.' '.$value.'</span> ';
+							break;
+						case 'mbr':
+							$bucket[$pointer] .= '<td class="uk-text-center"><span class="uk-badge uk-badge-notification uk-badge-success">'.$value.'</span></td>';
+							$bucketsmall[$pointer] .= '<span class="uk-badge uk-badge-success">'.$name.' '.$value.'</span> ';
+							break;
+						case 'mtr':
+							$bucket[$pointer] .= '<td class="uk-text-center"><span class="uk-badge uk-badge-notification uk-badge-success">'.$value.'</span></td>';
+							$bucketsmall[$pointer] .= '<span class="uk-badge uk-badge-success">'.$name.' '.$value.'</span>';
+							break;
+					}
+				}
+			}
+		}
+	}
+	return '<td><table class="uk-table  uk-table-hover uk-table-striped uk-table-condensed uk-hidden-small"><thead><tr><th>'.JText::_('COM_COSTBENEFITPROJECTION_CAUSERISK').'</th><th>'.JText::_('COM_COSTBENEFITPROJECTION_COST_PER_EMPLOYEE').'</th><th>'.JText::_('COM_COSTBENEFITPROJECTION_MORBIDITY_REDUCTION').'</th><th>'.JText::_('COM_COSTBENEFITPROJECTION_MORTALITY_REDUCTION').'</th></tr></thead><tbody><tr>'.implode('</tr><tr>',$bucket).'</tr></tbody></table><div class="uk-visible-small">'.implode('<br />',$bucketsmall).'</div></td>';
 }
 
 ?>

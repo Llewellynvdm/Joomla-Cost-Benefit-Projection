@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			31st January, 2016
+	@build			14th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_table_intervention_net_benefit.php
@@ -40,20 +40,20 @@ $scaled = array('unscaled','scaled');
 
 			<?php foreach ($scaled as $scale): ?>
 				<table  id="tableINT_<?php echo $intervention->id ?>_<?php echo $scale; ?>"  
-					class="table data metro-blue <?php echo $scale; ?>" 
+					class="footable table data metro-blue <?php echo $scale; ?>" 
 					style="display: <?php echo ($scale == 'unscaled') ? 'table' : 'none'; ?>;" 
 					data-page-size="50" >
 				    <thead>
 					<tr >
-					    <th><?php echo JText::_('COM_COSTBENEFITPROJECTION_CAUSERISK_FACTOR'); ?></th>
-					    <th width="8%"><?php echo JText::_('COM_COSTBENEFITPROJECTION_CONTRIBUTION_TO_COSTS'); ?></th>
-					    <th width="8%"><?php echo JText::_('COM_COSTBENEFITPROJECTION_ANNUAL_COST_PER_EMPLOYEE'); ?></th>
-					    <th width="5%"><?php echo JText::_('COM_COSTBENEFITPROJECTION_REDUCTION_IN_MORBIDITY_COSTS'); ?></th>
-					    <th width="5%"><?php echo JText::_('COM_COSTBENEFITPROJECTION_REDUCTION_IN_MORTALITY_COST'); ?></th>
-					    <th width="11%"><?php echo JText::_('COM_COSTBENEFITPROJECTION_COST_OF_PROBLEM'); ?></th>
-					    <th width="11%"><?php echo JText::_('COM_COSTBENEFITPROJECTION_ANNUAL_COST_OF_INTERVENTION'); ?></th>
-					    <th width="11%"><?php echo JText::_('COM_COSTBENEFITPROJECTION_ANNUAL_BENEFIT'); ?></th>
-					    <th width="5%"><?php echo JText::_('COM_COSTBENEFITPROJECTION_COST_BENEFIT_RATIO'); ?></th>
+					    <th data-toggle="true"><?php echo JText::_('COM_COSTBENEFITPROJECTION_CAUSERISK_FACTOR'); ?></th>
+					    <th width="8%" data-hide="phone,tablet"><?php echo JText::_('COM_COSTBENEFITPROJECTION_CONTRIBUTION_TO_COSTS'); ?></th>
+					    <th width="8%" data-hide="phone,tablet"><?php echo JText::_('COM_COSTBENEFITPROJECTION_ANNUAL_COST_PER_EMPLOYEE'); ?></th>
+					    <th width="5%" data-hide="phone,tablet"><?php echo JText::_('COM_COSTBENEFITPROJECTION_REDUCTION_IN_MORBIDITY_COSTS'); ?></th>
+					    <th width="5%" data-hide="phone,tablet"><?php echo JText::_('COM_COSTBENEFITPROJECTION_REDUCTION_IN_MORTALITY_COST'); ?></th>
+					    <th width="11%" data-hide="phone,tablet"><?php echo JText::_('COM_COSTBENEFITPROJECTION_COST_OF_PROBLEM'); ?></th>
+					    <th width="11%" data-hide="phone,tablet"><?php echo JText::_('COM_COSTBENEFITPROJECTION_ANNUAL_COST_OF_INTERVENTION'); ?></th>
+					    <th width="11%" data-hide="phone"><?php echo JText::_('COM_COSTBENEFITPROJECTION_ANNUAL_BENEFIT'); ?></th>
+					    <th width="5%" data-hide="phone,tablet"><?php echo JText::_('COM_COSTBENEFITPROJECTION_COST_BENEFIT_RATIO'); ?></th>
 					    <th width="11%"><?php echo JText::_('COM_COSTBENEFITPROJECTION_NET_BENEFIT'); ?></th>
 					</tr>
 				    </thead>                                    

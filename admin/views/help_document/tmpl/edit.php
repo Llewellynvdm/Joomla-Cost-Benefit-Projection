@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			31st January, 2016
+	@build			14th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -50,6 +50,7 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 		</div>
 	<?php echo JHtml::_('bootstrap.endTab'); ?>
 
+	<?php if ($this->canDo->get('help_document.delete') || $this->canDo->get('core.edit.created_by') || $this->canDo->get('help_document.edit.state') || $this->canDo->get('core.edit.created')) : ?>
 	<?php echo JHtml::_('bootstrap.addTab', 'help_documentTab', 'publishing', JText::_('COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_PUBLISHING', true)); ?>
 		<div class="row-fluid form-horizontal-desktop">
 			<div class="span6">
@@ -60,6 +61,7 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 			</div>
 		</div>
 	<?php echo JHtml::_('bootstrap.endTab'); ?>
+	<?php endif; ?>
 
 	<?php if ($this->canDo->get('core.admin')) : ?>
 	<?php echo JHtml::_('bootstrap.addTab', 'help_documentTab', 'permissions', JText::_('COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_PERMISSION', true)); ?>
@@ -94,93 +96,93 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_location listeners for location_ihDVuyo function
+// #jform_location listeners for location_wbXluyd function
 jQuery('#jform_location').on('keyup',function()
 {
-	var location_ihDVuyo = jQuery("#jform_location input[type='radio']:checked").val();
-	ihDVuyo(location_ihDVuyo);
+	var location_wbXluyd = jQuery("#jform_location input[type='radio']:checked").val();
+	wbXluyd(location_wbXluyd);
 
 });
 jQuery('#adminForm').on('change', '#jform_location',function (e)
 {
 	e.preventDefault();
-	var location_ihDVuyo = jQuery("#jform_location input[type='radio']:checked").val();
-	ihDVuyo(location_ihDVuyo);
+	var location_wbXluyd = jQuery("#jform_location input[type='radio']:checked").val();
+	wbXluyd(location_wbXluyd);
 
 });
 
-// #jform_location listeners for location_QHxQMlw function
+// #jform_location listeners for location_uuUtMWc function
 jQuery('#jform_location').on('keyup',function()
 {
-	var location_QHxQMlw = jQuery("#jform_location input[type='radio']:checked").val();
-	QHxQMlw(location_QHxQMlw);
+	var location_uuUtMWc = jQuery("#jform_location input[type='radio']:checked").val();
+	uuUtMWc(location_uuUtMWc);
 
 });
 jQuery('#adminForm').on('change', '#jform_location',function (e)
 {
 	e.preventDefault();
-	var location_QHxQMlw = jQuery("#jform_location input[type='radio']:checked").val();
-	QHxQMlw(location_QHxQMlw);
+	var location_uuUtMWc = jQuery("#jform_location input[type='radio']:checked").val();
+	uuUtMWc(location_uuUtMWc);
 
 });
 
-// #jform_type listeners for type_cxrSpAJ function
+// #jform_type listeners for type_UJteXUt function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_cxrSpAJ = jQuery("#jform_type").val();
-	cxrSpAJ(type_cxrSpAJ);
+	var type_UJteXUt = jQuery("#jform_type").val();
+	UJteXUt(type_UJteXUt);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_cxrSpAJ = jQuery("#jform_type").val();
-	cxrSpAJ(type_cxrSpAJ);
+	var type_UJteXUt = jQuery("#jform_type").val();
+	UJteXUt(type_UJteXUt);
 
 });
 
-// #jform_type listeners for type_agEZjiC function
+// #jform_type listeners for type_QEIUlDz function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_agEZjiC = jQuery("#jform_type").val();
-	agEZjiC(type_agEZjiC);
+	var type_QEIUlDz = jQuery("#jform_type").val();
+	QEIUlDz(type_QEIUlDz);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_agEZjiC = jQuery("#jform_type").val();
-	agEZjiC(type_agEZjiC);
+	var type_QEIUlDz = jQuery("#jform_type").val();
+	QEIUlDz(type_QEIUlDz);
 
 });
 
-// #jform_type listeners for type_qIpBDXf function
+// #jform_type listeners for type_TReWnxQ function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_qIpBDXf = jQuery("#jform_type").val();
-	qIpBDXf(type_qIpBDXf);
+	var type_TReWnxQ = jQuery("#jform_type").val();
+	TReWnxQ(type_TReWnxQ);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_qIpBDXf = jQuery("#jform_type").val();
-	qIpBDXf(type_qIpBDXf);
+	var type_TReWnxQ = jQuery("#jform_type").val();
+	TReWnxQ(type_TReWnxQ);
 
 });
 
-// #jform_target listeners for target_RMTlzlG function
+// #jform_target listeners for target_LjCaoAT function
 jQuery('#jform_target').on('keyup',function()
 {
-	var target_RMTlzlG = jQuery("#jform_target input[type='radio']:checked").val();
-	RMTlzlG(target_RMTlzlG);
+	var target_LjCaoAT = jQuery("#jform_target input[type='radio']:checked").val();
+	LjCaoAT(target_LjCaoAT);
 
 });
 jQuery('#adminForm').on('change', '#jform_target',function (e)
 {
 	e.preventDefault();
-	var target_RMTlzlG = jQuery("#jform_target input[type='radio']:checked").val();
-	RMTlzlG(target_RMTlzlG);
+	var target_LjCaoAT = jQuery("#jform_target input[type='radio']:checked").val();
+	LjCaoAT(target_LjCaoAT);
 
 });
 

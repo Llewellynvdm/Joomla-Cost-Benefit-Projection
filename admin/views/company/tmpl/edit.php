@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.0
-	@build			31st January, 2016
+	@build			14th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -71,6 +71,7 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 		</div>
 	<?php echo JHtml::_('bootstrap.endTab'); ?>
 
+	<?php if ($this->canDo->get('scaling_factor.access')) : ?>
 	<?php echo JHtml::_('bootstrap.addTab', 'companyTab', 'scaling_factors', JText::_('COM_COSTBENEFITPROJECTION_COMPANY_SCALING_FACTORS', true)); ?>
 		<div class="row-fluid form-horizontal-desktop">
 		</div>
@@ -80,7 +81,9 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 			</div>
 		</div>
 	<?php echo JHtml::_('bootstrap.endTab'); ?>
+	<?php endif; ?>
 
+	<?php if ($this->canDo->get('intervention.access')) : ?>
 	<?php echo JHtml::_('bootstrap.addTab', 'companyTab', 'interventions', JText::_('COM_COSTBENEFITPROJECTION_COMPANY_INTERVENTIONS', true)); ?>
 		<div class="row-fluid form-horizontal-desktop">
 		</div>
@@ -90,7 +93,9 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 			</div>
 		</div>
 	<?php echo JHtml::_('bootstrap.endTab'); ?>
+	<?php endif; ?>
 
+	<?php if ($this->canDo->get('company.delete') || $this->canDo->get('company.edit.created_by') || $this->canDo->get('company.edit.state') || $this->canDo->get('company.edit.created')) : ?>
 	<?php echo JHtml::_('bootstrap.addTab', 'companyTab', 'publishing', JText::_('COM_COSTBENEFITPROJECTION_COMPANY_PUBLISHING', true)); ?>
 		<div class="row-fluid form-horizontal-desktop">
 			<div class="span6">
@@ -101,6 +106,7 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 			</div>
 		</div>
 	<?php echo JHtml::_('bootstrap.endTab'); ?>
+	<?php endif; ?>
 
 	<?php if ($this->canDo->get('core.admin')) : ?>
 	<?php echo JHtml::_('bootstrap.addTab', 'companyTab', 'permissions', JText::_('COM_COSTBENEFITPROJECTION_COMPANY_PERMISSION', true)); ?>
@@ -135,33 +141,33 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_department listeners for department_pqrUsDg function
+// #jform_department listeners for department_aoEEPbd function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_pqrUsDg = jQuery("#jform_department input[type='radio']:checked").val();
-	pqrUsDg(department_pqrUsDg);
+	var department_aoEEPbd = jQuery("#jform_department input[type='radio']:checked").val();
+	aoEEPbd(department_aoEEPbd);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_pqrUsDg = jQuery("#jform_department input[type='radio']:checked").val();
-	pqrUsDg(department_pqrUsDg);
+	var department_aoEEPbd = jQuery("#jform_department input[type='radio']:checked").val();
+	aoEEPbd(department_aoEEPbd);
 
 });
 
-// #jform_department listeners for department_yuyJIQE function
+// #jform_department listeners for department_lHOlbmV function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_yuyJIQE = jQuery("#jform_department input[type='radio']:checked").val();
-	yuyJIQE(department_yuyJIQE);
+	var department_lHOlbmV = jQuery("#jform_department input[type='radio']:checked").val();
+	lHOlbmV(department_lHOlbmV);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_yuyJIQE = jQuery("#jform_department input[type='radio']:checked").val();
-	yuyJIQE(department_yuyJIQE);
+	var department_lHOlbmV = jQuery("#jform_department input[type='radio']:checked").val();
+	lHOlbmV(department_lHOlbmV);
 
 });
 
