@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.0
-	@build			14th February, 2016
+	@version		3.3.2
+	@build			16th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		sum.php
@@ -88,7 +88,7 @@ class Sum
 			$jsonObjects = array('percentmale','percentfemale','country_percentmale','country_percentfemale','country_maledeath','country_femaledeath','country_maleyld','country_femaleyld');
 			$removeArray = array(
 				'asset_id','not_required','published','created_by','country_created_by','country_created','country_version','country_hits','country_ordering',
-				'modified_by','country_asset_id','created','modified','version','hits','ordering','country_published','country_modified_by','country_modified',
+				'modified_by','country_asset_id','created','modified','version','hits','ordering','country_published','country_modified_by','country_modified','country_maledeath','country_femaledeath','country_maleyld','country_femaleyld',
 				'idCompanyScaling_factorC',$cKey.'CountryHealth_dataB',$cKey.'CountryHealth_dataBB','causesrisksIdCauseriskG','causesrisksIdCauseriskGG','idCompanyInterventionD','countryCountryInterventionDD','idCountryInterventionDD');
 			foreach ($jsonObjects as $jsonObject)
 			{
@@ -147,17 +147,24 @@ class Sum
 				}
 			}
 			// country totals sorting
-			$countrySort = array('country_maledeath','country_femaledeath','country_maleyld','country_femaleyld');
-			foreach ($countrySort as $sort)
+			$countrySort = array(
+				'country_maledeath' => array('gender' => 'male', 'type' => 'death'),
+				'country_femaledeath' => array('gender' => 'female', 'type' => 'death'),
+				'country_maleyld' => array('gender' => 'male', 'type' => 'yld'),
+				'country_femaleyld' => array('gender' => 'female', 'type' => 'yld'));
+			$this->company->country_yld = 0;
+			$this->company->country_death = 0;
+			foreach ($countrySort as $sort => $tar)
 			{
 				if (isset($this->company->$sort) && CostbenefitprojectionHelper::checkArray($this->company->$sort))
-				{
-					$bucket = array();
+				{ 
 					foreach ($this->company->$sort as $value)
 					{
-						$bucket[$value['age'].'_'.$value['year']] = $value['number'];
+						if ($this->company->datayear == $value['year'])
+						{
+							$this->company->{'country_'.$tar['type']} += $value['number'];
+						}
 					}
-					$this->company->$sort = $bucket;
 				}
 			}
 			// country health totals sorting
@@ -478,6 +485,8 @@ class Sum
 			// set global totals day_lost
 			$this->totals['total_days_lost_scaled']					= 0;
 			$this->totals['total_days_lost_unscaled']				= 0;
+			// set global totals estimated_burden
+			$this->totals['total_estimated_burden']					= 0;
 			// work with each gender
 			foreach($this->genders as $gender => $genders)
 			{
@@ -509,7 +518,7 @@ class Sum
 		
 			// set morbidity_raw
 			foreach($this->company->causesrisks as $id)
-			{				
+			{
 				// work with each gender
 				foreach($this->genders as $gender => $genders)
 				{
@@ -519,14 +528,38 @@ class Sum
 					{
 						if (isset($this->company->{'percent'.$gender}[$age]))
 						{
-							$this->items[$id]->$gender->$age = new stdClass();
 							// set each gender and age group
+							$this->items[$id]->$gender->$age = new stdClass();
+							// continue only if we have a value
+							$goodToGo = true;
 							// fix missing values
 							if(!isset($this->company->healthData[$id]->{$gender.'yld'}[$age]))
 							{
 								$this->company->healthData[$id]->{$gender.'yld'}[$age] = 0;
+								$goodToGo = false;
 							}
-							$this->items[$id]->$gender->$age->yld			= $this->company->healthData[$id]->{$gender.'yld'}[$age];
+							// set the YLD
+							$this->items[$id]->$gender->$age->yld				= $this->company->healthData[$id]->{$gender.'yld'}[$age];
+							if ($goodToGo)
+							{
+								// set the estimated_burden of this age group & gender & cause
+								$this->items[$id]->$gender->$age->estimated_burden	= ($this->items[$id]->$gender->$age->yld / $this->company->country_yld)*100;
+								if (!isset($this->items[$id]->subtotal_estimated_burden))
+								{
+									$this->items[$id]->subtotal_estimated_burden 	= $this->items[$id]->$gender->$age->estimated_burden;
+								}
+								else
+								{
+									$this->items[$id]->subtotal_estimated_burden 	+= $this->items[$id]->$gender->$age->estimated_burden;	
+								}
+								// set the totals for estimated_burden
+								$this->totals['total_estimated_burden']			= $this->totals['total_estimated_burden'] + $this->items[$id]->$gender->$age->estimated_burden;
+							}
+							else
+							{
+								$this->items[$id]->subtotal_estimated_burden = 0;
+							}
+							// set the morbidity raw
 							$this->items[$id]->$gender->$age->morbidity_raw 	= ( $this->company->healthData[$id]->{$gender.'yld'}[$age]/100000 ) 
 														* $this->company->$genders * ($this->company->{'percent'.$gender}[$age]/100);
 							// set total for morbidity_raw
@@ -535,6 +568,20 @@ class Sum
 						}
 					}
 				}
+			}
+			// check estimated burden
+			if (100 < $this->totals['total_estimated_burden'])
+			{
+				foreach ($this->items as $item)
+				{
+					if (isset($item->subtotal_estimated_burden) && 0 != $this->items[$id]->subtotal_estimated_burden)
+					{
+						// adjust the subtotal to 100 %
+						$item->subtotal_estimated_burden = ($item->subtotal_estimated_burden * 100) / $this->totals['total_estimated_burden'];
+					}
+				}
+				// bring down the estimate to 100 %
+				$this->totals['total_estimated_burden'] = 100;
 			}
 			// set morbidity_unscaled & morbidity_interim
 			foreach($this->company->causesrisks as $id)

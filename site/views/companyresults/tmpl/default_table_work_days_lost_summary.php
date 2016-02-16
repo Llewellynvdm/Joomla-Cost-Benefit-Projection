@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.0
-	@build			14th February, 2016
+	@version		3.3.2
+	@build			16th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_table_work_days_lost_summary.php
@@ -40,6 +40,7 @@ $scaled = array('unscaled','scaled');
 					<th width="11%" data-hide="phone,tablet"><?php echo JText::_('COM_COSTBENEFITPROJECTION_DAYS_LOST_FEMALE_EMPLOYEES'); ?></th>
 					<th width="11%" data-hide="phone"><?php echo JText::_('COM_COSTBENEFITPROJECTION_TOTAL_DAYS_LOST_PER_DISEASERISK_FACTOR'); ?></th>
 					<th width="11%"><?php echo JText::_('COM_COSTBENEFITPROJECTION_PERCENT_OF_TOTAL_DAYS_LOST'); ?></th>
+					<th width="11%"><?php echo JText::_('COM_COSTBENEFITPROJECTION_PERCENT_OF_ESTIMATED_BURDEN'); ?></th>
 					<th data-hide="all"><?php echo JText::_('COM_COSTBENEFITPROJECTION_DATA'); ?></th>
 				</tr>        
 			</thead>                                    
@@ -54,6 +55,7 @@ $scaled = array('unscaled','scaled');
 					<td data-value='<?php echo $item->{'female_days_lost_'.$scale}; ?>' ><?php echo round($item->{'female_days_lost_'.$scale},3); ?></td>
 					<td data-value='<?php echo $item->{'subtotal_days_lost_'.$scale}; ?>' ><?php echo round($item->{'subtotal_days_lost_'.$scale},3); ?></td>
 					<td data-value='<?php echo ($item->{'subtotal_days_lost_'.$scale} / $this->results->totals->{'total_days_lost_'.$scale})*100; ?>' ><?php echo round(($item->{'subtotal_days_lost_'.$scale} / $this->results->totals->{'total_days_lost_'.$scale})*100,3).'%'; ?></td>
+					<td data-value='<?php echo $item->subtotal_estimated_burden; ?>' ><?php echo round($item->subtotal_estimated_burden,3).'%'; ?></td>
 					<td data-value='0' ><?php $item->_tmpType = 'day'; $item->_tmpScale = $scale; echo JLayoutHelper::render('databreakdownmalefemale', $item); ?></td>
 				</tr>
 			<?php endforeach; ?>
@@ -68,6 +70,7 @@ $scaled = array('unscaled','scaled');
 					<td><?php echo round($this->results->totals->{'females_days_lost_'.$scale},3); ?></td>
 					<td><?php echo round($this->results->totals->{'total_days_lost_'.$scale},3); ?></td>
 					<td><?php echo round(($this->results->totals->{'total_days_lost_'.$scale} / $this->results->totals->{'total_days_lost_'.$scale})*100,3).'%'; ?></td>
+					<td><?php echo round($this->results->totals->total_estimated_burden,3).'%'; ?></td>
 					<td>&nbsp;&nbsp;</td>
 				</tr>
 			</tfoot>                                

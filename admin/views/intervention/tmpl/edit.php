@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.0
-	@build			14th February, 2016
+	@version		3.3.2
+	@build			16th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -103,48 +103,48 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_type listeners for type_mHPeTPU function
+// #jform_type listeners for type_hjWzglc function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_mHPeTPU = jQuery("#jform_type input[type='radio']:checked").val();
-	mHPeTPU(type_mHPeTPU);
+	var type_hjWzglc = jQuery("#jform_type input[type='radio']:checked").val();
+	hjWzglc(type_hjWzglc);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_mHPeTPU = jQuery("#jform_type input[type='radio']:checked").val();
-	mHPeTPU(type_mHPeTPU);
+	var type_hjWzglc = jQuery("#jform_type input[type='radio']:checked").val();
+	hjWzglc(type_hjWzglc);
 
 });
 
-// #jform_type listeners for type_iOljoGp function
+// #jform_type listeners for type_KIPRxZv function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_iOljoGp = jQuery("#jform_type input[type='radio']:checked").val();
-	iOljoGp(type_iOljoGp);
+	var type_KIPRxZv = jQuery("#jform_type input[type='radio']:checked").val();
+	KIPRxZv(type_KIPRxZv);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_iOljoGp = jQuery("#jform_type input[type='radio']:checked").val();
-	iOljoGp(type_iOljoGp);
+	var type_KIPRxZv = jQuery("#jform_type input[type='radio']:checked").val();
+	KIPRxZv(type_KIPRxZv);
 
 });
 
-// #jform_company listeners for company_imgMwkf function
+// #jform_company listeners for company_QhXOtTU function
 jQuery('#jform_company').on('keyup',function()
 {
-	var company_imgMwkf = jQuery("#jform_company").val();
-	imgMwkf(company_imgMwkf);
+	var company_QhXOtTU = jQuery("#jform_company").val();
+	QhXOtTU(company_QhXOtTU);
 
 });
 jQuery('#adminForm').on('change', '#jform_company',function (e)
 {
 	e.preventDefault();
-	var company_imgMwkf = jQuery("#jform_company").val();
-	imgMwkf(company_imgMwkf);
+	var company_QhXOtTU = jQuery("#jform_company").val();
+	QhXOtTU(company_QhXOtTU);
 
 });
 

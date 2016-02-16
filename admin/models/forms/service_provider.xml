@@ -133,7 +133,7 @@
 			maxlength="150"
 			description="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_PUBLICNUMBER_DESCRIPTION"
 			class="text_area"
-			filter="tel"
+			filter="STRING"
 			validated="tel"
 			message="Error! Please add public phone number here."
 			hint="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_PUBLICNUMBER_HINT"

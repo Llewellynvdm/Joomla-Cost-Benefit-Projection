@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.0
-	@build			14th February, 2016
+	@version		3.3.2
+	@build			16th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -141,33 +141,33 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_department listeners for department_aoEEPbd function
+// #jform_department listeners for department_imCbNHF function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_aoEEPbd = jQuery("#jform_department input[type='radio']:checked").val();
-	aoEEPbd(department_aoEEPbd);
+	var department_imCbNHF = jQuery("#jform_department input[type='radio']:checked").val();
+	imCbNHF(department_imCbNHF);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_aoEEPbd = jQuery("#jform_department input[type='radio']:checked").val();
-	aoEEPbd(department_aoEEPbd);
+	var department_imCbNHF = jQuery("#jform_department input[type='radio']:checked").val();
+	imCbNHF(department_imCbNHF);
 
 });
 
-// #jform_department listeners for department_lHOlbmV function
+// #jform_department listeners for department_HpJMxqK function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_lHOlbmV = jQuery("#jform_department input[type='radio']:checked").val();
-	lHOlbmV(department_lHOlbmV);
+	var department_HpJMxqK = jQuery("#jform_department input[type='radio']:checked").val();
+	HpJMxqK(department_HpJMxqK);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_lHOlbmV = jQuery("#jform_department input[type='radio']:checked").val();
-	lHOlbmV(department_lHOlbmV);
+	var department_HpJMxqK = jQuery("#jform_department input[type='radio']:checked").val();
+	HpJMxqK(department_HpJMxqK);
 
 });
 
@@ -206,7 +206,10 @@ jQuery('#adminForm').on('change', '#jform_causesrisks',function (e)
 		}
 	});
 });
-jQuery('input.form-field-repeatable').on('weready', function(e, value){
+
+// add the calculator button
+var cal_button = ' <a class="btn btn-small btn-success" href="https://www.staffhealthcbp.com/download/Productivity_Losses_Calculator_V1.xlsx"> <span class="icon-download icon-white"></span> Calculator </a>';
+jQuery('#jform_productivity_losses').closest('.controls').append(cal_button);jQuery('input.form-field-repeatable').on('weready', function(e, value){
 	if ("jform_percentmale" == e.currentTarget.id)
 	{
 		calPercent('male');

@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.0
-	@build			14th February, 2016
+	@version		3.3.2
+	@build			16th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		service_provider.php
@@ -95,7 +95,7 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 				$item->tags->getTagIds($item->id, 'com_costbenefitprojection.service_provider');
 			}
 		}
-		$this->serviceprovidervwpu = $item->id;
+		$this->serviceprovidereiwh = $item->id;
 
 		return $item;
 	}
@@ -105,7 +105,7 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getRtncompanies()
+	public function getSrvcompanies()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -148,15 +148,15 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 		$query->select($db->quoteName('i.user','serviceprovider_user'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_service_provider', 'i') . ' ON (' . $db->quoteName('a.serviceprovider') . ' = ' . $db->quoteName('i.id') . ')');
 
-		// Filter by serviceprovidervwpu global.
-		$serviceprovidervwpu = $this->serviceprovidervwpu;
-		if (is_numeric($serviceprovidervwpu ))
+		// Filter by serviceprovidereiwh global.
+		$serviceprovidereiwh = $this->serviceprovidereiwh;
+		if (is_numeric($serviceprovidereiwh ))
 		{
-			$query->where('a.serviceprovider = ' . (int) $serviceprovidervwpu );
+			$query->where('a.serviceprovider = ' . (int) $serviceprovidereiwh );
 		}
-		elseif (is_string($serviceprovidervwpu))
+		elseif (is_string($serviceprovidereiwh))
 		{
-			$query->where('a.serviceprovider = ' . $db->quote($serviceprovidervwpu));
+			$query->where('a.serviceprovider = ' . $db->quote($serviceprovidereiwh));
 		}
 		else
 		{
@@ -211,9 +211,9 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 				foreach ($items as $nr => &$item)
 				{
 					// convert department
-					$item->department = $this->selectionTranslationRtncompanies($item->department, 'department');
+					$item->department = $this->selectionTranslationSrvcompanies($item->department, 'department');
 					// convert per
-					$item->per = $this->selectionTranslationRtncompanies($item->per, 'per');
+					$item->per = $this->selectionTranslationSrvcompanies($item->per, 'per');
 				}
 			}
 
@@ -227,7 +227,7 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 	*
 	* @return translatable string
 	*/
-	public function selectionTranslationRtncompanies($value,$name)
+	public function selectionTranslationSrvcompanies($value,$name)
 	{
 		// Array of department language strings
 		if ($name == 'department')
