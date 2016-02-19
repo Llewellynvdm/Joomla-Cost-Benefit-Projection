@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.2
-	@build			16th February, 2016
+	@build			19th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -105,48 +105,48 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_type listeners for type_hjWzglc function
+// #jform_type listeners for type_EzNfbyp function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_hjWzglc = jQuery("#jform_type input[type='radio']:checked").val();
-	hjWzglc(type_hjWzglc);
+	var type_EzNfbyp = jQuery("#jform_type input[type='radio']:checked").val();
+	EzNfbyp(type_EzNfbyp);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_hjWzglc = jQuery("#jform_type input[type='radio']:checked").val();
-	hjWzglc(type_hjWzglc);
+	var type_EzNfbyp = jQuery("#jform_type input[type='radio']:checked").val();
+	EzNfbyp(type_EzNfbyp);
 
 });
 
-// #jform_type listeners for type_KIPRxZv function
+// #jform_type listeners for type_ikDeDTb function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_KIPRxZv = jQuery("#jform_type input[type='radio']:checked").val();
-	KIPRxZv(type_KIPRxZv);
+	var type_ikDeDTb = jQuery("#jform_type input[type='radio']:checked").val();
+	ikDeDTb(type_ikDeDTb);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_KIPRxZv = jQuery("#jform_type input[type='radio']:checked").val();
-	KIPRxZv(type_KIPRxZv);
+	var type_ikDeDTb = jQuery("#jform_type input[type='radio']:checked").val();
+	ikDeDTb(type_ikDeDTb);
 
 });
 
-// #jform_company listeners for company_QhXOtTU function
+// #jform_company listeners for company_bMXTubF function
 jQuery('#jform_company').on('keyup',function()
 {
-	var company_QhXOtTU = jQuery("#jform_company").val();
-	QhXOtTU(company_QhXOtTU);
+	var company_bMXTubF = jQuery("#jform_company").val();
+	bMXTubF(company_bMXTubF);
 
 });
 jQuery('#adminForm').on('change', '#jform_company',function (e)
 {
 	e.preventDefault();
-	var company_QhXOtTU = jQuery("#jform_company").val();
-	QhXOtTU(company_QhXOtTU);
+	var company_bMXTubF = jQuery("#jform_company").val();
+	bMXTubF(company_bMXTubF);
 
 });
 

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.2
-	@build			16th February, 2016
+	@build			19th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		sumcombine.php
@@ -52,6 +52,8 @@ class SumCombine
 				// join interventions
 				$this->setInterventions($item->interventions);
 			}
+			// check burden levels
+			$this->setBurden();
 			// set money for totals
 			$this->setMoney('totals');
 			// set the money for items
@@ -183,6 +185,23 @@ class SumCombine
 					}
 				}
 			}
+		}
+	}
+	
+	protected function setBurden()
+	{
+		if (100 < $this->totals->total_estimated_burden)
+		{
+			foreach ($this->items as $item)
+			{
+				if (isset($item->subtotal_estimated_burden) && 0 != $item->subtotal_estimated_burden)
+				{
+					// adjust the subtotal to 100 %
+					$item->subtotal_estimated_burden = ($item->subtotal_estimated_burden * 100) / $this->totals->total_estimated_burden;
+				}
+			}
+			// bring down the estimate to 100 %
+			$this->totals->total_estimated_burden = 100;
 		}
 	}
 	

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.2
-	@build			16th February, 2016
+	@build			19th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		company.php
@@ -154,8 +154,8 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				$item->tags->getTagIds($item->id, 'com_costbenefitprojection.company');
 			}
 		}
-		$this->companykjdf = $item->id;
-		$this->companydomr = $item->id;
+		$this->companybwpl = $item->id;
+		$this->companypcsa = $item->id;
 
 		return $item;
 	}
@@ -165,7 +165,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getRxtscaling_factors()
+	public function getVinscaling_factors()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -204,15 +204,15 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 		$query->select($db->quoteName('h.name','company_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_company', 'h') . ' ON (' . $db->quoteName('a.company') . ' = ' . $db->quoteName('h.id') . ')');
 
-		// Filter by companykjdf global.
-		$companykjdf = $this->companykjdf;
-		if (is_numeric($companykjdf ))
+		// Filter by companybwpl global.
+		$companybwpl = $this->companybwpl;
+		if (is_numeric($companybwpl ))
 		{
-			$query->where('a.company = ' . (int) $companykjdf );
+			$query->where('a.company = ' . (int) $companybwpl );
 		}
-		elseif (is_string($companykjdf))
+		elseif (is_string($companybwpl))
 		{
-			$query->where('a.company = ' . $db->quote($companykjdf));
+			$query->where('a.company = ' . $db->quote($companybwpl));
 		}
 		else
 		{
@@ -255,7 +255,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getEqzinterventions()
+	public function getEyninterventions()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -290,15 +290,15 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 		$query->select($db->quoteName('g.name','company_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_company', 'g') . ' ON (' . $db->quoteName('a.company') . ' = ' . $db->quoteName('g.id') . ')');
 
-		// Filter by companydomr global.
-		$companydomr = $this->companydomr;
-		if (is_numeric($companydomr ))
+		// Filter by companypcsa global.
+		$companypcsa = $this->companypcsa;
+		if (is_numeric($companypcsa ))
 		{
-			$query->where('a.company = ' . (int) $companydomr );
+			$query->where('a.company = ' . (int) $companypcsa );
 		}
-		elseif (is_string($companydomr))
+		elseif (is_string($companypcsa))
 		{
-			$query->where('a.company = ' . $db->quote($companydomr));
+			$query->where('a.company = ' . $db->quote($companypcsa));
 		}
 		else
 		{
@@ -351,7 +351,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				foreach ($items as $nr => &$item)
 				{
 					// convert type
-					$item->type = $this->selectionTranslationEqzinterventions($item->type, 'type');
+					$item->type = $this->selectionTranslationEyninterventions($item->type, 'type');
 				}
 			}
 
@@ -365,7 +365,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return translatable string
 	*/
-	public function selectionTranslationEqzinterventions($value,$name)
+	public function selectionTranslationEyninterventions($value,$name)
 	{
 		// Array of type language strings
 		if ($name == 'type')

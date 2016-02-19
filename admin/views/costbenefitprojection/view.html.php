@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.2
-	@build			16th February, 2016
+	@build			19th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -43,6 +43,7 @@ class CostbenefitprojectionViewCostbenefitprojection extends JViewLegacy
 		// Assign data to the view
 		$this->icons			= $this->get('Icons');
 		$this->contributors		= CostbenefitprojectionHelper::getContributors();
+		$this->usagedata	= $this->get('UsageData');
 
 		// Set the toolbar
 		$this->addToolBar();

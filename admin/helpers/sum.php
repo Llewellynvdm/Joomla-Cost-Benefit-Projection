@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.2
-	@build			16th February, 2016
+	@build			19th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		sum.php
@@ -574,7 +574,7 @@ class Sum
 			{
 				foreach ($this->items as $item)
 				{
-					if (isset($item->subtotal_estimated_burden) && 0 != $this->items[$id]->subtotal_estimated_burden)
+					if (isset($item->subtotal_estimated_burden) && 0 != $item->subtotal_estimated_burden)
 					{
 						// adjust the subtotal to 100 %
 						$item->subtotal_estimated_burden = ($item->subtotal_estimated_burden * 100) / $this->totals['total_estimated_burden'];

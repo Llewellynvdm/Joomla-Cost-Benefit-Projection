@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.2
-	@build			16th February, 2016
+	@build			19th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -249,5 +249,282 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 			}
 		}
 		return $icons;
+	}
+
+	public function getUsageData()
+	{
+                // load user for access menus
+                $this->user = JFactory::getUser();
+		// Create a new query object.
+		$this->db = $this->getDbo();
+		// admin sees all
+		if ($this->user->authorise('core.options', 'com_costbenefitprojection'))
+		{
+			// set countries
+			$this->countries = $this->setCountries();
+			// set companies
+			$this->companies = $this->setCompanies();
+		}
+		else
+		{
+			// set countries
+			$this->countries = $this->setCountries(true);
+			// set companies
+			$this->companies = $this->setCompanies(true);
+		}
+		// now work out the satistics
+		if ($this->setSatistics())
+		{
+			return $this->usageData;
+		}
+		return false;
+	}
+	
+	protected function setSatistics()
+	{
+		if (CostbenefitprojectionHelper::checkArray($this->companies))
+		{
+			// Get UTC for now.
+			$dNow = new JDate;
+			// set the 2 months date
+			$d2month = clone $dNow;
+			$d2month->modify('-2 month');
+			// load to string
+			$twoMonth = $d2month->format('Y-m-d H:i:s');
+			// set the beginning of year date
+			$dyear = clone $dNow;
+			$dyear->modify('first day of January '.date('Y'));
+			// load to string
+			$year = $dyear->format('Y-m-d H:i:s');
+			
+			// Get the advanced encription.
+			$advancedkey = CostbenefitprojectionHelper::getCryptKey('advanced');
+			// Get the encription object.
+			$advanced = new FOFEncryptAes($advancedkey, 256);
+
+			// set some default data
+			$this->usageData = new stdClass;
+			
+			// start looping the data
+			foreach ($this->companies as $company)
+			{
+				if (!empty($company->males) && $advancedkey && !is_numeric($company->males) && $company->males === base64_encode(base64_decode($company->males, true)))
+				{
+					// Decode males
+					$company->males = rtrim($advanced->decryptString($company->males), "\0");
+				}
+				else
+				{
+					$company->males = 0;
+				}
+				if (!empty($company->females) && $advancedkey && !is_numeric($company->females) && $company->females === base64_encode(base64_decode($company->females, true)))
+				{
+					// Decode males
+					$company->females = rtrim($advanced->decryptString($company->females), "\0");
+				}
+				else
+				{
+					$company->females = 0;
+				}
+				// number of employees
+				$employees = $company->males + $company->females;
+				// set the country total companies
+				$this->usageData->items[$company->country]['companies'][$company->id] = 1;
+				$this->usageData->total['companies'][$company->id] = 1;
+				$this->usageData->items[$company->country]['companies_employees'][$company->id] = $employees;
+				$this->usageData->total['companies_employees'][$company->id] = $employees;
+				// count the advanced department
+				if ($company->department == 2)
+				{
+					// set the country total advanced companies
+					$this->usageData->items[$company->country]['advanced_companies'][$company->id] = 1;
+					$this->usageData->total['advanced_companies'][$company->id] = 1;
+					$this->usageData->items[$company->country]['advanced_companies_employees'][$company->id] = $employees;
+					$this->usageData->total['advanced_companies_employees'][$company->id] = $employees;
+				}
+				else
+				{
+					// set the country total advanced companies
+					$this->usageData->items[$company->country]['advanced_companies'][$company->id] = 0;
+					$this->usageData->total['advanced_companies'][$company->id] = 0;
+					$this->usageData->items[$company->country]['advanced_companies_employees'][$company->id] = 0;
+					$this->usageData->total['advanced_companies_employees'][$company->id] = 0;
+				}
+				// count the basic department
+				if ($company->department == 1)
+				{
+					// set the country total basic companies
+					$this->usageData->items[$company->country]['basic_companies'][$company->id] = 1;
+					$this->usageData->total['basic_companies'][$company->id] = 1;
+					$this->usageData->items[$company->country]['basic_companies_employees'][$company->id] = $employees;
+					$this->usageData->total['basic_companies_employees'][$company->id] = $employees;
+				}
+				else
+				{
+					// set the country total basic companies
+					$this->usageData->items[$company->country]['basic_companies'][$company->id] = 0;
+					$this->usageData->total['basic_companies'][$company->id] = 0;
+					$this->usageData->items[$company->country]['basic_companies_employees'][$company->id] = 0;
+					$this->usageData->total['basic_companies_employees'][$company->id] = 0;
+				}
+				
+				// count the timed usage for last 2 months
+				if ($this->visitCheck($company->user,$twoMonth))
+				{
+					// set the country total advanced companies
+					$this->usageData->items[$company->country]['last_two_months'][$company->id] = 1;
+					$this->usageData->total['last_two_months'][$company->id] = 1;
+					$this->usageData->items[$company->country]['last_two_months_employees'][$company->id] = $employees;
+					$this->usageData->total['last_two_months_employees'][$company->id] = $employees;
+				}
+				else
+				{
+					// set the country total advanced companies
+					$this->usageData->items[$company->country]['last_two_months'][$company->id] = 0;
+					$this->usageData->total['last_two_months'][$company->id] = 0;
+					$this->usageData->items[$company->country]['last_two_months_employees'][$company->id] = 0;
+					$this->usageData->total['last_two_months_employees'][$company->id] = 0;
+				}
+				// count the timed usage since begining of this year
+				if ($this->visitCheck($company->user,$year))
+				{
+					// set the country total basic companies
+					$this->usageData->items[$company->country]['since_beginning_this_year'][$company->id] = 1;
+					$this->usageData->total['since_beginning_this_year'][$company->id] = 1;
+					$this->usageData->items[$company->country]['since_beginning_this_year_employees'][$company->id] = $employees;
+					$this->usageData->total['since_beginning_this_year_employees'][$company->id] = $employees;
+				}
+				else
+				{
+					// set the country total basic companies
+					$this->usageData->items[$company->country]['since_beginning_this_year'][$company->id] = 0;
+					$this->usageData->total['since_beginning_this_year'][$company->id] = 0;
+					$this->usageData->items[$company->country]['since_beginning_this_year_employees'][$company->id] = 0;
+					$this->usageData->total['since_beginning_this_year_employees'][$company->id] = 0;
+				}
+			}
+			
+			// sum the item arrays
+			foreach ($this->usageData->items as $country => $data)
+			{
+				// insure to set the name of the country
+				$this->usageData->items[$country]['name'] = $this->countries[$country];
+				foreach($data as $key => $array)
+				{
+					$this->usageData->items[$country][$key] = array_sum($array);
+				}
+			}
+			// sum the total array
+			foreach ($this->usageData->total as $tkey => $tarray)
+			{
+				$this->usageData->total[$tkey] = array_sum($tarray);
+			}
+			
+			return true;
+		}			
+		return false;
+	}
+	
+	protected function visitCheck($user,$time)
+	{
+		// set a token
+		$token = md5($time.$user);
+		if (!isset($this->checkedUser[$token]))
+		{
+			// Create a new query object.
+			$query = $this->db->getQuery(true);
+			// Get from #__costbenefitprojection_company as a
+			$query->select($this->db->quoteName(array('a.id')));
+			$query->from($this->db->quoteName('#__users', 'a'));
+			$query->where($this->db->qn('a.lastvisitDate') . ' >= ' . $this->db->quote($time));
+			// limit to only load these countries
+			$query->where('a.id = ' . (int) $user);
+			// load the query
+			$this->db->setQuery($query);
+			$this->db->execute();
+			if ($this->db->getNumRows())
+			{
+				$this->checkedUser[$token] = true;
+			}
+			else
+			{
+				$this->checkedUser[$token] = false;
+			}
+		}
+		return $this->checkedUser[$token];
+	}
+	
+	protected function setCompanies($limited = false)
+	{		
+		// check if there is any countries loaded
+		if (CostbenefitprojectionHelper::checkArray($this->countries))
+		{
+			// Create a new query object.
+			$query = $this->db->getQuery(true);
+			// Get from #__costbenefitprojection_company as a
+			$query->select($this->db->quoteName(
+				array('a.id','a.user','a.name','a.country','a.department','a.males','a.females'),
+				array('id','user','name','country','department','males','females')));
+			$query->from($this->db->quoteName('#__costbenefitprojection_company', 'a'));
+			if ($limited)
+			{
+				// get his companies
+				$ids = CostbenefitprojectionHelper::hisCompanies($this->user->id);
+				// limit to only load his companies
+				$query->where('a.id IN (' . implode(',', $ids) . ')');
+			}
+			// get only from set countries
+			$countryIds = array_keys($this->countries);
+			// limit to only load these countries
+			$query->where('a.country IN (' . implode(',', $countryIds) . ')');
+			$query->order('a.country ASC');
+			// load the query
+			$this->db->setQuery($query);
+			$this->db->execute();
+			if ($this->db->getNumRows())
+			{
+				return $this->db->loadObjectList();
+			}
+		}
+		return false;
+	}
+	
+	protected function setCountries($limited = false)
+	{
+		// Create a new query object.
+		$query = $this->db->getQuery(true);
+
+		// Get from #__costbenefitprojection_country as a
+		$query->select($this->db->quoteName(
+			array('a.id','a.name'),
+			array('id','name')));
+		$query->from($this->db->quoteName('#__costbenefitprojection_country', 'a'));
+		if ($limited)
+		{
+			// get his countries
+			$ids = CostbenefitprojectionHelper::hisCountries($this->user->id);
+			// limit to only load his countries
+			$query->where('a.id IN (' . implode(',', $ids) . ')');
+		}
+		else
+		{
+			$query->where('CHAR_LENGTH(a.causesrisks) > 5');
+			$query->where('CHAR_LENGTH(a.percentfemale) > 5');
+			$query->where('CHAR_LENGTH(a.percentmale) > 5');
+			$query->where('CHAR_LENGTH(a.datayear) > 3');
+			$query->where('CHAR_LENGTH(a.productivity_losses) > 0');
+			$query->where('CHAR_LENGTH(a.sick_leave) > 0');
+			$query->where('CHAR_LENGTH(a.medical_turnovers) > 0');
+		}
+		$query->where('a.published = 1');
+		$query->order('a.name ASC');
+		// load the query
+		$this->db->setQuery($query);
+		$this->db->execute();
+		if ($this->db->getNumRows())
+		{
+			return $this->db->loadAssocList('id', 'name');
+		}
+		return false;
 	}
 }

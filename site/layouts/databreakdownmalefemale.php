@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.2
-	@build			16th February, 2016
+	@build			19th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		databreakdownmalefemale.php
@@ -31,6 +31,7 @@ $rounder =  array(
 	);
 
 ?>
+<?php if (isset($displayData->male) && isset($displayData->female) ): ?>
 <div class="uk-grid">
 	<div style="float:left;">
 		<ul class="uk-list uk-list-striped">
@@ -63,3 +64,6 @@ $rounder =  array(
 		</ul>
 	</div>
 </div>
+<?php else: ?>
+	<?php echo JText::_('COM_COSTBENEFITPROJECTION_UNAVAILABLE_AT_THIS_TIME'); ?>
+<?php endif; ?>
