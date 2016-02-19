@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.3
+	@version		3.3.4
 	@build			19th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -92,7 +92,7 @@ class JFormFieldServiceprovider extends JFormFieldList
 		// Create a new query object.
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(true);
-		$query->select($db->quoteName(array('a.id','a.user'),array('id','serviceprovider_user')));
+		$query->select($db->quoteName(array('a.id','a.user'),array('id','service_provider_user')));
 		$query->from($db->quoteName('#__costbenefitprojection_service_provider', 'a'));
 		$query->where($db->quoteName('a.published') . ' = 1');
 		if (!$user->authorise('core.options', 'com_costbenefitprojection'))
@@ -118,7 +118,7 @@ class JFormFieldServiceprovider extends JFormFieldList
 		{
 			foreach($items as $item)
 			{
-				$options[] = JHtml::_('select.option', $item->id, JFactory::getUser($item->serviceprovider_user)->name);
+				$options[] = JHtml::_('select.option', $item->id, JFactory::getUser($item->service_provider_user)->name);
 			}
 		}
 		return $options;

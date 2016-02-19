@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.3
+	@version		3.3.4
 	@build			19th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -95,7 +95,7 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 				$item->tags->getTagIds($item->id, 'com_costbenefitprojection.service_provider');
 			}
 		}
-		$this->serviceproviderxdpg = $item->id;
+		$this->service_providerustf = $item->id;
 
 		return $item;
 	}
@@ -105,7 +105,7 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getKrrcompanies()
+	public function getPbkcompanies()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -145,22 +145,22 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_country', 'h') . ' ON (' . $db->quoteName('a.country') . ' = ' . $db->quoteName('h.id') . ')');
 
 		// From the costbenefitprojection_service_provider table.
-		$query->select($db->quoteName('i.user','serviceprovider_user'));
-		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_service_provider', 'i') . ' ON (' . $db->quoteName('a.serviceprovider') . ' = ' . $db->quoteName('i.id') . ')');
+		$query->select($db->quoteName('i.user','service_provider_user'));
+		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_service_provider', 'i') . ' ON (' . $db->quoteName('a.service_provider') . ' = ' . $db->quoteName('i.id') . ')');
 
-		// Filter by serviceproviderxdpg global.
-		$serviceproviderxdpg = $this->serviceproviderxdpg;
-		if (is_numeric($serviceproviderxdpg ))
+		// Filter by service_providerustf global.
+		$service_providerustf = $this->service_providerustf;
+		if (is_numeric($service_providerustf ))
 		{
-			$query->where('a.serviceprovider = ' . (int) $serviceproviderxdpg );
+			$query->where('a.service_provider = ' . (int) $service_providerustf );
 		}
-		elseif (is_string($serviceproviderxdpg))
+		elseif (is_string($service_providerustf))
 		{
-			$query->where('a.serviceprovider = ' . $db->quote($serviceproviderxdpg));
+			$query->where('a.service_provider = ' . $db->quote($service_providerustf));
 		}
 		else
 		{
-			$query->where('a.serviceprovider = -5');
+			$query->where('a.service_provider = -5');
 		}
 
 		// Join over the asset groups.
@@ -211,9 +211,9 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 				foreach ($items as $nr => &$item)
 				{
 					// convert department
-					$item->department = $this->selectionTranslationKrrcompanies($item->department, 'department');
+					$item->department = $this->selectionTranslationPbkcompanies($item->department, 'department');
 					// convert per
-					$item->per = $this->selectionTranslationKrrcompanies($item->per, 'per');
+					$item->per = $this->selectionTranslationPbkcompanies($item->per, 'per');
 				}
 			}
 
@@ -227,7 +227,7 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 	*
 	* @return translatable string
 	*/
-	public function selectionTranslationKrrcompanies($value,$name)
+	public function selectionTranslationPbkcompanies($value,$name)
 	{
 		// Array of department language strings
 		if ($name == 'department')
@@ -321,6 +321,19 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 			$form->setFieldAttribute('created', 'disabled', 'true');
 			// Disable fields while saving.
 			$form->setFieldAttribute('created', 'filter', 'unset');
+		}
+		// Only load these values if no id is found
+		if (0 == $id)
+		{
+			// Set redirected field name
+			$redirectedField = $jinput->get('ref', null, 'STRING');
+			// Set redirected field value
+			$redirectedValue = $jinput->get('refid', 0, 'INT');
+			if (0 != $redirectedValue && $redirectedField)
+			{
+				// Now set the local-redirected field default value
+				$form->setValue($redirectedField, null, $redirectedValue);
+			}
 		}
 
 		return $form;

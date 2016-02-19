@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.3
+	@version		3.3.4
 	@build			19th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -69,8 +69,8 @@ class CostbenefitprojectionModelCpanel extends JModelList
 
 		// Get from #__costbenefitprojection_company as a
 		$query->select($db->quoteName(
-			array('a.id','a.asset_id','a.name','a.user','a.department','a.per','a.email','a.country','a.serviceprovider','a.datayear','a.working_days','a.total_salary','a.total_healthcare','a.productivity_losses','a.males','a.females','a.medical_turnovers_males','a.medical_turnovers_females','a.sick_leave_males','a.sick_leave_females','a.percentmale','a.percentfemale','a.causesrisks','a.not_required','a.published','a.checked_out','a.checked_out_time','a.created_by','a.modified_by','a.created','a.modified','a.version','a.hits','a.ordering'),
-			array('id','asset_id','name','user','department','per','email','country','serviceprovider','datayear','working_days','total_salary','total_healthcare','productivity_losses','males','females','medical_turnovers_males','medical_turnovers_females','sick_leave_males','sick_leave_females','percentmale','percentfemale','causesrisks','not_required','published','checked_out','checked_out_time','created_by','modified_by','created','modified','version','hits','ordering')));
+			array('a.id','a.asset_id','a.name','a.user','a.department','a.per','a.email','a.country','a.service_provider','a.datayear','a.working_days','a.total_salary','a.total_healthcare','a.productivity_losses','a.males','a.females','a.medical_turnovers_males','a.medical_turnovers_females','a.sick_leave_males','a.sick_leave_females','a.percentmale','a.percentfemale','a.causesrisks','a.not_required','a.published','a.checked_out','a.checked_out_time','a.created_by','a.modified_by','a.created','a.modified','a.version','a.hits','a.ordering'),
+			array('id','asset_id','name','user','department','per','email','country','service_provider','datayear','working_days','total_salary','total_healthcare','productivity_losses','males','females','medical_turnovers_males','medical_turnovers_females','sick_leave_males','sick_leave_females','percentmale','percentfemale','causesrisks','not_required','published','checked_out','checked_out_time','created_by','modified_by','created','modified','version','hits','ordering')));
 		$query->from($db->quoteName('#__costbenefitprojection_company', 'a'));
 
 		// Get from #__costbenefitprojection_country as b
@@ -83,7 +83,7 @@ class CostbenefitprojectionModelCpanel extends JModelList
 		$query->select($db->quoteName(
 			array('c.user','c.publicname','c.publicemail','c.publicnumber','c.publicaddress'),
 			array('service_provider_user','service_provider_publicname','service_provider_publicemail','service_provider_publicnumber','service_provider_publicaddress')));
-		$query->join('LEFT', ($db->quoteName('#__costbenefitprojection_service_provider', 'c')) . ' ON (' . $db->quoteName('a.serviceprovider') . ' = ' . $db->quoteName('c.id') . ')');
+		$query->join('LEFT', ($db->quoteName('#__costbenefitprojection_service_provider', 'c')) . ' ON (' . $db->quoteName('a.service_provider') . ' = ' . $db->quoteName('c.id') . ')');
 
 		// Get from #__costbenefitprojection_currency as g
 		$query->select($db->quoteName(

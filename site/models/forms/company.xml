@@ -148,11 +148,11 @@
 			default="0"
 			required="true"
 		/>
-		<!-- Serviceprovider Field. Type: Serviceprovider. (custom) -->
+		<!-- Service_provider Field. Type: Serviceprovider. (custom) -->
 		<field
 			type="serviceprovider"
-			name="serviceprovider"
-			label="COM_COSTBENEFITPROJECTION_COMPANY_SERVICEPROVIDER_LABEL"
+			name="service_provider"
+			label="COM_COSTBENEFITPROJECTION_COMPANY_SERVICE_PROVIDER_LABEL"
 			class="list_class"
 			multiple="false"
 			default="0"

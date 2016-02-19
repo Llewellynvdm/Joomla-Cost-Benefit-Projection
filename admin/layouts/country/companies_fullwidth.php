@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.3
+	@version		3.3.4
 	@build			19th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -22,7 +22,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // set the defaults
-$items	= $displayData->nxwcompanies;
+$items	= $displayData->iebcompanies;
 $user	= JFactory::getUser();
 $id	= $displayData->item->id;
 $edit	= "index.php?option=com_costbenefitprojection&view=companies&task=company.edit";
@@ -52,7 +52,7 @@ $can	= CostbenefitprojectionHelper::getActions('company');
 			<?php echo JText::_('COM_COSTBENEFITPROJECTION_COMPANY_COUNTRY_LABEL'); ?>
 		</th>
 		<th data-hide="phone,tablet">
-			<?php echo JText::_('COM_COSTBENEFITPROJECTION_COMPANY_SERVICEPROVIDER_LABEL'); ?>
+			<?php echo JText::_('COM_COSTBENEFITPROJECTION_COMPANY_SERVICE_PROVIDER_LABEL'); ?>
 		</th>
 		<th data-hide="phone,tablet">
 			<?php echo JText::_('COM_COSTBENEFITPROJECTION_COMPANY_PER_LABEL'); ?>
@@ -105,10 +105,10 @@ $can	= CostbenefitprojectionHelper::getActions('company');
 			<?php echo $displayData->escape($item->country_name); ?>
 		</td>
 		<td class="nowrap">
-			<?php if ($user->authorise('service_provider.edit', 'com_costbenefitprojection.service_provider.' . (int)$item->serviceprovider)): ?>
-				<a href="index.php?option=com_costbenefitprojection&view=service_providers&task=service_provider.edit&id=<?php echo $item->serviceprovider; ?>&ref=country&refid=<?php echo $id; ?>"><?php echo JFactory::getUser((int)$item->serviceprovider_user)->name; ?></a>
+			<?php if ($user->authorise('service_provider.edit', 'com_costbenefitprojection.service_provider.' . (int)$item->service_provider)): ?>
+				<a href="index.php?option=com_costbenefitprojection&view=service_providers&task=service_provider.edit&id=<?php echo $item->service_provider; ?>&ref=country&refid=<?php echo $id; ?>"><?php echo JFactory::getUser((int)$item->service_provider_user)->name; ?></a>
 			<?php else: ?>
-				<div class="name"><?php echo JFactory::getUser((int)$item->serviceprovider_user)->name; ?></div>
+				<div class="name"><?php echo JFactory::getUser((int)$item->service_provider_user)->name; ?></div>
 			<?php endif; ?>
 		</td>
 		<td>

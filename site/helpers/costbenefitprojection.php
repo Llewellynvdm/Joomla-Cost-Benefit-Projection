@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.3
+	@version		3.3.4
 	@build			19th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -200,7 +200,7 @@ abstract class CostbenefitprojectionHelper
 			break;
 			// serves provider (only load companies that belong to the service provider)
 			case 2:
-			return self::getIds('serviceprovider',self::getIds('user',$id,'service_provider'),'company');
+			return self::getIds('service_provider',self::getIds('user',$id,'service_provider'),'company');
 			break;
 			// country (only load companies that belong to the country)
 			case 3:
@@ -224,7 +224,7 @@ abstract class CostbenefitprojectionHelper
 		// return in relation
 		if (1 == $is) // member
 		{
-			return self::getIds('user',$id,'company','serviceprovider');
+			return self::getIds('user',$id,'company','service_provider');
 		}
 		elseif (2 == $is) // serves provider
 		{

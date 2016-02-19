@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.3
+	@version		3.3.4
 	@build			19th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -65,7 +65,7 @@ class CostbenefitprojectionViewService_provider extends JViewLegacy
                 }
 
 		// Get Linked view data
-		$this->krrcompanies		= $this->get('Krrcompanies');
+		$this->pbkcompanies		= $this->get('Pbkcompanies');
 
 		// Set the toolbar
 		$this->addToolBar();

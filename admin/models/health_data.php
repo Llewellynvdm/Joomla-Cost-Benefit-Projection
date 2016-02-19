@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.3
+	@version		3.3.4
 	@build			19th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -285,6 +285,19 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 				$form->setFieldAttribute('femaleyld', 'filter', 'unset');
 				// Disable fields while saving.
 				$form->setFieldAttribute('femaleyld', 'required', 'false');
+			}
+		}
+		// Only load these values if no id is found
+		if (0 == $id)
+		{
+			// Set redirected field name
+			$redirectedField = $jinput->get('ref', null, 'STRING');
+			// Set redirected field value
+			$redirectedValue = $jinput->get('refid', 0, 'INT');
+			if (0 != $redirectedValue && $redirectedField)
+			{
+				// Now set the local-redirected field default value
+				$form->setValue($redirectedField, null, $redirectedValue);
 			}
 		}
 

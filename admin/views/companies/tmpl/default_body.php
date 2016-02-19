@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.3
+	@version		3.3.4
 	@build			19th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -108,12 +108,12 @@ $edit = "index.php?option=com_costbenefitprojection&view=companies&task=company.
 			<?php endif; ?>
 		</td>
 		<td class="nowrap">
-			<?php if ($this->user->authorise('service_provider.edit', 'com_costbenefitprojection.service_provider.' . (int)$item->serviceprovider)): ?>
+			<?php if ($this->user->authorise('service_provider.edit', 'com_costbenefitprojection.service_provider.' . (int)$item->service_provider)): ?>
 				<div class="name">
-					<a href="index.php?option=com_costbenefitprojection&view=service_providers&task=service_provider.edit&id=<?php echo $item->serviceprovider; ?>&ref=companies"><?php echo JFactory::getUser((int)$item->serviceprovider_user)->name; ?></a>
+					<a href="index.php?option=com_costbenefitprojection&view=service_providers&task=service_provider.edit&id=<?php echo $item->service_provider; ?>&ref=companies"><?php echo JFactory::getUser((int)$item->service_provider_user)->name; ?></a>
 				</div>
 			<?php else: ?>
-				<div class="name"><?php echo JFactory::getUser((int)$item->serviceprovider_user)->name; ?></div>
+				<div class="name"><?php echo JFactory::getUser((int)$item->service_provider_user)->name; ?></div>
 			<?php endif; ?>
 		</td>
 		<td class="hidden-phone">

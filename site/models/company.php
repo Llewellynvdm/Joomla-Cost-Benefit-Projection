@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.3
+	@version		3.3.4
 	@build			19th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -154,8 +154,8 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				$item->tags->getTagIds($item->id, 'com_costbenefitprojection.company');
 			}
 		}
-		$this->companyatyc = $item->id;
-		$this->companyrlyy = $item->id;
+		$this->companyajof = $item->id;
+		$this->companyyyxj = $item->id;
 
 		return $item;
 	}
@@ -165,7 +165,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getTtcscaling_factors()
+	public function getOlrscaling_factors()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -204,15 +204,15 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 		$query->select($db->quoteName('h.name','company_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_company', 'h') . ' ON (' . $db->quoteName('a.company') . ' = ' . $db->quoteName('h.id') . ')');
 
-		// Filter by companyatyc global.
-		$companyatyc = $this->companyatyc;
-		if (is_numeric($companyatyc ))
+		// Filter by companyajof global.
+		$companyajof = $this->companyajof;
+		if (is_numeric($companyajof ))
 		{
-			$query->where('a.company = ' . (int) $companyatyc );
+			$query->where('a.company = ' . (int) $companyajof );
 		}
-		elseif (is_string($companyatyc))
+		elseif (is_string($companyajof))
 		{
-			$query->where('a.company = ' . $db->quote($companyatyc));
+			$query->where('a.company = ' . $db->quote($companyajof));
 		}
 		else
 		{
@@ -255,7 +255,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getAvtinterventions()
+	public function getQntinterventions()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -290,15 +290,15 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 		$query->select($db->quoteName('g.name','company_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_company', 'g') . ' ON (' . $db->quoteName('a.company') . ' = ' . $db->quoteName('g.id') . ')');
 
-		// Filter by companyrlyy global.
-		$companyrlyy = $this->companyrlyy;
-		if (is_numeric($companyrlyy ))
+		// Filter by companyyyxj global.
+		$companyyyxj = $this->companyyyxj;
+		if (is_numeric($companyyyxj ))
 		{
-			$query->where('a.company = ' . (int) $companyrlyy );
+			$query->where('a.company = ' . (int) $companyyyxj );
 		}
-		elseif (is_string($companyrlyy))
+		elseif (is_string($companyyyxj))
 		{
-			$query->where('a.company = ' . $db->quote($companyrlyy));
+			$query->where('a.company = ' . $db->quote($companyyyxj));
 		}
 		else
 		{
@@ -351,7 +351,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				foreach ($items as $nr => &$item)
 				{
 					// convert type
-					$item->type = $this->selectionTranslationAvtinterventions($item->type, 'type');
+					$item->type = $this->selectionTranslationQntinterventions($item->type, 'type');
 				}
 			}
 
@@ -365,7 +365,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return translatable string
 	*/
-	public function selectionTranslationAvtinterventions($value,$name)
+	public function selectionTranslationQntinterventions($value,$name)
 	{
 		// Array of type language strings
 		if ($name == 'type')
@@ -516,20 +516,20 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				$form->setFieldAttribute('country', 'required', 'false');
 			}
 		}
-		// Modify the form based on Edit Serviceprovider access controls.
-		if ($id != 0 && (!$user->authorise('company.edit.serviceprovider', 'com_costbenefitprojection.company.' . (int) $id))
-			|| ($id == 0 && !$user->authorise('company.edit.serviceprovider', 'com_costbenefitprojection')))
+		// Modify the form based on Edit Service Provider access controls.
+		if ($id != 0 && (!$user->authorise('company.edit.service_provider', 'com_costbenefitprojection.company.' . (int) $id))
+			|| ($id == 0 && !$user->authorise('company.edit.service_provider', 'com_costbenefitprojection')))
 		{
 			// Disable fields for display.
-			$form->setFieldAttribute('serviceprovider', 'disabled', 'true');
+			$form->setFieldAttribute('service_provider', 'disabled', 'true');
 			// Disable fields for display.
-			$form->setFieldAttribute('serviceprovider', 'readonly', 'true');
-			if (!$form->getValue('serviceprovider'))
+			$form->setFieldAttribute('service_provider', 'readonly', 'true');
+			if (!$form->getValue('service_provider'))
 			{
 				// Disable fields while saving.
-				$form->setFieldAttribute('serviceprovider', 'filter', 'unset');
+				$form->setFieldAttribute('service_provider', 'filter', 'unset');
 				// Disable fields while saving.
-				$form->setFieldAttribute('serviceprovider', 'required', 'false');
+				$form->setFieldAttribute('service_provider', 'required', 'false');
 			}
 		}
 		// Modify the form based on Edit Per access controls.
@@ -619,6 +619,19 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				$form->setFieldAttribute('percentmale', 'filter', 'unset');
 				// Disable fields while saving.
 				$form->setFieldAttribute('percentmale', 'required', 'false');
+			}
+		}
+		// Only load these values if no id is found
+		if (0 == $id)
+		{
+			// Set redirected field name
+			$redirectedField = $jinput->get('ref', null, 'STRING');
+			// Set redirected field value
+			$redirectedValue = $jinput->get('refid', 0, 'INT');
+			if (0 != $redirectedValue && $redirectedField)
+			{
+				// Now set the local-redirected field default value
+				$form->setValue($redirectedField, null, $redirectedValue);
 			}
 		}
 

@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.3
+	@version		3.3.4
 	@build			19th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -50,7 +50,7 @@ defined('_JEXEC') or die('Restricted access');
 			<?php echo JHtml::_('grid.sort', 'COM_COSTBENEFITPROJECTION_COMPANY_COUNTRY_LABEL', 'country_name', $this->listDirn, $this->listOrder); ?>
 	</th>
 	<th class="nowrap" >
-			<?php echo JHtml::_('grid.sort', 'COM_COSTBENEFITPROJECTION_COMPANY_SERVICEPROVIDER_LABEL', 'serviceprovider_user', $this->listDirn, $this->listOrder); ?>
+			<?php echo JHtml::_('grid.sort', 'COM_COSTBENEFITPROJECTION_COMPANY_SERVICE_PROVIDER_LABEL', 'service_provider_user', $this->listDirn, $this->listOrder); ?>
 	</th>
 	<th class="nowrap hidden-phone" >
 			<?php echo JHtml::_('grid.sort', 'COM_COSTBENEFITPROJECTION_COMPANY_PER_LABEL', 'per', $this->listDirn, $this->listOrder); ?>

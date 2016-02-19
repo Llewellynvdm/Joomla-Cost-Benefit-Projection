@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.3
+	@version		3.3.4
 	@build			19th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -100,8 +100,8 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 
 		// Get from #__costbenefitprojection_company as a
 		$query->select($db->quoteName(
-			array('a.id','a.name','a.user','a.department','a.per','a.country','a.serviceprovider','a.datayear','a.working_days','a.total_salary','a.total_healthcare','a.productivity_losses','a.males','a.females','a.medical_turnovers_males','a.medical_turnovers_females','a.sick_leave_males','a.sick_leave_females','a.percentmale','a.percentfemale','a.causesrisks','a.published','a.access'),
-			array('id','name','user','department','per','country','serviceprovider','datayear','working_days','total_salary','total_healthcare','productivity_losses','males','females','medical_turnovers_males','medical_turnovers_females','sick_leave_males','sick_leave_females','percentmale','percentfemale','causesrisks','published','access')));
+			array('a.id','a.name','a.user','a.department','a.per','a.country','a.service_provider','a.datayear','a.working_days','a.total_salary','a.total_healthcare','a.productivity_losses','a.males','a.females','a.medical_turnovers_males','a.medical_turnovers_females','a.sick_leave_males','a.sick_leave_females','a.percentmale','a.percentfemale','a.causesrisks','a.published','a.access'),
+			array('id','name','user','department','per','country','service_provider','datayear','working_days','total_salary','total_healthcare','productivity_losses','males','females','medical_turnovers_males','medical_turnovers_females','sick_leave_males','sick_leave_females','percentmale','percentfemale','causesrisks','published','access')));
 		$query->from($db->quoteName('#__costbenefitprojection_company', 'a'));
 
 		// Get from #__costbenefitprojection_country as e

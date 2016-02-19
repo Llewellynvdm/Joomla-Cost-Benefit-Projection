@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.3
+	@version		3.3.4
 	@build			19th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -22,7 +22,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // set the defaults
-$items	= $displayData->krrcompanies;
+$items	= $displayData->pbkcompanies;
 $user	= JFactory::getUser();
 $id	= $displayData->item->id;
 $edit	= "index.php?option=com_costbenefitprojection&view=companies&task=company.edit";
@@ -52,7 +52,7 @@ $can	= CostbenefitprojectionHelper::getActions('company');
 			<?php echo JText::_('COM_COSTBENEFITPROJECTION_COMPANY_COUNTRY_LABEL'); ?>
 		</th>
 		<th data-hide="phone,tablet">
-			<?php echo JText::_('COM_COSTBENEFITPROJECTION_COMPANY_SERVICEPROVIDER_LABEL'); ?>
+			<?php echo JText::_('COM_COSTBENEFITPROJECTION_COMPANY_SERVICE_PROVIDER_LABEL'); ?>
 		</th>
 		<th data-hide="phone,tablet">
 			<?php echo JText::_('COM_COSTBENEFITPROJECTION_COMPANY_PER_LABEL'); ?>
@@ -109,7 +109,7 @@ $can	= CostbenefitprojectionHelper::getActions('company');
 			<?php endif; ?>
 		</td>
 		<td>
-			<?php echo JFactory::getUser((int)$item->serviceprovider_user)->name; ?>
+			<?php echo JFactory::getUser((int)$item->service_provider_user)->name; ?>
 		</td>
 		<td>
 			<?php echo JText::_($item->per); ?>

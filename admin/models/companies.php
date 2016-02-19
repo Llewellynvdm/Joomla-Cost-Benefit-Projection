@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.3
+	@version		3.3.4
 	@build			19th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -42,7 +42,7 @@ class CostbenefitprojectionModelCompanies extends JModelList
 				'a.user','user',
 				'a.department','department',
 				'a.country','country',
-				'a.serviceprovider','serviceprovider',
+				'a.service_provider','service_provider',
 				'a.per','per'
 			);
 		}
@@ -76,8 +76,8 @@ class CostbenefitprojectionModelCompanies extends JModelList
 		$country = $this->getUserStateFromRequest($this->context . '.filter.country', 'filter_country');
 		$this->setState('filter.country', $country);
 
-		$serviceprovider = $this->getUserStateFromRequest($this->context . '.filter.serviceprovider', 'filter_serviceprovider');
-		$this->setState('filter.serviceprovider', $serviceprovider);
+		$service_provider = $this->getUserStateFromRequest($this->context . '.filter.service_provider', 'filter_service_provider');
+		$this->setState('filter.service_provider', $service_provider);
 
 		$per = $this->getUserStateFromRequest($this->context . '.filter.per', 'filter_per');
 		$this->setState('filter.per', $per);
@@ -232,8 +232,8 @@ class CostbenefitprojectionModelCompanies extends JModelList
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_country', 'h') . ' ON (' . $db->quoteName('a.country') . ' = ' . $db->quoteName('h.id') . ')');
 
 		// From the costbenefitprojection_service_provider table.
-		$query->select($db->quoteName('i.user','serviceprovider_user'));
-		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_service_provider', 'i') . ' ON (' . $db->quoteName('a.serviceprovider') . ' = ' . $db->quoteName('i.id') . ')');
+		$query->select($db->quoteName('i.user','service_provider_user'));
+		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_service_provider', 'i') . ' ON (' . $db->quoteName('a.service_provider') . ' = ' . $db->quoteName('i.id') . ')');
 
 		// Filter by published state
 		$published = $this->getState('filter.published');
@@ -271,7 +271,7 @@ class CostbenefitprojectionModelCompanies extends JModelList
 			else
 			{
 				$search = $db->quote('%' . $db->escape($search, true) . '%');
-				$query->where('(a.name LIKE '.$search.' OR a.email LIKE '.$search.' OR a.user LIKE '.$search.' OR g.name LIKE '.$search.' OR a.department LIKE '.$search.' OR a.country LIKE '.$search.' OR h.name LIKE '.$search.' OR a.serviceprovider LIKE '.$search.' OR i.user LIKE '.$search.' OR a.per LIKE '.$search.')');
+				$query->where('(a.name LIKE '.$search.' OR a.email LIKE '.$search.' OR a.user LIKE '.$search.' OR g.name LIKE '.$search.' OR a.department LIKE '.$search.' OR a.country LIKE '.$search.' OR h.name LIKE '.$search.' OR a.service_provider LIKE '.$search.' OR i.user LIKE '.$search.' OR a.per LIKE '.$search.')');
 			}
 		}
 
@@ -285,10 +285,10 @@ class CostbenefitprojectionModelCompanies extends JModelList
 		{
 			$query->where('a.country = ' . $db->quote($db->escape($country, true)));
 		}
-		// Filter by serviceprovider.
-		if ($serviceprovider = $this->getState('filter.serviceprovider'))
+		// Filter by service_provider.
+		if ($service_provider = $this->getState('filter.service_provider'))
 		{
-			$query->where('a.serviceprovider = ' . $db->quote($db->escape($serviceprovider, true)));
+			$query->where('a.service_provider = ' . $db->quote($db->escape($service_provider, true)));
 		}
 		// Filter by Per.
 		if ($per = $this->getState('filter.per'))
@@ -486,7 +486,7 @@ class CostbenefitprojectionModelCompanies extends JModelList
 		$id .= ':' . $this->getState('filter.user');
 		$id .= ':' . $this->getState('filter.department');
 		$id .= ':' . $this->getState('filter.country');
-		$id .= ':' . $this->getState('filter.serviceprovider');
+		$id .= ':' . $this->getState('filter.service_provider');
 		$id .= ':' . $this->getState('filter.per');
 
 		return parent::getStoreId($id);

@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.3
+	@version		3.3.4
 	@build			19th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -244,24 +244,24 @@ class CostbenefitprojectionViewCompanies extends JViewLegacy
 			}
 		}
 
-		// Set Serviceprovider User Selection
-		$this->serviceproviderUserOptions = JFormHelper::loadFieldType('Serviceprovider')->getOptions();
-		if ($this->serviceproviderUserOptions)
+		// Set Service Provider User Selection
+		$this->service_providerUserOptions = JFormHelper::loadFieldType('Serviceprovider')->getOptions();
+		if ($this->service_providerUserOptions)
 		{
-			// Serviceprovider User Filter
+			// Service Provider User Filter
 			JHtmlSidebar::addFilter(
-				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_COMPANY_SERVICEPROVIDER_LABEL').' -',
-				'filter_serviceprovider',
-				JHtml::_('select.options', $this->serviceproviderUserOptions, 'value', 'text', $this->state->get('filter.serviceprovider'))
+				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_COMPANY_SERVICE_PROVIDER_LABEL').' -',
+				'filter_service_provider',
+				JHtml::_('select.options', $this->service_providerUserOptions, 'value', 'text', $this->state->get('filter.service_provider'))
 			);
 
 			if ($this->canBatch && $this->canCreate && $this->canEdit)
 			{
-				// Serviceprovider User Batch Selection
+				// Service Provider User Batch Selection
 				JHtmlBatch_::addListSelection(
-					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_COMPANY_SERVICEPROVIDER_LABEL').' -',
-					'batch[serviceprovider]',
-					JHtml::_('select.options', $this->serviceproviderUserOptions, 'value', 'text')
+					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_COMPANY_SERVICE_PROVIDER_LABEL').' -',
+					'batch[service_provider]',
+					JHtml::_('select.options', $this->service_providerUserOptions, 'value', 'text')
 				);
 			}
 		}
@@ -333,7 +333,7 @@ class CostbenefitprojectionViewCompanies extends JViewLegacy
 			'g.name' => JText::_('COM_COSTBENEFITPROJECTION_COMPANY_USER_LABEL'),
 			'a.department' => JText::_('COM_COSTBENEFITPROJECTION_COMPANY_DEPARTMENT_LABEL'),
 			'h.name' => JText::_('COM_COSTBENEFITPROJECTION_COMPANY_COUNTRY_LABEL'),
-			'i.user' => JText::_('COM_COSTBENEFITPROJECTION_COMPANY_SERVICEPROVIDER_LABEL'),
+			'i.user' => JText::_('COM_COSTBENEFITPROJECTION_COMPANY_SERVICE_PROVIDER_LABEL'),
 			'a.per' => JText::_('COM_COSTBENEFITPROJECTION_COMPANY_PER_LABEL'),
 			'a.id' => JText::_('JGRID_HEADING_ID')
 		);
