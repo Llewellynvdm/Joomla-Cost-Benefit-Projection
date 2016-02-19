@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.2
+	@version		3.3.3
 	@build			19th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -143,33 +143,33 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_department listeners for department_FwCvUQL function
+// #jform_department listeners for department_NgVskxn function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_FwCvUQL = jQuery("#jform_department input[type='radio']:checked").val();
-	FwCvUQL(department_FwCvUQL);
+	var department_NgVskxn = jQuery("#jform_department input[type='radio']:checked").val();
+	NgVskxn(department_NgVskxn);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_FwCvUQL = jQuery("#jform_department input[type='radio']:checked").val();
-	FwCvUQL(department_FwCvUQL);
+	var department_NgVskxn = jQuery("#jform_department input[type='radio']:checked").val();
+	NgVskxn(department_NgVskxn);
 
 });
 
-// #jform_department listeners for department_desBIPd function
+// #jform_department listeners for department_ocAanot function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_desBIPd = jQuery("#jform_department input[type='radio']:checked").val();
-	desBIPd(department_desBIPd);
+	var department_ocAanot = jQuery("#jform_department input[type='radio']:checked").val();
+	ocAanot(department_ocAanot);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_desBIPd = jQuery("#jform_department input[type='radio']:checked").val();
-	desBIPd(department_desBIPd);
+	var department_ocAanot = jQuery("#jform_department input[type='radio']:checked").val();
+	ocAanot(department_ocAanot);
 
 });
 
