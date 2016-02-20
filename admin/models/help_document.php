@@ -151,7 +151,7 @@ class CostbenefitprojectionModelHelp_document extends JModelAdmin
 			$form->setFieldAttribute('ordering', 'filter', 'unset');
 			$form->setFieldAttribute('published', 'filter', 'unset');
 		}
-		// If this is a new item insure the greated by is set
+		// If this is a new item insure the greated by is set.
 		if (0 == $id)
 		{
 			// Set the created_by to this user
@@ -299,7 +299,7 @@ class CostbenefitprojectionModelHelp_document extends JModelAdmin
 		{
 			$table->created = $date->toSql();
 			// set the user
-			if ($table->created_by == 0)
+			if ($table->created_by == 0 || empty($table->created_by))
 			{
 				$table->created_by = $user->id;
 			}

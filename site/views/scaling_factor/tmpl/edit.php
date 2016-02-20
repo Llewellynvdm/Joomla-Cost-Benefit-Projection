@@ -90,18 +90,18 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_company listeners for company_KuwbJuP function
+// #jform_company listeners for company_LJQDUtN function
 jQuery('#jform_company').on('keyup',function()
 {
-	var company_KuwbJuP = jQuery("#jform_company").val();
-	KuwbJuP(company_KuwbJuP);
+	var company_LJQDUtN = jQuery("#jform_company").val();
+	LJQDUtN(company_LJQDUtN);
 
 });
 jQuery('#adminForm').on('change', '#jform_company',function (e)
 {
 	e.preventDefault();
-	var company_KuwbJuP = jQuery("#jform_company").val();
-	KuwbJuP(company_KuwbJuP);
+	var company_LJQDUtN = jQuery("#jform_company").val();
+	LJQDUtN(company_LJQDUtN);
 
 });
 

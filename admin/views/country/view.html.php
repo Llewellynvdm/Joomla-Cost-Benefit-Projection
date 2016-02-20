@@ -65,13 +65,13 @@ class CostbenefitprojectionViewCountry extends JViewLegacy
                 }
 
 		// Get Linked view data
-		$this->bmwinterventions		= $this->get('Bmwinterventions');
+		$this->owninterventions		= $this->get('Owninterventions');
 
 		// Get Linked view data
-		$this->igvservice_providers		= $this->get('Igvservice_providers');
+		$this->sjwservice_providers		= $this->get('Sjwservice_providers');
 
 		// Get Linked view data
-		$this->ottcompanies		= $this->get('Ottcompanies');
+		$this->nbccompanies		= $this->get('Nbccompanies');
 
 		// Set the toolbar
 		$this->addToolBar();

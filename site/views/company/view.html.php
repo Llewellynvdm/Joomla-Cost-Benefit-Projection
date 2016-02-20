@@ -65,10 +65,10 @@ class CostbenefitprojectionViewCompany extends JViewLegacy
                 }
 
 		// Get Linked view data
-		$this->kmcscaling_factors		= $this->get('Kmcscaling_factors');
+		$this->hbvscaling_factors		= $this->get('Hbvscaling_factors');
 
 		// Get Linked view data
-		$this->fzxinterventions		= $this->get('Fzxinterventions');
+		$this->anuinterventions		= $this->get('Anuinterventions');
 
 		// Set the toolbar
 		$this->addToolBar();

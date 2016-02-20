@@ -103,48 +103,48 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_type listeners for type_NAdDhyi function
+// #jform_type listeners for type_LZKQahR function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_NAdDhyi = jQuery("#jform_type input[type='radio']:checked").val();
-	NAdDhyi(type_NAdDhyi);
+	var type_LZKQahR = jQuery("#jform_type input[type='radio']:checked").val();
+	LZKQahR(type_LZKQahR);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_NAdDhyi = jQuery("#jform_type input[type='radio']:checked").val();
-	NAdDhyi(type_NAdDhyi);
+	var type_LZKQahR = jQuery("#jform_type input[type='radio']:checked").val();
+	LZKQahR(type_LZKQahR);
 
 });
 
-// #jform_type listeners for type_sMxiLMq function
+// #jform_type listeners for type_WDFtkAe function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_sMxiLMq = jQuery("#jform_type input[type='radio']:checked").val();
-	sMxiLMq(type_sMxiLMq);
+	var type_WDFtkAe = jQuery("#jform_type input[type='radio']:checked").val();
+	WDFtkAe(type_WDFtkAe);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_sMxiLMq = jQuery("#jform_type input[type='radio']:checked").val();
-	sMxiLMq(type_sMxiLMq);
+	var type_WDFtkAe = jQuery("#jform_type input[type='radio']:checked").val();
+	WDFtkAe(type_WDFtkAe);
 
 });
 
-// #jform_company listeners for company_heHZMbD function
+// #jform_company listeners for company_ihFJQrC function
 jQuery('#jform_company').on('keyup',function()
 {
-	var company_heHZMbD = jQuery("#jform_company").val();
-	heHZMbD(company_heHZMbD);
+	var company_ihFJQrC = jQuery("#jform_company").val();
+	ihFJQrC(company_ihFJQrC);
 
 });
 jQuery('#adminForm').on('change', '#jform_company',function (e)
 {
 	e.preventDefault();
-	var company_heHZMbD = jQuery("#jform_company").val();
-	heHZMbD(company_heHZMbD);
+	var company_ihFJQrC = jQuery("#jform_company").val();
+	ihFJQrC(company_ihFJQrC);
 
 });
 
