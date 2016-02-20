@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.4
-	@build			19th February, 2016
+	@build			20th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		service_provider.php
@@ -95,7 +95,7 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 				$item->tags->getTagIds($item->id, 'com_costbenefitprojection.service_provider');
 			}
 		}
-		$this->service_providerustf = $item->id;
+		$this->service_providerfted = $item->id;
 
 		return $item;
 	}
@@ -105,7 +105,7 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getPbkcompanies()
+	public function getWqkcompanies()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -148,15 +148,15 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 		$query->select($db->quoteName('i.user','service_provider_user'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_service_provider', 'i') . ' ON (' . $db->quoteName('a.service_provider') . ' = ' . $db->quoteName('i.id') . ')');
 
-		// Filter by service_providerustf global.
-		$service_providerustf = $this->service_providerustf;
-		if (is_numeric($service_providerustf ))
+		// Filter by service_providerfted global.
+		$service_providerfted = $this->service_providerfted;
+		if (is_numeric($service_providerfted ))
 		{
-			$query->where('a.service_provider = ' . (int) $service_providerustf );
+			$query->where('a.service_provider = ' . (int) $service_providerfted );
 		}
-		elseif (is_string($service_providerustf))
+		elseif (is_string($service_providerfted))
 		{
-			$query->where('a.service_provider = ' . $db->quote($service_providerustf));
+			$query->where('a.service_provider = ' . $db->quote($service_providerfted));
 		}
 		else
 		{
@@ -211,9 +211,9 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 				foreach ($items as $nr => &$item)
 				{
 					// convert department
-					$item->department = $this->selectionTranslationPbkcompanies($item->department, 'department');
+					$item->department = $this->selectionTranslationWqkcompanies($item->department, 'department');
 					// convert per
-					$item->per = $this->selectionTranslationPbkcompanies($item->per, 'per');
+					$item->per = $this->selectionTranslationWqkcompanies($item->per, 'per');
 				}
 			}
 
@@ -227,7 +227,7 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 	*
 	* @return translatable string
 	*/
-	public function selectionTranslationPbkcompanies($value,$name)
+	public function selectionTranslationWqkcompanies($value,$name)
 	{
 		// Array of department language strings
 		if ($name == 'department')
@@ -303,6 +303,12 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 			// Disable fields while saving.
 			$form->setFieldAttribute('ordering', 'filter', 'unset');
 			$form->setFieldAttribute('published', 'filter', 'unset');
+		}
+		// If this is a new item insure the greated by is set
+		if (0 == $id)
+		{
+			// Set the created_by to this user
+			$form->setValue('created_by', null, $user->id);
 		}
 		// Modify the form based on Edit Creaded By access controls.
 		if (!$user->authorise('core.edit.created_by', 'com_costbenefitprojection'))

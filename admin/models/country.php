@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.4
-	@build			19th February, 2016
+	@build			20th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		country.php
@@ -101,9 +101,9 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 				$item->tags->getTagIds($item->id, 'com_costbenefitprojection.country');
 			}
 		}
-		$this->countryozjb = $item->id;
-		$this->countryhtgc = $item->id;
-		$this->countryxhbr = $item->id;
+		$this->countryzmlp = $item->id;
+		$this->countryzqkx = $item->id;
+		$this->countryngav = $item->id;
 
 		return $item;
 	}
@@ -113,7 +113,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getElvinterventions()
+	public function getBmwinterventions()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -148,15 +148,15 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 		$query->select($db->quoteName('g.name','company_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_company', 'g') . ' ON (' . $db->quoteName('a.company') . ' = ' . $db->quoteName('g.id') . ')');
 
-		// Filter by countryozjb global.
-		$countryozjb = $this->countryozjb;
-		if (is_numeric($countryozjb ))
+		// Filter by countryzmlp global.
+		$countryzmlp = $this->countryzmlp;
+		if (is_numeric($countryzmlp ))
 		{
-			$query->where('a.country = ' . (int) $countryozjb );
+			$query->where('a.country = ' . (int) $countryzmlp );
 		}
-		elseif (is_string($countryozjb))
+		elseif (is_string($countryzmlp))
 		{
-			$query->where('a.country = ' . $db->quote($countryozjb));
+			$query->where('a.country = ' . $db->quote($countryzmlp));
 		}
 		else
 		{
@@ -209,7 +209,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 				foreach ($items as $nr => &$item)
 				{
 					// convert type
-					$item->type = $this->selectionTranslationElvinterventions($item->type, 'type');
+					$item->type = $this->selectionTranslationBmwinterventions($item->type, 'type');
 				}
 			}
 
@@ -223,7 +223,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	*
 	* @return translatable string
 	*/
-	public function selectionTranslationElvinterventions($value,$name)
+	public function selectionTranslationBmwinterventions($value,$name)
 	{
 		// Array of type language strings
 		if ($name == 'type')
@@ -246,7 +246,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getWnzservice_providers()
+	public function getIgvservice_providers()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -285,15 +285,15 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 		$query->select($db->quoteName('h.name','country_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_country', 'h') . ' ON (' . $db->quoteName('a.country') . ' = ' . $db->quoteName('h.id') . ')');
 
-		// Filter by countryhtgc global.
-		$countryhtgc = $this->countryhtgc;
-		if (is_numeric($countryhtgc ))
+		// Filter by countryzqkx global.
+		$countryzqkx = $this->countryzqkx;
+		if (is_numeric($countryzqkx ))
 		{
-			$query->where('a.country = ' . (int) $countryhtgc );
+			$query->where('a.country = ' . (int) $countryzqkx );
 		}
-		elseif (is_string($countryhtgc))
+		elseif (is_string($countryzqkx))
 		{
-			$query->where('a.country = ' . $db->quote($countryhtgc));
+			$query->where('a.country = ' . $db->quote($countryzqkx));
 		}
 		else
 		{
@@ -336,7 +336,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getIebcompanies()
+	public function getOttcompanies()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -379,15 +379,15 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 		$query->select($db->quoteName('i.user','service_provider_user'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_service_provider', 'i') . ' ON (' . $db->quoteName('a.service_provider') . ' = ' . $db->quoteName('i.id') . ')');
 
-		// Filter by countryxhbr global.
-		$countryxhbr = $this->countryxhbr;
-		if (is_numeric($countryxhbr ))
+		// Filter by countryngav global.
+		$countryngav = $this->countryngav;
+		if (is_numeric($countryngav ))
 		{
-			$query->where('a.country = ' . (int) $countryxhbr );
+			$query->where('a.country = ' . (int) $countryngav );
 		}
-		elseif (is_string($countryxhbr))
+		elseif (is_string($countryngav))
 		{
-			$query->where('a.country = ' . $db->quote($countryxhbr));
+			$query->where('a.country = ' . $db->quote($countryngav));
 		}
 		else
 		{
@@ -442,9 +442,9 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 				foreach ($items as $nr => &$item)
 				{
 					// convert department
-					$item->department = $this->selectionTranslationIebcompanies($item->department, 'department');
+					$item->department = $this->selectionTranslationOttcompanies($item->department, 'department');
 					// convert per
-					$item->per = $this->selectionTranslationIebcompanies($item->per, 'per');
+					$item->per = $this->selectionTranslationOttcompanies($item->per, 'per');
 				}
 			}
 
@@ -458,7 +458,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	*
 	* @return translatable string
 	*/
-	public function selectionTranslationIebcompanies($value,$name)
+	public function selectionTranslationOttcompanies($value,$name)
 	{
 		// Array of department language strings
 		if ($name == 'department')
@@ -534,6 +534,12 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 			// Disable fields while saving.
 			$form->setFieldAttribute('ordering', 'filter', 'unset');
 			$form->setFieldAttribute('published', 'filter', 'unset');
+		}
+		// If this is a new item insure the greated by is set
+		if (0 == $id)
+		{
+			// Set the created_by to this user
+			$form->setValue('created_by', null, $user->id);
 		}
 		// Modify the form based on Edit Creaded By access controls.
 		if (!$user->authorise('core.edit.created_by', 'com_costbenefitprojection'))

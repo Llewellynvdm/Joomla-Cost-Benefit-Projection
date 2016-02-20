@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.4
-	@build			19th February, 2016
+	@build			20th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		company.php
@@ -154,8 +154,8 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				$item->tags->getTagIds($item->id, 'com_costbenefitprojection.company');
 			}
 		}
-		$this->companyajof = $item->id;
-		$this->companyyyxj = $item->id;
+		$this->companymbsd = $item->id;
+		$this->companyeilg = $item->id;
 
 		return $item;
 	}
@@ -165,7 +165,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getOlrscaling_factors()
+	public function getKmcscaling_factors()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -204,15 +204,15 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 		$query->select($db->quoteName('h.name','company_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_company', 'h') . ' ON (' . $db->quoteName('a.company') . ' = ' . $db->quoteName('h.id') . ')');
 
-		// Filter by companyajof global.
-		$companyajof = $this->companyajof;
-		if (is_numeric($companyajof ))
+		// Filter by companymbsd global.
+		$companymbsd = $this->companymbsd;
+		if (is_numeric($companymbsd ))
 		{
-			$query->where('a.company = ' . (int) $companyajof );
+			$query->where('a.company = ' . (int) $companymbsd );
 		}
-		elseif (is_string($companyajof))
+		elseif (is_string($companymbsd))
 		{
-			$query->where('a.company = ' . $db->quote($companyajof));
+			$query->where('a.company = ' . $db->quote($companymbsd));
 		}
 		else
 		{
@@ -255,7 +255,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getQntinterventions()
+	public function getFzxinterventions()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -290,15 +290,15 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 		$query->select($db->quoteName('g.name','company_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_company', 'g') . ' ON (' . $db->quoteName('a.company') . ' = ' . $db->quoteName('g.id') . ')');
 
-		// Filter by companyyyxj global.
-		$companyyyxj = $this->companyyyxj;
-		if (is_numeric($companyyyxj ))
+		// Filter by companyeilg global.
+		$companyeilg = $this->companyeilg;
+		if (is_numeric($companyeilg ))
 		{
-			$query->where('a.company = ' . (int) $companyyyxj );
+			$query->where('a.company = ' . (int) $companyeilg );
 		}
-		elseif (is_string($companyyyxj))
+		elseif (is_string($companyeilg))
 		{
-			$query->where('a.company = ' . $db->quote($companyyyxj));
+			$query->where('a.company = ' . $db->quote($companyeilg));
 		}
 		else
 		{
@@ -351,7 +351,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				foreach ($items as $nr => &$item)
 				{
 					// convert type
-					$item->type = $this->selectionTranslationQntinterventions($item->type, 'type');
+					$item->type = $this->selectionTranslationFzxinterventions($item->type, 'type');
 				}
 			}
 
@@ -365,7 +365,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return translatable string
 	*/
-	public function selectionTranslationQntinterventions($value,$name)
+	public function selectionTranslationFzxinterventions($value,$name)
 	{
 		// Array of type language strings
 		if ($name == 'type')
@@ -428,6 +428,12 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			// Disable fields while saving.
 			$form->setFieldAttribute('ordering', 'filter', 'unset');
 			$form->setFieldAttribute('published', 'filter', 'unset');
+		}
+		// If this is a new item insure the greated by is set
+		if (0 == $id)
+		{
+			// Set the created_by to this user
+			$form->setValue('created_by', null, $user->id);
 		}
 		// Modify the form based on Edit Creaded By access controls.
 		if ($id != 0 && (!$user->authorise('company.edit.created_by', 'com_costbenefitprojection.company.' . (int) $id))

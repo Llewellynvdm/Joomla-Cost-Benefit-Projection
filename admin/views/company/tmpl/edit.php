@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.4
-	@build			19th February, 2016
+	@build			20th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -141,33 +141,33 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_department listeners for department_KnoPOIj function
+// #jform_department listeners for department_wOtXSDy function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_KnoPOIj = jQuery("#jform_department input[type='radio']:checked").val();
-	KnoPOIj(department_KnoPOIj);
+	var department_wOtXSDy = jQuery("#jform_department input[type='radio']:checked").val();
+	wOtXSDy(department_wOtXSDy);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_KnoPOIj = jQuery("#jform_department input[type='radio']:checked").val();
-	KnoPOIj(department_KnoPOIj);
+	var department_wOtXSDy = jQuery("#jform_department input[type='radio']:checked").val();
+	wOtXSDy(department_wOtXSDy);
 
 });
 
-// #jform_department listeners for department_hOoOaLC function
+// #jform_department listeners for department_QfTgSnf function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_hOoOaLC = jQuery("#jform_department input[type='radio']:checked").val();
-	hOoOaLC(department_hOoOaLC);
+	var department_QfTgSnf = jQuery("#jform_department input[type='radio']:checked").val();
+	QfTgSnf(department_QfTgSnf);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_hOoOaLC = jQuery("#jform_department input[type='radio']:checked").val();
-	hOoOaLC(department_hOoOaLC);
+	var department_QfTgSnf = jQuery("#jform_department input[type='radio']:checked").val();
+	QfTgSnf(department_QfTgSnf);
 
 });
 
