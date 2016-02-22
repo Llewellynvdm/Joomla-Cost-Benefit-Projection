@@ -1,4 +1,4 @@
-# Cost Benefit Projection (3.3.5)
+# Cost Benefit Projection (3.3.6)
 
 This is a [Joomla 3.x] (http://www.joomla.org/) component.
 
@@ -23,11 +23,11 @@ max_input_vars = 5000
 + *Name*: [Cost Benefit Projection] (https://www.staffhealthcbp.com/)
 + *First Build*: 15th June, 2012
 + *Last Build*: 22nd February, 2016
-+ *Version*: 3.3.5
++ *Version*: 3.3.6
 + *Copyright*: Copyright (C) 2015. All Rights Reserved
 + *License*: GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html
-+ *Line count*: **83618**
-+ *File count*: **551**
++ *Line count*: **83710**
++ *File count*: **552**
 + *Folder count*: **101**
 
 > This **component** was build with a Joomla [Automated Component Builder] (https://www.vdm.io/joomla-component-builder).

@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.5
+	@version		3.3.6
 	@build			22nd February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -332,12 +332,34 @@ class CostbenefitprojectionControllerCompany extends JControllerForm
 		if ($validData['id']  >=  0)
 		{
 			// if id is 0 get id
-			if (0 == $validData['id'])
+			if (0 >=  (int) $validData['id'])
 			{
-				$validData['id'] = CostbenefitprojectionHelper::getVar('company', $validData['email'], 'email', 'id');
+				// Get a db connection.
+				$db = JFactory::getDbo();
+				// Create a new query object.
+				$query = $db->getQuery(true);
+				// Select id of this company
+				$query->select($db->quoteName(array('id')));
+				$query->from($db->quoteName('#__costbenefitprojection_company'));
+				$query->where($db->quoteName('name') . ' = '. $db->quote($validData['name']));
+				$query->where($db->quoteName('email') . ' = '. $db->quote($validData['email']));
+				$query->where($db->quoteName('country') . ' = '. (int) $validData['country']);
+				$query->where($db->quoteName('service_provider') . ' = '. (int) $validData['service_provider']);
+				$query->where($db->quoteName('created_by') . ' = '. (int) $validData['created_by']);
+				$query->where($db->quoteName('created') . ' = '. $db->quote($validData['created']));
+				$db->setQuery($query);
+				$db->execute();
+				if ($db->getNumRows())
+				{
+					$validData['id'] = $db->loadResult();
+				}
+				else
+				{
+					return;
+				}
 			}
 			// user setup if not set
-			if (0  >=  (int) $validData['user'])
+			if (0  >=  (int) $validData['user'] && (int) $validData['id'] > 0)
 			{
 				// get user object
 				$user = JFactory::getUser();
@@ -367,172 +389,175 @@ class CostbenefitprojectionControllerCompany extends JControllerForm
 					}
 				}
 			}
-			
-			// get params
-			$params	= JComponentHelper::getParams('com_costbenefitprojection');
-			// get all this users companies
-			$hisCompanies = CostbenefitprojectionHelper::hisCompanies($validData['user']);
-			if (CostbenefitprojectionHelper::checkArray($hisCompanies))
+			// only continue if we have a company id
+			if ((int) $validData['id'] > 0)
 			{
-				// set the user group based on the overall status of its companies
-				$departments = CostbenefitprojectionHelper::getVars('company', $hisCompanies, 'id', 'department');
-				if (in_array(2, $departments))
+				// get params
+				$params	= JComponentHelper::getParams('com_costbenefitprojection');
+				// get all this users companies
+				$hisCompanies = CostbenefitprojectionHelper::hisCompanies($validData['user']);
+				if (CostbenefitprojectionHelper::checkArray($hisCompanies))
 				{
-					$memberGroups = $params->get('advancedmembergroup');
-				}
-				else
-				{
-					$memberGroups = $params->get('memberbasicgroup');
-				}
-			}
-			else
-			{
-				// first company so act simply on this company department status
-				if (2 == $validData['department'])
-				{
-					$memberGroups = $params->get('advancedmembergroup');
-				}
-				else
-				{
-					$memberGroups =  $params->get('memberbasicgroup');
-				}
-			}
-			// update the user groups
-			JUserHelper::setUserGroups((int)$validData['user'],(array)$memberGroups);
-
-			// Get a db connection.
-			$db = JFactory::getDbo();
-			// Create a new query object.
-			$query = $db->getQuery(true);
-			// Select all records in scaling factors the belong to this company
-			$query->select($db->quoteName(array('id','causerisk','published')));
-			$query->from($db->quoteName('#__costbenefitprojection_scaling_factor'));
-			$query->where($db->quoteName('company') . ' = '. (int) $validData['id']);
-			$db->setQuery($query);
-			$db->execute();
-			if ($db->getNumRows())
-			{
-				// load the scaling factors already set
-				$already = $db->loadObjectList();
-				$publish = array();
-				$archive = array();
-				$bucket = array();
-				foreach ($already as $scale)
-				{
-					if (CostbenefitprojectionHelper::checkArray($validData['causesrisks']))
+					// set the user group based on the overall status of its companies
+					$departments = CostbenefitprojectionHelper::getVars('company', $hisCompanies, 'id', 'department');
+					if (in_array(2, $departments))
 					{
-						if (in_array($scale->causerisk, $validData['causesrisks']) && $scale->published != 1)
+						$memberGroups = $params->get('advancedmembergroup');
+					}
+					else
+					{
+						$memberGroups = $params->get('memberbasicgroup');
+					}
+				}
+				else
+				{
+					// first company so act simply on this company department status
+					if (2 == $validData['department'])
+					{
+						$memberGroups = $params->get('advancedmembergroup');
+					}
+					else
+					{
+						$memberGroups =  $params->get('memberbasicgroup');
+					}
+				}
+				// update the user groups
+				JUserHelper::setUserGroups((int)$validData['user'],(array)$memberGroups);
+
+				// Get a db connection.
+				$db = JFactory::getDbo();
+				// Create a new query object.
+				$query = $db->getQuery(true);
+				// Select all records in scaling factors the belong to this company
+				$query->select($db->quoteName(array('id','causerisk','published')));
+				$query->from($db->quoteName('#__costbenefitprojection_scaling_factor'));
+				$query->where($db->quoteName('company') . ' = '. (int) $validData['id']);
+				$db->setQuery($query);
+				$db->execute();
+				if ($db->getNumRows())
+				{
+					// load the scaling factors already set
+					$already = $db->loadObjectList();
+					$publish = array();
+					$archive = array();
+					$bucket = array();
+					foreach ($already as $scale)
+					{
+						if (CostbenefitprojectionHelper::checkArray($validData['causesrisks']))
 						{
-							// publish the scaling factor (update)
-							$publish[$scale->id] = $scale->id;
+							if (in_array($scale->causerisk, $validData['causesrisks']) && $scale->published != 1)
+							{
+								// publish the scaling factor (update)
+								$publish[$scale->id] = $scale->id;
+							}
+							elseif (!in_array($scale->causerisk, $validData['causesrisks']))
+							{
+								// archive the scaling factor (update)
+								$archive[$scale->id] = $scale->id;
+							}
+							$bucket[] = $scale->causerisk;
 						}
-						elseif (!in_array($scale->causerisk, $validData['causesrisks']))
+						else
 						{
 							// archive the scaling factor (update)
 							$archive[$scale->id] = $scale->id;
 						}
-						$bucket[] = $scale->causerisk;
+					}
+					// update the needed records
+					$types = array('publish' => 1,'archive' => 2);
+					foreach ($types as $type => $int)
+					{
+						if (CostbenefitprojectionHelper::checkArray(${$type}))
+						{
+							foreach (${$type} as $id)
+							{
+								$query = $db->getQuery(true);
+								// Fields to update.
+								$fields = array(
+									$db->quoteName('published') . ' = ' . (int) $int
+								);
+								// Conditions for which records should be updated.
+								$conditions = array(
+									$db->quoteName('id') . ' = ' . (int) $id
+								);
+
+								$query->update($db->quoteName('#__costbenefitprojection_scaling_factor'))->set($fields)->where($conditions);
+								$db->setQuery($query);
+								$db->execute();
+							}
+						}
+					}
+				}
+				if (CostbenefitprojectionHelper::checkArray($validData['causesrisks']))
+				{
+					// remove those already set from the saved list of causesrisks
+					if (CostbenefitprojectionHelper::checkArray($bucket))
+					{
+						$insert = array();
+						foreach ($validData['causesrisks'] as $causerisk)
+						{
+							if (!in_array($causerisk,$bucket))
+							{
+								$insert[] = $causerisk;
+							}
+						}
 					}
 					else
 					{
-						// archive the scaling factor (update)
-						$archive[$scale->id] = $scale->id;
+						$insert = $validData['causesrisks'];
 					}
 				}
-				// update the needed records
-				$types = array('publish' => 1,'archive' => 2);
-				foreach ($types as $type => $int)
+				// insert the new records
+				if (CostbenefitprojectionHelper::checkArray($insert))
 				{
-					if (CostbenefitprojectionHelper::checkArray(${$type}))
+					$created	= $db->quote(JFactory::getDate()->toSql());
+					$created_by	= JFactory::getUser()->get('id');
+					$company	= $validData['id'];
+
+					// Create a new query object.
+					$query = $db->getQuery(true);
+					// Insert columns.
+					$columns = array(
+						'causerisk', 'company', 'mortality_scaling_factor_females', 
+						'mortality_scaling_factor_males', 'presenteeism_scaling_factor_females', 
+						'presenteeism_scaling_factor_males', 'yld_scaling_factor_females', 
+						'yld_scaling_factor_males', 'published', 
+						'created_by', 'created');
+					// setup the values
+					$values = array();
+					foreach ($insert as $new)
 					{
-						foreach (${$type} as $id)
+						$array = array($new,$company,1,1,1,1,1,1,1,$created_by,$created);
+						$values[] = implode(',',$array);
+					}
+					// Prepare the insert query.
+					$query
+						->insert($db->quoteName('#__costbenefitprojection_scaling_factor'))
+						->columns($db->quoteName($columns))
+						->values(implode('), (', $values));
+
+					// Set the query using our newly populated query object and execute it.
+					$db->setQuery($query);
+					$done = $db->execute();
+					if ($done)
+					{
+						// we must set the assets
+						foreach ($insert as $causerisk)
 						{
+							// get all the ids. Create a new query object.
 							$query = $db->getQuery(true);
-							// Fields to update.
-							$fields = array(
-								$db->quoteName('published') . ' = ' . (int) $int
-							);
-							// Conditions for which records should be updated.
-							$conditions = array(
-								$db->quoteName('id') . ' = ' . (int) $id
-							);
-							 
-							$query->update($db->quoteName('#__costbenefitprojection_scaling_factor'))->set($fields)->where($conditions);
+							$query->select($db->quoteName(array('id')));
+							$query->from($db->quoteName('#__costbenefitprojection_scaling_factor'));
+							$query->where($db->quoteName('causerisk') . ' = '. (int) $causerisk);
+							$query->where($db->quoteName('company') . ' = '. (int) $company);
 							$db->setQuery($query);
 							$db->execute();
-						}
-					}
-				}
-			}
-			if (CostbenefitprojectionHelper::checkArray($validData['causesrisks']))
-			{
-				// remove those already set from the saved list of causesrisks
-				if (CostbenefitprojectionHelper::checkArray($bucket))
-				{
-					$insert = array();
-					foreach ($validData['causesrisks'] as $causerisk)
-					{
-						if (!in_array($causerisk,$bucket))
-						{
-							$insert[] = $causerisk;
-						}
-					}
-				}
-				else
-				{
-					$insert = $validData['causesrisks'];
-				}
-			}
-			// insert the new records
-			if (CostbenefitprojectionHelper::checkArray($insert))
-			{
-				$created	= $db->quote(JFactory::getDate()->toSql());
-				$created_by	= JFactory::getUser()->get('id');
-				$company	= $validData['id'];
-				
-				// Create a new query object.
-				$query = $db->getQuery(true);
-				// Insert columns.
-				$columns = array(
-					'causerisk', 'company', 'mortality_scaling_factor_females', 
-					'mortality_scaling_factor_males', 'presenteeism_scaling_factor_females', 
-					'presenteeism_scaling_factor_males', 'yld_scaling_factor_females', 
-					'yld_scaling_factor_males', 'published', 
-					'created_by', 'created');
-				// setup the values
-				$values = array();
-				foreach ($insert as $new)
-				{
-					$array = array($new,$company,1,1,1,1,1,1,1,$created_by,$created);
-					$values[] = implode(',',$array);
-				}
-				// Prepare the insert query.
-				$query
-					->insert($db->quoteName('#__costbenefitprojection_scaling_factor'))
-					->columns($db->quoteName($columns))
-					->values(implode('), (', $values));
-				 
-				// Set the query using our newly populated query object and execute it.
-				$db->setQuery($query);
-				$done = $db->execute();
-				if ($done)
-				{
-					// we must set the assets
-					foreach ($insert as $causerisk)
-					{
-						// get all the ids. Create a new query object.
-						$query = $db->getQuery(true);
-						$query->select($db->quoteName(array('id')));
-						$query->from($db->quoteName('#__costbenefitprojection_scaling_factor'));
-						$query->where($db->quoteName('causerisk') . ' = '. (int) $causerisk);
-						$query->where($db->quoteName('company') . ' = '. (int) $company);
-						$db->setQuery($query);
-						$db->execute();
-						if ($db->getNumRows())
-						{
-							$aId = $db->loadResult();
-							// make sure the access of asset is set
-							CostbenefitprojectionHelper::setAsset($aId,'scaling_factor');
+							if ($db->getNumRows())
+							{
+								$aId = $db->loadResult();
+								// make sure the access of asset is set
+								CostbenefitprojectionHelper::setAsset($aId,'scaling_factor');
+							}
 						}
 					}
 				}

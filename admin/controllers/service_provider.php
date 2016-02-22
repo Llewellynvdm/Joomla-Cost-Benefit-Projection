@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.5
+	@version		3.3.6
 	@build			22nd February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -324,6 +324,30 @@ class CostbenefitprojectionControllerService_provider extends JControllerForm
 	{
 		if ($validData['id'] >= 0)
 		{
+			// if id is 0 get id
+			if (0 >=  (int) $validData['id'])
+			{
+				// Get a db connection.
+				$db = JFactory::getDbo();
+				// Create a new query object.
+				$query = $db->getQuery(true);
+				// Select id of this service_provider
+				$query->select($db->quoteName(array('id')));
+				$query->from($db->quoteName('#__costbenefitprojection_service_provider'));
+				$query->where($db->quoteName('country') . ' = '. (int) $validData['country']);
+				$query->where($db->quoteName('created_by') . ' = '.  (int) $validData['created_by']);
+				$query->where($db->quoteName('created') . ' = '. $db->quote($validData['created']));
+				$db->setQuery($query);
+				$db->execute();
+				if ($db->getNumRows())
+				{
+					$validData['id'] = $db->loadResult();
+				}
+				else
+				{
+					return;
+				}
+			}
 			// user setup if not set
 			if (0 >= (int) $validData['user'])
 			{

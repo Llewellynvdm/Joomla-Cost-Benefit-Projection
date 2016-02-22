@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.5
+	@version		3.3.6
 	@build			22nd February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -154,8 +154,8 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				$item->tags->getTagIds($item->id, 'com_costbenefitprojection.company');
 			}
 		}
-		$this->companyuqpn = $item->id;
-		$this->companymzoc = $item->id;
+		$this->companyuvgj = $item->id;
+		$this->companygdxw = $item->id;
 
 		return $item;
 	}
@@ -165,7 +165,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getEoascaling_factors()
+	public function getTmyscaling_factors()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -204,15 +204,15 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 		$query->select($db->quoteName('h.name','company_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_company', 'h') . ' ON (' . $db->quoteName('a.company') . ' = ' . $db->quoteName('h.id') . ')');
 
-		// Filter by companyuqpn global.
-		$companyuqpn = $this->companyuqpn;
-		if (is_numeric($companyuqpn ))
+		// Filter by companyuvgj global.
+		$companyuvgj = $this->companyuvgj;
+		if (is_numeric($companyuvgj ))
 		{
-			$query->where('a.company = ' . (int) $companyuqpn );
+			$query->where('a.company = ' . (int) $companyuvgj );
 		}
-		elseif (is_string($companyuqpn))
+		elseif (is_string($companyuvgj))
 		{
-			$query->where('a.company = ' . $db->quote($companyuqpn));
+			$query->where('a.company = ' . $db->quote($companyuvgj));
 		}
 		else
 		{
@@ -255,7 +255,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getTbginterventions()
+	public function getOabinterventions()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -290,15 +290,15 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 		$query->select($db->quoteName('g.name','company_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_company', 'g') . ' ON (' . $db->quoteName('a.company') . ' = ' . $db->quoteName('g.id') . ')');
 
-		// Filter by companymzoc global.
-		$companymzoc = $this->companymzoc;
-		if (is_numeric($companymzoc ))
+		// Filter by companygdxw global.
+		$companygdxw = $this->companygdxw;
+		if (is_numeric($companygdxw ))
 		{
-			$query->where('a.company = ' . (int) $companymzoc );
+			$query->where('a.company = ' . (int) $companygdxw );
 		}
-		elseif (is_string($companymzoc))
+		elseif (is_string($companygdxw))
 		{
-			$query->where('a.company = ' . $db->quote($companymzoc));
+			$query->where('a.company = ' . $db->quote($companygdxw));
 		}
 		else
 		{
@@ -351,7 +351,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				foreach ($items as $nr => &$item)
 				{
 					// convert type
-					$item->type = $this->selectionTranslationTbginterventions($item->type, 'type');
+					$item->type = $this->selectionTranslationOabinterventions($item->type, 'type');
 				}
 			}
 
@@ -365,7 +365,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return translatable string
 	*/
-	public function selectionTranslationTbginterventions($value,$name)
+	public function selectionTranslationOabinterventions($value,$name)
 	{
 		// Array of type language strings
 		if ($name == 'type')

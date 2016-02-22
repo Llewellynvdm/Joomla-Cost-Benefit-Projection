@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.5
+	@version		3.3.6
 	@build			22nd February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -88,18 +88,18 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_company listeners for company_XhNomDS function
+// #jform_company listeners for company_RjkWaie function
 jQuery('#jform_company').on('keyup',function()
 {
-	var company_XhNomDS = jQuery("#jform_company").val();
-	XhNomDS(company_XhNomDS);
+	var company_RjkWaie = jQuery("#jform_company").val();
+	RjkWaie(company_RjkWaie);
 
 });
 jQuery('#adminForm').on('change', '#jform_company',function (e)
 {
 	e.preventDefault();
-	var company_XhNomDS = jQuery("#jform_company").val();
-	XhNomDS(company_XhNomDS);
+	var company_RjkWaie = jQuery("#jform_company").val();
+	RjkWaie(company_RjkWaie);
 
 });
 

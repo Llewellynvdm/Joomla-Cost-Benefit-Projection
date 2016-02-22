@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.5
+	@version		3.3.6
 	@build			22nd February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -143,33 +143,33 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_department listeners for department_nkZhFFc function
+// #jform_department listeners for department_GbcdqOG function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_nkZhFFc = jQuery("#jform_department input[type='radio']:checked").val();
-	nkZhFFc(department_nkZhFFc);
+	var department_GbcdqOG = jQuery("#jform_department input[type='radio']:checked").val();
+	GbcdqOG(department_GbcdqOG);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_nkZhFFc = jQuery("#jform_department input[type='radio']:checked").val();
-	nkZhFFc(department_nkZhFFc);
+	var department_GbcdqOG = jQuery("#jform_department input[type='radio']:checked").val();
+	GbcdqOG(department_GbcdqOG);
 
 });
 
-// #jform_department listeners for department_vVHReGY function
+// #jform_department listeners for department_kIvNEDP function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_vVHReGY = jQuery("#jform_department input[type='radio']:checked").val();
-	vVHReGY(department_vVHReGY);
+	var department_kIvNEDP = jQuery("#jform_department input[type='radio']:checked").val();
+	kIvNEDP(department_kIvNEDP);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_vVHReGY = jQuery("#jform_department input[type='radio']:checked").val();
-	vVHReGY(department_vVHReGY);
+	var department_kIvNEDP = jQuery("#jform_department input[type='radio']:checked").val();
+	kIvNEDP(department_kIvNEDP);
 
 });
 
