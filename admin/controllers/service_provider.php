@@ -324,9 +324,13 @@ class CostbenefitprojectionControllerService_provider extends JControllerForm
 	{
 		if ($validData['id'] >= 0)
 		{
+			// get user object
+			$user = JFactory::getUser();
 			// if id is 0 get id
 			if (0 >=  (int) $validData['id'])
 			{
+				// Get the created by id
+				$created_by = (isset($validData['created_by']) && $validData['created_by'] > 0) ? $validData['created_by'] : $user->id;
 				// Get a db connection.
 				$db = JFactory::getDbo();
 				// Create a new query object.
@@ -334,9 +338,14 @@ class CostbenefitprojectionControllerService_provider extends JControllerForm
 				// Select id of this service_provider
 				$query->select($db->quoteName(array('id')));
 				$query->from($db->quoteName('#__costbenefitprojection_service_provider'));
+				$query->where($db->quoteName('publicemail') . ' = '. $db->quote($validData['publicemail']));
+				$query->where($db->quoteName('publicname') . ' = '. $db->quote($validData['publicname']));
 				$query->where($db->quoteName('country') . ' = '. (int) $validData['country']);
-				$query->where($db->quoteName('created_by') . ' = '.  (int) $validData['created_by']);
-				$query->where($db->quoteName('created') . ' = '. $db->quote($validData['created']));
+				$query->where($db->quoteName('created_by') . ' = '.  (int) $created_by);
+				if (isset($validData['created']))
+				{
+					$query->where($db->quoteName('created') . ' = '. $db->quote($validData['created']));
+				}
 				$db->setQuery($query);
 				$db->execute();
 				if ($db->getNumRows())

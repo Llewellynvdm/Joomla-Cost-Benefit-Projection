@@ -17,58 +17,58 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // Some Global Values
-jform_lhGgsfCReY_required = false;
-jform_zNGkyNrDJy_required = false;
+jform_BjxWJbrVpr_required = false;
+jform_IcMhmLUigE_required = false;
 
 // Initial Script
 jQuery(document).ready(function()
 {
-	var type_lhGgsfC = jQuery("#jform_type input[type='radio']:checked").val();
-	lhGgsfC(type_lhGgsfC);
+	var type_BjxWJbr = jQuery("#jform_type input[type='radio']:checked").val();
+	BjxWJbr(type_BjxWJbr);
 
-	var type_FaBOsPR = jQuery("#jform_type input[type='radio']:checked").val();
-	FaBOsPR(type_FaBOsPR);
+	var type_LpRkBxe = jQuery("#jform_type input[type='radio']:checked").val();
+	LpRkBxe(type_LpRkBxe);
 
-	var company_zNGkyNr = jQuery("#jform_company").val();
-	zNGkyNr(company_zNGkyNr);
+	var company_IcMhmLU = jQuery("#jform_company").val();
+	IcMhmLU(company_IcMhmLU);
 });
 
-// the lhGgsfC function
-function lhGgsfC(type_lhGgsfC)
+// the BjxWJbr function
+function BjxWJbr(type_BjxWJbr)
 {
 	// set the function logic
-	if (type_lhGgsfC == 2)
+	if (type_BjxWJbr == 2)
 	{
 		jQuery('#jform_interventions').closest('.control-group').show();
-		if (jform_lhGgsfCReY_required)
+		if (jform_BjxWJbrVpr_required)
 		{
 			updateFieldRequired('interventions',0);
 			jQuery('#jform_interventions').prop('required','required');
 			jQuery('#jform_interventions').attr('aria-required',true);
 			jQuery('#jform_interventions').addClass('required');
-			jform_lhGgsfCReY_required = false;
+			jform_BjxWJbrVpr_required = false;
 		}
 
 	}
 	else
 	{
 		jQuery('#jform_interventions').closest('.control-group').hide();
-		if (!jform_lhGgsfCReY_required)
+		if (!jform_BjxWJbrVpr_required)
 		{
 			updateFieldRequired('interventions',1);
 			jQuery('#jform_interventions').removeAttr('required');
 			jQuery('#jform_interventions').removeAttr('aria-required');
 			jQuery('#jform_interventions').removeClass('required');
-			jform_lhGgsfCReY_required = true;
+			jform_BjxWJbrVpr_required = true;
 		}
 	}
 }
 
-// the FaBOsPR function
-function FaBOsPR(type_FaBOsPR)
+// the LpRkBxe function
+function LpRkBxe(type_LpRkBxe)
 {
 	// set the function logic
-	if (type_FaBOsPR == 1)
+	if (type_LpRkBxe == 1)
 	{
 		jQuery('#jform_intervention').closest('.control-group').show();
 	}
@@ -78,55 +78,55 @@ function FaBOsPR(type_FaBOsPR)
 	}
 }
 
-// the zNGkyNr function
-function zNGkyNr(company_zNGkyNr)
+// the IcMhmLU function
+function IcMhmLU(company_IcMhmLU)
 {
-	if (isSet(company_zNGkyNr) && company_zNGkyNr.constructor !== Array)
+	if (isSet(company_IcMhmLU) && company_IcMhmLU.constructor !== Array)
 	{
-		var temp_zNGkyNr = company_zNGkyNr;
-		var company_zNGkyNr = [];
-		company_zNGkyNr.push(temp_zNGkyNr);
+		var temp_IcMhmLU = company_IcMhmLU;
+		var company_IcMhmLU = [];
+		company_IcMhmLU.push(temp_IcMhmLU);
 	}
-	else if (!isSet(company_zNGkyNr))
+	else if (!isSet(company_IcMhmLU))
 	{
-		var company_zNGkyNr = [];
+		var company_IcMhmLU = [];
 	}
-	var company = company_zNGkyNr.some(company_zNGkyNr_SomeFunc);
+	var company = company_IcMhmLU.some(company_IcMhmLU_SomeFunc);
 
 
 	// set this function logic
 	if (company)
 	{
 		jQuery('#jform_country').closest('.control-group').show();
-		if (jform_zNGkyNrDJy_required)
+		if (jform_IcMhmLUigE_required)
 		{
 			updateFieldRequired('country',0);
 			jQuery('#jform_country').prop('required','required');
 			jQuery('#jform_country').attr('aria-required',true);
 			jQuery('#jform_country').addClass('required');
-			jform_zNGkyNrDJy_required = false;
+			jform_IcMhmLUigE_required = false;
 		}
 
 	}
 	else
 	{
 		jQuery('#jform_country').closest('.control-group').hide();
-		if (!jform_zNGkyNrDJy_required)
+		if (!jform_IcMhmLUigE_required)
 		{
 			updateFieldRequired('country',1);
 			jQuery('#jform_country').removeAttr('required');
 			jQuery('#jform_country').removeAttr('aria-required');
 			jQuery('#jform_country').removeClass('required');
-			jform_zNGkyNrDJy_required = true;
+			jform_IcMhmLUigE_required = true;
 		}
 	}
 }
 
-// the zNGkyNr Some function
-function company_zNGkyNr_SomeFunc(company_zNGkyNr)
+// the IcMhmLU Some function
+function company_IcMhmLU_SomeFunc(company_IcMhmLU)
 {
 	// set the function logic
-	if (company_zNGkyNr == 0)
+	if (company_IcMhmLU == 0)
 	{
 		return true;
 	}

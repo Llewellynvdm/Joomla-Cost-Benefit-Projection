@@ -17,64 +17,64 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // Some Global Values
-jform_RjkWaieBCR_required = false;
+jform_oZNUsPGVRM_required = false;
 
 // Initial Script
 jQuery(document).ready(function()
 {
-	var company_RjkWaie = jQuery("#jform_company").val();
-	RjkWaie(company_RjkWaie);
+	var company_oZNUsPG = jQuery("#jform_company").val();
+	oZNUsPG(company_oZNUsPG);
 });
 
-// the RjkWaie function
-function RjkWaie(company_RjkWaie)
+// the oZNUsPG function
+function oZNUsPG(company_oZNUsPG)
 {
-	if (isSet(company_RjkWaie) && company_RjkWaie.constructor !== Array)
+	if (isSet(company_oZNUsPG) && company_oZNUsPG.constructor !== Array)
 	{
-		var temp_RjkWaie = company_RjkWaie;
-		var company_RjkWaie = [];
-		company_RjkWaie.push(temp_RjkWaie);
+		var temp_oZNUsPG = company_oZNUsPG;
+		var company_oZNUsPG = [];
+		company_oZNUsPG.push(temp_oZNUsPG);
 	}
-	else if (!isSet(company_RjkWaie))
+	else if (!isSet(company_oZNUsPG))
 	{
-		var company_RjkWaie = [];
+		var company_oZNUsPG = [];
 	}
-	var company = company_RjkWaie.some(company_RjkWaie_SomeFunc);
+	var company = company_oZNUsPG.some(company_oZNUsPG_SomeFunc);
 
 
 	// set this function logic
 	if (company)
 	{
 		jQuery('#jform_country').closest('.control-group').show();
-		if (jform_RjkWaieBCR_required)
+		if (jform_oZNUsPGVRM_required)
 		{
 			updateFieldRequired('country',0);
 			jQuery('#jform_country').prop('required','required');
 			jQuery('#jform_country').attr('aria-required',true);
 			jQuery('#jform_country').addClass('required');
-			jform_RjkWaieBCR_required = false;
+			jform_oZNUsPGVRM_required = false;
 		}
 
 	}
 	else
 	{
 		jQuery('#jform_country').closest('.control-group').hide();
-		if (!jform_RjkWaieBCR_required)
+		if (!jform_oZNUsPGVRM_required)
 		{
 			updateFieldRequired('country',1);
 			jQuery('#jform_country').removeAttr('required');
 			jQuery('#jform_country').removeAttr('aria-required');
 			jQuery('#jform_country').removeClass('required');
-			jform_RjkWaieBCR_required = true;
+			jform_oZNUsPGVRM_required = true;
 		}
 	}
 }
 
-// the RjkWaie Some function
-function company_RjkWaie_SomeFunc(company_RjkWaie)
+// the oZNUsPG Some function
+function company_oZNUsPG_SomeFunc(company_oZNUsPG)
 {
 	// set the function logic
-	if (company_RjkWaie == 0)
+	if (company_oZNUsPG == 0)
 	{
 		return true;
 	}

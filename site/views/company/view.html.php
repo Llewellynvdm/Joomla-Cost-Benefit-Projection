@@ -65,10 +65,10 @@ class CostbenefitprojectionViewCompany extends JViewLegacy
                 }
 
 		// Get Linked view data
-		$this->tmyscaling_factors		= $this->get('Tmyscaling_factors');
+		$this->uzwscaling_factors		= $this->get('Uzwscaling_factors');
 
 		// Get Linked view data
-		$this->oabinterventions		= $this->get('Oabinterventions');
+		$this->uhjinterventions		= $this->get('Uhjinterventions');
 
 		// Set the toolbar
 		$this->addToolBar();

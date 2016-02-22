@@ -105,48 +105,48 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_type listeners for type_lhGgsfC function
+// #jform_type listeners for type_BjxWJbr function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_lhGgsfC = jQuery("#jform_type input[type='radio']:checked").val();
-	lhGgsfC(type_lhGgsfC);
+	var type_BjxWJbr = jQuery("#jform_type input[type='radio']:checked").val();
+	BjxWJbr(type_BjxWJbr);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_lhGgsfC = jQuery("#jform_type input[type='radio']:checked").val();
-	lhGgsfC(type_lhGgsfC);
+	var type_BjxWJbr = jQuery("#jform_type input[type='radio']:checked").val();
+	BjxWJbr(type_BjxWJbr);
 
 });
 
-// #jform_type listeners for type_FaBOsPR function
+// #jform_type listeners for type_LpRkBxe function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_FaBOsPR = jQuery("#jform_type input[type='radio']:checked").val();
-	FaBOsPR(type_FaBOsPR);
+	var type_LpRkBxe = jQuery("#jform_type input[type='radio']:checked").val();
+	LpRkBxe(type_LpRkBxe);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_FaBOsPR = jQuery("#jform_type input[type='radio']:checked").val();
-	FaBOsPR(type_FaBOsPR);
+	var type_LpRkBxe = jQuery("#jform_type input[type='radio']:checked").val();
+	LpRkBxe(type_LpRkBxe);
 
 });
 
-// #jform_company listeners for company_zNGkyNr function
+// #jform_company listeners for company_IcMhmLU function
 jQuery('#jform_company').on('keyup',function()
 {
-	var company_zNGkyNr = jQuery("#jform_company").val();
-	zNGkyNr(company_zNGkyNr);
+	var company_IcMhmLU = jQuery("#jform_company").val();
+	IcMhmLU(company_IcMhmLU);
 
 });
 jQuery('#adminForm').on('change', '#jform_company',function (e)
 {
 	e.preventDefault();
-	var company_zNGkyNr = jQuery("#jform_company").val();
-	zNGkyNr(company_zNGkyNr);
+	var company_IcMhmLU = jQuery("#jform_company").val();
+	IcMhmLU(company_IcMhmLU);
 
 });
 

@@ -101,9 +101,9 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 				$item->tags->getTagIds($item->id, 'com_costbenefitprojection.country');
 			}
 		}
-		$this->countrylzhm = $item->id;
-		$this->countrypxhh = $item->id;
-		$this->countrygisc = $item->id;
+		$this->countryruzk = $item->id;
+		$this->countrylhbb = $item->id;
+		$this->countryafhb = $item->id;
 
 		return $item;
 	}
@@ -113,7 +113,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getJirinterventions()
+	public function getFwdinterventions()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -148,15 +148,15 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 		$query->select($db->quoteName('g.name','company_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_company', 'g') . ' ON (' . $db->quoteName('a.company') . ' = ' . $db->quoteName('g.id') . ')');
 
-		// Filter by countrylzhm global.
-		$countrylzhm = $this->countrylzhm;
-		if (is_numeric($countrylzhm ))
+		// Filter by countryruzk global.
+		$countryruzk = $this->countryruzk;
+		if (is_numeric($countryruzk ))
 		{
-			$query->where('a.country = ' . (int) $countrylzhm );
+			$query->where('a.country = ' . (int) $countryruzk );
 		}
-		elseif (is_string($countrylzhm))
+		elseif (is_string($countryruzk))
 		{
-			$query->where('a.country = ' . $db->quote($countrylzhm));
+			$query->where('a.country = ' . $db->quote($countryruzk));
 		}
 		else
 		{
@@ -209,7 +209,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 				foreach ($items as $nr => &$item)
 				{
 					// convert type
-					$item->type = $this->selectionTranslationJirinterventions($item->type, 'type');
+					$item->type = $this->selectionTranslationFwdinterventions($item->type, 'type');
 				}
 			}
 
@@ -223,7 +223,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	*
 	* @return translatable string
 	*/
-	public function selectionTranslationJirinterventions($value,$name)
+	public function selectionTranslationFwdinterventions($value,$name)
 	{
 		// Array of type language strings
 		if ($name == 'type')
@@ -246,7 +246,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getOehservice_providers()
+	public function getMvlservice_providers()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -285,15 +285,15 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 		$query->select($db->quoteName('h.name','country_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_country', 'h') . ' ON (' . $db->quoteName('a.country') . ' = ' . $db->quoteName('h.id') . ')');
 
-		// Filter by countrypxhh global.
-		$countrypxhh = $this->countrypxhh;
-		if (is_numeric($countrypxhh ))
+		// Filter by countrylhbb global.
+		$countrylhbb = $this->countrylhbb;
+		if (is_numeric($countrylhbb ))
 		{
-			$query->where('a.country = ' . (int) $countrypxhh );
+			$query->where('a.country = ' . (int) $countrylhbb );
 		}
-		elseif (is_string($countrypxhh))
+		elseif (is_string($countrylhbb))
 		{
-			$query->where('a.country = ' . $db->quote($countrypxhh));
+			$query->where('a.country = ' . $db->quote($countrylhbb));
 		}
 		else
 		{
@@ -336,7 +336,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getVmqcompanies()
+	public function getWbzcompanies()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -379,15 +379,15 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 		$query->select($db->quoteName('i.user','service_provider_user'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_service_provider', 'i') . ' ON (' . $db->quoteName('a.service_provider') . ' = ' . $db->quoteName('i.id') . ')');
 
-		// Filter by countrygisc global.
-		$countrygisc = $this->countrygisc;
-		if (is_numeric($countrygisc ))
+		// Filter by countryafhb global.
+		$countryafhb = $this->countryafhb;
+		if (is_numeric($countryafhb ))
 		{
-			$query->where('a.country = ' . (int) $countrygisc );
+			$query->where('a.country = ' . (int) $countryafhb );
 		}
-		elseif (is_string($countrygisc))
+		elseif (is_string($countryafhb))
 		{
-			$query->where('a.country = ' . $db->quote($countrygisc));
+			$query->where('a.country = ' . $db->quote($countryafhb));
 		}
 		else
 		{
@@ -442,9 +442,9 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 				foreach ($items as $nr => &$item)
 				{
 					// convert department
-					$item->department = $this->selectionTranslationVmqcompanies($item->department, 'department');
+					$item->department = $this->selectionTranslationWbzcompanies($item->department, 'department');
 					// convert per
-					$item->per = $this->selectionTranslationVmqcompanies($item->per, 'per');
+					$item->per = $this->selectionTranslationWbzcompanies($item->per, 'per');
 				}
 			}
 
@@ -458,7 +458,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	*
 	* @return translatable string
 	*/
-	public function selectionTranslationVmqcompanies($value,$name)
+	public function selectionTranslationWbzcompanies($value,$name)
 	{
 		// Array of department language strings
 		if ($name == 'department')
