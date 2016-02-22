@@ -109,7 +109,7 @@
 			maxlength="50"
 			description="COM_COSTBENEFITPROJECTION_COMPANY_EMAIL_DESCRIPTION"
 			class="text_area"
-			required="false"
+			required="true"
 			filter="STRING"
 			validate="email"
 			message="Error! Please add email address here."

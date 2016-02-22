@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.4
-	@build			20th February, 2016
+	@version		3.3.5
+	@build			22nd February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		company.php
@@ -331,6 +331,11 @@ class CostbenefitprojectionControllerCompany extends JControllerForm
 	{
 		if ($validData['id']  >=  0)
 		{
+			// if id is 0 get id
+			if (0 == $validData['id'])
+			{
+				$validData['id'] = CostbenefitprojectionHelper::getVar('company', $validData['email'], 'email', 'id');
+			}
 			// user setup if not set
 			if (0  >=  (int) $validData['user'])
 			{

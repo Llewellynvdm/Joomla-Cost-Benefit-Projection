@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.4
-	@build			20th February, 2016
+	@version		3.3.5
+	@build			22nd February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -143,33 +143,33 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_department listeners for department_PMWNSmE function
+// #jform_department listeners for department_nkZhFFc function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_PMWNSmE = jQuery("#jform_department input[type='radio']:checked").val();
-	PMWNSmE(department_PMWNSmE);
+	var department_nkZhFFc = jQuery("#jform_department input[type='radio']:checked").val();
+	nkZhFFc(department_nkZhFFc);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_PMWNSmE = jQuery("#jform_department input[type='radio']:checked").val();
-	PMWNSmE(department_PMWNSmE);
+	var department_nkZhFFc = jQuery("#jform_department input[type='radio']:checked").val();
+	nkZhFFc(department_nkZhFFc);
 
 });
 
-// #jform_department listeners for department_qzPeqNQ function
+// #jform_department listeners for department_vVHReGY function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_qzPeqNQ = jQuery("#jform_department input[type='radio']:checked").val();
-	qzPeqNQ(department_qzPeqNQ);
+	var department_vVHReGY = jQuery("#jform_department input[type='radio']:checked").val();
+	vVHReGY(department_vVHReGY);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_qzPeqNQ = jQuery("#jform_department input[type='radio']:checked").val();
-	qzPeqNQ(department_qzPeqNQ);
+	var department_vVHReGY = jQuery("#jform_department input[type='radio']:checked").val();
+	vVHReGY(department_vVHReGY);
 
 });
 
