@@ -619,13 +619,12 @@ abstract class CostbenefitprojectionHelper
 			3 => array(
 				'path' => JPATH_ADMINISTRATOR . '/components/com_users/views/users/view.html.php',
 				'replace' => array(
-					"if (\$canDo->get('core.create'))" => "if (\$canDo->get('core.create') && \$user->authorise('core.admin', 'com_costbenefitprojection'))",					
-					"if (\$user->authorise('core.create', 'com_users')
-			&& \$user->authorise('core.edit', 'com_users')
-			&& \$user->authorise('core.edit.state', 'com_users'))" => "if (\$user->authorise('core.create', 'com_users')
-			&& \$user->authorise('core.edit', 'com_users')
-			&& \$user->authorise('core.edit.state', 'com_users')
-			&& \$user->authorise('core.admin', 'com_costbenefitprojection'))")
+					"if (\$canDo->get('core.create'))" => "if (\$canDo->get('core.create') && \$user->authorise('core.admin', 'com_costbenefitprojection'))")
+			),
+			4 => array(
+				'path' => JPATH_ADMINISTRATOR . '/components/com_users/views/users/view.html.php',
+				'replace' => array(					
+					"// Add a batch button\n\t\tif (\$user->authorise('core.create', 'com_users')" => "// Add a batch button only if user also has admin right in com_costbenefitprojection\n\t\tif (\$user->authorise('core.create', 'com_users')\n\t\t\t&& \$user->authorise('core.admin', 'com_costbenefitprojection')")
 			)
 		);
 		// check if hack is still set

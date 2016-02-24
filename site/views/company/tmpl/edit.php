@@ -143,33 +143,33 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_department listeners for department_mKGkOJK function
+// #jform_department listeners for department_kZREHRf function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_mKGkOJK = jQuery("#jform_department input[type='radio']:checked").val();
-	mKGkOJK(department_mKGkOJK);
+	var department_kZREHRf = jQuery("#jform_department input[type='radio']:checked").val();
+	kZREHRf(department_kZREHRf);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_mKGkOJK = jQuery("#jform_department input[type='radio']:checked").val();
-	mKGkOJK(department_mKGkOJK);
+	var department_kZREHRf = jQuery("#jform_department input[type='radio']:checked").val();
+	kZREHRf(department_kZREHRf);
 
 });
 
-// #jform_department listeners for department_kvzvhgM function
+// #jform_department listeners for department_qFovEif function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_kvzvhgM = jQuery("#jform_department input[type='radio']:checked").val();
-	kvzvhgM(department_kvzvhgM);
+	var department_qFovEif = jQuery("#jform_department input[type='radio']:checked").val();
+	qFovEif(department_qFovEif);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_kvzvhgM = jQuery("#jform_department input[type='radio']:checked").val();
-	kvzvhgM(department_kvzvhgM);
+	var department_qFovEif = jQuery("#jform_department input[type='radio']:checked").val();
+	qFovEif(department_qFovEif);
 
 });
 

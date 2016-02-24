@@ -103,48 +103,48 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_type listeners for type_xKzzDKV function
+// #jform_type listeners for type_PLEbHUm function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_xKzzDKV = jQuery("#jform_type input[type='radio']:checked").val();
-	xKzzDKV(type_xKzzDKV);
+	var type_PLEbHUm = jQuery("#jform_type input[type='radio']:checked").val();
+	PLEbHUm(type_PLEbHUm);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_xKzzDKV = jQuery("#jform_type input[type='radio']:checked").val();
-	xKzzDKV(type_xKzzDKV);
+	var type_PLEbHUm = jQuery("#jform_type input[type='radio']:checked").val();
+	PLEbHUm(type_PLEbHUm);
 
 });
 
-// #jform_type listeners for type_FEoIPnL function
+// #jform_type listeners for type_LIidPRB function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_FEoIPnL = jQuery("#jform_type input[type='radio']:checked").val();
-	FEoIPnL(type_FEoIPnL);
+	var type_LIidPRB = jQuery("#jform_type input[type='radio']:checked").val();
+	LIidPRB(type_LIidPRB);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_FEoIPnL = jQuery("#jform_type input[type='radio']:checked").val();
-	FEoIPnL(type_FEoIPnL);
+	var type_LIidPRB = jQuery("#jform_type input[type='radio']:checked").val();
+	LIidPRB(type_LIidPRB);
 
 });
 
-// #jform_company listeners for company_gLhYwEk function
+// #jform_company listeners for company_PotrAOo function
 jQuery('#jform_company').on('keyup',function()
 {
-	var company_gLhYwEk = jQuery("#jform_company").val();
-	gLhYwEk(company_gLhYwEk);
+	var company_PotrAOo = jQuery("#jform_company").val();
+	PotrAOo(company_PotrAOo);
 
 });
 jQuery('#adminForm').on('change', '#jform_company',function (e)
 {
 	e.preventDefault();
-	var company_gLhYwEk = jQuery("#jform_company").val();
-	gLhYwEk(company_gLhYwEk);
+	var company_PotrAOo = jQuery("#jform_company").val();
+	PotrAOo(company_PotrAOo);
 
 });
 

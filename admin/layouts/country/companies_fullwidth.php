@@ -22,7 +22,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // set the defaults
-$items	= $displayData->odrcompanies;
+$items	= $displayData->vrvcompanies;
 $user	= JFactory::getUser();
 $id	= $displayData->item->id;
 $edit	= "index.php?option=com_costbenefitprojection&view=companies&task=company.edit";
