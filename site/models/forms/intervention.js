@@ -2,8 +2,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.6
-	@build			22nd February, 2016
+	@version		3.3.7
+	@build			24th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		intervention.js
@@ -17,58 +17,58 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // Some Global Values
-jform_BjxWJbrVpr_required = false;
-jform_IcMhmLUigE_required = false;
+jform_xKzzDKVdWU_required = false;
+jform_gLhYwEkyzs_required = false;
 
 // Initial Script
 jQuery(document).ready(function()
 {
-	var type_BjxWJbr = jQuery("#jform_type input[type='radio']:checked").val();
-	BjxWJbr(type_BjxWJbr);
+	var type_xKzzDKV = jQuery("#jform_type input[type='radio']:checked").val();
+	xKzzDKV(type_xKzzDKV);
 
-	var type_LpRkBxe = jQuery("#jform_type input[type='radio']:checked").val();
-	LpRkBxe(type_LpRkBxe);
+	var type_FEoIPnL = jQuery("#jform_type input[type='radio']:checked").val();
+	FEoIPnL(type_FEoIPnL);
 
-	var company_IcMhmLU = jQuery("#jform_company").val();
-	IcMhmLU(company_IcMhmLU);
+	var company_gLhYwEk = jQuery("#jform_company").val();
+	gLhYwEk(company_gLhYwEk);
 });
 
-// the BjxWJbr function
-function BjxWJbr(type_BjxWJbr)
+// the xKzzDKV function
+function xKzzDKV(type_xKzzDKV)
 {
 	// set the function logic
-	if (type_BjxWJbr == 2)
+	if (type_xKzzDKV == 2)
 	{
 		jQuery('#jform_interventions').closest('.control-group').show();
-		if (jform_BjxWJbrVpr_required)
+		if (jform_xKzzDKVdWU_required)
 		{
 			updateFieldRequired('interventions',0);
 			jQuery('#jform_interventions').prop('required','required');
 			jQuery('#jform_interventions').attr('aria-required',true);
 			jQuery('#jform_interventions').addClass('required');
-			jform_BjxWJbrVpr_required = false;
+			jform_xKzzDKVdWU_required = false;
 		}
 
 	}
 	else
 	{
 		jQuery('#jform_interventions').closest('.control-group').hide();
-		if (!jform_BjxWJbrVpr_required)
+		if (!jform_xKzzDKVdWU_required)
 		{
 			updateFieldRequired('interventions',1);
 			jQuery('#jform_interventions').removeAttr('required');
 			jQuery('#jform_interventions').removeAttr('aria-required');
 			jQuery('#jform_interventions').removeClass('required');
-			jform_BjxWJbrVpr_required = true;
+			jform_xKzzDKVdWU_required = true;
 		}
 	}
 }
 
-// the LpRkBxe function
-function LpRkBxe(type_LpRkBxe)
+// the FEoIPnL function
+function FEoIPnL(type_FEoIPnL)
 {
 	// set the function logic
-	if (type_LpRkBxe == 1)
+	if (type_FEoIPnL == 1)
 	{
 		jQuery('#jform_intervention').closest('.control-group').show();
 	}
@@ -78,55 +78,55 @@ function LpRkBxe(type_LpRkBxe)
 	}
 }
 
-// the IcMhmLU function
-function IcMhmLU(company_IcMhmLU)
+// the gLhYwEk function
+function gLhYwEk(company_gLhYwEk)
 {
-	if (isSet(company_IcMhmLU) && company_IcMhmLU.constructor !== Array)
+	if (isSet(company_gLhYwEk) && company_gLhYwEk.constructor !== Array)
 	{
-		var temp_IcMhmLU = company_IcMhmLU;
-		var company_IcMhmLU = [];
-		company_IcMhmLU.push(temp_IcMhmLU);
+		var temp_gLhYwEk = company_gLhYwEk;
+		var company_gLhYwEk = [];
+		company_gLhYwEk.push(temp_gLhYwEk);
 	}
-	else if (!isSet(company_IcMhmLU))
+	else if (!isSet(company_gLhYwEk))
 	{
-		var company_IcMhmLU = [];
+		var company_gLhYwEk = [];
 	}
-	var company = company_IcMhmLU.some(company_IcMhmLU_SomeFunc);
+	var company = company_gLhYwEk.some(company_gLhYwEk_SomeFunc);
 
 
 	// set this function logic
 	if (company)
 	{
 		jQuery('#jform_country').closest('.control-group').show();
-		if (jform_IcMhmLUigE_required)
+		if (jform_gLhYwEkyzs_required)
 		{
 			updateFieldRequired('country',0);
 			jQuery('#jform_country').prop('required','required');
 			jQuery('#jform_country').attr('aria-required',true);
 			jQuery('#jform_country').addClass('required');
-			jform_IcMhmLUigE_required = false;
+			jform_gLhYwEkyzs_required = false;
 		}
 
 	}
 	else
 	{
 		jQuery('#jform_country').closest('.control-group').hide();
-		if (!jform_IcMhmLUigE_required)
+		if (!jform_gLhYwEkyzs_required)
 		{
 			updateFieldRequired('country',1);
 			jQuery('#jform_country').removeAttr('required');
 			jQuery('#jform_country').removeAttr('aria-required');
 			jQuery('#jform_country').removeClass('required');
-			jform_IcMhmLUigE_required = true;
+			jform_gLhYwEkyzs_required = true;
 		}
 	}
 }
 
-// the IcMhmLU Some function
-function company_IcMhmLU_SomeFunc(company_IcMhmLU)
+// the gLhYwEk Some function
+function company_gLhYwEk_SomeFunc(company_gLhYwEk)
 {
 	// set the function logic
-	if (company_IcMhmLU == 0)
+	if (company_gLhYwEk == 0)
 	{
 		return true;
 	}

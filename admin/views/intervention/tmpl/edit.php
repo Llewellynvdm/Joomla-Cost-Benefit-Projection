@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.6
-	@build			22nd February, 2016
+	@version		3.3.7
+	@build			24th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -103,48 +103,48 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_type listeners for type_BjxWJbr function
+// #jform_type listeners for type_xKzzDKV function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_BjxWJbr = jQuery("#jform_type input[type='radio']:checked").val();
-	BjxWJbr(type_BjxWJbr);
+	var type_xKzzDKV = jQuery("#jform_type input[type='radio']:checked").val();
+	xKzzDKV(type_xKzzDKV);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_BjxWJbr = jQuery("#jform_type input[type='radio']:checked").val();
-	BjxWJbr(type_BjxWJbr);
+	var type_xKzzDKV = jQuery("#jform_type input[type='radio']:checked").val();
+	xKzzDKV(type_xKzzDKV);
 
 });
 
-// #jform_type listeners for type_LpRkBxe function
+// #jform_type listeners for type_FEoIPnL function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_LpRkBxe = jQuery("#jform_type input[type='radio']:checked").val();
-	LpRkBxe(type_LpRkBxe);
+	var type_FEoIPnL = jQuery("#jform_type input[type='radio']:checked").val();
+	FEoIPnL(type_FEoIPnL);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_LpRkBxe = jQuery("#jform_type input[type='radio']:checked").val();
-	LpRkBxe(type_LpRkBxe);
+	var type_FEoIPnL = jQuery("#jform_type input[type='radio']:checked").val();
+	FEoIPnL(type_FEoIPnL);
 
 });
 
-// #jform_company listeners for company_IcMhmLU function
+// #jform_company listeners for company_gLhYwEk function
 jQuery('#jform_company').on('keyup',function()
 {
-	var company_IcMhmLU = jQuery("#jform_company").val();
-	IcMhmLU(company_IcMhmLU);
+	var company_gLhYwEk = jQuery("#jform_company").val();
+	gLhYwEk(company_gLhYwEk);
 
 });
 jQuery('#adminForm').on('change', '#jform_company',function (e)
 {
 	e.preventDefault();
-	var company_IcMhmLU = jQuery("#jform_company").val();
-	IcMhmLU(company_IcMhmLU);
+	var company_gLhYwEk = jQuery("#jform_company").val();
+	gLhYwEk(company_gLhYwEk);
 
 });
 

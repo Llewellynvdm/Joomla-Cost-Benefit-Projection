@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.6
-	@build			22nd February, 2016
+	@version		3.3.7
+	@build			24th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -141,33 +141,33 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_department listeners for department_ChlKFlM function
+// #jform_department listeners for department_mKGkOJK function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_ChlKFlM = jQuery("#jform_department input[type='radio']:checked").val();
-	ChlKFlM(department_ChlKFlM);
+	var department_mKGkOJK = jQuery("#jform_department input[type='radio']:checked").val();
+	mKGkOJK(department_mKGkOJK);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_ChlKFlM = jQuery("#jform_department input[type='radio']:checked").val();
-	ChlKFlM(department_ChlKFlM);
+	var department_mKGkOJK = jQuery("#jform_department input[type='radio']:checked").val();
+	mKGkOJK(department_mKGkOJK);
 
 });
 
-// #jform_department listeners for department_HwdjLtQ function
+// #jform_department listeners for department_kvzvhgM function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_HwdjLtQ = jQuery("#jform_department input[type='radio']:checked").val();
-	HwdjLtQ(department_HwdjLtQ);
+	var department_kvzvhgM = jQuery("#jform_department input[type='radio']:checked").val();
+	kvzvhgM(department_kvzvhgM);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_HwdjLtQ = jQuery("#jform_department input[type='radio']:checked").val();
-	HwdjLtQ(department_HwdjLtQ);
+	var department_kvzvhgM = jQuery("#jform_department input[type='radio']:checked").val();
+	kvzvhgM(department_kvzvhgM);
 
 });
 

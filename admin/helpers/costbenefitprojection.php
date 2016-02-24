@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.6
-	@build			22nd February, 2016
+	@version		3.3.7
+	@build			24th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -615,6 +615,17 @@ abstract class CostbenefitprojectionHelper
 		}
 
 		return parent::allowEdit(\$data, \$key);")
+			),
+			3 => array(
+				'path' => JPATH_ADMINISTRATOR . '/components/com_users/views/users/view.html.php',
+				'replace' => array(
+					"if (\$canDo->get('core.create'))" => "if (\$canDo->get('core.create') && \$user->authorise('core.admin', 'com_costbenefitprojection'))",					
+					"if (\$user->authorise('core.create', 'com_users')
+			&& \$user->authorise('core.edit', 'com_users')
+			&& \$user->authorise('core.edit.state', 'com_users'))" => "if (\$user->authorise('core.create', 'com_users')
+			&& \$user->authorise('core.edit', 'com_users')
+			&& \$user->authorise('core.edit.state', 'com_users')
+			&& \$user->authorise('core.admin', 'com_costbenefitprojection'))")
 			)
 		);
 		// check if hack is still set

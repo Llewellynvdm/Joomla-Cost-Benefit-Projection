@@ -2,8 +2,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.6
-	@build			22nd February, 2016
+	@version		3.3.7
+	@build			24th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		scaling_factor.js
@@ -17,64 +17,64 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // Some Global Values
-jform_oZNUsPGVRM_required = false;
+jform_HCncUhorFH_required = false;
 
 // Initial Script
 jQuery(document).ready(function()
 {
-	var company_oZNUsPG = jQuery("#jform_company").val();
-	oZNUsPG(company_oZNUsPG);
+	var company_HCncUho = jQuery("#jform_company").val();
+	HCncUho(company_HCncUho);
 });
 
-// the oZNUsPG function
-function oZNUsPG(company_oZNUsPG)
+// the HCncUho function
+function HCncUho(company_HCncUho)
 {
-	if (isSet(company_oZNUsPG) && company_oZNUsPG.constructor !== Array)
+	if (isSet(company_HCncUho) && company_HCncUho.constructor !== Array)
 	{
-		var temp_oZNUsPG = company_oZNUsPG;
-		var company_oZNUsPG = [];
-		company_oZNUsPG.push(temp_oZNUsPG);
+		var temp_HCncUho = company_HCncUho;
+		var company_HCncUho = [];
+		company_HCncUho.push(temp_HCncUho);
 	}
-	else if (!isSet(company_oZNUsPG))
+	else if (!isSet(company_HCncUho))
 	{
-		var company_oZNUsPG = [];
+		var company_HCncUho = [];
 	}
-	var company = company_oZNUsPG.some(company_oZNUsPG_SomeFunc);
+	var company = company_HCncUho.some(company_HCncUho_SomeFunc);
 
 
 	// set this function logic
 	if (company)
 	{
 		jQuery('#jform_country').closest('.control-group').show();
-		if (jform_oZNUsPGVRM_required)
+		if (jform_HCncUhorFH_required)
 		{
 			updateFieldRequired('country',0);
 			jQuery('#jform_country').prop('required','required');
 			jQuery('#jform_country').attr('aria-required',true);
 			jQuery('#jform_country').addClass('required');
-			jform_oZNUsPGVRM_required = false;
+			jform_HCncUhorFH_required = false;
 		}
 
 	}
 	else
 	{
 		jQuery('#jform_country').closest('.control-group').hide();
-		if (!jform_oZNUsPGVRM_required)
+		if (!jform_HCncUhorFH_required)
 		{
 			updateFieldRequired('country',1);
 			jQuery('#jform_country').removeAttr('required');
 			jQuery('#jform_country').removeAttr('aria-required');
 			jQuery('#jform_country').removeClass('required');
-			jform_oZNUsPGVRM_required = true;
+			jform_HCncUhorFH_required = true;
 		}
 	}
 }
 
-// the oZNUsPG Some function
-function company_oZNUsPG_SomeFunc(company_oZNUsPG)
+// the HCncUho Some function
+function company_HCncUho_SomeFunc(company_HCncUho)
 {
 	// set the function logic
-	if (company_oZNUsPG == 0)
+	if (company_HCncUho == 0)
 	{
 		return true;
 	}

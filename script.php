@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.6
-	@build			22nd February, 2016
+	@version		3.3.7
+	@build			24th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		script.php
@@ -1300,7 +1300,7 @@ class com_costbenefitprojectionInstallerScript
 			echo '<a target="_blank" href="http://www.vdm.io" title="Cost Benefit Projection">
 				<img src="components/com_costbenefitprojection/assets/images/component-300.png"/>
 				</a>
-				<h3>Upgrade to Version 3.3.6 Was Successful! Let us know if anything is not working as expected.</h3>';
+				<h3>Upgrade to Version 3.3.7 Was Successful! Let us know if anything is not working as expected.</h3>';
 		}
 	}
 }
