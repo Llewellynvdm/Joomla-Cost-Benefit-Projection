@@ -335,7 +335,7 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 		);
 	} 
 
-	public function getTheTypeSelections()
+	protected function getTheTypeSelections()
 	{
 		// Get a db connection.
 		$db = JFactory::getDbo();
@@ -371,7 +371,7 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 		return false;
 	}
 
-	public function getTheCoverageSelections()
+	protected function getTheCoverageSelections()
 	{
 		// Get a db connection.
 		$db = JFactory::getDbo();
@@ -403,7 +403,7 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 		return false;
 	}
 
-	public function getTheDurationSelections()
+	protected function getTheDurationSelections()
 	{
 		// Get a db connection.
 		$db = JFactory::getDbo();

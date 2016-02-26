@@ -339,7 +339,7 @@ class CostbenefitprojectionViewCompanies extends JViewLegacy
 		);
 	} 
 
-	public function getTheDepartmentSelections()
+	protected function getTheDepartmentSelections()
 	{
 		// Get a db connection.
 		$db = JFactory::getDbo();
@@ -375,7 +375,7 @@ class CostbenefitprojectionViewCompanies extends JViewLegacy
 		return false;
 	}
 
-	public function getThePerSelections()
+	protected function getThePerSelections()
 	{
 		// Get a db connection.
 		$db = JFactory::getDbo();

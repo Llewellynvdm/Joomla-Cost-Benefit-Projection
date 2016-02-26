@@ -310,7 +310,7 @@ class CostbenefitprojectionViewHealth_data_sets extends JViewLegacy
 		);
 	} 
 
-	public function getTheYearSelections()
+	protected function getTheYearSelections()
 	{
 		// Get a db connection.
 		$db = JFactory::getDbo();

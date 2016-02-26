@@ -17,58 +17,58 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // Some Global Values
-jform_CVKWmltbch_required = false;
-jform_uvfXsGAdeB_required = false;
+jform_vvvvvvyvwj_required = false;
+jform_vvvvvwavwk_required = false;
 
 // Initial Script
 jQuery(document).ready(function()
 {
-	var type_CVKWmlt = jQuery("#jform_type input[type='radio']:checked").val();
-	CVKWmlt(type_CVKWmlt);
+	var type_vvvvvvy = jQuery("#jform_type input[type='radio']:checked").val();
+	vvvvvvy(type_vvvvvvy);
 
-	var type_WXlltJD = jQuery("#jform_type input[type='radio']:checked").val();
-	WXlltJD(type_WXlltJD);
+	var type_vvvvvvz = jQuery("#jform_type input[type='radio']:checked").val();
+	vvvvvvz(type_vvvvvvz);
 
-	var company_uvfXsGA = jQuery("#jform_company").val();
-	uvfXsGA(company_uvfXsGA);
+	var company_vvvvvwa = jQuery("#jform_company").val();
+	vvvvvwa(company_vvvvvwa);
 });
 
-// the CVKWmlt function
-function CVKWmlt(type_CVKWmlt)
+// the vvvvvvy function
+function vvvvvvy(type_vvvvvvy)
 {
 	// set the function logic
-	if (type_CVKWmlt == 2)
+	if (type_vvvvvvy == 2)
 	{
 		jQuery('#jform_interventions').closest('.control-group').show();
-		if (jform_CVKWmltbch_required)
+		if (jform_vvvvvvyvwj_required)
 		{
 			updateFieldRequired('interventions',0);
 			jQuery('#jform_interventions').prop('required','required');
 			jQuery('#jform_interventions').attr('aria-required',true);
 			jQuery('#jform_interventions').addClass('required');
-			jform_CVKWmltbch_required = false;
+			jform_vvvvvvyvwj_required = false;
 		}
 
 	}
 	else
 	{
 		jQuery('#jform_interventions').closest('.control-group').hide();
-		if (!jform_CVKWmltbch_required)
+		if (!jform_vvvvvvyvwj_required)
 		{
 			updateFieldRequired('interventions',1);
 			jQuery('#jform_interventions').removeAttr('required');
 			jQuery('#jform_interventions').removeAttr('aria-required');
 			jQuery('#jform_interventions').removeClass('required');
-			jform_CVKWmltbch_required = true;
+			jform_vvvvvvyvwj_required = true;
 		}
 	}
 }
 
-// the WXlltJD function
-function WXlltJD(type_WXlltJD)
+// the vvvvvvz function
+function vvvvvvz(type_vvvvvvz)
 {
 	// set the function logic
-	if (type_WXlltJD == 1)
+	if (type_vvvvvvz == 1)
 	{
 		jQuery('#jform_intervention').closest('.control-group').show();
 	}
@@ -78,55 +78,55 @@ function WXlltJD(type_WXlltJD)
 	}
 }
 
-// the uvfXsGA function
-function uvfXsGA(company_uvfXsGA)
+// the vvvvvwa function
+function vvvvvwa(company_vvvvvwa)
 {
-	if (isSet(company_uvfXsGA) && company_uvfXsGA.constructor !== Array)
+	if (isSet(company_vvvvvwa) && company_vvvvvwa.constructor !== Array)
 	{
-		var temp_uvfXsGA = company_uvfXsGA;
-		var company_uvfXsGA = [];
-		company_uvfXsGA.push(temp_uvfXsGA);
+		var temp_vvvvvwa = company_vvvvvwa;
+		var company_vvvvvwa = [];
+		company_vvvvvwa.push(temp_vvvvvwa);
 	}
-	else if (!isSet(company_uvfXsGA))
+	else if (!isSet(company_vvvvvwa))
 	{
-		var company_uvfXsGA = [];
+		var company_vvvvvwa = [];
 	}
-	var company = company_uvfXsGA.some(company_uvfXsGA_SomeFunc);
+	var company = company_vvvvvwa.some(company_vvvvvwa_SomeFunc);
 
 
 	// set this function logic
 	if (company)
 	{
 		jQuery('#jform_country').closest('.control-group').show();
-		if (jform_uvfXsGAdeB_required)
+		if (jform_vvvvvwavwk_required)
 		{
 			updateFieldRequired('country',0);
 			jQuery('#jform_country').prop('required','required');
 			jQuery('#jform_country').attr('aria-required',true);
 			jQuery('#jform_country').addClass('required');
-			jform_uvfXsGAdeB_required = false;
+			jform_vvvvvwavwk_required = false;
 		}
 
 	}
 	else
 	{
 		jQuery('#jform_country').closest('.control-group').hide();
-		if (!jform_uvfXsGAdeB_required)
+		if (!jform_vvvvvwavwk_required)
 		{
 			updateFieldRequired('country',1);
 			jQuery('#jform_country').removeAttr('required');
 			jQuery('#jform_country').removeAttr('aria-required');
 			jQuery('#jform_country').removeClass('required');
-			jform_uvfXsGAdeB_required = true;
+			jform_vvvvvwavwk_required = true;
 		}
 	}
 }
 
-// the uvfXsGA Some function
-function company_uvfXsGA_SomeFunc(company_uvfXsGA)
+// the vvvvvwa Some function
+function company_vvvvvwa_SomeFunc(company_vvvvvwa)
 {
 	// set the function logic
-	if (company_uvfXsGA == 0)
+	if (company_vvvvvwa == 0)
 	{
 		return true;
 	}

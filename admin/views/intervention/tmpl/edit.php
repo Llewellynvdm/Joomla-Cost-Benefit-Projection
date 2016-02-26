@@ -103,48 +103,48 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_type listeners for type_CVKWmlt function
+// #jform_type listeners for type_vvvvvvy function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_CVKWmlt = jQuery("#jform_type input[type='radio']:checked").val();
-	CVKWmlt(type_CVKWmlt);
+	var type_vvvvvvy = jQuery("#jform_type input[type='radio']:checked").val();
+	vvvvvvy(type_vvvvvvy);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_CVKWmlt = jQuery("#jform_type input[type='radio']:checked").val();
-	CVKWmlt(type_CVKWmlt);
+	var type_vvvvvvy = jQuery("#jform_type input[type='radio']:checked").val();
+	vvvvvvy(type_vvvvvvy);
 
 });
 
-// #jform_type listeners for type_WXlltJD function
+// #jform_type listeners for type_vvvvvvz function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_WXlltJD = jQuery("#jform_type input[type='radio']:checked").val();
-	WXlltJD(type_WXlltJD);
+	var type_vvvvvvz = jQuery("#jform_type input[type='radio']:checked").val();
+	vvvvvvz(type_vvvvvvz);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_WXlltJD = jQuery("#jform_type input[type='radio']:checked").val();
-	WXlltJD(type_WXlltJD);
+	var type_vvvvvvz = jQuery("#jform_type input[type='radio']:checked").val();
+	vvvvvvz(type_vvvvvvz);
 
 });
 
-// #jform_company listeners for company_uvfXsGA function
+// #jform_company listeners for company_vvvvvwa function
 jQuery('#jform_company').on('keyup',function()
 {
-	var company_uvfXsGA = jQuery("#jform_company").val();
-	uvfXsGA(company_uvfXsGA);
+	var company_vvvvvwa = jQuery("#jform_company").val();
+	vvvvvwa(company_vvvvvwa);
 
 });
 jQuery('#adminForm').on('change', '#jform_company',function (e)
 {
 	e.preventDefault();
-	var company_uvfXsGA = jQuery("#jform_company").val();
-	uvfXsGA(company_uvfXsGA);
+	var company_vvvvvwa = jQuery("#jform_company").val();
+	vvvvvwa(company_vvvvvwa);
 
 });
 

@@ -142,7 +142,7 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 	*
 	* @return translatable string
 	*/
-	protected function selectionTranslation($value,$name)
+	public function selectionTranslation($value,$name)
 	{
 		// Array of year language strings
 		if ($name == 'year')

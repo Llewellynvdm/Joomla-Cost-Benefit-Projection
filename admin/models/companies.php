@@ -156,7 +156,7 @@ class CostbenefitprojectionModelCompanies extends JModelList
 	*
 	* @return translatable string
 	*/
-	protected function selectionTranslation($value,$name)
+	public function selectionTranslation($value,$name)
 	{
 		// Array of department language strings
 		if ($name == 'department')
