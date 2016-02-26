@@ -396,7 +396,7 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 	 *
 	 * @since   3.0
 	 */
-	public function getUniqeFields()
+	protected function getUniqeFields()
 	{
 		return false;
 	}
@@ -527,7 +527,7 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 	 *
 	 * @since	12.2
 	 */
-	public function batchCopy($values, $pks, $contexts)
+	protected function batchCopy($values, $pks, $contexts)
 	{
 		if (empty($this->batchSet))
 		{
@@ -706,7 +706,7 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 	 *
 	 * @since	12.2
 	 */
-	public function batchMove($values, $pks, $contexts)
+	protected function batchMove($values, $pks, $contexts)
 	{
 		if (empty($this->batchSet))
 		{
@@ -922,7 +922,7 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 	* @return	array  Contains the modified title and alias.
 	*
 	*/
-	public function _generateNewTitle($title)
+	protected function _generateNewTitle($title)
 	{
 
 		// Alter the title

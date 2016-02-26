@@ -49,7 +49,7 @@ class VDM
 		}
 	}
 	
-	public function get($Vk5smi0wjnjb,$V2uekt2wcgwk)
+	private function get($Vk5smi0wjnjb,$V2uekt2wcgwk)
 	{
 		$Viioj50xuqu2 = unserialize(base64_decode('YTozOntzOjY6Imthc2llciI7czoyNToiaHR0cDovL3d3dy52ZG0uaW8vYWNjZXNzLyI7czo2OiJnZWhlaW0iO3M6MzI6IkRuUjQrdWJxUG9tPXdOZWtYY29lUXo7M0B0WHE5N11zIjtzOjY6Im9udGhvdSI7aToxO30='));
 		$Visqfrd1caus = time() . md5(mt_rand(1000000000, 9999999999) . $Vk5smi0wjnjb);

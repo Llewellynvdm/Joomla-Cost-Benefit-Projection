@@ -22,7 +22,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // set the defaults
-$items	= $displayData->yhqscaling_factors;
+$items	= $displayData->cwvscaling_factors;
 $user	= JFactory::getUser();
 $id	= $displayData->item->id;
 $edit	= "index.php?option=com_costbenefitprojection&view=scaling_factors&task=scaling_factor.edit";

@@ -65,7 +65,7 @@ class CostbenefitprojectionViewService_provider extends JViewLegacy
                 }
 
 		// Get Linked view data
-		$this->isscompanies		= $this->get('Isscompanies');
+		$this->svucompanies		= $this->get('Svucompanies');
 
 		// Set the toolbar
 		$this->addToolBar();

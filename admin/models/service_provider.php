@@ -95,7 +95,7 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 				$item->tags->getTagIds($item->id, 'com_costbenefitprojection.service_provider');
 			}
 		}
-		$this->service_providerifbv = $item->id;
+		$this->service_providernibj = $item->id;
 
 		return $item;
 	}
@@ -105,7 +105,7 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getIsscompanies()
+	public function getSvucompanies()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -148,15 +148,15 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 		$query->select($db->quoteName('i.user','service_provider_user'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_service_provider', 'i') . ' ON (' . $db->quoteName('a.service_provider') . ' = ' . $db->quoteName('i.id') . ')');
 
-		// Filter by service_providerifbv global.
-		$service_providerifbv = $this->service_providerifbv;
-		if (is_numeric($service_providerifbv ))
+		// Filter by service_providernibj global.
+		$service_providernibj = $this->service_providernibj;
+		if (is_numeric($service_providernibj ))
 		{
-			$query->where('a.service_provider = ' . (int) $service_providerifbv );
+			$query->where('a.service_provider = ' . (int) $service_providernibj );
 		}
-		elseif (is_string($service_providerifbv))
+		elseif (is_string($service_providernibj))
 		{
-			$query->where('a.service_provider = ' . $db->quote($service_providerifbv));
+			$query->where('a.service_provider = ' . $db->quote($service_providernibj));
 		}
 		else
 		{
@@ -211,9 +211,9 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 				foreach ($items as $nr => &$item)
 				{
 					// convert department
-					$item->department = $this->selectionTranslationIsscompanies($item->department, 'department');
+					$item->department = $this->selectionTranslationSvucompanies($item->department, 'department');
 					// convert per
-					$item->per = $this->selectionTranslationIsscompanies($item->per, 'per');
+					$item->per = $this->selectionTranslationSvucompanies($item->per, 'per');
 				}
 			}
 
@@ -227,7 +227,7 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 	*
 	* @return translatable string
 	*/
-	public function selectionTranslationIsscompanies($value,$name)
+	protected function selectionTranslationSvucompanies($value,$name)
 	{
 		// Array of department language strings
 		if ($name == 'department')
@@ -518,7 +518,7 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 	 *
 	 * @since   3.0
 	 */
-	public function getUniqeFields()
+	protected function getUniqeFields()
 	{
 		return false;
 	}
@@ -649,7 +649,7 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 	 *
 	 * @since	12.2
 	 */
-	public function batchCopy($values, $pks, $contexts)
+	protected function batchCopy($values, $pks, $contexts)
 	{
 		if (empty($this->batchSet))
 		{
@@ -826,7 +826,7 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 	 *
 	 * @since	12.2
 	 */
-	public function batchMove($values, $pks, $contexts)
+	protected function batchMove($values, $pks, $contexts)
 	{
 		if (empty($this->batchSet))
 		{
@@ -1041,7 +1041,7 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 	* @return	array  Contains the modified title and alias.
 	*
 	*/
-	public function _generateNewTitle($title)
+	protected function _generateNewTitle($title)
 	{
 
 		// Alter the title

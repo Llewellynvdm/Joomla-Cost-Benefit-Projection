@@ -65,10 +65,10 @@ class CostbenefitprojectionViewCompany extends JViewLegacy
                 }
 
 		// Get Linked view data
-		$this->yhqscaling_factors		= $this->get('Yhqscaling_factors');
+		$this->cwvscaling_factors		= $this->get('Cwvscaling_factors');
 
 		// Get Linked view data
-		$this->gypinterventions		= $this->get('Gypinterventions');
+		$this->rjqinterventions		= $this->get('Rjqinterventions');
 
 		// Set the toolbar
 		$this->addToolBar();

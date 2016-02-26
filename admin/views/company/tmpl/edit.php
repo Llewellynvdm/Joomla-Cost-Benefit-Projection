@@ -141,33 +141,33 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_department listeners for department_VYVXNfJ function
+// #jform_department listeners for department_GoUKnYR function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_VYVXNfJ = jQuery("#jform_department input[type='radio']:checked").val();
-	VYVXNfJ(department_VYVXNfJ);
+	var department_GoUKnYR = jQuery("#jform_department input[type='radio']:checked").val();
+	GoUKnYR(department_GoUKnYR);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_VYVXNfJ = jQuery("#jform_department input[type='radio']:checked").val();
-	VYVXNfJ(department_VYVXNfJ);
+	var department_GoUKnYR = jQuery("#jform_department input[type='radio']:checked").val();
+	GoUKnYR(department_GoUKnYR);
 
 });
 
-// #jform_department listeners for department_uSGkQuj function
+// #jform_department listeners for department_tWDagyL function
 jQuery('#jform_department').on('keyup',function()
 {
-	var department_uSGkQuj = jQuery("#jform_department input[type='radio']:checked").val();
-	uSGkQuj(department_uSGkQuj);
+	var department_tWDagyL = jQuery("#jform_department input[type='radio']:checked").val();
+	tWDagyL(department_tWDagyL);
 
 });
 jQuery('#adminForm').on('change', '#jform_department',function (e)
 {
 	e.preventDefault();
-	var department_uSGkQuj = jQuery("#jform_department input[type='radio']:checked").val();
-	uSGkQuj(department_uSGkQuj);
+	var department_tWDagyL = jQuery("#jform_department input[type='radio']:checked").val();
+	tWDagyL(department_tWDagyL);
 
 });
 

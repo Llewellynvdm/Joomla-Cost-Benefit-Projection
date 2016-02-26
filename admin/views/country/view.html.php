@@ -65,13 +65,13 @@ class CostbenefitprojectionViewCountry extends JViewLegacy
                 }
 
 		// Get Linked view data
-		$this->dxsinterventions		= $this->get('Dxsinterventions');
+		$this->fnxinterventions		= $this->get('Fnxinterventions');
 
 		// Get Linked view data
-		$this->subservice_providers		= $this->get('Subservice_providers');
+		$this->qkaservice_providers		= $this->get('Qkaservice_providers');
 
 		// Get Linked view data
-		$this->tqucompanies		= $this->get('Tqucompanies');
+		$this->sbccompanies		= $this->get('Sbccompanies');
 
 		// Set the toolbar
 		$this->addToolBar();

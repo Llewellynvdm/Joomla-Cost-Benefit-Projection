@@ -154,8 +154,8 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				$item->tags->getTagIds($item->id, 'com_costbenefitprojection.company');
 			}
 		}
-		$this->companyedsg = $item->id;
-		$this->companyyyuq = $item->id;
+		$this->companymmfv = $item->id;
+		$this->companyzzjj = $item->id;
 
 		return $item;
 	}
@@ -165,7 +165,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getYhqscaling_factors()
+	public function getCwvscaling_factors()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -204,15 +204,15 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 		$query->select($db->quoteName('h.name','company_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_company', 'h') . ' ON (' . $db->quoteName('a.company') . ' = ' . $db->quoteName('h.id') . ')');
 
-		// Filter by companyedsg global.
-		$companyedsg = $this->companyedsg;
-		if (is_numeric($companyedsg ))
+		// Filter by companymmfv global.
+		$companymmfv = $this->companymmfv;
+		if (is_numeric($companymmfv ))
 		{
-			$query->where('a.company = ' . (int) $companyedsg );
+			$query->where('a.company = ' . (int) $companymmfv );
 		}
-		elseif (is_string($companyedsg))
+		elseif (is_string($companymmfv))
 		{
-			$query->where('a.company = ' . $db->quote($companyedsg));
+			$query->where('a.company = ' . $db->quote($companymmfv));
 		}
 		else
 		{
@@ -255,7 +255,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getGypinterventions()
+	public function getRjqinterventions()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -290,15 +290,15 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 		$query->select($db->quoteName('g.name','company_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_company', 'g') . ' ON (' . $db->quoteName('a.company') . ' = ' . $db->quoteName('g.id') . ')');
 
-		// Filter by companyyyuq global.
-		$companyyyuq = $this->companyyyuq;
-		if (is_numeric($companyyyuq ))
+		// Filter by companyzzjj global.
+		$companyzzjj = $this->companyzzjj;
+		if (is_numeric($companyzzjj ))
 		{
-			$query->where('a.company = ' . (int) $companyyyuq );
+			$query->where('a.company = ' . (int) $companyzzjj );
 		}
-		elseif (is_string($companyyyuq))
+		elseif (is_string($companyzzjj))
 		{
-			$query->where('a.company = ' . $db->quote($companyyyuq));
+			$query->where('a.company = ' . $db->quote($companyzzjj));
 		}
 		else
 		{
@@ -351,7 +351,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				foreach ($items as $nr => &$item)
 				{
 					// convert type
-					$item->type = $this->selectionTranslationGypinterventions($item->type, 'type');
+					$item->type = $this->selectionTranslationRjqinterventions($item->type, 'type');
 				}
 			}
 
@@ -365,7 +365,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return translatable string
 	*/
-	public function selectionTranslationGypinterventions($value,$name)
+	protected function selectionTranslationRjqinterventions($value,$name)
 	{
 		// Array of type language strings
 		if ($name == 'type')
@@ -860,7 +860,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	 *
 	 * @since   3.0
 	 */
-	public function getUniqeFields()
+	protected function getUniqeFields()
 	{
 		return false;
 	}
@@ -972,7 +972,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	 *
 	 * @since	12.2
 	 */
-	public function batchCopy($values, $pks, $contexts)
+	protected function batchCopy($values, $pks, $contexts)
 	{
 		if (empty($this->batchSet))
 		{
@@ -1150,7 +1150,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	 *
 	 * @since	12.2
 	 */
-	public function batchMove($values, $pks, $contexts)
+	protected function batchMove($values, $pks, $contexts)
 	{
 		if (empty($this->batchSet))
 		{
@@ -1431,7 +1431,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	* @return	array  Contains the modified title and alias.
 	*
 	*/
-	public function _generateNewTitle($title)
+	protected function _generateNewTitle($title)
 	{
 
 		// Alter the title

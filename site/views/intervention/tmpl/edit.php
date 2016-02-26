@@ -105,48 +105,48 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 <script type="text/javascript">
 
-// #jform_type listeners for type_sjxYNud function
+// #jform_type listeners for type_CVKWmlt function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_sjxYNud = jQuery("#jform_type input[type='radio']:checked").val();
-	sjxYNud(type_sjxYNud);
+	var type_CVKWmlt = jQuery("#jform_type input[type='radio']:checked").val();
+	CVKWmlt(type_CVKWmlt);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_sjxYNud = jQuery("#jform_type input[type='radio']:checked").val();
-	sjxYNud(type_sjxYNud);
+	var type_CVKWmlt = jQuery("#jform_type input[type='radio']:checked").val();
+	CVKWmlt(type_CVKWmlt);
 
 });
 
-// #jform_type listeners for type_eZIBSax function
+// #jform_type listeners for type_WXlltJD function
 jQuery('#jform_type').on('keyup',function()
 {
-	var type_eZIBSax = jQuery("#jform_type input[type='radio']:checked").val();
-	eZIBSax(type_eZIBSax);
+	var type_WXlltJD = jQuery("#jform_type input[type='radio']:checked").val();
+	WXlltJD(type_WXlltJD);
 
 });
 jQuery('#adminForm').on('change', '#jform_type',function (e)
 {
 	e.preventDefault();
-	var type_eZIBSax = jQuery("#jform_type input[type='radio']:checked").val();
-	eZIBSax(type_eZIBSax);
+	var type_WXlltJD = jQuery("#jform_type input[type='radio']:checked").val();
+	WXlltJD(type_WXlltJD);
 
 });
 
-// #jform_company listeners for company_TTuOrzo function
+// #jform_company listeners for company_uvfXsGA function
 jQuery('#jform_company').on('keyup',function()
 {
-	var company_TTuOrzo = jQuery("#jform_company").val();
-	TTuOrzo(company_TTuOrzo);
+	var company_uvfXsGA = jQuery("#jform_company").val();
+	uvfXsGA(company_uvfXsGA);
 
 });
 jQuery('#adminForm').on('change', '#jform_company',function (e)
 {
 	e.preventDefault();
-	var company_TTuOrzo = jQuery("#jform_company").val();
-	TTuOrzo(company_TTuOrzo);
+	var company_uvfXsGA = jQuery("#jform_company").val();
+	uvfXsGA(company_uvfXsGA);
 
 });
 

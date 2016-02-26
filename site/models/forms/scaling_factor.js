@@ -17,64 +17,64 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // Some Global Values
-jform_slxONhhIJp_required = false;
+jform_SACPybdoDe_required = false;
 
 // Initial Script
 jQuery(document).ready(function()
 {
-	var company_slxONhh = jQuery("#jform_company").val();
-	slxONhh(company_slxONhh);
+	var company_SACPybd = jQuery("#jform_company").val();
+	SACPybd(company_SACPybd);
 });
 
-// the slxONhh function
-function slxONhh(company_slxONhh)
+// the SACPybd function
+function SACPybd(company_SACPybd)
 {
-	if (isSet(company_slxONhh) && company_slxONhh.constructor !== Array)
+	if (isSet(company_SACPybd) && company_SACPybd.constructor !== Array)
 	{
-		var temp_slxONhh = company_slxONhh;
-		var company_slxONhh = [];
-		company_slxONhh.push(temp_slxONhh);
+		var temp_SACPybd = company_SACPybd;
+		var company_SACPybd = [];
+		company_SACPybd.push(temp_SACPybd);
 	}
-	else if (!isSet(company_slxONhh))
+	else if (!isSet(company_SACPybd))
 	{
-		var company_slxONhh = [];
+		var company_SACPybd = [];
 	}
-	var company = company_slxONhh.some(company_slxONhh_SomeFunc);
+	var company = company_SACPybd.some(company_SACPybd_SomeFunc);
 
 
 	// set this function logic
 	if (company)
 	{
 		jQuery('#jform_country').closest('.control-group').show();
-		if (jform_slxONhhIJp_required)
+		if (jform_SACPybdoDe_required)
 		{
 			updateFieldRequired('country',0);
 			jQuery('#jform_country').prop('required','required');
 			jQuery('#jform_country').attr('aria-required',true);
 			jQuery('#jform_country').addClass('required');
-			jform_slxONhhIJp_required = false;
+			jform_SACPybdoDe_required = false;
 		}
 
 	}
 	else
 	{
 		jQuery('#jform_country').closest('.control-group').hide();
-		if (!jform_slxONhhIJp_required)
+		if (!jform_SACPybdoDe_required)
 		{
 			updateFieldRequired('country',1);
 			jQuery('#jform_country').removeAttr('required');
 			jQuery('#jform_country').removeAttr('aria-required');
 			jQuery('#jform_country').removeClass('required');
-			jform_slxONhhIJp_required = true;
+			jform_SACPybdoDe_required = true;
 		}
 	}
 }
 
-// the slxONhh Some function
-function company_slxONhh_SomeFunc(company_slxONhh)
+// the SACPybd Some function
+function company_SACPybd_SomeFunc(company_SACPybd)
 {
 	// set the function logic
-	if (company_slxONhh == 0)
+	if (company_SACPybd == 0)
 	{
 		return true;
 	}

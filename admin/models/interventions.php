@@ -167,7 +167,7 @@ class CostbenefitprojectionModelInterventions extends JModelList
 	*
 	* @return translatable string
 	*/
-	public function selectionTranslation($value,$name)
+	protected function selectionTranslation($value,$name)
 	{
 		// Array of type language strings
 		if ($name == 'type')
@@ -435,7 +435,7 @@ class CostbenefitprojectionModelInterventions extends JModelList
 	* @return  a bool
 	*
 	*/
-	public function checkInNow()
+	protected function checkInNow()
 	{
 		// Get set check in time
 		$time = JComponentHelper::getParams('com_costbenefitprojection')->get('check_in');
