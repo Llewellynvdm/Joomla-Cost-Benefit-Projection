@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.7
-	@build			24th February, 2016
+	@build			26th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -65,7 +65,7 @@ class CostbenefitprojectionViewService_provider extends JViewLegacy
                 }
 
 		// Get Linked view data
-		$this->tvocompanies		= $this->get('Tvocompanies');
+		$this->isscompanies		= $this->get('Isscompanies');
 
 		// Set the toolbar
 		$this->addToolBar();

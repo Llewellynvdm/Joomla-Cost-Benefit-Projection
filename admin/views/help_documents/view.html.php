@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.7
-	@build			24th February, 2016
+	@build			26th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -334,7 +334,7 @@ class CostbenefitprojectionViewHelp_documents extends JViewLegacy
 		);
 	} 
 
-	protected function getTheTypeSelections()
+	public function getTheTypeSelections()
 	{
 		// Get a db connection.
 		$db = JFactory::getDbo();
@@ -370,7 +370,7 @@ class CostbenefitprojectionViewHelp_documents extends JViewLegacy
 		return false;
 	}
 
-	protected function getTheLocationSelections()
+	public function getTheLocationSelections()
 	{
 		// Get a db connection.
 		$db = JFactory::getDbo();
@@ -406,7 +406,7 @@ class CostbenefitprojectionViewHelp_documents extends JViewLegacy
 		return false;
 	}
 
-	protected function getTheAdmin_viewSelections()
+	public function getTheAdmin_viewSelections()
 	{
 		// Get a db connection.
 		$db = JFactory::getDbo();
@@ -438,7 +438,7 @@ class CostbenefitprojectionViewHelp_documents extends JViewLegacy
 		return false;
 	}
 
-	protected function getTheSite_viewSelections()
+	public function getTheSite_viewSelections()
 	{
 		// Get a db connection.
 		$db = JFactory::getDbo();

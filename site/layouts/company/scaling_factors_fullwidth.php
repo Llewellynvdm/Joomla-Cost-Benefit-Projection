@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.7
-	@build			24th February, 2016
+	@build			26th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		scaling_factors_fullwidth.php
@@ -22,7 +22,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // set the defaults
-$items	= $displayData->obqscaling_factors;
+$items	= $displayData->yhqscaling_factors;
 $user	= JFactory::getUser();
 $id	= $displayData->item->id;
 $edit	= "index.php?option=com_costbenefitprojection&view=scaling_factors&task=scaling_factor.edit";

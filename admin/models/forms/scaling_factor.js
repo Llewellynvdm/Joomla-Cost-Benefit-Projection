@@ -3,7 +3,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.7
-	@build			24th February, 2016
+	@build			26th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		scaling_factor.js
@@ -17,64 +17,64 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // Some Global Values
-jform_pBdODibjvD_required = false;
+jform_slxONhhIJp_required = false;
 
 // Initial Script
 jQuery(document).ready(function()
 {
-	var company_pBdODib = jQuery("#jform_company").val();
-	pBdODib(company_pBdODib);
+	var company_slxONhh = jQuery("#jform_company").val();
+	slxONhh(company_slxONhh);
 });
 
-// the pBdODib function
-function pBdODib(company_pBdODib)
+// the slxONhh function
+function slxONhh(company_slxONhh)
 {
-	if (isSet(company_pBdODib) && company_pBdODib.constructor !== Array)
+	if (isSet(company_slxONhh) && company_slxONhh.constructor !== Array)
 	{
-		var temp_pBdODib = company_pBdODib;
-		var company_pBdODib = [];
-		company_pBdODib.push(temp_pBdODib);
+		var temp_slxONhh = company_slxONhh;
+		var company_slxONhh = [];
+		company_slxONhh.push(temp_slxONhh);
 	}
-	else if (!isSet(company_pBdODib))
+	else if (!isSet(company_slxONhh))
 	{
-		var company_pBdODib = [];
+		var company_slxONhh = [];
 	}
-	var company = company_pBdODib.some(company_pBdODib_SomeFunc);
+	var company = company_slxONhh.some(company_slxONhh_SomeFunc);
 
 
 	// set this function logic
 	if (company)
 	{
 		jQuery('#jform_country').closest('.control-group').show();
-		if (jform_pBdODibjvD_required)
+		if (jform_slxONhhIJp_required)
 		{
 			updateFieldRequired('country',0);
 			jQuery('#jform_country').prop('required','required');
 			jQuery('#jform_country').attr('aria-required',true);
 			jQuery('#jform_country').addClass('required');
-			jform_pBdODibjvD_required = false;
+			jform_slxONhhIJp_required = false;
 		}
 
 	}
 	else
 	{
 		jQuery('#jform_country').closest('.control-group').hide();
-		if (!jform_pBdODibjvD_required)
+		if (!jform_slxONhhIJp_required)
 		{
 			updateFieldRequired('country',1);
 			jQuery('#jform_country').removeAttr('required');
 			jQuery('#jform_country').removeAttr('aria-required');
 			jQuery('#jform_country').removeClass('required');
-			jform_pBdODibjvD_required = true;
+			jform_slxONhhIJp_required = true;
 		}
 	}
 }
 
-// the pBdODib Some function
-function company_pBdODib_SomeFunc(company_pBdODib)
+// the slxONhh Some function
+function company_slxONhh_SomeFunc(company_slxONhh)
 {
 	// set the function logic
-	if (company_pBdODib == 0)
+	if (company_slxONhh == 0)
 	{
 		return true;
 	}

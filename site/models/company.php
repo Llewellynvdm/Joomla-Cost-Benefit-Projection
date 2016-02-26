@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.7
-	@build			24th February, 2016
+	@build			26th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		company.php
@@ -154,8 +154,8 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				$item->tags->getTagIds($item->id, 'com_costbenefitprojection.company');
 			}
 		}
-		$this->companybxoc = $item->id;
-		$this->companyhojs = $item->id;
+		$this->companyedsg = $item->id;
+		$this->companyyyuq = $item->id;
 
 		return $item;
 	}
@@ -165,7 +165,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getObqscaling_factors()
+	public function getYhqscaling_factors()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -204,15 +204,15 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 		$query->select($db->quoteName('h.name','company_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_company', 'h') . ' ON (' . $db->quoteName('a.company') . ' = ' . $db->quoteName('h.id') . ')');
 
-		// Filter by companybxoc global.
-		$companybxoc = $this->companybxoc;
-		if (is_numeric($companybxoc ))
+		// Filter by companyedsg global.
+		$companyedsg = $this->companyedsg;
+		if (is_numeric($companyedsg ))
 		{
-			$query->where('a.company = ' . (int) $companybxoc );
+			$query->where('a.company = ' . (int) $companyedsg );
 		}
-		elseif (is_string($companybxoc))
+		elseif (is_string($companyedsg))
 		{
-			$query->where('a.company = ' . $db->quote($companybxoc));
+			$query->where('a.company = ' . $db->quote($companyedsg));
 		}
 		else
 		{
@@ -255,7 +255,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return mixed  An array of data items on success, false on failure.
 	*/
-	public function getLedinterventions()
+	public function getGypinterventions()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();
@@ -290,15 +290,15 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 		$query->select($db->quoteName('g.name','company_name'));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_company', 'g') . ' ON (' . $db->quoteName('a.company') . ' = ' . $db->quoteName('g.id') . ')');
 
-		// Filter by companyhojs global.
-		$companyhojs = $this->companyhojs;
-		if (is_numeric($companyhojs ))
+		// Filter by companyyyuq global.
+		$companyyyuq = $this->companyyyuq;
+		if (is_numeric($companyyyuq ))
 		{
-			$query->where('a.company = ' . (int) $companyhojs );
+			$query->where('a.company = ' . (int) $companyyyuq );
 		}
-		elseif (is_string($companyhojs))
+		elseif (is_string($companyyyuq))
 		{
-			$query->where('a.company = ' . $db->quote($companyhojs));
+			$query->where('a.company = ' . $db->quote($companyyyuq));
 		}
 		else
 		{
@@ -351,7 +351,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				foreach ($items as $nr => &$item)
 				{
 					// convert type
-					$item->type = $this->selectionTranslationLedinterventions($item->type, 'type');
+					$item->type = $this->selectionTranslationGypinterventions($item->type, 'type');
 				}
 			}
 
@@ -365,7 +365,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	*
 	* @return translatable string
 	*/
-	public function selectionTranslationLedinterventions($value,$name)
+	public function selectionTranslationGypinterventions($value,$name)
 	{
 		// Array of type language strings
 		if ($name == 'type')
@@ -860,7 +860,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	 *
 	 * @since   3.0
 	 */
-	protected function getUniqeFields()
+	public function getUniqeFields()
 	{
 		return false;
 	}
@@ -972,7 +972,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	 *
 	 * @since	12.2
 	 */
-	protected function batchCopy($values, $pks, $contexts)
+	public function batchCopy($values, $pks, $contexts)
 	{
 		if (empty($this->batchSet))
 		{
@@ -1150,7 +1150,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	 *
 	 * @since	12.2
 	 */
-	protected function batchMove($values, $pks, $contexts)
+	public function batchMove($values, $pks, $contexts)
 	{
 		if (empty($this->batchSet))
 		{
@@ -1431,7 +1431,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	* @return	array  Contains the modified title and alias.
 	*
 	*/
-	protected function _generateNewTitle($title)
+	public function _generateNewTitle($title)
 	{
 
 		// Alter the title

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.7
-	@build			24th February, 2016
+	@build			26th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		service_providers_fullwidth.php
@@ -22,7 +22,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 // set the defaults
-$items	= $displayData->iqaservice_providers;
+$items	= $displayData->subservice_providers;
 $user	= JFactory::getUser();
 $id	= $displayData->item->id;
 $edit	= "index.php?option=com_costbenefitprojection&view=service_providers&task=service_provider.edit";

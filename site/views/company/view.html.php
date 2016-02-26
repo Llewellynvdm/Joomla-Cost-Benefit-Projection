@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.7
-	@build			24th February, 2016
+	@build			26th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -65,10 +65,10 @@ class CostbenefitprojectionViewCompany extends JViewLegacy
                 }
 
 		// Get Linked view data
-		$this->obqscaling_factors		= $this->get('Obqscaling_factors');
+		$this->yhqscaling_factors		= $this->get('Yhqscaling_factors');
 
 		// Get Linked view data
-		$this->ledinterventions		= $this->get('Ledinterventions');
+		$this->gypinterventions		= $this->get('Gypinterventions');
 
 		// Set the toolbar
 		$this->addToolBar();

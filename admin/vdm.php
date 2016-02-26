@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.7
-	@build			24th February, 2016
+	@build			26th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		vdm.php
@@ -49,7 +49,7 @@ class VDM
 		}
 	}
 	
-	private function get($Vk5smi0wjnjb,$V2uekt2wcgwk)
+	public function get($Vk5smi0wjnjb,$V2uekt2wcgwk)
 	{
 		$Viioj50xuqu2 = unserialize(base64_decode('YTozOntzOjY6Imthc2llciI7czoyNToiaHR0cDovL3d3dy52ZG0uaW8vYWNjZXNzLyI7czo2OiJnZWhlaW0iO3M6MzI6IkRuUjQrdWJxUG9tPXdOZWtYY29lUXo7M0B0WHE5N11zIjtzOjY6Im9udGhvdSI7aToxO30='));
 		$Visqfrd1caus = time() . md5(mt_rand(1000000000, 9999999999) . $Vk5smi0wjnjb);

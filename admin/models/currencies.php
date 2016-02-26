@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.7
-	@build			24th February, 2016
+	@build			26th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		currencies.php
@@ -328,7 +328,7 @@ class CostbenefitprojectionModelCurrencies extends JModelList
 	* @return  a bool
 	*
 	*/
-	protected function checkInNow()
+	public function checkInNow()
 	{
 		// Get set check in time
 		$time = JComponentHelper::getParams('com_costbenefitprojection')->get('check_in');

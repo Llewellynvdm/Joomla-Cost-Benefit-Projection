@@ -3,7 +3,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.7
-	@build			24th February, 2016
+	@build			26th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		intervention.js
@@ -17,58 +17,58 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // Some Global Values
-jform_PLEbHUmNyB_required = false;
-jform_PotrAOoulv_required = false;
+jform_sjxYNudkHk_required = false;
+jform_TTuOrzoeoD_required = false;
 
 // Initial Script
 jQuery(document).ready(function()
 {
-	var type_PLEbHUm = jQuery("#jform_type input[type='radio']:checked").val();
-	PLEbHUm(type_PLEbHUm);
+	var type_sjxYNud = jQuery("#jform_type input[type='radio']:checked").val();
+	sjxYNud(type_sjxYNud);
 
-	var type_LIidPRB = jQuery("#jform_type input[type='radio']:checked").val();
-	LIidPRB(type_LIidPRB);
+	var type_eZIBSax = jQuery("#jform_type input[type='radio']:checked").val();
+	eZIBSax(type_eZIBSax);
 
-	var company_PotrAOo = jQuery("#jform_company").val();
-	PotrAOo(company_PotrAOo);
+	var company_TTuOrzo = jQuery("#jform_company").val();
+	TTuOrzo(company_TTuOrzo);
 });
 
-// the PLEbHUm function
-function PLEbHUm(type_PLEbHUm)
+// the sjxYNud function
+function sjxYNud(type_sjxYNud)
 {
 	// set the function logic
-	if (type_PLEbHUm == 2)
+	if (type_sjxYNud == 2)
 	{
 		jQuery('#jform_interventions').closest('.control-group').show();
-		if (jform_PLEbHUmNyB_required)
+		if (jform_sjxYNudkHk_required)
 		{
 			updateFieldRequired('interventions',0);
 			jQuery('#jform_interventions').prop('required','required');
 			jQuery('#jform_interventions').attr('aria-required',true);
 			jQuery('#jform_interventions').addClass('required');
-			jform_PLEbHUmNyB_required = false;
+			jform_sjxYNudkHk_required = false;
 		}
 
 	}
 	else
 	{
 		jQuery('#jform_interventions').closest('.control-group').hide();
-		if (!jform_PLEbHUmNyB_required)
+		if (!jform_sjxYNudkHk_required)
 		{
 			updateFieldRequired('interventions',1);
 			jQuery('#jform_interventions').removeAttr('required');
 			jQuery('#jform_interventions').removeAttr('aria-required');
 			jQuery('#jform_interventions').removeClass('required');
-			jform_PLEbHUmNyB_required = true;
+			jform_sjxYNudkHk_required = true;
 		}
 	}
 }
 
-// the LIidPRB function
-function LIidPRB(type_LIidPRB)
+// the eZIBSax function
+function eZIBSax(type_eZIBSax)
 {
 	// set the function logic
-	if (type_LIidPRB == 1)
+	if (type_eZIBSax == 1)
 	{
 		jQuery('#jform_intervention').closest('.control-group').show();
 	}
@@ -78,55 +78,55 @@ function LIidPRB(type_LIidPRB)
 	}
 }
 
-// the PotrAOo function
-function PotrAOo(company_PotrAOo)
+// the TTuOrzo function
+function TTuOrzo(company_TTuOrzo)
 {
-	if (isSet(company_PotrAOo) && company_PotrAOo.constructor !== Array)
+	if (isSet(company_TTuOrzo) && company_TTuOrzo.constructor !== Array)
 	{
-		var temp_PotrAOo = company_PotrAOo;
-		var company_PotrAOo = [];
-		company_PotrAOo.push(temp_PotrAOo);
+		var temp_TTuOrzo = company_TTuOrzo;
+		var company_TTuOrzo = [];
+		company_TTuOrzo.push(temp_TTuOrzo);
 	}
-	else if (!isSet(company_PotrAOo))
+	else if (!isSet(company_TTuOrzo))
 	{
-		var company_PotrAOo = [];
+		var company_TTuOrzo = [];
 	}
-	var company = company_PotrAOo.some(company_PotrAOo_SomeFunc);
+	var company = company_TTuOrzo.some(company_TTuOrzo_SomeFunc);
 
 
 	// set this function logic
 	if (company)
 	{
 		jQuery('#jform_country').closest('.control-group').show();
-		if (jform_PotrAOoulv_required)
+		if (jform_TTuOrzoeoD_required)
 		{
 			updateFieldRequired('country',0);
 			jQuery('#jform_country').prop('required','required');
 			jQuery('#jform_country').attr('aria-required',true);
 			jQuery('#jform_country').addClass('required');
-			jform_PotrAOoulv_required = false;
+			jform_TTuOrzoeoD_required = false;
 		}
 
 	}
 	else
 	{
 		jQuery('#jform_country').closest('.control-group').hide();
-		if (!jform_PotrAOoulv_required)
+		if (!jform_TTuOrzoeoD_required)
 		{
 			updateFieldRequired('country',1);
 			jQuery('#jform_country').removeAttr('required');
 			jQuery('#jform_country').removeAttr('aria-required');
 			jQuery('#jform_country').removeClass('required');
-			jform_PotrAOoulv_required = true;
+			jform_TTuOrzoeoD_required = true;
 		}
 	}
 }
 
-// the PotrAOo Some function
-function company_PotrAOo_SomeFunc(company_PotrAOo)
+// the TTuOrzo Some function
+function company_TTuOrzo_SomeFunc(company_TTuOrzo)
 {
 	// set the function logic
-	if (company_PotrAOo == 0)
+	if (company_TTuOrzo == 0)
 	{
 		return true;
 	}

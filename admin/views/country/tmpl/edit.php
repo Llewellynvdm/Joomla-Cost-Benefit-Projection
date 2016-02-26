@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.7
-	@build			24th February, 2016
+	@build			26th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -167,40 +167,6 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 <script type="text/javascript">
 
 
-
-jQuery('#adminForm').on('change', '#jform_causesrisks',function (e)
-{
-	// first we build the checked array
-	checkedArray = [];
-	jQuery('#jform_causesrisks input[type=checkbox]').each(function()
-	{
-		if (jQuery(this).is(':checked'))
-		{
-      		checkedArray.push(jQuery(jQuery("label[for='"+jQuery(this).prop('id')+"']").html()).prop('id'));
-		}
-	});
-	// now we check if child is checked and uncheck perant
-	jQuery('#jform_causesrisks input[type=checkbox]').each(function()
-	{
-		if (jQuery(this).is(':checked'))
-		{
-      		var checing = jQuery(jQuery("label[for='"+jQuery(this).prop('id')+"']").html()).prop('id');
-			// first remove this checkd item from array
-			checkedArrayChecker = jQuery.grep(checkedArray, function(value) {
-				return value != checing;
-			});
-			// now uncheck the perant checkboxes
-			jQuery.each( checkedArrayChecker,function(index,value)
-			{
-				if (checing.indexOf(value) >= 0)
-				{
-					var block = jQuery('label > span#'+value).closest('li').find('input').prop('id');
-					jQuery('#'+block).prop('checked', false);
-				}
-			});
-		}
-	});
-});
 jQuery('input.form-field-repeatable').on('weready', function(e, value){
 	if ("jform_percentmale" == e.currentTarget.id)
 	{

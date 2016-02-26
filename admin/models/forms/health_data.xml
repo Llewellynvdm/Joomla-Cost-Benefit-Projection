@@ -101,8 +101,7 @@
 			label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_YEAR_LABEL"
 			class="list_class"
 			multiple="false"
-			filter="INT"
-			required="true">
+			filter="INT">
 			<!-- Option Set. -->
 			<option value="">
 				COM_COSTBENEFITPROJECTION_HEALTH_DATA_SELECT_A_YEAR</option>
