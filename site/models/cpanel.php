@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.7
+	@version		3.3.8
 	@build			28th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -135,50 +135,50 @@ class CostbenefitprojectionModelCpanel extends JModelList
 		{
 			// Always create a slug for sef URL's
 			$item->slug = (isset($item->alias)) ? $item->id.':'.$item->alias : $item->id;
-			if (!empty($item->medical_turnovers_males) && $advancedkey && !is_numeric($item->medical_turnovers_males) && $item->medical_turnovers_males === base64_encode(base64_decode($item->medical_turnovers_males, true)))
+			if (!empty($item->medical_turnovers_females) && $advancedkey && !is_numeric($item->medical_turnovers_females) && $item->medical_turnovers_females === base64_encode(base64_decode($item->medical_turnovers_females, true)))
 			{
-				// Decode medical_turnovers_males
-				$item->medical_turnovers_males = rtrim($advanced->decryptString($item->medical_turnovers_males), "\0");
-			}
-			if (!empty($item->sick_leave_males) && $advancedkey && !is_numeric($item->sick_leave_males) && $item->sick_leave_males === base64_encode(base64_decode($item->sick_leave_males, true)))
-			{
-				// Decode sick_leave_males
-				$item->sick_leave_males = rtrim($advanced->decryptString($item->sick_leave_males), "\0");
-			}
-			if (!empty($item->males) && $advancedkey && !is_numeric($item->males) && $item->males === base64_encode(base64_decode($item->males, true)))
-			{
-				// Decode males
-				$item->males = rtrim($advanced->decryptString($item->males), "\0");
-			}
-			if (CostbenefitprojectionHelper::checkString($item->causesrisks))
-			{
-				// Decode causesrisks
-				$item->causesrisks = json_decode($item->causesrisks, true);
+				// Decode medical_turnovers_females
+				$item->medical_turnovers_females = rtrim($advanced->decryptString($item->medical_turnovers_females), "\0");
 			}
 			if (!empty($item->females) && $advancedkey && !is_numeric($item->females) && $item->females === base64_encode(base64_decode($item->females, true)))
 			{
 				// Decode females
 				$item->females = rtrim($advanced->decryptString($item->females), "\0");
 			}
-			if (!empty($item->medical_turnovers_females) && $advancedkey && !is_numeric($item->medical_turnovers_females) && $item->medical_turnovers_females === base64_encode(base64_decode($item->medical_turnovers_females, true)))
+			if (!empty($item->sick_leave_males) && $advancedkey && !is_numeric($item->sick_leave_males) && $item->sick_leave_males === base64_encode(base64_decode($item->sick_leave_males, true)))
 			{
-				// Decode medical_turnovers_females
-				$item->medical_turnovers_females = rtrim($advanced->decryptString($item->medical_turnovers_females), "\0");
+				// Decode sick_leave_males
+				$item->sick_leave_males = rtrim($advanced->decryptString($item->sick_leave_males), "\0");
 			}
-			if (!empty($item->sick_leave_females) && $advancedkey && !is_numeric($item->sick_leave_females) && $item->sick_leave_females === base64_encode(base64_decode($item->sick_leave_females, true)))
+			if (CostbenefitprojectionHelper::checkString($item->causesrisks))
 			{
-				// Decode sick_leave_females
-				$item->sick_leave_females = rtrim($advanced->decryptString($item->sick_leave_females), "\0");
+				// Decode causesrisks
+				$item->causesrisks = json_decode($item->causesrisks, true);
+			}
+			if (!empty($item->medical_turnovers_males) && $advancedkey && !is_numeric($item->medical_turnovers_males) && $item->medical_turnovers_males === base64_encode(base64_decode($item->medical_turnovers_males, true)))
+			{
+				// Decode medical_turnovers_males
+				$item->medical_turnovers_males = rtrim($advanced->decryptString($item->medical_turnovers_males), "\0");
 			}
 			if (!empty($item->total_salary) && $advancedkey && !is_numeric($item->total_salary) && $item->total_salary === base64_encode(base64_decode($item->total_salary, true)))
 			{
 				// Decode total_salary
 				$item->total_salary = rtrim($advanced->decryptString($item->total_salary), "\0");
 			}
+			if (!empty($item->sick_leave_females) && $advancedkey && !is_numeric($item->sick_leave_females) && $item->sick_leave_females === base64_encode(base64_decode($item->sick_leave_females, true)))
+			{
+				// Decode sick_leave_females
+				$item->sick_leave_females = rtrim($advanced->decryptString($item->sick_leave_females), "\0");
+			}
 			if (!empty($item->total_healthcare) && $advancedkey && !is_numeric($item->total_healthcare) && $item->total_healthcare === base64_encode(base64_decode($item->total_healthcare, true)))
 			{
 				// Decode total_healthcare
 				$item->total_healthcare = rtrim($advanced->decryptString($item->total_healthcare), "\0");
+			}
+			if (!empty($item->males) && $advancedkey && !is_numeric($item->males) && $item->males === base64_encode(base64_decode($item->males, true)))
+			{
+				// Decode males
+				$item->males = rtrim($advanced->decryptString($item->males), "\0");
 			}
 			// Make sure the content prepare plugins fire on country_publicaddress.
 			$item->country_publicaddress = JHtml::_('content.prepare',$item->country_publicaddress);

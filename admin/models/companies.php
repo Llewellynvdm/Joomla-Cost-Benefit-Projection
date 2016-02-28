@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.7
+	@version		3.3.8
 	@build			28th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -382,45 +382,45 @@ class CostbenefitprojectionModelCompanies extends JModelList
 							continue;
 						}
 
-						if ($advancedkey && !is_numeric($item->medical_turnovers_males) && $item->medical_turnovers_males === base64_encode(base64_decode($item->medical_turnovers_males, true)))
+						if ($advancedkey && !is_numeric($item->medical_turnovers_females) && $item->medical_turnovers_females === base64_encode(base64_decode($item->medical_turnovers_females, true)))
 						{
-							// decrypt medical_turnovers_males
-							$item->medical_turnovers_males = $advanced->decryptString($item->medical_turnovers_males);
-						}
-						if ($advancedkey && !is_numeric($item->sick_leave_males) && $item->sick_leave_males === base64_encode(base64_decode($item->sick_leave_males, true)))
-						{
-							// decrypt sick_leave_males
-							$item->sick_leave_males = $advanced->decryptString($item->sick_leave_males);
-						}
-						if ($advancedkey && !is_numeric($item->males) && $item->males === base64_encode(base64_decode($item->males, true)))
-						{
-							// decrypt males
-							$item->males = $advanced->decryptString($item->males);
+							// decrypt medical_turnovers_females
+							$item->medical_turnovers_females = $advanced->decryptString($item->medical_turnovers_females);
 						}
 						if ($advancedkey && !is_numeric($item->females) && $item->females === base64_encode(base64_decode($item->females, true)))
 						{
 							// decrypt females
 							$item->females = $advanced->decryptString($item->females);
 						}
-						if ($advancedkey && !is_numeric($item->medical_turnovers_females) && $item->medical_turnovers_females === base64_encode(base64_decode($item->medical_turnovers_females, true)))
+						if ($advancedkey && !is_numeric($item->sick_leave_males) && $item->sick_leave_males === base64_encode(base64_decode($item->sick_leave_males, true)))
 						{
-							// decrypt medical_turnovers_females
-							$item->medical_turnovers_females = $advanced->decryptString($item->medical_turnovers_females);
+							// decrypt sick_leave_males
+							$item->sick_leave_males = $advanced->decryptString($item->sick_leave_males);
 						}
-						if ($advancedkey && !is_numeric($item->sick_leave_females) && $item->sick_leave_females === base64_encode(base64_decode($item->sick_leave_females, true)))
+						if ($advancedkey && !is_numeric($item->medical_turnovers_males) && $item->medical_turnovers_males === base64_encode(base64_decode($item->medical_turnovers_males, true)))
 						{
-							// decrypt sick_leave_females
-							$item->sick_leave_females = $advanced->decryptString($item->sick_leave_females);
+							// decrypt medical_turnovers_males
+							$item->medical_turnovers_males = $advanced->decryptString($item->medical_turnovers_males);
 						}
 						if ($advancedkey && !is_numeric($item->total_salary) && $item->total_salary === base64_encode(base64_decode($item->total_salary, true)))
 						{
 							// decrypt total_salary
 							$item->total_salary = $advanced->decryptString($item->total_salary);
 						}
+						if ($advancedkey && !is_numeric($item->sick_leave_females) && $item->sick_leave_females === base64_encode(base64_decode($item->sick_leave_females, true)))
+						{
+							// decrypt sick_leave_females
+							$item->sick_leave_females = $advanced->decryptString($item->sick_leave_females);
+						}
 						if ($advancedkey && !is_numeric($item->total_healthcare) && $item->total_healthcare === base64_encode(base64_decode($item->total_healthcare, true)))
 						{
 							// decrypt total_healthcare
 							$item->total_healthcare = $advanced->decryptString($item->total_healthcare);
+						}
+						if ($advancedkey && !is_numeric($item->males) && $item->males === base64_encode(base64_decode($item->males, true)))
+						{
+							// decrypt males
+							$item->males = $advanced->decryptString($item->males);
 						}
 						// unset the values we don't want exported.
 						unset($item->asset_id);

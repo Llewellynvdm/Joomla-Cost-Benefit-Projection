@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.7
+	@version		3.3.8
 	@build			28th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -32,6 +32,7 @@ $fields = $displayData->get('fields') ?: array(
 	'females',
 	'medical_turnovers_males',
 	'medical_turnovers_females',
+	'turnover_comment',
 	'sick_leave_males',
 	'sick_leave_females'
 );

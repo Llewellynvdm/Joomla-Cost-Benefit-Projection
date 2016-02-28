@@ -2,7 +2,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.7
+	@version		3.3.8
 	@build			28th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -113,6 +113,7 @@ function vvvvvvv(department_vvvvvvv)
 			jform_vvvvvvvvwb_required = false;
 		}
 
+		jQuery('#jform_turnover_comment').closest('.control-group').show();
 	}
 	else
 	{
@@ -181,6 +182,7 @@ function vvvvvvv(department_vvvvvvv)
 			jQuery('#jform_total_healthcare').removeClass('required');
 			jform_vvvvvvvvwb_required = true;
 		}
+		jQuery('#jform_turnover_comment').closest('.control-group').hide();
 	}
 }
 

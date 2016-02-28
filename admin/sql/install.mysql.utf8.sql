@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_company` (
 	`sick_leave_males` VARCHAR(255) NOT NULL DEFAULT '',
 	`total_healthcare` VARCHAR(255) NOT NULL DEFAULT '',
 	`total_salary` VARCHAR(255) NOT NULL DEFAULT '',
+	`turnover_comment` TEXT NOT NULL DEFAULT '',
 	`user` INT(11) NOT NULL DEFAULT '0',
 	`working_days` INT(11) NOT NULL DEFAULT '0',
 	`params` TEXT NOT NULL DEFAULT '',

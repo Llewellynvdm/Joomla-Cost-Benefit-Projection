@@ -3,7 +3,7 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.7
+	@version		3.3.8
 	@build			28th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
@@ -174,50 +174,50 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 					JFactory::getApplication()->redirect('index.php?option=com_costbenefitprojection');
 					return false;
 				}
-				if (!empty($data->medical_turnovers_males) && $advancedkey && !is_numeric($data->medical_turnovers_males) && $data->medical_turnovers_males === base64_encode(base64_decode($data->medical_turnovers_males, true)))
+				if (!empty($data->medical_turnovers_females) && $advancedkey && !is_numeric($data->medical_turnovers_females) && $data->medical_turnovers_females === base64_encode(base64_decode($data->medical_turnovers_females, true)))
 				{
-					// Decode medical_turnovers_males
-					$data->medical_turnovers_males = rtrim($advanced->decryptString($data->medical_turnovers_males), "\0");
-				}
-				if (!empty($data->sick_leave_males) && $advancedkey && !is_numeric($data->sick_leave_males) && $data->sick_leave_males === base64_encode(base64_decode($data->sick_leave_males, true)))
-				{
-					// Decode sick_leave_males
-					$data->sick_leave_males = rtrim($advanced->decryptString($data->sick_leave_males), "\0");
-				}
-				if (!empty($data->males) && $advancedkey && !is_numeric($data->males) && $data->males === base64_encode(base64_decode($data->males, true)))
-				{
-					// Decode males
-					$data->males = rtrim($advanced->decryptString($data->males), "\0");
-				}
-				if (CostbenefitprojectionHelper::checkString($data->causesrisks))
-				{
-					// Decode causesrisks
-					$data->causesrisks = json_decode($data->causesrisks, true);
+					// Decode medical_turnovers_females
+					$data->medical_turnovers_females = rtrim($advanced->decryptString($data->medical_turnovers_females), "\0");
 				}
 				if (!empty($data->females) && $advancedkey && !is_numeric($data->females) && $data->females === base64_encode(base64_decode($data->females, true)))
 				{
 					// Decode females
 					$data->females = rtrim($advanced->decryptString($data->females), "\0");
 				}
-				if (!empty($data->medical_turnovers_females) && $advancedkey && !is_numeric($data->medical_turnovers_females) && $data->medical_turnovers_females === base64_encode(base64_decode($data->medical_turnovers_females, true)))
+				if (!empty($data->sick_leave_males) && $advancedkey && !is_numeric($data->sick_leave_males) && $data->sick_leave_males === base64_encode(base64_decode($data->sick_leave_males, true)))
 				{
-					// Decode medical_turnovers_females
-					$data->medical_turnovers_females = rtrim($advanced->decryptString($data->medical_turnovers_females), "\0");
+					// Decode sick_leave_males
+					$data->sick_leave_males = rtrim($advanced->decryptString($data->sick_leave_males), "\0");
 				}
-				if (!empty($data->sick_leave_females) && $advancedkey && !is_numeric($data->sick_leave_females) && $data->sick_leave_females === base64_encode(base64_decode($data->sick_leave_females, true)))
+				if (CostbenefitprojectionHelper::checkString($data->causesrisks))
 				{
-					// Decode sick_leave_females
-					$data->sick_leave_females = rtrim($advanced->decryptString($data->sick_leave_females), "\0");
+					// Decode causesrisks
+					$data->causesrisks = json_decode($data->causesrisks, true);
+				}
+				if (!empty($data->medical_turnovers_males) && $advancedkey && !is_numeric($data->medical_turnovers_males) && $data->medical_turnovers_males === base64_encode(base64_decode($data->medical_turnovers_males, true)))
+				{
+					// Decode medical_turnovers_males
+					$data->medical_turnovers_males = rtrim($advanced->decryptString($data->medical_turnovers_males), "\0");
 				}
 				if (!empty($data->total_salary) && $advancedkey && !is_numeric($data->total_salary) && $data->total_salary === base64_encode(base64_decode($data->total_salary, true)))
 				{
 					// Decode total_salary
 					$data->total_salary = rtrim($advanced->decryptString($data->total_salary), "\0");
 				}
+				if (!empty($data->sick_leave_females) && $advancedkey && !is_numeric($data->sick_leave_females) && $data->sick_leave_females === base64_encode(base64_decode($data->sick_leave_females, true)))
+				{
+					// Decode sick_leave_females
+					$data->sick_leave_females = rtrim($advanced->decryptString($data->sick_leave_females), "\0");
+				}
 				if (!empty($data->total_healthcare) && $advancedkey && !is_numeric($data->total_healthcare) && $data->total_healthcare === base64_encode(base64_decode($data->total_healthcare, true)))
 				{
 					// Decode total_healthcare
 					$data->total_healthcare = rtrim($advanced->decryptString($data->total_healthcare), "\0");
+				}
+				if (!empty($data->males) && $advancedkey && !is_numeric($data->males) && $data->males === base64_encode(base64_decode($data->males, true)))
+				{
+					// Decode males
+					$data->males = rtrim($advanced->decryptString($data->males), "\0");
 				}
 				if (CostbenefitprojectionHelper::checkString($data->country_causesrisks))
 				{
