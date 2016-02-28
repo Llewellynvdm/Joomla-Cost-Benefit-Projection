@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.7
-	@build			26th February, 2016
+	@build			28th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_foot.php
@@ -22,5 +22,5 @@ defined('_JEXEC') or die('Restricted access');
 
 ?>
 <tr>
-	<td colspan="10"><?php echo $this->pagination->getListFooter(); ?></td>
+	<td colspan="9"><?php echo $this->pagination->getListFooter(); ?></td>
 </tr>

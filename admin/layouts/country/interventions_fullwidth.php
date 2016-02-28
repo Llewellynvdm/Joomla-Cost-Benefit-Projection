@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.7
-	@build			26th February, 2016
+	@build			28th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		interventions_fullwidth.php
@@ -52,9 +52,6 @@ $can	= CostbenefitprojectionHelper::getActions('intervention');
 			<?php echo JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_COVERAGE_LABEL'); ?>
 		</th>
 		<th data-hide="phone,tablet">
-			<?php echo JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_DURATION_LABEL'); ?>
-		</th>
-		<th data-hide="phone,tablet">
 			<?php echo JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_DESCRIPTION_LABEL'); ?>
 		</th>
 		<th width="10" data-hide="phone,tablet">
@@ -97,9 +94,6 @@ $can	= CostbenefitprojectionHelper::getActions('intervention');
 			<?php echo $displayData->escape($item->coverage); ?>
 		</td>
 		<td>
-			<?php echo $displayData->escape($item->duration); ?>
-		</td>
-		<td>
 			<?php echo $displayData->escape($item->description); ?>
 		</td>
 		<?php if ($item->published == 1):?>
@@ -135,7 +129,7 @@ $can	= CostbenefitprojectionHelper::getActions('intervention');
 </tbody>
 <tfoot class="hide-if-no-paging">
 	<tr>
-		<td colspan="8">
+		<td colspan="7">
 			<div class="pagination pagination-centered"></div>
 		</td>
 	</tr>

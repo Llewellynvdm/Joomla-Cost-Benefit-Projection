@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.7
-	@build			26th February, 2016
+	@build			28th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_head.php
@@ -48,9 +48,6 @@ defined('_JEXEC') or die('Restricted access');
 	</th>
 	<th class="nowrap hidden-phone" >
 			<?php echo JHtml::_('grid.sort', 'COM_COSTBENEFITPROJECTION_INTERVENTION_COVERAGE_LABEL', 'coverage', $this->listDirn, $this->listOrder); ?>
-	</th>
-	<th class="nowrap hidden-phone" >
-			<?php echo JHtml::_('grid.sort', 'COM_COSTBENEFITPROJECTION_INTERVENTION_DURATION_LABEL', 'duration', $this->listDirn, $this->listOrder); ?>
 	</th>
 	<th class="nowrap hidden-phone" >
 			<?php echo JHtml::_('grid.sort', 'COM_COSTBENEFITPROJECTION_INTERVENTION_DESCRIPTION_LABEL', 'description', $this->listDirn, $this->listOrder); ?>

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.7
-	@build			26th February, 2016
+	@build			28th February, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_body.php
@@ -94,9 +94,6 @@ $edit = "index.php?option=com_costbenefitprojection&view=interventions&task=inte
 		</td>
 		<td class="hidden-phone">
 			<?php echo $this->escape($item->coverage); ?>
-		</td>
-		<td class="hidden-phone">
-			<?php echo $this->escape($item->duration); ?>
 		</td>
 		<td class="hidden-phone">
 			<?php echo $this->escape($item->description); ?>

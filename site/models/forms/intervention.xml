@@ -128,18 +128,6 @@
 			last="100"
 			step="10"
 		/>
-		<!-- Duration Field. Type: Integer. (joomla) -->
-		<field
-			type="integer"
-			name="duration"
-			label="COM_COSTBENEFITPROJECTION_INTERVENTION_DURATION_LABEL"
-			default="1"
-			description="COM_COSTBENEFITPROJECTION_INTERVENTION_DURATION_DESCRIPTION"
-			required="true"
-			first="1"
-			last="20"
-			step="1"
-		/>
 		<!-- Description Field. Type: Textarea. (joomla) -->
 		<field
 			type="textarea"
@@ -152,36 +140,18 @@
 			filter="HTML"
 			hint="COM_COSTBENEFITPROJECTION_INTERVENTION_DESCRIPTION_HINT"
 		/>
-		<!-- Country Field. Type: Countries. (custom) -->
+		<!-- Reference Field. Type: Textarea. (joomla) -->
 		<field
-			type="countries"
-			name="country"
-			label="COM_COSTBENEFITPROJECTION_INTERVENTION_COUNTRY_LABEL"
-			description="COM_COSTBENEFITPROJECTION_INTERVENTION_COUNTRY_DESCRIPTION"
-			class="list_class"
-			multiple="false"
-			default="0"
-			required="true"
+			type="textarea"
+			name="reference"
+			label="COM_COSTBENEFITPROJECTION_INTERVENTION_REFERENCE_LABEL"
+			rows="10"
+			cols="5"
+			description="COM_COSTBENEFITPROJECTION_INTERVENTION_REFERENCE_DESCRIPTION"
+			class="text_area span12"
+			filter="HTML"
+			hint="COM_COSTBENEFITPROJECTION_INTERVENTION_REFERENCE_HINT"
 		/>
-		<!-- Share Field. Type: List. (joomla) -->
-		<field
-			type="list"
-			name="share"
-			label="COM_COSTBENEFITPROJECTION_INTERVENTION_SHARE_LABEL"
-			description="COM_COSTBENEFITPROJECTION_INTERVENTION_SHARE_DESCRIPTION"
-			class="list_class"
-			multiple="false"
-			filter="INT"
-			required="true"
-			default="3">
-			<!-- Option Set. -->
-			<option value="3">
-				COM_COSTBENEFITPROJECTION_INTERVENTION_ALL_SERVICE_PROVIDERS_AND_ADMIN</option>
-			<option value="2">
-				COM_COSTBENEFITPROJECTION_INTERVENTION_ONLY_MY_SERVICE_PROVIDER</option>
-			<option value="1">
-				COM_COSTBENEFITPROJECTION_INTERVENTION_ONLY_ME</option>
-		</field>
 		<!-- Intervention Field. Type: Repeatable. (joomla) -->
 		<field
 			type="repeatable"
@@ -241,6 +211,36 @@
 				</fieldset>
 			</fields>
 		</field>
+		<!-- Country Field. Type: Countries. (custom) -->
+		<field
+			type="countries"
+			name="country"
+			label="COM_COSTBENEFITPROJECTION_INTERVENTION_COUNTRY_LABEL"
+			description="COM_COSTBENEFITPROJECTION_INTERVENTION_COUNTRY_DESCRIPTION"
+			class="list_class"
+			multiple="false"
+			default="0"
+			required="true"
+		/>
+		<!-- Share Field. Type: List. (joomla) -->
+		<field
+			type="list"
+			name="share"
+			label="COM_COSTBENEFITPROJECTION_INTERVENTION_SHARE_LABEL"
+			description="COM_COSTBENEFITPROJECTION_INTERVENTION_SHARE_DESCRIPTION"
+			class="list_class"
+			multiple="false"
+			filter="INT"
+			required="true"
+			default="3">
+			<!-- Option Set. -->
+			<option value="3">
+				COM_COSTBENEFITPROJECTION_INTERVENTION_ALL_SERVICE_PROVIDERS_AND_ADMIN</option>
+			<option value="2">
+				COM_COSTBENEFITPROJECTION_INTERVENTION_ONLY_MY_SERVICE_PROVIDER</option>
+			<option value="1">
+				COM_COSTBENEFITPROJECTION_INTERVENTION_ONLY_ME</option>
+		</field>
 		<!-- Interventions Field. Type: Interventions. (custom) -->
 		<field
 			type="interventions"
@@ -251,17 +251,11 @@
 			required="true"
 			button="false"
 		/>
-		<!-- Reference Field. Type: Textarea. (joomla) -->
+		<!-- Duration Field. Type: Hidden. (joomla) -->
 		<field
-			type="textarea"
-			name="reference"
-			label="COM_COSTBENEFITPROJECTION_INTERVENTION_REFERENCE_LABEL"
-			rows="10"
-			cols="5"
-			description="COM_COSTBENEFITPROJECTION_INTERVENTION_REFERENCE_DESCRIPTION"
-			class="text_area span12"
-			filter="HTML"
-			hint="COM_COSTBENEFITPROJECTION_INTERVENTION_REFERENCE_HINT"
+			type="hidden"
+			name="duration"
+			default="1"
 		/>
 		<!-- Not_required Field. Type: Hidden. (joomla) -->
 		<field
