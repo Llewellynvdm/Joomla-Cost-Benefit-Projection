@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.8
-	@build			28th February, 2016
+	@build			8th March, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		sum.php
@@ -639,7 +639,7 @@ class Sum
 							{
 								// set each gender and age group
 								$this->items[$id]->$gender->$age->presenteeism_unscaled 	= $this->items[$id]->$gender->$age->morbidity_unscaled 
-																* $this->company->country_presenteeism * $this->company->scalingFactors[$id]->{'presenteeism_scaling_factor_'.$genders};
+																* $this->company->country_presenteeism;
 							}
 							else
 							{

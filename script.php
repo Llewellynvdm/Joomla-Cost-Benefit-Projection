@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.8
-	@build			28th February, 2016
+	@build			8th March, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		script.php
@@ -1018,14 +1018,14 @@ class com_costbenefitprojectionInstallerScript
 
 			// Condition.
 			$conditions = array(
-				$db->quoteName('element') . ' = ' . $db->quote('com_')
+				$db->quoteName('element') . ' = ' . $db->quote('com_costbenefitprojection')
 			);
 
 			$query->update($db->quoteName('#__extensions'))->set($fields)->where($conditions);
 			$db->setQuery($query);
 			$allDone = $db->execute();
 			echo '<a target="_blank" href="http://www.vdm.io" title="Cost Benefit Projection">
-				<img src="components/com_/assets/images/component-300.png"/>
+				<img src="components/com_costbenefitprojection/assets/images/component-300.png"/>
 				</a>';
 		}
 		// do any updates needed
