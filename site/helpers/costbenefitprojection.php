@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.8
-	@build			8th March, 2016
+	@build			10th March, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -1355,6 +1355,16 @@ abstract class CostbenefitprojectionHelper
 			}
 		}
 		return $result;
+	}
+	
+	public static function checkJson($string)
+	{
+		if (self::checkString($string))
+		{
+			json_decode($string);
+			return (json_last_error() === JSON_ERROR_NONE);
+		}
+		return false;
 	}
 
 	public static function checkObject($object)
