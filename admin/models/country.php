@@ -479,8 +479,8 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 		if ($name == 'mode')
 		{
 			$modeArray = array(
-				1 => 'COM_COSTBENEFITPROJECTION_COMPANY_REAL_COMPANY',
-				2 => 'COM_COSTBENEFITPROJECTION_COMPANY_TESTING_COMPANY'
+				1 => 'COM_COSTBENEFITPROJECTION_COMPANY_COMPANY_ACCOUNT',
+				2 => 'COM_COSTBENEFITPROJECTION_COMPANY_TRAINING_ACCOUNT'
 			);
 			// Now check if value is found in this array
 			if (isset($modeArray[$value]) && CostbenefitprojectionHelper::checkString($modeArray[$value]))

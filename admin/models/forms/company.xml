@@ -170,9 +170,9 @@
 			required="true">
 			<!-- Option Set. -->
 			<option value="1">
-				COM_COSTBENEFITPROJECTION_COMPANY_REAL_COMPANY</option>
+				COM_COSTBENEFITPROJECTION_COMPANY_COMPANY_ACCOUNT</option>
 			<option value="2">
-				COM_COSTBENEFITPROJECTION_COMPANY_TESTING_COMPANY</option>
+				COM_COSTBENEFITPROJECTION_COMPANY_TRAINING_ACCOUNT</option>
 		</field>
 		<!-- Per Field. Type: Radio. (joomla) -->
 		<field
