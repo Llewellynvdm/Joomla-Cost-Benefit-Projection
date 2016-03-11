@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.8
-	@build			10th March, 2016
+	@version		3.3.9
+	@build			11th March, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -266,6 +266,28 @@ class CostbenefitprojectionViewCompanies extends JViewLegacy
 			}
 		}
 
+		// Set Mode Selection
+		$this->modeOptions = $this->getTheModeSelections();
+		if ($this->modeOptions)
+		{
+			// Mode Filter
+			JHtmlSidebar::addFilter(
+				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_COMPANY_MODE_LABEL').' -',
+				'filter_mode',
+				JHtml::_('select.options', $this->modeOptions, 'value', 'text', $this->state->get('filter.mode'))
+			);
+
+			if ($this->canBatch && $this->canCreate && $this->canEdit)
+			{
+				// Mode Batch Selection
+				JHtmlBatch_::addListSelection(
+					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_COMPANY_MODE_LABEL').' -',
+					'batch[mode]',
+					JHtml::_('select.options', $this->modeOptions, 'value', 'text')
+				);
+			}
+		}
+
 		// Set Per Selection
 		$this->perOptions = $this->getThePerSelections();
 		if ($this->perOptions)
@@ -334,6 +356,7 @@ class CostbenefitprojectionViewCompanies extends JViewLegacy
 			'a.department' => JText::_('COM_COSTBENEFITPROJECTION_COMPANY_DEPARTMENT_LABEL'),
 			'h.name' => JText::_('COM_COSTBENEFITPROJECTION_COMPANY_COUNTRY_LABEL'),
 			'i.user' => JText::_('COM_COSTBENEFITPROJECTION_COMPANY_SERVICE_PROVIDER_LABEL'),
+			'a.mode' => JText::_('COM_COSTBENEFITPROJECTION_COMPANY_MODE_LABEL'),
 			'a.per' => JText::_('COM_COSTBENEFITPROJECTION_COMPANY_PER_LABEL'),
 			'a.id' => JText::_('JGRID_HEADING_ID')
 		);
@@ -369,6 +392,42 @@ class CostbenefitprojectionViewCompanies extends JViewLegacy
 				$text = $model->selectionTranslation($department,'department');
 				// Now add the department and its text to the options array
 				$filter[] = JHtml::_('select.option', $department, JText::_($text));
+			}
+			return $filter;
+		}
+		return false;
+	}
+
+	protected function getTheModeSelections()
+	{
+		// Get a db connection.
+		$db = JFactory::getDbo();
+
+		// Create a new query object.
+		$query = $db->getQuery(true);
+
+		// Select the text.
+		$query->select($db->quoteName('mode'));
+		$query->from($db->quoteName('#__costbenefitprojection_company'));
+		$query->order($db->quoteName('mode') . ' ASC');
+
+		// Reset the query using our newly populated query object.
+		$db->setQuery($query);
+
+		$results = $db->loadColumn();
+
+		if ($results)
+		{
+			// get model
+			$model = $this->getModel();
+			$results = array_unique($results);
+			$filter = array();
+			foreach ($results as $mode)
+			{
+				// Translate the mode selection
+				$text = $model->selectionTranslation($mode,'mode');
+				// Now add the mode and its text to the options array
+				$filter[] = JHtml::_('select.option', $mode, JText::_($text));
 			}
 			return $filter;
 		}

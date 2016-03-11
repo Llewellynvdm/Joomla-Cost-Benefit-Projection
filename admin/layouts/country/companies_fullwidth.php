@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.8
-	@build			10th March, 2016
+	@version		3.3.9
+	@build			11th March, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		companies_fullwidth.php
@@ -55,6 +55,9 @@ $can	= CostbenefitprojectionHelper::getActions('company');
 			<?php echo JText::_('COM_COSTBENEFITPROJECTION_COMPANY_SERVICE_PROVIDER_LABEL'); ?>
 		</th>
 		<th data-hide="phone,tablet">
+			<?php echo JText::_('COM_COSTBENEFITPROJECTION_COMPANY_MODE_LABEL'); ?>
+		</th>
+		<th data-hide="all">
 			<?php echo JText::_('COM_COSTBENEFITPROJECTION_COMPANY_PER_LABEL'); ?>
 		</th>
 		<th width="10" data-hide="phone,tablet">
@@ -112,6 +115,9 @@ $can	= CostbenefitprojectionHelper::getActions('company');
 			<?php endif; ?>
 		</td>
 		<td>
+			<?php echo JText::_($item->mode); ?>
+		</td>
+		<td>
 			<?php echo JText::_($item->per); ?>
 		</td>
 		<?php if ($item->published == 1):?>
@@ -147,7 +153,7 @@ $can	= CostbenefitprojectionHelper::getActions('company');
 </tbody>
 <tfoot class="hide-if-no-paging">
 	<tr>
-		<td colspan="8">
+		<td colspan="9">
 			<div class="pagination pagination-centered"></div>
 		</td>
 	</tr>

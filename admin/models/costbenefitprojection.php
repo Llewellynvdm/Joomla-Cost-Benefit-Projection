@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.8
-	@build			10th March, 2016
+	@version		3.3.9
+	@build			11th March, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -308,6 +308,7 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 			// start looping the data
 			foreach ($this->companies as $company)
 			{
+				// now decrypt the company staff count
 				if (!empty($company->males) && $advancedkey && !is_numeric($company->males) && $company->males === base64_encode(base64_decode($company->males, true)))
 				{
 					// Decode males
@@ -473,6 +474,8 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 				// limit to only load his companies
 				$query->where('a.id IN (' . implode(',', $ids) . ')');
 			}
+			// Check that we only use the real companies and none of the dummy companies
+			$query->where('a.mode = 1'); // this will insure only real companies are loaded
 			// get only from set countries
 			$countryIds = array_keys($this->countries);
 			// limit to only load these countries

@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.8
-	@build			10th March, 2016
+	@version		3.3.9
+	@build			11th March, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_foot.php
@@ -22,5 +22,5 @@ defined('_JEXEC') or die('Restricted access');
 
 ?>
 <tr>
-	<td colspan="10"><?php echo $this->pagination->getListFooter(); ?></td>
+	<td colspan="11"><?php echo $this->pagination->getListFooter(); ?></td>
 </tr>

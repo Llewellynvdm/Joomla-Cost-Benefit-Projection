@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.8
-	@build			10th March, 2016
+	@version		3.3.9
+	@build			11th March, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		company.php
@@ -100,12 +100,6 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			// Get the encription object.
 			$advanced = new FOFEncryptAes($advancedkey, 256);
 
-			if (!empty($item->medical_turnovers_females) && $advancedkey && !is_numeric($item->medical_turnovers_females) && $item->medical_turnovers_females === base64_encode(base64_decode($item->medical_turnovers_females, true)))
-			{
-				// advanced decript data medical_turnovers_females.
-				$item->medical_turnovers_females = rtrim($advanced->decryptString($item->medical_turnovers_females), "\0");
-			}
-
 			if (!empty($item->females) && $advancedkey && !is_numeric($item->females) && $item->females === base64_encode(base64_decode($item->females, true)))
 			{
 				// advanced decript data females.
@@ -118,16 +112,22 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				$item->sick_leave_males = rtrim($advanced->decryptString($item->sick_leave_males), "\0");
 			}
 
+			if (!empty($item->medical_turnovers_females) && $advancedkey && !is_numeric($item->medical_turnovers_females) && $item->medical_turnovers_females === base64_encode(base64_decode($item->medical_turnovers_females, true)))
+			{
+				// advanced decript data medical_turnovers_females.
+				$item->medical_turnovers_females = rtrim($advanced->decryptString($item->medical_turnovers_females), "\0");
+			}
+
+			if (!empty($item->males) && $advancedkey && !is_numeric($item->males) && $item->males === base64_encode(base64_decode($item->males, true)))
+			{
+				// advanced decript data males.
+				$item->males = rtrim($advanced->decryptString($item->males), "\0");
+			}
+
 			if (!empty($item->medical_turnovers_males) && $advancedkey && !is_numeric($item->medical_turnovers_males) && $item->medical_turnovers_males === base64_encode(base64_decode($item->medical_turnovers_males, true)))
 			{
 				// advanced decript data medical_turnovers_males.
 				$item->medical_turnovers_males = rtrim($advanced->decryptString($item->medical_turnovers_males), "\0");
-			}
-
-			if (!empty($item->total_salary) && $advancedkey && !is_numeric($item->total_salary) && $item->total_salary === base64_encode(base64_decode($item->total_salary, true)))
-			{
-				// advanced decript data total_salary.
-				$item->total_salary = rtrim($advanced->decryptString($item->total_salary), "\0");
 			}
 
 			if (!empty($item->sick_leave_females) && $advancedkey && !is_numeric($item->sick_leave_females) && $item->sick_leave_females === base64_encode(base64_decode($item->sick_leave_females, true)))
@@ -136,16 +136,16 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				$item->sick_leave_females = rtrim($advanced->decryptString($item->sick_leave_females), "\0");
 			}
 
+			if (!empty($item->total_salary) && $advancedkey && !is_numeric($item->total_salary) && $item->total_salary === base64_encode(base64_decode($item->total_salary, true)))
+			{
+				// advanced decript data total_salary.
+				$item->total_salary = rtrim($advanced->decryptString($item->total_salary), "\0");
+			}
+
 			if (!empty($item->total_healthcare) && $advancedkey && !is_numeric($item->total_healthcare) && $item->total_healthcare === base64_encode(base64_decode($item->total_healthcare, true)))
 			{
 				// advanced decript data total_healthcare.
 				$item->total_healthcare = rtrim($advanced->decryptString($item->total_healthcare), "\0");
-			}
-
-			if (!empty($item->males) && $advancedkey && !is_numeric($item->males) && $item->males === base64_encode(base64_decode($item->males, true)))
-			{
-				// advanced decript data males.
-				$item->males = rtrim($advanced->decryptString($item->males), "\0");
 			}
 			
 			if (!empty($item->id))
@@ -536,6 +536,25 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				$form->setFieldAttribute('service_provider', 'filter', 'unset');
 				// Disable fields while saving.
 				$form->setFieldAttribute('service_provider', 'required', 'false');
+			}
+		}
+		// Modify the form based on Edit Mode access controls.
+		if ($id != 0 && (!$user->authorise('company.edit.mode', 'com_costbenefitprojection.company.' . (int) $id))
+			|| ($id == 0 && !$user->authorise('company.edit.mode', 'com_costbenefitprojection')))
+		{
+			// Disable fields for display.
+			$form->setFieldAttribute('mode', 'disabled', 'true');
+			// Disable fields for display.
+			$form->setFieldAttribute('mode', 'readonly', 'true');
+			// Disable radio button for display.
+			$class = $form->getFieldAttribute('mode', 'class', '');
+			$form->setFieldAttribute('mode', 'class', $class.' disabled no-click');
+			if (!$form->getValue('mode'))
+			{
+				// Disable fields while saving.
+				$form->setFieldAttribute('mode', 'filter', 'unset');
+				// Disable fields while saving.
+				$form->setFieldAttribute('mode', 'required', 'false');
 			}
 		}
 		// Modify the form based on Edit Per access controls.
@@ -1334,12 +1353,6 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 		// Get the encription object
 		$advanced = new FOFEncryptAes($advancedkey, 256);
 
-		// Encript data medical_turnovers_females.
-		if (isset($data['medical_turnovers_females']) && $advancedkey)
-		{
-			$data['medical_turnovers_females'] = $advanced->encryptString($data['medical_turnovers_females']);
-		}
-
 		// Encript data females.
 		if (isset($data['females']) && $advancedkey)
 		{
@@ -1352,16 +1365,22 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			$data['sick_leave_males'] = $advanced->encryptString($data['sick_leave_males']);
 		}
 
+		// Encript data medical_turnovers_females.
+		if (isset($data['medical_turnovers_females']) && $advancedkey)
+		{
+			$data['medical_turnovers_females'] = $advanced->encryptString($data['medical_turnovers_females']);
+		}
+
+		// Encript data males.
+		if (isset($data['males']) && $advancedkey)
+		{
+			$data['males'] = $advanced->encryptString($data['males']);
+		}
+
 		// Encript data medical_turnovers_males.
 		if (isset($data['medical_turnovers_males']) && $advancedkey)
 		{
 			$data['medical_turnovers_males'] = $advanced->encryptString($data['medical_turnovers_males']);
-		}
-
-		// Encript data total_salary.
-		if (isset($data['total_salary']) && $advancedkey)
-		{
-			$data['total_salary'] = $advanced->encryptString($data['total_salary']);
 		}
 
 		// Encript data sick_leave_females.
@@ -1370,16 +1389,16 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			$data['sick_leave_females'] = $advanced->encryptString($data['sick_leave_females']);
 		}
 
+		// Encript data total_salary.
+		if (isset($data['total_salary']) && $advancedkey)
+		{
+			$data['total_salary'] = $advanced->encryptString($data['total_salary']);
+		}
+
 		// Encript data total_healthcare.
 		if (isset($data['total_healthcare']) && $advancedkey)
 		{
 			$data['total_healthcare'] = $advanced->encryptString($data['total_healthcare']);
-		}
-
-		// Encript data males.
-		if (isset($data['males']) && $advancedkey)
-		{
-			$data['males'] = $advanced->encryptString($data['males']);
 		}
 
 		// make sure new company does not get locked

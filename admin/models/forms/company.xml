@@ -159,6 +159,21 @@
 			required="true"
 			button="true"
 		/>
+		<!-- Mode Field. Type: Radio. (joomla) -->
+		<field
+			type="radio"
+			name="mode"
+			label="COM_COSTBENEFITPROJECTION_COMPANY_MODE_LABEL"
+			description="COM_COSTBENEFITPROJECTION_COMPANY_MODE_DESCRIPTION"
+			class="btn-group btn-group-yesno"
+			default="1"
+			required="true">
+			<!-- Option Set. -->
+			<option value="1">
+				COM_COSTBENEFITPROJECTION_COMPANY_REAL_COMPANY</option>
+			<option value="2">
+				COM_COSTBENEFITPROJECTION_COMPANY_TESTING_COMPANY</option>
+		</field>
 		<!-- Per Field. Type: Radio. (joomla) -->
 		<field
 			type="radio"
@@ -174,6 +189,56 @@
 			<option value="0">
 				COM_COSTBENEFITPROJECTION_COMPANY_LOCKED</option>
 		</field>
+		<!-- Females Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="females"
+			label="COM_COSTBENEFITPROJECTION_COMPANY_FEMALES_LABEL"
+			size="20"
+			maxlength="50"
+			description="COM_COSTBENEFITPROJECTION_COMPANY_FEMALES_DESCRIPTION"
+			class="text_area"
+			readonly="false"
+			disabled="false"
+			required="true"
+			filter="INT"
+			message="Error! Please add total female employees here."
+			hint="COM_COSTBENEFITPROJECTION_COMPANY_FEMALES_HINT"
+		/>
+		<!-- Sick_leave_males Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="sick_leave_males"
+			label="COM_COSTBENEFITPROJECTION_COMPANY_SICK_LEAVE_MALES_LABEL"
+			size="20"
+			maxlength="50"
+			description="COM_COSTBENEFITPROJECTION_COMPANY_SICK_LEAVE_MALES_DESCRIPTION"
+			class="text_area"
+			readonly="false"
+			disabled="false"
+			required="true"
+			filter="INT"
+			message="Error! Please add total number of sick leave days for males here."
+			hint="COM_COSTBENEFITPROJECTION_COMPANY_SICK_LEAVE_MALES_HINT"
+		/>
+		<!-- Age_groups_note Field. Type: Note. A None Database Field. (joomla) -->
+		<field type="note" name="age_groups_note" label="COM_COSTBENEFITPROJECTION_COMPANY_AGE_GROUPS_NOTE_LABEL" description="COM_COSTBENEFITPROJECTION_COMPANY_AGE_GROUPS_NOTE_DESCRIPTION" class="alert alert-info age_groups_note" />
+		<!-- Medical_turnovers_females Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="medical_turnovers_females"
+			label="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_FEMALES_LABEL"
+			size="20"
+			maxlength="50"
+			description="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_FEMALES_DESCRIPTION"
+			class="text_area"
+			readonly="false"
+			disabled="false"
+			required="true"
+			filter="INT"
+			message="Error! Please add total number of medical turnovers for females here."
+			hint="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_FEMALES_HINT"
+		/>
 		<!-- Percentfemale Field. Type: Repeatable. (joomla) -->
 		<field
 			type="repeatable"
@@ -234,53 +299,21 @@
 				</fieldset>
 			</fields>
 		</field>
-		<!-- Medical_turnovers_females Field. Type: Text. (joomla) -->
+		<!-- Males Field. Type: Text. (joomla) -->
 		<field
 			type="text"
-			name="medical_turnovers_females"
-			label="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_FEMALES_LABEL"
+			name="males"
+			label="COM_COSTBENEFITPROJECTION_COMPANY_MALES_LABEL"
 			size="20"
 			maxlength="50"
-			description="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_FEMALES_DESCRIPTION"
+			description="COM_COSTBENEFITPROJECTION_COMPANY_MALES_DESCRIPTION"
 			class="text_area"
 			readonly="false"
 			disabled="false"
 			required="true"
 			filter="INT"
-			message="Error! Please add total number of medical turnovers for females here."
-			hint="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_FEMALES_HINT"
-		/>
-		<!-- Females Field. Type: Text. (joomla) -->
-		<field
-			type="text"
-			name="females"
-			label="COM_COSTBENEFITPROJECTION_COMPANY_FEMALES_LABEL"
-			size="20"
-			maxlength="50"
-			description="COM_COSTBENEFITPROJECTION_COMPANY_FEMALES_DESCRIPTION"
-			class="text_area"
-			readonly="false"
-			disabled="false"
-			required="true"
-			filter="INT"
-			message="Error! Please add total female employees here."
-			hint="COM_COSTBENEFITPROJECTION_COMPANY_FEMALES_HINT"
-		/>
-		<!-- Sick_leave_males Field. Type: Text. (joomla) -->
-		<field
-			type="text"
-			name="sick_leave_males"
-			label="COM_COSTBENEFITPROJECTION_COMPANY_SICK_LEAVE_MALES_LABEL"
-			size="20"
-			maxlength="50"
-			description="COM_COSTBENEFITPROJECTION_COMPANY_SICK_LEAVE_MALES_DESCRIPTION"
-			class="text_area"
-			readonly="false"
-			disabled="false"
-			required="true"
-			filter="INT"
-			message="Error! Please add total number of sick leave days for males here."
-			hint="COM_COSTBENEFITPROJECTION_COMPANY_SICK_LEAVE_MALES_HINT"
+			message="Error! Please add total male employees here."
+			hint="COM_COSTBENEFITPROJECTION_COMPANY_MALES_HINT"
 		/>
 		<!-- Causesrisks Field. Type: Causesriskscheck. (custom) -->
 		<field
@@ -289,18 +322,6 @@
 			label="COM_COSTBENEFITPROJECTION_COMPANY_CAUSESRISKS_LABEL"
 			class="list_class"
 			required="true"
-		/>
-		<!-- Age_groups_note Field. Type: Note. A None Database Field. (joomla) -->
-		<field type="note" name="age_groups_note" label="COM_COSTBENEFITPROJECTION_COMPANY_AGE_GROUPS_NOTE_LABEL" description="COM_COSTBENEFITPROJECTION_COMPANY_AGE_GROUPS_NOTE_DESCRIPTION" class="alert alert-info age_groups_note" />
-		<!-- Datayear Field. Type: Datayear. (custom) -->
-		<field
-			type="datayear"
-			name="datayear"
-			label="COM_COSTBENEFITPROJECTION_COMPANY_DATAYEAR_LABEL"
-			description="COM_COSTBENEFITPROJECTION_COMPANY_DATAYEAR_DESCRIPTION"
-			class="list_class"
-			multiple="false"
-			default="0"
 		/>
 		<!-- Medical_turnovers_males Field. Type: Text. (joomla) -->
 		<field
@@ -318,18 +339,15 @@
 			message="Error! Please add total number of medical turnovers for males here."
 			hint="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_MALES_HINT"
 		/>
-		<!-- Working_days Field. Type: Integer. (joomla) -->
+		<!-- Datayear Field. Type: Datayear. (custom) -->
 		<field
-			type="integer"
-			name="working_days"
-			label="COM_COSTBENEFITPROJECTION_COMPANY_WORKING_DAYS_LABEL"
-			default="225"
-			description="COM_COSTBENEFITPROJECTION_COMPANY_WORKING_DAYS_DESCRIPTION"
-			class="text_area"
-			required="true"
-			first="200"
-			last="365"
-			step="1"
+			type="datayear"
+			name="datayear"
+			label="COM_COSTBENEFITPROJECTION_COMPANY_DATAYEAR_LABEL"
+			description="COM_COSTBENEFITPROJECTION_COMPANY_DATAYEAR_DESCRIPTION"
+			class="list_class"
+			multiple="false"
+			default="0"
 		/>
 		<!-- Turnover_comment Field. Type: Textarea. (joomla) -->
 		<field
@@ -343,21 +361,18 @@
 			filter="HTML"
 			hint="COM_COSTBENEFITPROJECTION_COMPANY_TURNOVER_COMMENT_HINT"
 		/>
-		<!-- Total_salary Field. Type: Text. (joomla) -->
+		<!-- Working_days Field. Type: Integer. (joomla) -->
 		<field
-			type="text"
-			name="total_salary"
-			label="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_SALARY_LABEL"
-			size="20"
-			maxlength="50"
-			description="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_SALARY_DESCRIPTION"
+			type="integer"
+			name="working_days"
+			label="COM_COSTBENEFITPROJECTION_COMPANY_WORKING_DAYS_LABEL"
+			default="225"
+			description="COM_COSTBENEFITPROJECTION_COMPANY_WORKING_DAYS_DESCRIPTION"
 			class="text_area"
-			readonly="false"
-			disabled="false"
 			required="true"
-			filter="integer"
-			message="Error! Please add total salary here."
-			hint="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_SALARY_HINT"
+			first="200"
+			last="365"
+			step="1"
 		/>
 		<!-- Sick_leave_females Field. Type: Text. (joomla) -->
 		<field
@@ -375,21 +390,21 @@
 			message="Error! Please add total number of sick leave days for females here."
 			hint="COM_COSTBENEFITPROJECTION_COMPANY_SICK_LEAVE_FEMALES_HINT"
 		/>
-		<!-- Total_healthcare Field. Type: Text. (joomla) -->
+		<!-- Total_salary Field. Type: Text. (joomla) -->
 		<field
 			type="text"
-			name="total_healthcare"
-			label="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_HEALTHCARE_LABEL"
+			name="total_salary"
+			label="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_SALARY_LABEL"
 			size="20"
 			maxlength="50"
-			description="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_HEALTHCARE_DESCRIPTION"
+			description="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_SALARY_DESCRIPTION"
 			class="text_area"
 			readonly="false"
 			disabled="false"
 			required="true"
 			filter="integer"
-			message="Error! Please add total healthcare costs here."
-			hint="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_HEALTHCARE_HINT"
+			message="Error! Please add total salary here."
+			hint="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_SALARY_HINT"
 		/>
 		<!-- Percentmale Field. Type: Repeatable. (joomla) -->
 		<field
@@ -451,6 +466,24 @@
 				</fieldset>
 			</fields>
 		</field>
+		<!-- Total_healthcare Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="total_healthcare"
+			label="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_HEALTHCARE_LABEL"
+			size="20"
+			maxlength="50"
+			description="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_HEALTHCARE_DESCRIPTION"
+			class="text_area"
+			readonly="false"
+			disabled="false"
+			required="true"
+			filter="integer"
+			message="Error! Please add total healthcare costs here."
+			hint="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_HEALTHCARE_HINT"
+		/>
+		<!-- Cause_risk_selection_note Field. Type: Note. A None Database Field. (joomla) -->
+		<field type="note" name="cause_risk_selection_note" label="COM_COSTBENEFITPROJECTION_COMPANY_CAUSE_RISK_SELECTION_NOTE_LABEL" description="COM_COSTBENEFITPROJECTION_COMPANY_CAUSE_RISK_SELECTION_NOTE_DESCRIPTION" class="alert alert-info cause_risk_selection_note" />
 		<!-- Productivity_losses Field. Type: Text. (joomla) -->
 		<field
 			type="text"
@@ -466,24 +499,6 @@
 			filter="CMD"
 			message="Error! Please add medical turnover cost factor here."
 			hint="COM_COSTBENEFITPROJECTION_COMPANY_PRODUCTIVITY_LOSSES_HINT"
-		/>
-		<!-- Cause_risk_selection_note Field. Type: Note. A None Database Field. (joomla) -->
-		<field type="note" name="cause_risk_selection_note" label="COM_COSTBENEFITPROJECTION_COMPANY_CAUSE_RISK_SELECTION_NOTE_LABEL" description="COM_COSTBENEFITPROJECTION_COMPANY_CAUSE_RISK_SELECTION_NOTE_DESCRIPTION" class="alert alert-info cause_risk_selection_note" />
-		<!-- Males Field. Type: Text. (joomla) -->
-		<field
-			type="text"
-			name="males"
-			label="COM_COSTBENEFITPROJECTION_COMPANY_MALES_LABEL"
-			size="20"
-			maxlength="50"
-			description="COM_COSTBENEFITPROJECTION_COMPANY_MALES_DESCRIPTION"
-			class="text_area"
-			readonly="false"
-			disabled="false"
-			required="true"
-			filter="INT"
-			message="Error! Please add total male employees here."
-			hint="COM_COSTBENEFITPROJECTION_COMPANY_MALES_HINT"
 		/>
 		<!-- Not_required Field. Type: Hidden. (joomla) -->
 		<field
