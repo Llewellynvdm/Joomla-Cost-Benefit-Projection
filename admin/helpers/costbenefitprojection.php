@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.9
-	@build			11th March, 2016
+	@build			18th March, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -522,6 +522,15 @@ abstract class CostbenefitprojectionHelper
 		return false;
 	}
 
+	/**
+	* Safes json to a file
+	*
+	* @input	  object/array/json  $data      Data to be stored
+	* @input	  string                  $fullPath Full path to file
+	* @input	  string                  $path      Full path to folder
+	*
+	* @returns  boolean on success
+	**/
 	public static function saveJson($data, $fullPath, $path = __DIR__)
 	{
 		// check if path exists

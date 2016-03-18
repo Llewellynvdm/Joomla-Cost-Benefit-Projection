@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.9
-	@build			11th March, 2016
+	@build			18th March, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		combinedresults.php
@@ -58,9 +58,16 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 		$this->levels		= $this->user->getAuthorisedViewLevels();
 		$this->app		= JFactory::getApplication();
 		$this->input		= $this->app->input;
-		$this->initSet		= true;
+		$this->initSet		= true; 
+		// Make sure all records load, since no pagination allowed.
+		$this->setState('list.limit', 0);
+		// Get a db connection.
+		$db = JFactory::getDbo();
 
+		// Create a new query object.
+		$query = $db->getQuery(true);
 
+		// Custom code for Filtering.
 		$ids = (array) array_map('intval',explode('_', $this->input->get('cid', null, 'CMD')));
 		if (!$this->user->authorise('core.options', 'com_costbenefitprojection') && CostbenefitprojectionHelper::checkArray($ids))
 		{
@@ -89,14 +96,7 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 			{
 				JFactory::getApplication()->redirect('index.php?option=com_costbenefitprojection&view=cpanel');
 			}
-		} 
-		// Make sure all records load, since no pagination allowed.
-		$this->setState('list.limit', 0);
-		// Get a db connection.
-		$db = JFactory::getDbo();
-
-		// Create a new query object.
-		$query = $db->getQuery(true);
+		}
 
 		// Get from #__costbenefitprojection_company as a
 		$query->select($db->quoteName(
