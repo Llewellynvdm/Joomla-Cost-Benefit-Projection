@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.9
-	@build			18th March, 2016
+	@version		3.3.10
+	@build			22nd March, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		ajax.json.php
@@ -56,6 +56,7 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 				case 'calculatedResult':
 					try
 					{
+						$returnRaw = $jinput->get('raw', false, 'BOOLEAN');
 						$idValue = $jinput->get('id', NULL, 'INT');
 						$dataValue = $jinput->get('data', NULL, 'BASE64');
 						if($idValue && $dataValue && $user->id != 0)
@@ -69,6 +70,10 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 						if(array_key_exists('callback',$_GET))
 						{
 							echo $_GET['callback'] . "(".json_encode($result).");";
+						}
+						elseif($returnRaw)
+						{
+							echo json_encode($result);
 						}
 						else
 						{
@@ -90,6 +95,7 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 				case 'interventionBuildTable':
 					try
 					{
+						$returnRaw = $jinput->get('raw', false, 'BOOLEAN');
 						$idNameValue = $jinput->get('idName', NULL, 'CMD');
 						$ojectValue = $jinput->get('oject', NULL, 'STRING');
 						$clusterValue = $jinput->get('cluster', NULL, 'WORD');
@@ -104,6 +110,10 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 						if(array_key_exists('callback',$_GET))
 						{
 							echo $_GET['callback'] . "(".json_encode($result).");";
+						}
+						elseif($returnRaw)
+						{
+							echo json_encode($result);
 						}
 						else
 						{
@@ -125,6 +135,7 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 				case 'getClusterData':
 					try
 					{
+						$returnRaw = $jinput->get('raw', false, 'BOOLEAN');
 						$idNameValue = $jinput->get('idName', NULL, 'CMD');
 						$clusterValue = $jinput->get('cluster', NULL, 'STRING');
 						if($idNameValue && $clusterValue && $user->id != 0)
@@ -138,6 +149,10 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 						if(array_key_exists('callback',$_GET))
 						{
 							echo $_GET['callback'] . "(".json_encode($result).");";
+						}
+						elseif($returnRaw)
+						{
+							echo json_encode($result);
 						}
 						else
 						{

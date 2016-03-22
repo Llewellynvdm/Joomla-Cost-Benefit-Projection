@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.9
-	@build			18th March, 2016
+	@version		3.3.10
+	@build			22nd March, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -460,6 +460,8 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 		// check if there is any countries loaded
 		if (CostbenefitprojectionHelper::checkArray($this->countries))
 		{
+			// remove dummy companies
+			$remove = $this->getDummyComp();
 			// Create a new query object.
 			$query = $this->db->getQuery(true);
 			// Get from #__costbenefitprojection_company as a
@@ -471,8 +473,17 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 			{
 				// get his companies
 				$ids = CostbenefitprojectionHelper::hisCompanies($this->user->id);
+				if ($remove)
+				{
+					$ids = array_diff($ids, $remove);
+				}
 				// limit to only load his companies
 				$query->where('a.id IN (' . implode(',', $ids) . ')');
+			}
+			elseif ($remove)
+			{
+				// limit to only real companies
+				$query->where('a.id NOT IN (' . implode(',', $remove) . ')');
 			}
 			// Check that we only use the real companies and none of the dummy companies
 			$query->where('a.mode = 1'); // this will insure only real companies are loaded
@@ -490,6 +501,45 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 			}
 		}
 		return false;
+	}
+	
+	protected $dummyComp = false;
+	
+	protected function getDummyComp()
+	{
+		// insure we only get this once
+		if (!CostbenefitprojectionHelper::checkArray($this->dummyComp))
+		{
+			// Create a new query object.
+			$query = $this->db->getQuery(true);
+
+			// Get from #__costbenefitprojection_service_provider as a
+			$query->select($this->db->quoteName(
+				array('a.testcompanies'),
+				array('testcompanies')));
+			$query->from($this->db->quoteName('#__costbenefitprojection_service_provider', 'a'));
+			// load the query
+			$this->db->setQuery($query);
+			$this->db->execute();
+			if ($this->db->getNumRows())
+			{
+				// get the test companies
+				$testcompanies = $this->db->loadColumn();
+				// global Ids
+				$global = array();
+				// okay now we loop the test companies to build a global id set
+				foreach ($testcompanies as $json)
+				{
+					if (CostbenefitprojectionHelper::checkJson($json))
+					{
+						$global = array_merge($global, json_decode($json, true));
+					}
+				}
+				// now insure the ids are unique 
+				$this->dummyComp = array_unique($global);
+			}			
+		}
+		return $this->dummyComp;
 	}
 	
 	protected function setCountries($limited = false)

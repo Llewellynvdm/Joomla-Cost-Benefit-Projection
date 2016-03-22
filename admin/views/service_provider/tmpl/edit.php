@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.9
-	@build			18th March, 2016
+	@version		3.3.10
+	@build			22nd March, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -36,10 +36,11 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 
 	<?php echo JHtml::_('bootstrap.addTab', 'service_providerTab', 'details', JText::_('COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_DETAILS', true)); ?>
 		<div class="row-fluid form-horizontal-desktop">
-		</div>
-		<div class="row-fluid form-horizontal-desktop">
-			<div class="span12">
-				<?php echo JLayoutHelper::render('service_provider.details_fullwidth', $this); ?>
+			<div class="span6">
+				<?php echo JLayoutHelper::render('service_provider.details_left', $this); ?>
+			</div>
+			<div class="span6">
+				<?php echo JLayoutHelper::render('service_provider.details_right', $this); ?>
 			</div>
 		</div>
 	<?php echo JHtml::_('bootstrap.endTab'); ?>

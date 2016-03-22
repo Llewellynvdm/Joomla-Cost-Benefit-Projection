@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.9
-	@build			18th March, 2016
+	@version		3.3.10
+	@build			22nd March, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		companies.php
@@ -43,7 +43,6 @@ class CostbenefitprojectionModelCompanies extends JModelList
 				'a.department','department',
 				'a.country','country',
 				'a.service_provider','service_provider',
-				'a.mode','mode',
 				'a.per','per'
 			);
 		}
@@ -79,9 +78,6 @@ class CostbenefitprojectionModelCompanies extends JModelList
 
 		$service_provider = $this->getUserStateFromRequest($this->context . '.filter.service_provider', 'filter_service_provider');
 		$this->setState('filter.service_provider', $service_provider);
-
-		$mode = $this->getUserStateFromRequest($this->context . '.filter.mode', 'filter_mode');
-		$this->setState('filter.mode', $mode);
 
 		$per = $this->getUserStateFromRequest($this->context . '.filter.per', 'filter_per');
 		$this->setState('filter.per', $per);
@@ -145,8 +141,6 @@ class CostbenefitprojectionModelCompanies extends JModelList
 			{
 				// convert department
 				$item->department = $this->selectionTranslation($item->department, 'department');
-				// convert mode
-				$item->mode = $this->selectionTranslation($item->mode, 'mode');
 				// convert per
 				$item->per = $this->selectionTranslation($item->per, 'per');
 			}
@@ -175,19 +169,6 @@ class CostbenefitprojectionModelCompanies extends JModelList
 			if (isset($departmentArray[$value]) && CostbenefitprojectionHelper::checkString($departmentArray[$value]))
 			{
 				return $departmentArray[$value];
-			}
-		}
-		// Array of mode language strings
-		if ($name == 'mode')
-		{
-			$modeArray = array(
-				1 => 'COM_COSTBENEFITPROJECTION_COMPANY_COMPANY_ACCOUNT',
-				2 => 'COM_COSTBENEFITPROJECTION_COMPANY_TRAINING_ACCOUNT'
-			);
-			// Now check if value is found in this array
-			if (isset($modeArray[$value]) && CostbenefitprojectionHelper::checkString($modeArray[$value]))
-			{
-				return $modeArray[$value];
 			}
 		}
 		// Array of per language strings
@@ -309,11 +290,6 @@ class CostbenefitprojectionModelCompanies extends JModelList
 		{
 			$query->where('a.service_provider = ' . $db->quote($db->escape($service_provider, true)));
 		}
-		// Filter by Mode.
-		if ($mode = $this->getState('filter.mode'))
-		{
-			$query->where('a.mode = ' . $db->quote($db->escape($mode, true)));
-		}
 		// Filter by Per.
 		if ($per = $this->getState('filter.per'))
 		{
@@ -406,6 +382,11 @@ class CostbenefitprojectionModelCompanies extends JModelList
 							continue;
 						}
 
+						if ($advancedkey && !is_numeric($item->medical_turnovers_females) && $item->medical_turnovers_females === base64_encode(base64_decode($item->medical_turnovers_females, true)))
+						{
+							// decrypt medical_turnovers_females
+							$item->medical_turnovers_females = $advanced->decryptString($item->medical_turnovers_females);
+						}
 						if ($advancedkey && !is_numeric($item->females) && $item->females === base64_encode(base64_decode($item->females, true)))
 						{
 							// decrypt females
@@ -416,35 +397,30 @@ class CostbenefitprojectionModelCompanies extends JModelList
 							// decrypt sick_leave_males
 							$item->sick_leave_males = $advanced->decryptString($item->sick_leave_males);
 						}
-						if ($advancedkey && !is_numeric($item->medical_turnovers_females) && $item->medical_turnovers_females === base64_encode(base64_decode($item->medical_turnovers_females, true)))
-						{
-							// decrypt medical_turnovers_females
-							$item->medical_turnovers_females = $advanced->decryptString($item->medical_turnovers_females);
-						}
-						if ($advancedkey && !is_numeric($item->males) && $item->males === base64_encode(base64_decode($item->males, true)))
-						{
-							// decrypt males
-							$item->males = $advanced->decryptString($item->males);
-						}
 						if ($advancedkey && !is_numeric($item->medical_turnovers_males) && $item->medical_turnovers_males === base64_encode(base64_decode($item->medical_turnovers_males, true)))
 						{
 							// decrypt medical_turnovers_males
 							$item->medical_turnovers_males = $advanced->decryptString($item->medical_turnovers_males);
-						}
-						if ($advancedkey && !is_numeric($item->sick_leave_females) && $item->sick_leave_females === base64_encode(base64_decode($item->sick_leave_females, true)))
-						{
-							// decrypt sick_leave_females
-							$item->sick_leave_females = $advanced->decryptString($item->sick_leave_females);
 						}
 						if ($advancedkey && !is_numeric($item->total_salary) && $item->total_salary === base64_encode(base64_decode($item->total_salary, true)))
 						{
 							// decrypt total_salary
 							$item->total_salary = $advanced->decryptString($item->total_salary);
 						}
+						if ($advancedkey && !is_numeric($item->sick_leave_females) && $item->sick_leave_females === base64_encode(base64_decode($item->sick_leave_females, true)))
+						{
+							// decrypt sick_leave_females
+							$item->sick_leave_females = $advanced->decryptString($item->sick_leave_females);
+						}
 						if ($advancedkey && !is_numeric($item->total_healthcare) && $item->total_healthcare === base64_encode(base64_decode($item->total_healthcare, true)))
 						{
 							// decrypt total_healthcare
 							$item->total_healthcare = $advanced->decryptString($item->total_healthcare);
+						}
+						if ($advancedkey && !is_numeric($item->males) && $item->males === base64_encode(base64_decode($item->males, true)))
+						{
+							// decrypt males
+							$item->males = $advanced->decryptString($item->males);
 						}
 						// unset the values we don't want exported.
 						unset($item->asset_id);
@@ -511,7 +487,6 @@ class CostbenefitprojectionModelCompanies extends JModelList
 		$id .= ':' . $this->getState('filter.department');
 		$id .= ':' . $this->getState('filter.country');
 		$id .= ':' . $this->getState('filter.service_provider');
-		$id .= ':' . $this->getState('filter.mode');
 		$id .= ':' . $this->getState('filter.per');
 
 		return parent::getStoreId($id);

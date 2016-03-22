@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.9
-	@build			18th March, 2016
+	@version		3.3.10
+	@build			22nd March, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		scaling_factors_fullwidth.php
@@ -30,7 +30,7 @@ $edit	= "index.php?option=com_costbenefitprojection&view=scaling_factors&task=sc
 ?>
 <div class="form-vertical">
 <?php if (CostbenefitprojectionHelper::checkArray($items)): ?>
-<table class="footable table data scaling_factors metro-blue" data-filter="#filter_scaling_factors" data-page-size="20">
+<table class="footable table data scaling_factors metro-blue" data-page-size="20" data-filter="#filter_scaling_factors">
 <thead>
 	<tr>
 		<th data-toggle="true">

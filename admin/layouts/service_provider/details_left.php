@@ -3,11 +3,11 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.9
-	@build			18th March, 2016
+	@version		3.3.10
+	@build			22nd March, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
-	@subpackage		details_fullwidth.php
+	@subpackage		details_left.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
 	@owner			Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb
 	@copyright		Copyright (C) 2015. All Rights Reserved
@@ -31,16 +31,22 @@ $fields = $displayData->get('fields') ?: array(
 	'publicaddress'
 );
 
-?>
-<div class="form-vertical">
-<?php foreach($fields as $field): ?>
-    <div class="control-group">
-        <div class="control-label">
-            <?php echo $form->getLabel($field); ?>
-        </div>
-        <div class="controls">
-            <?php echo $form->getInput($field); ?>
-        </div>
-    </div>
-<?php endforeach; ?>
-</div>
+$hiddenFields = $displayData->get('hidden_fields') ?: array();
+
+foreach ($fields as $field)
+{
+	$field = is_array($field) ? $field : array($field);
+	foreach ($field as $f)
+	{
+		if ($form->getField($f))
+		{
+			if (in_array($f, $hiddenFields))
+			{
+				$form->setFieldAttribute($f, 'type', 'hidden');
+			}
+
+			echo $form->renderField($f);
+			break;
+		}
+	}
+}

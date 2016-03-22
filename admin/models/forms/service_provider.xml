@@ -150,6 +150,15 @@
 		/>
 		<!-- Public_details_note Field. Type: Note. A None Database Field. (joomla) -->
 		<field type="note" name="public_details_note" description="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_PUBLIC_DETAILS_NOTE_DESCRIPTION" class="alert alert-info, public_details_note" />
+		<!-- Testcompanies Field. Type: Companycheck. (custom) -->
+		<field
+			type="companycheck"
+			name="testcompanies"
+			label="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_TESTCOMPANIES_LABEL"
+			description="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_TESTCOMPANIES_DESCRIPTION"
+			class="list_class"
+			button="false"
+		/>
 	</fieldset>
 	
 	<!-- Access Control Fields. -->

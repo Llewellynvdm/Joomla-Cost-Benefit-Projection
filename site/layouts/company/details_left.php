@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.9
-	@build			18th March, 2016
+	@version		3.3.10
+	@build			22nd March, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		details_left.php
@@ -28,8 +28,7 @@ $fields = $displayData->get('fields') ?: array(
 	'email',
 	'country',
 	'service_provider',
-	'datayear',
-	'mode'
+	'datayear'
 );
 
 $hiddenFields = $displayData->get('hidden_fields') ?: array();

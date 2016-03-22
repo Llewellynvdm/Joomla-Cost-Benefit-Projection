@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.9
-	@build			18th March, 2016
+	@version		3.3.10
+	@build			22nd March, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		country.php
@@ -443,8 +443,6 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 				{
 					// convert department
 					$item->department = $this->selectionTranslationVwhcompanies($item->department, 'department');
-					// convert mode
-					$item->mode = $this->selectionTranslationVwhcompanies($item->mode, 'mode');
 					// convert per
 					$item->per = $this->selectionTranslationVwhcompanies($item->per, 'per');
 				}
@@ -473,19 +471,6 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 			if (isset($departmentArray[$value]) && CostbenefitprojectionHelper::checkString($departmentArray[$value]))
 			{
 				return $departmentArray[$value];
-			}
-		}
-		// Array of mode language strings
-		if ($name == 'mode')
-		{
-			$modeArray = array(
-				1 => 'COM_COSTBENEFITPROJECTION_COMPANY_COMPANY_ACCOUNT',
-				2 => 'COM_COSTBENEFITPROJECTION_COMPANY_TRAINING_ACCOUNT'
-			);
-			// Now check if value is found in this array
-			if (isset($modeArray[$value]) && CostbenefitprojectionHelper::checkString($modeArray[$value]))
-			{
-				return $modeArray[$value];
 			}
 		}
 		// Array of per language strings

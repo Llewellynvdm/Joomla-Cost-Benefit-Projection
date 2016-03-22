@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.9
-	@build			18th March, 2016
+	@version		3.3.10
+	@build			22nd March, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		interventions_fullwidth.php
@@ -36,7 +36,7 @@ $can	= CostbenefitprojectionHelper::getActions('intervention');
 	<a class="btn btn-small btn-success" href="<?php echo $new; ?>"><span class="icon-new icon-white"></span> <?php echo JText::_('COM_COSTBENEFITPROJECTION_NEW'); ?></a><br /><br />
 <?php endif; ?>
 <?php if (CostbenefitprojectionHelper::checkArray($items)): ?>
-<table class="footable table data interventions metro-blue" data-filter="#filter_interventions" data-page-size="20">
+<table class="footable table data interventions metro-blue" data-page-size="20" data-filter="#filter_interventions">
 <thead>
 	<tr>
 		<th data-toggle="true">

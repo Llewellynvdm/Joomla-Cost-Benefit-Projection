@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.9
-	@build			18th March, 2016
+	@version		3.3.10
+	@build			22nd March, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		service_provider.php
@@ -87,6 +87,12 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 				$registry = new Registry;
 				$registry->loadString($item->metadata);
 				$item->metadata = $registry->toArray();
+			}
+
+			if (!empty($item->testcompanies))
+			{
+				// JSON Decode testcompanies.
+				$item->testcompanies = json_decode($item->testcompanies);
 			}
 			
 			if (!empty($item->id))
@@ -212,8 +218,6 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 				{
 					// convert department
 					$item->department = $this->selectionTranslationVwecompanies($item->department, 'department');
-					// convert mode
-					$item->mode = $this->selectionTranslationVwecompanies($item->mode, 'mode');
 					// convert per
 					$item->per = $this->selectionTranslationVwecompanies($item->per, 'per');
 				}
@@ -242,19 +246,6 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 			if (isset($departmentArray[$value]) && CostbenefitprojectionHelper::checkString($departmentArray[$value]))
 			{
 				return $departmentArray[$value];
-			}
-		}
-		// Array of mode language strings
-		if ($name == 'mode')
-		{
-			$modeArray = array(
-				1 => 'COM_COSTBENEFITPROJECTION_COMPANY_COMPANY_ACCOUNT',
-				2 => 'COM_COSTBENEFITPROJECTION_COMPANY_TRAINING_ACCOUNT'
-			);
-			// Now check if value is found in this array
-			if (isset($modeArray[$value]) && CostbenefitprojectionHelper::checkString($modeArray[$value]))
-			{
-				return $modeArray[$value];
 			}
 		}
 		// Array of per language strings
@@ -994,6 +985,12 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 			$metadata->loadArray($data['metadata']);
 			$data['metadata'] = (string) $metadata;
 		} 
+
+		// Set the testcompanies string to JSON string.
+		if (isset($data['testcompanies']))
+		{
+			$data['testcompanies'] = (string) json_encode($data['testcompanies']);
+		}
         
 		// Set the Params Items to data
 		if (isset($data['params']) && is_array($data['params']))
