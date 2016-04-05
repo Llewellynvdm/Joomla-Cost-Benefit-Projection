@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.10
-	@build			22nd March, 2016
+	@version		3.3.11
+	@build			5th April, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		companydetails.php
@@ -171,7 +171,7 @@ if (isset($displayData->idCompanyScaling_factorD) && CostbenefitprojectionHelper
 	// the values to display
 	$keys = array(
 		'causerisk_name' => JText::_('COM_COSTBENEFITPROJECTION_CAUSERISK'), 'reference' => JText::_('COM_COSTBENEFITPROJECTION_REFERENCE'),
-		'yld_scaling_factor_males' => JText::_('COM_COSTBENEFITPROJECTION_YLD_MALES'),'yld_scaling_factor_females' => JText::_('COM_COSTBENEFITPROJECTION_YLD_FEMALES'),
+		'yld_scaling_factor_males' => JText::_('COM_COSTBENEFITPROJECTION_ABSENTEEISM_MALES'),'yld_scaling_factor_females' => JText::_('COM_COSTBENEFITPROJECTION_ABSENTEEISM_FEMALES'),
 		'mortality_scaling_factor_males' => JText::_('COM_COSTBENEFITPROJECTION_MORTALITY_MALES'),'mortality_scaling_factor_females' => JText::_('COM_COSTBENEFITPROJECTION_MORTALITY_FEMALES'),
 		'presenteeism_scaling_factor_males' => JText::_('COM_COSTBENEFITPROJECTION_PRESENTEEISM_MALES'),'presenteeism_scaling_factor_females' => JText::_('COM_COSTBENEFITPROJECTION_PRESENTEEISM_FEMALES'),
 		'published' => JText::_('COM_COSTBENEFITPROJECTION_STATUS'),'id' => JText::_('ID'));

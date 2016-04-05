@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.10
-	@build			22nd March, 2016
+	@version		3.3.11
+	@build			5th April, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -183,7 +183,7 @@ jQuery('#adminForm').on('change', '#jform_causesrisks',function (e)
 	{
 		if (jQuery(this).is(':checked'))
 		{
-      		checkedArray.push(jQuery(jQuery("label[for='"+jQuery(this).prop('id')+"']").html()).prop('id'));
+			checkedArray.push(jQuery("label[for='"+jQuery(this).prop('id')+"'] > span").prop('id'));
 		}
 	});
 	// now we check if child is checked and uncheck perant
@@ -191,24 +191,24 @@ jQuery('#adminForm').on('change', '#jform_causesrisks',function (e)
 	{
 		if (jQuery(this).is(':checked'))
 		{
-      		var checing = jQuery(jQuery("label[for='"+jQuery(this).prop('id')+"']").html()).prop('id');
+			var checing = jQuery("label[for='"+jQuery(this).prop('id')+"'] > span").prop('id');
 			// first remove this checkd item from array
 			checkedArrayChecker = jQuery.grep(checkedArray, function(value) {
 				return value != checing;
 			});
+			
 			// now uncheck the perant checkboxes
 			jQuery.each( checkedArrayChecker,function(index,value)
 			{
 				if (checing.indexOf(value) >= 0)
 				{
-					var block = jQuery('label > span#'+value).closest('li').find('input').prop('id');
+					var block = jQuery('#'+value).closest('label').find('input').prop('id');
 					jQuery('#'+block).prop('checked', false);
 				}
 			});
 		}
 	});
 });
-
 // add the calculator button
 var cal_button = ' <a class="btn btn-small btn-success" href="https://www.staffhealthcbp.com/download/Productivity_Losses_Calculator_V1.xlsx"> <span class="icon-download icon-white"></span> Calculator </a>';
 jQuery('#jform_productivity_losses').closest('.controls').append(cal_button);jQuery('input.form-field-repeatable').on('weready', function(e, value){

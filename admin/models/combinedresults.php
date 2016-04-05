@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.10
-	@build			22nd March, 2016
+	@version		3.3.11
+	@build			5th April, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		combinedresults.php
@@ -311,6 +311,7 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 		$query->from($db->quoteName('#__costbenefitprojection_scaling_factor', 'c'));
 		$query->where('c.company = ' . $db->quote($id));
 		$query->where('c.published = 1');
+		$query->order('c.published ASC');
 		$query->order('c.ordering ASC');
 
 		// Reset the query using our newly populated query object.

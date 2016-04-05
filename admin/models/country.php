@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.10
-	@build			22nd March, 2016
+	@version		3.3.11
+	@build			5th April, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		country.php
@@ -164,6 +164,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 		}
 
 		// Order the results by ordering
+		$query->order('a.published  ASC');
 		$query->order('a.ordering  ASC');
 
 		// Load the items
@@ -301,6 +302,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 		}
 
 		// Order the results by ordering
+		$query->order('a.published  ASC');
 		$query->order('a.ordering  ASC');
 
 		// Load the items
@@ -410,6 +412,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 		}
 
 		// Order the results by ordering
+		$query->order('a.published  ASC');
 		$query->order('a.ordering  ASC');
 
 		// Load the items

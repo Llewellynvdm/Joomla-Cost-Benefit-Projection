@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.10
-	@build			22nd March, 2016
+	@version		3.3.11
+	@build			5th April, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		cpanel.php
@@ -224,7 +224,8 @@ class CostbenefitprojectionModelCpanel extends JModelList
 			array('f.name'),
 			array('causerisk_name')));
 		$query->join('LEFT', ($db->quoteName('#__costbenefitprojection_causerisk', 'f')) . ' ON (' . $db->quoteName('d.causerisk') . ' = ' . $db->quoteName('f.id') . ')');
-		$query->order('d.ordering ASC');
+		$query->order('d.published ASC');
+		$query->order('d.id ASC');
 
 		// Reset the query using our newly populated query object.
 		$db->setQuery($query);
@@ -268,7 +269,8 @@ class CostbenefitprojectionModelCpanel extends JModelList
 			array('id','name','type','coverage','duration','share','description','reference','interventions','intervention','not_required','published','checked_out','checked_out_time','created_by','modified_by','created','modified','version','hits','ordering')));
 		$query->from($db->quoteName('#__costbenefitprojection_intervention', 'e'));
 		$query->where('e.company = ' . $db->quote($id));
-		$query->order('e.ordering ASC');
+		$query->order('e.published ASC');
+		$query->order('e.name ASC');
 
 		// Reset the query using our newly populated query object.
 		$db->setQuery($query);

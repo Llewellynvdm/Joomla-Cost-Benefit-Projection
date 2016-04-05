@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.10
-	@build			22nd March, 2016
+	@version		3.3.11
+	@build			5th April, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -587,26 +587,6 @@ abstract class CostbenefitprojectionHelper
 		}
 		return '';
 	}
-	
-	/**
-	 *	get group name
-	 */
-	public static function getGroupName($id)
-	{
-		$db = JFactory::getDBO();
-		$query = $db->getQuery(true);
-		$query->select(array('a.title'));
-		$query->from('#__usergroups AS a');
-		$query->where('a.id = '.$id);
-		$db->setQuery($query);
-		$db->execute();
-		$found = $db->getNumRows();
-		if($found)
-       		{
-			return $db->loadResult();
-		}
-		return $id . '- not found';
-	}
 
 	public static function jsonToString($value)
 	{
@@ -1164,6 +1144,45 @@ abstract class CostbenefitprojectionHelper
 		}
 		return false;
 	} 
+
+	public static function isPublished($id,$type)
+	{
+		if ($type == 'raw')
+                {
+			$type = 'item';
+		}
+		$db = JFactory::getDbo();
+		$query = $db->getQuery(true);
+		$query->select(array('a.published'));
+		$query->from('#__costbenefitprojection_'.$type.' AS a');
+		$query->where('a.id = '. (int) $id);
+		$query->where('a.published = 1');
+		$db->setQuery($query);
+		$db->execute();
+		$found = $db->getNumRows();
+		if($found)
+                {
+			return true;
+		}
+		return false;
+	}
+
+	public static function getGroupName($id)
+	{
+		$db = JFactory::getDBO();
+		$query = $db->getQuery(true);
+		$query->select(array('a.title'));
+		$query->from('#__usergroups AS a');
+		$query->where('a.id = '. (int) $id);
+		$db->setQuery($query);
+		$db->execute();
+		$found = $db->getNumRows();
+		if($found)
+                {
+			return $db->loadResult();
+		}
+		return $id;
+	}
 	
 	/**
 	*	Get the actions permissions

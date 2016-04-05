@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.10
-	@build			22nd March, 2016
+	@version		3.3.11
+	@build			5th April, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -1327,7 +1327,7 @@ abstract class CostbenefitprojectionHelper
 		$query = $db->getQuery(true);
 		$query->select(array('a.published'));
 		$query->from('#__costbenefitprojection_'.$type.' AS a');
-		$query->where('a.id = '.$id);
+		$query->where('a.id = '. (int) $id);
 		$query->where('a.published = 1');
 		$db->setQuery($query);
 		$db->execute();
@@ -1345,7 +1345,7 @@ abstract class CostbenefitprojectionHelper
 		$query = $db->getQuery(true);
 		$query->select(array('a.title'));
 		$query->from('#__usergroups AS a');
-		$query->where('a.id = '.$id);
+		$query->where('a.id = '. (int) $id);
 		$db->setQuery($query);
 		$db->execute();
 		$found = $db->getNumRows();
