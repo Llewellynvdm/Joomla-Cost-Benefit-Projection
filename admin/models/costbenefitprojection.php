@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.11
-	@build			5th April, 2016
+	@build			9th April, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -41,6 +41,7 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 		);
 		// view access array
 		$viewAccess = array(
+			'combinedresults.dashboard_list' => 'combinedresults.dashboard_list',
 			'company.create' => 'company.create',
 			'companies.access' => 'company.access',
 			'company.access' => 'company.access',

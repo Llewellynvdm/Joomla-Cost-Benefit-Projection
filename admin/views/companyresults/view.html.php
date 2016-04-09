@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.11
-	@build			5th April, 2016
+	@build			9th April, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -281,7 +281,7 @@ class CostbenefitprojectionViewCompanyresults extends JViewLegacy
 		// hide the main menu
 		$this->app->input->set('hidemainmenu', true);
 		// set the title
-		if ($this->item->name)
+		if (isset($this->item->name) && $this->item->name)
 		{
 			$title = $this->item->name;
 		}

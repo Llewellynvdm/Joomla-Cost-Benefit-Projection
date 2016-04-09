@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.11
-	@build			5th April, 2016
+	@build			9th April, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		sum.php
@@ -1459,9 +1459,9 @@ class Sum
 						$this->interventions[$i]['items'][$a]['netmoney_benefit_scaled']		= $this->makeMoney((float)$this->interventions[$i]['items'][$a]['net_benefit_scaled']);
 						// set ratio
 						$this->interventions[$i]['items'][$a]['benefit_ratio_unscaled'] 		= $this->interventions[$i]['items'][$a]['annual_benefit_unscaled'] 
-																/ $this->interventions[$i]['items'][$a]['cost_of_problem_unscaled'];	
+																/ $this->interventions[$i]['items'][$a]['annual_cost'];	
 						$this->interventions[$i]['items'][$a]['benefit_ratio_scaled']			= $this->interventions[$i]['items'][$a]['annual_benefit_scaled'] 
-																/ $this->interventions[$i]['items'][$a]['cost_of_problem_scaled'];
+																/ $this->interventions[$i]['items'][$a]['annual_cost'];
 
 						$this->interventions[$i]['items'][$a]['annual_costmoney_per_employee']		= $this->makeMoney((float)$value['cpe']);
 
