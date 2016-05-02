@@ -26,7 +26,7 @@ max_input_vars = 5000
 + *Version*: 3.3.11
 + *Copyright*: Copyright (C) 2015. All Rights Reserved
 + *License*: GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html
-+ *Line count*: **84140**
++ *Line count*: **84128**
 + *File count*: **559**
 + *Folder count*: **101**
 

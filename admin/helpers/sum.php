@@ -1042,7 +1042,7 @@ class Sum
 							// unscaled ///////////////
 							// set each gender and age group morbidity_unscaled
 							$this->items[$id]->$gender->$age->cost_morbidity_unscaled 	= $this->items[$id]->$gender->$age->morbidity_unscaled
-															* ( $this->company->total_salary / (( $this->company->males + $this->company->females) 
+															* (( $this->company->total_salary / (( $this->company->males + $this->company->females) 
 															* $this->company->working_days))
 															+ $this->company->total_healthcare / $this->totals['total_morbidity_unscaled']);
 							// set total each cause/risk cost_morbidity_unscaled
