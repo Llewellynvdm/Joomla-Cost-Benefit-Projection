@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.11
-	@build			9th April, 2016
+	@build			2nd May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -221,7 +221,7 @@ class CostbenefitprojectionViewCountry extends JViewLegacy
 		$document->addScriptDeclaration($footable);
 
 		$document->addScript(JURI::root() . $this->script);
-		$document->addScript(JURI::root() . "administrator/components/com_costbenefitprojection/views/country/submitbutton.js");
+		$document->addScript(JURI::root() . "administrator/components/com_costbenefitprojection/views/country/submitbutton.js"); 
 		JText::script('view not acceptable. Error');
 	}
 }

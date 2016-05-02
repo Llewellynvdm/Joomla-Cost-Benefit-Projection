@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.11
-	@build			9th April, 2016
+	@build			2nd May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -37,7 +37,7 @@ $document->addStyleSheet('components/com_costbenefitprojection/assets/css/admin.
 $document->addScript('components/com_costbenefitprojection/assets/js/admin.js');
 
 // require helper files
-JLoader::register('CostbenefitprojectionHelper', dirname(__FILE__) . '/helpers/costbenefitprojection.php');
+JLoader::register('CostbenefitprojectionHelper', dirname(__FILE__) . '/helpers/costbenefitprojection.php'); 
 JLoader::register('JHtmlBatch_', dirname(__FILE__) . '/helpers/html/batch_.php'); 
 
 // import joomla controller library

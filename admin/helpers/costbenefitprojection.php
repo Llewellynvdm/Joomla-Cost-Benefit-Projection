@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.11
-	@build			9th April, 2016
+	@build			2nd May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -945,6 +945,55 @@ abstract class CostbenefitprojectionHelper
 			$db->query();
 		}
 		return $was;
+	}
+
+	/**
+	* Update user values
+	*/
+	public static function updateUser($new)
+	{
+		// load the user component language files if there is an error.
+		$lang = JFactory::getLanguage();
+		$extension = 'com_users';
+		$base_dir = JPATH_ADMINISTRATOR;
+		$language_tag = 'en-GB';
+		$reload = true;
+		$lang->load($extension, $base_dir, $language_tag, $reload);
+		// load the user model
+		$model = self::getModel('user', JPATH_ADMINISTRATOR . '/components/com_users', 'Users');
+		// Check if password was set
+		if (isset($new['password']) && isset($new['password2']) && self::checkString($new['password']) && self::checkString($new['password2']))
+		{
+			// Use the users passwords
+			$password = $new['password'];
+			$password2 = $new['password2'];
+		}
+		// set username
+		if (isset($new['username']) && self::checkString($new['username']))
+		{
+			$new['username'] = self::safeString($new['username']);
+		}
+		else
+		{
+			$new['username'] = self::safeString($new['name']);			
+		}
+		// linup update user data
+		$data = array(
+			'id' => $new['id'],
+			'username' => $new['username'],
+			'name' => $new['name'],
+			'email' => $new['email'],
+			'password1' => $password, // First password field
+			'password2' => $password2, // Confirm password field
+			'block' => 0 );
+		// register the new user
+		$done = $model->save($data);
+		// if user is updated
+		if ($done)
+		{
+			return $new['id'];
+		}
+		return $model->getError();
 	} 
 
 	/**
@@ -1967,7 +2016,7 @@ abstract class CostbenefitprojectionHelper
 					$w .= ' ';
 					if($r < 100)
 					{
-						$word .= 'and ';
+						$w .= 'and ';
 					}
 					$w .= self::numberToString($r);
 				}

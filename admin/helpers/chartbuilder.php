@@ -7,8 +7,8 @@
 *
 **/
 
-// No direct access.
-defined('_JEXEC') or die;
+// No direct access to this file
+defined('_JEXEC') or die('Restricted access');
 
 class Chartbuilder
 {

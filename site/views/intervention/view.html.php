@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.11
-	@build			9th April, 2016
+	@build			2nd May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -199,7 +199,7 @@ class CostbenefitprojectionViewIntervention extends JViewLegacy
 		$document->addScriptDeclaration("var token = '".JSession::getFormToken()."';"); 
 		// default javascript of this view
 		$document->addScript(JURI::root().$this->script);
-		$document->addScript(JURI::root(). "components/com_costbenefitprojection/views/intervention/submitbutton.js");
+		$document->addScript(JURI::root(). "components/com_costbenefitprojection/views/intervention/submitbutton.js"); 
 		JText::script('view not acceptable. Error');
 	}
 }

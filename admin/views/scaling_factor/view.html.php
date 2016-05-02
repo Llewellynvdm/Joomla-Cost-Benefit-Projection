@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.11
-	@build			9th April, 2016
+	@build			2nd May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -188,7 +188,7 @@ class CostbenefitprojectionViewScaling_factor extends JViewLegacy
 		$document->setTitle(JText::_($isNew ? 'COM_COSTBENEFITPROJECTION_SCALING_FACTOR_NEW' : 'COM_COSTBENEFITPROJECTION_SCALING_FACTOR_EDIT'));
 		$document->addStyleSheet(JURI::root() . "administrator/components/com_costbenefitprojection/assets/css/scaling_factor.css"); 
 		$document->addScript(JURI::root() . $this->script);
-		$document->addScript(JURI::root() . "administrator/components/com_costbenefitprojection/views/scaling_factor/submitbutton.js");
+		$document->addScript(JURI::root() . "administrator/components/com_costbenefitprojection/views/scaling_factor/submitbutton.js"); 
 		JText::script('view not acceptable. Error');
 	}
 }

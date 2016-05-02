@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.11
-	@build			9th April, 2016
+	@build			2nd May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		sum.php
@@ -1042,8 +1042,8 @@ class Sum
 							// unscaled ///////////////
 							// set each gender and age group morbidity_unscaled
 							$this->items[$id]->$gender->$age->cost_morbidity_unscaled 	= $this->items[$id]->$gender->$age->morbidity_unscaled
-															* (( $this->company->total_salary / ($this->company->males + $this->company->females) 
-															/ $this->company->working_days )
+															* ( $this->company->total_salary / (( $this->company->males + $this->company->females) 
+															* $this->company->working_days))
 															+ $this->company->total_healthcare / $this->totals['total_morbidity_unscaled']);
 							// set total each cause/risk cost_morbidity_unscaled
 							if(!isset($this->items[$id]->subtotal_cost_morbidity_unscaled))
