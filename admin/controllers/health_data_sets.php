@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.11
-	@build			2nd May, 2016
+	@build			5th May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		health_data_sets.php
@@ -93,7 +93,7 @@ class CostbenefitprojectionControllerHealth_data_sets extends JControllerAdmin
 				$session->set('dataType_VDM_IMPORTINTO', 'health_data');
 				// Redirect to import view.
 				$message = JText::_('COM_COSTBENEFITPROJECTION_IMPORT_SELECT_FILE_FOR_HEALTH_DATA_SETS');
-				$this->setRedirect(JRoute::_('index.php?option=com_costbenefitprojection&view=import', false), $message);
+				$this->setRedirect(JRoute::_('index.php?option=com_costbenefitprojection&view=import_health_data_sets', false), $message);
 				return;
 			}
 		}

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.3.11
-	@build			2nd May, 2016
+	@build			5th May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		import.php
@@ -46,7 +46,7 @@ class CostbenefitprojectionModelImport extends JModelLegacy
 	 * Import Settings
 	 */
 	protected $getType 	= NULL;
-	protected $dataType = NULL;
+	protected $dataType	= NULL;
 	
 	/**
 	 * Method to auto-populate the model state.
