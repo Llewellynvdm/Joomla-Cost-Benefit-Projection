@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.11
-	@build			5th May, 2016
+	@version		3.3.12
+	@build			10th May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -261,6 +261,28 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 				);
 			}
 		}
+
+		// Set Duration Selection
+		$this->durationOptions = $this->getTheDurationSelections();
+		if ($this->durationOptions)
+		{
+			// Duration Filter
+			JHtmlSidebar::addFilter(
+				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_DURATION_LABEL').' -',
+				'filter_duration',
+				JHtml::_('select.options', $this->durationOptions, 'value', 'text', $this->state->get('filter.duration'))
+			);
+
+			if ($this->canBatch && $this->canCreate && $this->canEdit)
+			{
+				// Duration Batch Selection
+				JHtmlBatch_::addListSelection(
+					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_DURATION_LABEL').' -',
+					'batch[duration]',
+					JHtml::_('select.options', $this->durationOptions, 'value', 'text')
+				);
+			}
+		}
 	}
 
 	/**
@@ -308,6 +330,7 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 			'a.type' => JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_TYPE_LABEL'),
 			'a.coverage' => JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_COVERAGE_LABEL'),
 			'a.description' => JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_DESCRIPTION_LABEL'),
+			'a.duration' => JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_DURATION_LABEL'),
 			'a.id' => JText::_('JGRID_HEADING_ID')
 		);
 	} 
@@ -374,6 +397,38 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 			{
 				// Now add the coverage and its text to the options array
 				$filter[] = JHtml::_('select.option', $coverage, $coverage);
+			}
+			return $filter;
+		}
+		return false;
+	}
+
+	protected function getTheDurationSelections()
+	{
+		// Get a db connection.
+		$db = JFactory::getDbo();
+
+		// Create a new query object.
+		$query = $db->getQuery(true);
+
+		// Select the text.
+		$query->select($db->quoteName('duration'));
+		$query->from($db->quoteName('#__costbenefitprojection_intervention'));
+		$query->order($db->quoteName('duration') . ' ASC');
+
+		// Reset the query using our newly populated query object.
+		$db->setQuery($query);
+
+		$results = $db->loadColumn();
+
+		if ($results)
+		{
+			$results = array_unique($results);
+			$filter = array();
+			foreach ($results as $duration)
+			{
+				// Now add the duration and its text to the options array
+				$filter[] = JHtml::_('select.option', $duration, $duration);
 			}
 			return $filter;
 		}

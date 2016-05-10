@@ -183,7 +183,7 @@
 		<field
 			type="text"
 			name="alias"
-			label="JFIELD_ALIAS_LABEL"
+			label="COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_ALIAS_LABEL"
 			description="JFIELD_ALIAS_DESC"
 			filter="STRING"
 			hint="COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_ALIAS_HINT"

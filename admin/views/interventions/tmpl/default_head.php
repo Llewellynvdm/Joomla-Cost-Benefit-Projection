@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.11
-	@build			5th May, 2016
+	@version		3.3.12
+	@build			10th May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_head.php
@@ -51,6 +51,9 @@ defined('_JEXEC') or die('Restricted access');
 	</th>
 	<th class="nowrap hidden-phone" >
 			<?php echo JHtml::_('grid.sort', 'COM_COSTBENEFITPROJECTION_INTERVENTION_DESCRIPTION_LABEL', 'description', $this->listDirn, $this->listOrder); ?>
+	</th>
+	<th class="nowrap hidden-phone" >
+			<?php echo JHtml::_('grid.sort', 'COM_COSTBENEFITPROJECTION_INTERVENTION_DURATION_LABEL', 'duration', $this->listDirn, $this->listOrder); ?>
 	</th>
 	<?php if ($this->canState): ?>
 		<th width="10" class="nowrap center" >

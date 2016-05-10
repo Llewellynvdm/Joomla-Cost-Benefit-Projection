@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.11
-	@build			5th May, 2016
+	@version		3.3.12
+	@build			10th May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		interventions_fullwidth.php
@@ -54,6 +54,9 @@ $can	= CostbenefitprojectionHelper::getActions('intervention');
 		<th data-hide="phone,tablet">
 			<?php echo JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_DESCRIPTION_LABEL'); ?>
 		</th>
+		<th data-hide="phone,tablet">
+			<?php echo JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_DURATION_LABEL'); ?>
+		</th>
 		<th width="10" data-hide="phone,tablet">
 			<?php echo JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_STATUS'); ?>
 		</th>
@@ -96,6 +99,9 @@ $can	= CostbenefitprojectionHelper::getActions('intervention');
 		<td>
 			<?php echo $displayData->escape($item->description); ?>
 		</td>
+		<td>
+			<?php echo $displayData->escape($item->duration); ?>
+		</td>
 		<?php if ($item->published == 1):?>
 			<td class="center"  data-value="1">
 				<span class="status-metro status-published" title="<?php echo JText::_('PUBLISHED');  ?>">
@@ -129,7 +135,7 @@ $can	= CostbenefitprojectionHelper::getActions('intervention');
 </tbody>
 <tfoot class="hide-if-no-paging">
 	<tr>
-		<td colspan="7">
+		<td colspan="8">
 			<div class="pagination pagination-centered"></div>
 		</td>
 	</tr>

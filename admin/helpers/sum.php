@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.11
-	@build			5th May, 2016
+	@version		3.3.12
+	@build			10th May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		sum.php
@@ -1389,7 +1389,13 @@ class Sum
 		// now set the result set
 		if(CostbenefitprojectionHelper::checkArray($this->company->causesrisks) && isset($this->company->interventions) && CostbenefitprojectionHelper::checkArray($this->company->interventions)){
 			$i = 0;
-			foreach ($this->company->interventions as $mainkey => $item){
+			foreach ($this->company->interventions as $mainkey => $item)
+			{
+				// make sure duration is set
+				if (!isset($item->duration) || !is_numeric($item->duration) || 1 > $item->duration)
+				{
+					$item->duration = 1;
+				}
 				$this->interventions[$i]["id"]			= $item->id;
 				$this->interventions[$i]["name"] 		= $item->name;
 				$this->interventions[$i]["description"] 	= $item->description;
@@ -1399,24 +1405,24 @@ class Sum
 				$this->interventions[$i]['found']		= array();
 				$this->interventions[$i]['not_found']		= array();
 				// set totals
-				$this->interventions[$i]['totals']['annual_cost_per_employee']			= 0;
-				$this->interventions[$i]['totals']['annual_costmoney_per_employee']		= 0;
-				$this->interventions[$i]['totals']['cost_of_problem_scaled'] 			= 0;
-				$this->interventions[$i]['totals']['cost_of_problem_unscaled'] 			= 0;
-				$this->interventions[$i]['totals']['costmoney_of_problem_scaled'] 		= 0;
-				$this->interventions[$i]['totals']['costmoney_of_problem_unscaled'] 		= 0;
-				$this->interventions[$i]['totals']['contribution_to_cost_scaled'] 		= 0;
-				$this->interventions[$i]['totals']['contribution_to_cost_unscaled'] 		= 0;
-				$this->interventions[$i]['totals']['annual_cost'] 				= 0;
-				$this->interventions[$i]['totals']['annual_costmoney'] 				= 0;
-				$this->interventions[$i]['totals']['annual_benefit_scaled'] 			= 0;
-				$this->interventions[$i]['totals']['annual_benefit_unscaled']			= 0;
-				$this->interventions[$i]['totals']['annualmoney_benefit_scaled'] 		= 0;
-				$this->interventions[$i]['totals']['annualmoney_benefit_unscaled']		= 0;
-				$this->interventions[$i]['totals']['net_benefit_scaled']			= 0;
-				$this->interventions[$i]['totals']['net_benefit_unscaled']			= 0;
-				$this->interventions[$i]['totals']['netmoney_benefit_scaled']			= 0;
-				$this->interventions[$i]['totals']['netmoney_benefit_unscaled']			= 0;
+				$this->interventions[$i]['totals']['cost_per_employee']			= 0;
+				$this->interventions[$i]['totals']['costmoney_per_employee']		= 0;
+				$this->interventions[$i]['totals']['cost_of_problem_scaled'] 		= 0;
+				$this->interventions[$i]['totals']['cost_of_problem_unscaled'] 		= 0;
+				$this->interventions[$i]['totals']['costmoney_of_problem_scaled'] 	= 0;
+				$this->interventions[$i]['totals']['costmoney_of_problem_unscaled'] 	= 0;
+				$this->interventions[$i]['totals']['contribution_to_cost_scaled'] 	= 0;
+				$this->interventions[$i]['totals']['contribution_to_cost_unscaled'] 	= 0;
+				$this->interventions[$i]['totals']['cost'] 				= 0;
+				$this->interventions[$i]['totals']['costmoney'] 			= 0;
+				$this->interventions[$i]['totals']['benefit_scaled'] 			= 0;
+				$this->interventions[$i]['totals']['benefit_unscaled']			= 0;
+				$this->interventions[$i]['totals']['benefitmoney_scaled'] 		= 0;
+				$this->interventions[$i]['totals']['benefitmoney_unscaled']		= 0;
+				$this->interventions[$i]['totals']['net_benefit_scaled']		= 0;
+				$this->interventions[$i]['totals']['net_benefit_unscaled']		= 0;
+				$this->interventions[$i]['totals']['net_benefitmoney_scaled']		= 0;
+				$this->interventions[$i]['totals']['net_benefitmoney_unscaled']		= 0;
 				// now load the cause/risk that are linked to this user
 				$a = 0;
 				// set values
@@ -1432,51 +1438,54 @@ class Sum
 						$this->interventions[$i]['items'][$a]['costmoney_of_problem_unscaled'] 	= $this->items[$value['id']]->subtotal_costmoney_unscaled;
 						$this->interventions[$i]['items'][$a]['costmoney_of_problem_scaled'] 	= $this->items[$value['id']]->subtotal_costmoney_scaled;
 
-						$this->interventions[$i]['items'][$a]['annual_cost']	= ($this->interventions[$i]["coverage"] /100) * $value['cpe']
-													* ($this->company->males + $this->company->females);
+						$this->interventions[$i]['items'][$a]['cost']	= ($this->interventions[$i]["coverage"] /100) 
+												* $value['cpe']	* ($this->company->males + $this->company->females)
+												* $item->duration;
 						// turn into money													
-						$this->interventions[$i]['items'][$a]['annual_costmoney'] 	= $this->makeMoney((float)$this->interventions[$i]['items'][$a]['annual_cost']);
+						$this->interventions[$i]['items'][$a]['costmoney'] 	= $this->makeMoney((float)$this->interventions[$i]['items'][$a]['cost']);
 
-						$this->interventions[$i]['items'][$a]['annual_benefit_unscaled']	= ($this->interventions[$i]["coverage"] /100) * ($value['mbr'] /100)
-															* ($this->items[$value['id']]->subtotal_cost_morbidity_unscaled 
-															+ $this->items[$value['id']]->subtotal_cost_presenteeism_unscaled)
-															+ ($value['mtr']/100) * $this->items[$value['id']]->subtotal_cost_mortality_unscaled;
+						$this->interventions[$i]['items'][$a]['benefit_unscaled']	= ($this->interventions[$i]["coverage"] /100) * ($value['mbr'] /100)
+														* ($this->items[$value['id']]->subtotal_cost_morbidity_unscaled 
+														+ $this->items[$value['id']]->subtotal_cost_presenteeism_unscaled)
+														+ ($value['mtr']/100) * $this->items[$value['id']]->subtotal_cost_mortality_unscaled
+														* $item->duration;
 
-						$this->interventions[$i]['items'][$a]['annual_benefit_scaled']	= ($this->interventions[$i]["coverage"] /100) * ($value['mbr'] /100) 
+						$this->interventions[$i]['items'][$a]['benefit_scaled']		= ($this->interventions[$i]["coverage"] /100) * ($value['mbr'] /100) 
 														* ($this->items[$value['id']]->subtotal_cost_morbidity_scaled 
 														+ $this->items[$value['id']]->subtotal_cost_presenteeism_scaled)
-														+ ($value['mtr']/100) * $this->items[$value['id']]->subtotal_cost_mortality_scaled;
+														+ ($value['mtr']/100) * $this->items[$value['id']]->subtotal_cost_mortality_scaled
+														* $item->duration;
 						// turn into money													
-						$this->interventions[$i]['items'][$a]['annualmoney_benefit_unscaled'] 	= $this->makeMoney((float)$this->interventions[$i]['items'][$a]['annual_benefit_unscaled']);
-						$this->interventions[$i]['items'][$a]['annualmoney_benefit_scaled']	= $this->makeMoney((float)$this->interventions[$i]['items'][$a]['annual_benefit_scaled']);
+						$this->interventions[$i]['items'][$a]['benefitmoney_unscaled'] 	= $this->makeMoney((float)$this->interventions[$i]['items'][$a]['benefit_unscaled']);
+						$this->interventions[$i]['items'][$a]['benefitmoney_scaled']	= $this->makeMoney((float)$this->interventions[$i]['items'][$a]['benefit_scaled']);
 
-						$this->interventions[$i]['items'][$a]['net_benefit_unscaled'] 		= $this->interventions[$i]['items'][$a]['annual_benefit_unscaled'] 
-															- $this->interventions[$i]['items'][$a]['annual_cost'];
-						$this->interventions[$i]['items'][$a]['net_benefit_scaled']		= $this->interventions[$i]['items'][$a]['annual_benefit_scaled'] 
-															- $this->interventions[$i]['items'][$a]['annual_cost'];
+						$this->interventions[$i]['items'][$a]['net_benefit_unscaled'] 		= $this->interventions[$i]['items'][$a]['benefit_unscaled'] 
+															- $this->interventions[$i]['items'][$a]['cost'];
+						$this->interventions[$i]['items'][$a]['net_benefit_scaled']		= $this->interventions[$i]['items'][$a]['benefit_scaled'] 
+															- $this->interventions[$i]['items'][$a]['cost'];
 						// turn into money		
-						$this->interventions[$i]['items'][$a]['netmoney_benefit_unscaled']		= $this->makeMoney((float)$this->interventions[$i]['items'][$a]['net_benefit_unscaled']);
-						$this->interventions[$i]['items'][$a]['netmoney_benefit_scaled']		= $this->makeMoney((float)$this->interventions[$i]['items'][$a]['net_benefit_scaled']);
+						$this->interventions[$i]['items'][$a]['net_benefitmoney_unscaled']		= $this->makeMoney((float)$this->interventions[$i]['items'][$a]['net_benefit_unscaled']);
+						$this->interventions[$i]['items'][$a]['net_benefitmoney_scaled']		= $this->makeMoney((float)$this->interventions[$i]['items'][$a]['net_benefit_scaled']);
 						// set ratio
-						$this->interventions[$i]['items'][$a]['benefit_ratio_unscaled'] 		= $this->interventions[$i]['items'][$a]['annual_benefit_unscaled'] 
-																/ $this->interventions[$i]['items'][$a]['annual_cost'];	
-						$this->interventions[$i]['items'][$a]['benefit_ratio_scaled']			= $this->interventions[$i]['items'][$a]['annual_benefit_scaled'] 
-																/ $this->interventions[$i]['items'][$a]['annual_cost'];
+						$this->interventions[$i]['items'][$a]['benefit_ratio_unscaled'] 		= $this->interventions[$i]['items'][$a]['benefit_unscaled'] 
+																/ $this->interventions[$i]['items'][$a]['cost'];	
+						$this->interventions[$i]['items'][$a]['benefit_ratio_scaled']			= $this->interventions[$i]['items'][$a]['benefit_scaled'] 
+																/ $this->interventions[$i]['items'][$a]['cost'];
 
-						$this->interventions[$i]['items'][$a]['annual_costmoney_per_employee']		= $this->makeMoney((float)$value['cpe']);
+						$this->interventions[$i]['items'][$a]['costmoney_per_employee']			= $this->makeMoney((float)$value['cpe']);
 
 						// set totals
-						$this->interventions[$i]['totals']['annual_cost']				= $this->interventions[$i]['totals']['annual_cost']
-																+ $this->interventions[$i]['items'][$a]['annual_cost'];
-						$this->interventions[$i]['totals']['annual_benefit_scaled'] 			= $this->interventions[$i]['totals']['annual_benefit_scaled'] 
-																+ $this->interventions[$i]['items'][$a]['annual_benefit_scaled'];
-						$this->interventions[$i]['totals']['annual_benefit_unscaled'] 			= $this->interventions[$i]['totals']['annual_benefit_unscaled'] 
-																+ $this->interventions[$i]['items'][$a]['annual_benefit_unscaled'];
+						$this->interventions[$i]['totals']['cost']					= $this->interventions[$i]['totals']['cost']
+																+ $this->interventions[$i]['items'][$a]['cost'];
+						$this->interventions[$i]['totals']['benefit_scaled']				= $this->interventions[$i]['totals']['benefit_scaled'] 
+																+ $this->interventions[$i]['items'][$a]['benefit_scaled'];
+						$this->interventions[$i]['totals']['benefit_unscaled']				= $this->interventions[$i]['totals']['benefit_unscaled'] 
+																+ $this->interventions[$i]['items'][$a]['benefit_unscaled'];
 						$this->interventions[$i]['totals']['net_benefit_scaled'] 			= $this->interventions[$i]['totals']['net_benefit_scaled'] 
 																+ $this->interventions[$i]['items'][$a]['net_benefit_scaled'];
 						$this->interventions[$i]['totals']['net_benefit_unscaled'] 			= $this->interventions[$i]['totals']['net_benefit_unscaled'] 
 																+ $this->interventions[$i]['items'][$a]['net_benefit_unscaled'];
-						$this->interventions[$i]['totals']['annual_cost_per_employee'] 			= $this->interventions[$i]['totals']['annual_cost_per_employee'] + $value['cpe'];
+						$this->interventions[$i]['totals']['cost_per_employee'] 			= $this->interventions[$i]['totals']['cost_per_employee'] + $value['cpe'];
 
 						$this->interventions[$i]['totals']['cost_of_problem_scaled'] 			= $this->interventions[$i]['totals']['cost_of_problem_scaled'] 
 																+ $this->items[$value['id']]->subtotal_cost_scaled;
@@ -1505,14 +1514,14 @@ class Sum
 					$a++;
 				}
 				// set total money
-				$this->interventions[$i]['totals']['annual_costmoney_per_employee']		= $this->makeMoney((float)$this->interventions[$i]['totals']['annual_cost_per_employee']);
+				$this->interventions[$i]['totals']['costmoney_per_employee']			= $this->makeMoney((float)$this->interventions[$i]['totals']['cost_per_employee']);
 				$this->interventions[$i]['totals']['costmoney_of_problem_scaled'] 		= $this->makeMoney((float)$this->interventions[$i]['totals']['cost_of_problem_scaled']);
 				$this->interventions[$i]['totals']['costmoney_of_problem_unscaled'] 		= $this->makeMoney((float)$this->interventions[$i]['totals']['cost_of_problem_unscaled']);
-				$this->interventions[$i]['totals']['annual_costmoney'] 				= $this->makeMoney((float)$this->interventions[$i]['totals']['annual_cost']);
-				$this->interventions[$i]['totals']['annualmoney_benefit_scaled'] 		= $this->makeMoney((float)$this->interventions[$i]['totals']['annual_benefit_scaled']);
-				$this->interventions[$i]['totals']['annualmoney_benefit_unscaled']		= $this->makeMoney((float)$this->interventions[$i]['totals']['annual_benefit_unscaled']);
-				$this->interventions[$i]['totals']['netmoney_benefit_scaled']			= $this->makeMoney((float)$this->interventions[$i]['totals']['net_benefit_scaled']);
-				$this->interventions[$i]['totals']['netmoney_benefit_unscaled']			= $this->makeMoney((float)$this->interventions[$i]['totals']['net_benefit_unscaled']);
+				$this->interventions[$i]['totals']['costmoney'] 				= $this->makeMoney((float)$this->interventions[$i]['totals']['cost']);
+				$this->interventions[$i]['totals']['benefitmoney_scaled']			= $this->makeMoney((float)$this->interventions[$i]['totals']['benefit_scaled']);
+				$this->interventions[$i]['totals']['benefitmoney_unscaled']			= $this->makeMoney((float)$this->interventions[$i]['totals']['benefit_unscaled']);
+				$this->interventions[$i]['totals']['net_benefitmoney_scaled']			= $this->makeMoney((float)$this->interventions[$i]['totals']['net_benefit_scaled']);
+				$this->interventions[$i]['totals']['net_benefitmoney_unscaled']			= $this->makeMoney((float)$this->interventions[$i]['totals']['net_benefit_unscaled']);
 				if (isset($this->interventions[$i]['items']))
 				{
 					$this->interventions[$i]['nr_found']					= sizeof($this->interventions[$i]['items']);

@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.11
-	@build			5th May, 2016
+	@version		3.3.12
+	@build			10th May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_chart_intervention_cost_benefit_public.php
@@ -35,9 +35,9 @@ if(isset($this->results->interventions) && CostbenefitprojectionHelper::checkArr
 					$rowArray[] = array('c' => array(
 							array('v' => $item->name),
 							array('v' => round($item->cost_of_problem_unscaled), 'f' => $item->costmoney_of_problem_unscaled), 
-							array('v' => $item->annual_cost, 'f' => $item->annual_costmoney), 
-							array('v' => $item->annual_benefit_unscaled, 'f' => $item->annualmoney_benefit_unscaled), 
-							array('v' => $item->net_benefit_unscaled, 'f' => $item->netmoney_benefit_unscaled)
+							array('v' => $item->cost, 'f' => $item->costmoney), 
+							array('v' => $item->benefit_unscaled, 'f' => $item->benefitmoney_unscaled), 
+							array('v' => $item->net_benefit_unscaled, 'f' => $item->net_benefitmoney_unscaled)
 					));
 					$i++;
 				}
@@ -50,8 +50,8 @@ if(isset($this->results->interventions) && CostbenefitprojectionHelper::checkArr
 					'cols' => array(
 							array('id' => '', 'label' => JText::_('COM_COSTBENEFITPROJECTION_CAUSERISK_FACTOR'), 'type' => 'string'),
 							array('id' => '', 'label' => JText::_('COM_COSTBENEFITPROJECTION_COST_OF_PROBLEM'), 'type' => 'number'),
-							array('id' => '', 'label' => JText::_('COM_COSTBENEFITPROJECTION_ANNUAL_COST_OF_INTERVENTION'), 'type' => 'number'),
-							array('id' => '', 'label' => JText::_('COM_COSTBENEFITPROJECTION_ANNUAL_BENEFIT'), 'type' => 'number'),
+							array('id' => '', 'label' => JText::_('COM_COSTBENEFITPROJECTION_COST_OF_INTERVENTION'), 'type' => 'number'),
+							array('id' => '', 'label' => JText::_('COM_COSTBENEFITPROJECTION_BENEFIT'), 'type' => 'number'),
 							array('id' => '', 'label' => JText::_('COM_COSTBENEFITPROJECTION_NET_BENEFIT'), 'type' => 'number')
 					),
 					'rows' => $rowArray

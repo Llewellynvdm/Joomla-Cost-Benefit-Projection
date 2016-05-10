@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.11
-	@build			5th May, 2016
+	@version		3.3.12
+	@build			10th May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		interventions.php
@@ -42,7 +42,8 @@ class CostbenefitprojectionModelInterventions extends JModelList
 				'a.company','company',
 				'a.type','type',
 				'a.coverage','coverage',
-				'a.description','description'
+				'a.description','description',
+				'a.duration','duration'
 			);
 		}
 
@@ -77,6 +78,9 @@ class CostbenefitprojectionModelInterventions extends JModelList
 
 		$description = $this->getUserStateFromRequest($this->context . '.filter.description', 'filter_description');
 		$this->setState('filter.description', $description);
+
+		$duration = $this->getUserStateFromRequest($this->context . '.filter.duration', 'filter_duration');
+		$this->setState('filter.duration', $duration);
         
 		$sorting = $this->getUserStateFromRequest($this->context . '.filter.sorting', 'filter_sorting', 0, 'int');
 		$this->setState('filter.sorting', $sorting);
@@ -242,7 +246,7 @@ class CostbenefitprojectionModelInterventions extends JModelList
 			else
 			{
 				$search = $db->quote('%' . $db->escape($search, true) . '%');
-				$query->where('(a.name LIKE '.$search.' OR a.company LIKE '.$search.' OR g.name LIKE '.$search.' OR a.type LIKE '.$search.' OR a.coverage LIKE '.$search.' OR a.description LIKE '.$search.' OR a.reference LIKE '.$search.' OR a.duration LIKE '.$search.')');
+				$query->where('(a.name LIKE '.$search.' OR a.company LIKE '.$search.' OR g.name LIKE '.$search.' OR a.type LIKE '.$search.' OR a.coverage LIKE '.$search.' OR a.description LIKE '.$search.' OR a.duration LIKE '.$search.' OR a.reference LIKE '.$search.')');
 			}
 		}
 
@@ -260,6 +264,11 @@ class CostbenefitprojectionModelInterventions extends JModelList
 		if ($coverage = $this->getState('filter.coverage'))
 		{
 			$query->where('a.coverage = ' . $db->quote($db->escape($coverage, true)));
+		}
+		// Filter by Duration.
+		if ($duration = $this->getState('filter.duration'))
+		{
+			$query->where('a.duration = ' . $db->quote($db->escape($duration, true)));
 		}
 
 		// Add the list ordering clause.
@@ -415,6 +424,7 @@ class CostbenefitprojectionModelInterventions extends JModelList
 		$id .= ':' . $this->getState('filter.type');
 		$id .= ':' . $this->getState('filter.coverage');
 		$id .= ':' . $this->getState('filter.description');
+		$id .= ':' . $this->getState('filter.duration');
 
 		return parent::getStoreId($id);
 	}

@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.11
-	@build			5th May, 2016
+	@version		3.3.12
+	@build			10th May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_table_intervention_net_benefit.php
@@ -47,12 +47,12 @@ $scaled = array('unscaled','scaled');
 					<tr >
 					    <th data-toggle="true"><?php echo JText::_('COM_COSTBENEFITPROJECTION_CAUSERISK_FACTOR'); ?></th>
 					    <th width="8%" data-hide="phone,tablet"><?php echo JText::_('COM_COSTBENEFITPROJECTION_CONTRIBUTION_TO_COSTS'); ?></th>
-					    <th width="8%" data-hide="phone,tablet"><?php echo JText::_('COM_COSTBENEFITPROJECTION_ANNUAL_COST_PER_EMPLOYEE'); ?></th>
+					    <th width="8%" data-hide="phone,tablet"><?php echo JText::_('COM_COSTBENEFITPROJECTION_COST_PER_EMPLOYEE'); ?></th>
 					    <th width="5%" data-hide="phone,tablet"><?php echo JText::_('COM_COSTBENEFITPROJECTION_REDUCTION_IN_MORBIDITY_COSTS'); ?></th>
 					    <th width="5%" data-hide="phone,tablet"><?php echo JText::_('COM_COSTBENEFITPROJECTION_REDUCTION_IN_MORTALITY_COST'); ?></th>
 					    <th width="11%" data-hide="phone,tablet"><?php echo JText::_('COM_COSTBENEFITPROJECTION_COST_OF_PROBLEM'); ?></th>
-					    <th width="11%" data-hide="phone,tablet"><?php echo JText::_('COM_COSTBENEFITPROJECTION_ANNUAL_COST_OF_INTERVENTION'); ?></th>
-					    <th width="11%" data-hide="phone"><?php echo JText::_('COM_COSTBENEFITPROJECTION_ANNUAL_BENEFIT'); ?></th>
+					    <th width="11%" data-hide="phone,tablet"><?php echo JText::_('COM_COSTBENEFITPROJECTION_COST_OF_INTERVENTION'); ?></th>
+					    <th width="11%" data-hide="phone"><?php echo JText::_('COM_COSTBENEFITPROJECTION_BENEFIT'); ?></th>
 					    <th width="5%" data-hide="phone,tablet"><?php echo JText::_('COM_COSTBENEFITPROJECTION_COST_BENEFIT_RATIO'); ?></th>
 					    <th width="11%"><?php echo JText::_('COM_COSTBENEFITPROJECTION_NET_BENEFIT'); ?></th>
 					</tr>
@@ -63,14 +63,14 @@ $scaled = array('unscaled','scaled');
 					    <tr>
 						<th data-value='<?php echo $item->name; ?>' scope="row"><?php echo $item->name; ?></th>
 						<td data-value='<?php echo $item->{'contribution_to_cost_'.$scale}; ?>' ><?php echo round($item->{'contribution_to_cost_'.$scale}, 3); ?>%</td>
-						<td data-value='<?php echo $item->cpe; ?>' ><?php echo $item->annual_costmoney_per_employee; ?></td>
+						<td data-value='<?php echo $item->cpe; ?>' ><?php echo $item->costmoney_per_employee; ?></td>
 						<td data-value='<?php echo $item->mbr; ?>' ><?php echo $item->mbr; ?>%</td>
 						<td data-value='<?php echo $item->mtr; ?>' ><?php echo $item->mtr; ?>%</td>
 						<td data-value='<?php echo $item->{'cost_of_problem_'.$scale}; ?>' ><?php echo $item->{'costmoney_of_problem_'.$scale}; ?></td>
-						<td data-value='<?php echo $item->annual_cost; ?>' ><?php echo $item->annual_costmoney; ?></td>
-						<td data-value='<?php echo $item->{'annual_benefit_'.$scale}; ?>' ><?php echo $item->{'annualmoney_benefit_'.$scale}; ?></td>
+						<td data-value='<?php echo $item->cost; ?>' ><?php echo $item->costmoney; ?></td>
+						<td data-value='<?php echo $item->{'benefit_'.$scale}; ?>' ><?php echo $item->{'benefitmoney_'.$scale}; ?></td>
 						<td data-value='<?php echo $item->{'benefit_ratio_'.$scale}; ?>' >1:<?php echo round($item->{'benefit_ratio_'.$scale},3); ?></td>
-						<td data-value='<?php echo $item->{'net_benefit_'.$scale}; ?>' ><?php echo $item->{'netmoney_benefit_'.$scale}; ?></td>
+						<td data-value='<?php echo $item->{'net_benefit_'.$scale}; ?>' ><?php echo $item->{'net_benefitmoney_'.$scale}; ?></td>
 					    </tr>
 					<?php endforeach; ?>
 				    <?php endif; ?>                                       
@@ -79,14 +79,14 @@ $scaled = array('unscaled','scaled');
 					<tr>
 					    <th scope="row"><?php echo JText::_('TOTALS'); ?></th>
 					    <td><?php echo $intervention->totals->{'contribution_to_cost_'.$scale}; ?>%</td>
-					    <td><?php echo $intervention->totals->annual_costmoney_per_employee; ?></td>
+					    <td><?php echo $intervention->totals->costmoney_per_employee; ?></td>
 					    <td></td>
 					    <td></td>
 					    <td><?php echo $intervention->totals->{'costmoney_of_problem_'.$scale}; ?></td>
-					    <td><?php echo $intervention->totals->annual_costmoney; ?></td>
-					    <td><?php echo $intervention->totals->{'annualmoney_benefit_'.$scale}; ?></td>
+					    <td><?php echo $intervention->totals->costmoney; ?></td>
+					    <td><?php echo $intervention->totals->{'benefitmoney_'.$scale}; ?></td>
 					    <td></td>
-					    <td><?php echo $intervention->totals->{'netmoney_benefit_'.$scale}; ?></td>
+					    <td><?php echo $intervention->totals->{'net_benefitmoney_'.$scale}; ?></td>
 					</tr>
 				    </tfoot>                                
 				</table>

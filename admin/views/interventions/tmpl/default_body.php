@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.11
-	@build			5th May, 2016
+	@version		3.3.12
+	@build			10th May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_body.php
@@ -97,6 +97,9 @@ $edit = "index.php?option=com_costbenefitprojection&view=interventions&task=inte
 		</td>
 		<td class="hidden-phone">
 			<?php echo $this->escape($item->description); ?>
+		</td>
+		<td class="hidden-phone">
+			<?php echo $this->escape($item->duration); ?>
 		</td>
 		<td class="center">
 		<?php if ($canDo->get('intervention.edit.state')) : ?>

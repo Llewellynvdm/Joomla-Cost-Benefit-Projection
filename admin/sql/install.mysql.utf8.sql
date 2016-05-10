@@ -276,8 +276,9 @@ CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_intervention` (
 	KEY `idx_company` (`company`),
 	KEY `idx_type` (`type`),
 	KEY `idx_coverage` (`coverage`),
-	KEY `idx_country` (`country`),
-	KEY `idx_share` (`share`)
+	KEY `idx_duration` (`duration`),
+	KEY `idx_share` (`share`),
+	KEY `idx_country` (`country`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_currency` (
