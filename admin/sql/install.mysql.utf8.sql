@@ -146,6 +146,7 @@ CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_causerisk` (
 	`asset_id` INT(255) UNSIGNED NOT NULL DEFAULT '0',
 	`alias` CHAR(64) NOT NULL DEFAULT '',
 	`description` TEXT NOT NULL DEFAULT '',
+	`import_id` INT(11) NOT NULL DEFAULT '0',
 	`importname` VARCHAR(255) NOT NULL DEFAULT '',
 	`name` VARCHAR(255) NOT NULL DEFAULT '',
 	`ref` VARCHAR(64) NOT NULL DEFAULT '',
@@ -170,6 +171,7 @@ CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_causerisk` (
 	KEY `idx_name` (`name`),
 	KEY `idx_ref` (`ref`),
 	KEY `idx_importname` (`importname`),
+	KEY `idx_import_id` (`import_id`),
 	KEY `idx_alias` (`alias`)
 ) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 

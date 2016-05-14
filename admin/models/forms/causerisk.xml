@@ -132,6 +132,19 @@
 			message="Error! Please add import name here."
 			hint="COM_COSTBENEFITPROJECTION_CAUSERISK_IMPORTNAME_HINT"
 		/>
+		<!-- Import_id Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="import_id"
+			label="COM_COSTBENEFITPROJECTION_CAUSERISK_IMPORT_ID_LABEL"
+			size="50"
+			maxlength="150"
+			description="COM_COSTBENEFITPROJECTION_CAUSERISK_IMPORT_ID_DESCRIPTION"
+			class="text_area"
+			required="true"
+			filter="ID"
+			message="Error! Please add some the import ID here."
+		/>
 		<!-- Description Field. Type: Textarea. (joomla) -->
 		<field
 			type="textarea"

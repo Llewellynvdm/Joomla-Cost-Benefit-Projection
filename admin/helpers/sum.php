@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.12
-	@build			10th May, 2016
+	@version		3.4.1
+	@build			14th May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		sum.php
@@ -141,9 +141,9 @@ class Sum
 					$bucket = array();
 					foreach ($this->company->$sort as $value)
 					{
-						$buket[$value['age']] = $value['percent'];
+						$bucket[$value['age']] = (int) $value['percent'];
 					}
-					$this->company->$point = $buket;
+					$this->company->$point = $bucket;
 				}
 			}
 			// country totals sorting
@@ -1433,14 +1433,14 @@ class Sum
 						// set local cause/risk values
 						$this->interventions[$i]['items'][$a] 					= $value;
 						$this->interventions[$i]['items'][$a]['name'] 				= $this->items[$value['id']]->details->name;
-						$this->interventions[$i]['items'][$a]['cost_of_problem_unscaled'] 	= $this->items[$value['id']]->subtotal_cost_unscaled;
-						$this->interventions[$i]['items'][$a]['cost_of_problem_scaled'] 	= $this->items[$value['id']]->subtotal_cost_scaled;
-						$this->interventions[$i]['items'][$a]['costmoney_of_problem_unscaled'] 	= $this->items[$value['id']]->subtotal_costmoney_unscaled;
-						$this->interventions[$i]['items'][$a]['costmoney_of_problem_scaled'] 	= $this->items[$value['id']]->subtotal_costmoney_scaled;
+						$this->interventions[$i]['items'][$a]['cost_of_problem_unscaled'] 	= $this->items[$value['id']]->subtotal_cost_unscaled * $item->duration;
+						$this->interventions[$i]['items'][$a]['cost_of_problem_scaled'] 	= $this->items[$value['id']]->subtotal_cost_scaled * $item->duration;
+						$this->interventions[$i]['items'][$a]['costmoney_of_problem_unscaled'] 	= $this->makeMoney((float)$this->interventions[$i]['items'][$a]['cost_of_problem_unscaled']);
+						$this->interventions[$i]['items'][$a]['costmoney_of_problem_scaled'] 	= $this->makeMoney((float)$this->interventions[$i]['items'][$a]['cost_of_problem_scaled']);
 
 						$this->interventions[$i]['items'][$a]['cost']	= ($this->interventions[$i]["coverage"] /100) 
-												* $value['cpe']	* ($this->company->males + $this->company->females)
-												* $item->duration;
+												* $value['cpe']	* ($this->company->males + $this->company->females);
+												
 						// turn into money													
 						$this->interventions[$i]['items'][$a]['costmoney'] 	= $this->makeMoney((float)$this->interventions[$i]['items'][$a]['cost']);
 
@@ -1488,9 +1488,9 @@ class Sum
 						$this->interventions[$i]['totals']['cost_per_employee'] 			= $this->interventions[$i]['totals']['cost_per_employee'] + $value['cpe'];
 
 						$this->interventions[$i]['totals']['cost_of_problem_scaled'] 			= $this->interventions[$i]['totals']['cost_of_problem_scaled'] 
-																+ $this->items[$value['id']]->subtotal_cost_scaled;
+																+ $this->interventions[$i]['items'][$a]['cost_of_problem_scaled'];
 						$this->interventions[$i]['totals']['cost_of_problem_unscaled'] 			= $this->interventions[$i]['totals']['cost_of_problem_unscaled'] 
-																+ $this->items[$value['id']]->subtotal_cost_unscaled;
+																+ $this->interventions[$i]['items'][$a]['cost_of_problem_unscaled'];
 					} else {
 						$this->interventions[$i]['not_found'][$value['id']] 				= CostbenefitprojectionHelper::getVar('causerisk', $value['id'], 'id', 'name');
 					}
