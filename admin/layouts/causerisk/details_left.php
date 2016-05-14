@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.12
-	@build			10th May, 2016
+	@version		3.4.1
+	@build			14th May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		details_left.php
@@ -24,8 +24,7 @@ defined('_JEXEC') or die('Restricted access');
 $form = $displayData->getForm();
 
 $fields = $displayData->get('fields') ?: array(
-	'importname',
-	'description'
+	'importname'
 );
 
 $hiddenFields = $displayData->get('hidden_fields') ?: array();

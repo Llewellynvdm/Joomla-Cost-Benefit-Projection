@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.3.12
-	@build			10th May, 2016
+	@version		3.4.1
+	@build			14th May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_head.php
@@ -45,6 +45,9 @@ defined('_JEXEC') or die('Restricted access');
 	</th>
 	<th class="nowrap hidden-phone" >
 			<?php echo JText::_('COM_COSTBENEFITPROJECTION_CAUSERISK_IMPORTNAME_LABEL'); ?>
+	</th>
+	<th class="nowrap hidden-phone" >
+			<?php echo JText::_('COM_COSTBENEFITPROJECTION_CAUSERISK_IMPORT_ID_LABEL'); ?>
 	</th>
 	<th class="nowrap hidden-phone" >
 			<?php echo JText::_('COM_COSTBENEFITPROJECTION_CAUSERISK_DESCRIPTION_LABEL'); ?>
