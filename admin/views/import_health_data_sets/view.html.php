@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.1
-	@build			14th May, 2016
+	@build			22nd May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -54,7 +54,7 @@ class CostbenefitprojectionViewImport_health_data_sets extends JViewLegacy
 
 		$this->paths = &$paths;
 		$this->state = &$state;
-                // get global action permissions
+		// get global action permissions
 		$this->canDo = CostbenefitprojectionHelper::getActions('import');
 
 		// We don't need toolbar in the modal window.
@@ -68,11 +68,35 @@ class CostbenefitprojectionViewImport_health_data_sets extends JViewLegacy
 		$session = JFactory::getSession();
 		// check if it has package
 		$this->hasPackage 	= $session->get('hasPackage', false);
-		$this->dataType 	= $session->get('dataType', false);
+		$this->dataType 		= $session->get('dataType', false);
 		if($this->hasPackage && $this->dataType)
 		{
-			$this->headerList 	= json_decode($session->get($this->dataType.'_VDM_IMPORTHEADERS', false),true);
-			$this->headers 		= CostbenefitprojectionHelper::getFileHeaders($this->dataType);
+			$this->headerList	= json_decode($session->get($this->dataType.'_VDM_IMPORTHEADERS', false),true);
+			$this->headerListAdv = array(
+					"location_name" => JText::_('COM_COSTBENEFITPROJECTION_LOCATION_NAME'),
+					"year" => JText::_('COM_COSTBENEFITPROJECTION_YEAR'),
+					"cause" => JText::_('COM_COSTBENEFITPROJECTION_CAUSE_ID'),
+					"cause_name" => JText::_('COM_COSTBENEFITPROJECTION_CAUSE_NAME'),
+					"risk" => JText::_('COM_COSTBENEFITPROJECTION_RISK_ID'),
+					"risk_name" => JText::_('COM_COSTBENEFITPROJECTION_RISK_NAME'),
+					"age" => JText::_('COM_COSTBENEFITPROJECTION_AGE_ID'),
+					"age_name" => JText::_('COM_COSTBENEFITPROJECTION_AGE_NAME'),
+					"sex" => JText::_('COM_COSTBENEFITPROJECTION_GENDER_ID'),
+					"sex_name" => JText::_('COM_COSTBENEFITPROJECTION_GENDER_NAME'),
+					"rt_mean" => JText::_('COM_COSTBENEFITPROJECTION_RT_MEAN_VALUE'),
+					"metric" => JText::_('COM_COSTBENEFITPROJECTION_METRIC'),
+					"metric_name" => JText::_('COM_COSTBENEFITPROJECTION_METRIC_NAME'));
+			$this->headers	= CostbenefitprojectionHelper::getFileHeaders($this->dataType);
+			$this->years		= range(1990,2030);
+			// set active tab
+			if (in_array('rt_mean', $this->headers) || in_array('metric', $this->headers))
+			{
+				$this->activeTab = 'advanced';
+			}
+			else
+			{
+				$this->activeTab = 'basic';
+			}
 			// clear the data type
 			$session->clear('dataType');
 		}

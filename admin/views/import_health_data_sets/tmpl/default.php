@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.1
-	@build			14th May, 2016
+	@build			22nd May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
@@ -55,6 +55,15 @@ JHtml::_('script', 'system/core.js', false, true);
 	{
 		var form = document.getElementById('adminForm');
 		var error = false;
+		var therequired = [<?php $i = 0; foreach($this->headerListAdv as $name => $title) { echo ($i != 0)? ', "adv_vdm_'.$name.'"':'"adv_vdm_'.$name.'"'; $i++; } ?>,"adv_vdm_selection_years"];
+		for(i = 0; i < therequired.length; i++)
+		{
+			if(jQuery('#'+therequired[i]).val() == "" )
+			{
+				error = true;
+				break;
+			}
+		}
 		// do field validation
 		if (error)
 		{
@@ -157,7 +166,7 @@ jQuery(document).ready(function($) {
 	<?php endif;?>
 
 	<?php if ($this->hasPackage && CostbenefitprojectionHelper::checkArray($this->headerList) && CostbenefitprojectionHelper::checkArray($this->headers)) : ?>
-		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'basic')); ?>
+		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => $this->activeTab)); ?>
 
 		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'basic', JText::_('Basic Method', true)); ?>
 		<fieldset class="uploadform">
@@ -193,13 +202,28 @@ jQuery(document).ready(function($) {
 		<fieldset class="uploadform">
 			<legend><?php echo JText::_('COM_COSTBENEFITPROJECTION_HERE_YOU_CAN_SET_THE_IMPORT_RELATIONSHIPS_TO_ALL_ADVANCED_DATA_MAPPING_AND_RECONSTRUCTION'); ?></legend>
 			<div class="control-group">
-				<label class="control-label" ><h4><?php echo JText::_('COM_COSTBENEFITPROJECTION_ADDING_CONTROL_STRUCTURE'); ?></h4></label>
+				<label class="control-label" ><h4><?php echo JText::_('COM_COSTBENEFITPROJECTION_DATA_NAMES'); ?></h4></label>
 				<div class="controls">
-					<label class="control-label" ><h4><?php echo JText::_('COM_COSTBENEFITPROJECTION_SOON'); ?></h4></label>
+					<label class="control-label" ><h4><?php echo JText::_('COM_COSTBENEFITPROJECTION_IMPORT_FILE_COLUMNS'); ?></h4></label>
 				</div>
 			</div>
+			<div class="control-group"><small><?php echo JText::_('COM_COSTBENEFITPROJECTION_ONLY_USE_THE_ADVANCED_IMPORT_WHEN_IMPORTING_THE_CSV_FILES_FROM_HTTPGHDXHEALTHDATAORG'); ?></small></div>
+			<?php foreach($this->headerListAdv as $name => $title): ?>
+				<div class="control-group">
+					<label for="adv_<?php echo $name; ?>" class="control-label" ><?php echo $title; ?></label>
+					<div class="controls">
+						<select  name="adv_<?php echo $name; ?>"  id="adv_vdm_<?php echo $name; ?>" required class="required input_box" >
+							<option value=""><?php echo JText::_('COM_COSTBENEFITPROJECTION_IMPORT_PLEASE_SELECT_COLUMN'); ?></option>
+							<?php $value = 0; foreach($this->headers as $option): ?>
+								<?php $selected = (strtolower($option) ==  strtolower ($title) || strtolower($option) == strtolower($name))? 'selected="selected"':''; ?>
+								<option value="<?php echo (int) $value; ?>" class="required" <?php echo $selected ?>><?php echo CostbenefitprojectionHelper::htmlEscape($option); $value++ ?></option>
+							<?php endforeach; ?>
+						</select>
+					</div>
+				</div>
+			<?php endforeach; ?>
 			<div class="form-actions">
-				<input class="btn btn-primary" type="button" value="<?php echo JText::_('COM_COSTBENEFITPROJECTION_IMPORT_CONTINUE'); ?>" onclick="Joomla.continueAdvImport()" />
+				<input class="btn btn-primary" type="button" value="<?php echo JText::_('COM_COSTBENEFITPROJECTION_IMPORT_CONTINUE'); ?>" onclick="Joomla.continueAdvImport()" />&nbsp;&nbsp;&nbsp;<small><?php echo JText::_('COM_COSTBENEFITPROJECTION_PLEASE_NOTE_THAT_ADVANCE_IMPORT_ONLY_WORKS_WITH_THE_FOLLOWING_FORMAT'); ?> (.csv)</small>
 			</div>
 		</fieldset>
 		<?php echo JHtml::_('bootstrap.endTab'); ?>

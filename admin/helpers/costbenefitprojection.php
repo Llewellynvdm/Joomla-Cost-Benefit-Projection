@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.1
-	@build			14th May, 2016
+	@build			22nd May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -1230,18 +1230,27 @@ abstract class CostbenefitprojectionHelper
 	*/
 	public static function getFileHeaders($dataType)
 	{		
-		// make sure the file is loaded		
+		// make sure these files are loaded		
 		JLoader::import('PHPExcel', JPATH_COMPONENT_ADMINISTRATOR . '/helpers');
+		JLoader::import('ChunkReadFilter', JPATH_COMPONENT_ADMINISTRATOR . '/helpers/PHPExcel/Reader');
 		// get session object
-		$session 	= JFactory::getSession();
+		$session	= JFactory::getSession();
 		$package	= $session->get('package', null);
 		$package	= json_decode($package, true);
 		// set the headers
 		if(isset($package['dir']))
 		{
+			$chunkFilter = new PHPExcel_Reader_chunkReadFilter();
+			// only load first three rows
+			$chunkFilter->setRows(2,1);
+			// identify the file type
 			$inputFileType = PHPExcel_IOFactory::identify($package['dir']);
+			// create the reader for this file type
 			$excelReader = PHPExcel_IOFactory::createReader($inputFileType);
+			// load the limiting filter
+			$excelReader->setReadFilter($chunkFilter);
 			$excelReader->setReadDataOnly(true);
+			// load the rows (only first three)
 			$excelObj = $excelReader->load($package['dir']);
 			$headers = array();
 			foreach ($excelObj->getActiveSheet()->getRowIterator() as $row)

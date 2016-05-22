@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.1
-	@build			14th May, 2016
+	@build			22nd May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		import_health_data_sets.php
@@ -406,8 +406,6 @@ class CostbenefitprojectionModelImport_health_data_sets extends JModelLegacy
 	**/
 	protected function setData($package,$target_headers)
 	{
-		// make sure the file is loaded		
-		JLoader::import('PHPExcel', JPATH_COMPONENT_ADMINISTRATOR . '/helpers');
 		$jinput = JFactory::getApplication()->input;
 		// set the data based on the type of import being done
 		if ('continue-basic' == $this->getType && CostbenefitprojectionHelper::checkArray($target_headers))
@@ -416,6 +414,8 @@ class CostbenefitprojectionModelImport_health_data_sets extends JModelLegacy
 			{
 				$data['target_headers'][$header] = $jinput->getString($header, null);
 			}
+			// make sure the file is loaded		
+			JLoader::import('PHPExcel', JPATH_COMPONENT_ADMINISTRATOR . '/helpers');
 			// set the data
 			if(isset($package['dir']))
 			{
@@ -426,13 +426,11 @@ class CostbenefitprojectionModelImport_health_data_sets extends JModelLegacy
 				$data['array'] = $excelObj->getActiveSheet()->toArray(null, true,true,true);
 				$excelObj->disconnectWorksheets();
 				unset($excelObj);
-				return $this->save($data);
+				return $this->saveBasic($data);
 			}
 		}
 		elseif ('continue-adv' == $this->getType)
 		{
-			var_dump('we got the new builder'); exit;
-
 			// Get a db connection.
 			$db = JFactory::getDbo();
 			// get list of cause & risks
@@ -440,38 +438,383 @@ class CostbenefitprojectionModelImport_health_data_sets extends JModelLegacy
 			$query = $db->getQuery(true);
 			// Select all disease names.
 			// Order it by the disease_name field.
-			$query->select($db->quoteName('importname'));
+			$query->select($db->quoteName('import_id'));
 			$query->from($db->quoteName('#__costbenefitprojection_causerisk'));
-			$query->order('importname ASC');
+			$query->order('id ASC');
 			 
 			// Reset the query using our newly populated query object.
 			$db->setQuery($query);
 			// set global for import
-			$get_list 			= $db->loadColumn();
-			// todays date
-			$dateSql 			= JFactory::getDate()->toSql();
+			$get_list 				= $db->loadColumn();
 			// ages to get
-			$ages 			= array("15-19 years","20-24 years","25-29 years","30-34 years","35-39 years","40-44 years","45-49 years","50-54 years","55-59 years","60-64 years");
-			// the types
-			$types 			= array("death","yld");
+			$this->ageIds 		= array(8, 9, 10, 11, 12, 13, 14, 15, 16, 17);
+			$this->ageKeys 		= array(8 => 0, 9 => 1, 10 => 2, 11 => 3, 12 => 4, 13 => 5, 14 => 6, 15 => 7, 16 => 8, 17 => 9);
+			$this->ageKeyNames 	= array(8 => "15-19", 9 => "20-24",10 => "25-29",11 => "30-34",12 => "35-39",13 => "40-44",14 =>"45-49",15 =>"50-54",16 =>"55-59",17 => "60-64");
+			$this->ageNames 		= array("15-19","20-24","25-29","30-34","35-39","40-44","45-49","50-54","55-59","60-64");
 			// the gender
-			$genders 			= array("Males","Females");
+			$this->genderIds 	= array(1, 2);
+			$this->genderKeys 	= array(1 => "male", 2 => "female");
+			// the import years
+			$this->selection_years 	= array(2010, 2013);
 			// to get the totals
-			$totals			= array("Total (All Causes)");
-
+			$this->idTotal		= array(array("key" => "cause_name", "val" => "All causes"),array("key" => "risk", "val" => 0));
+			// to check cause
+			$this->idCause		= array(array("key" => "risk", "val" => 0));
+			// to check risk
+			$this->idRisk		= array(array("key" => "cause_name", "val" => "All causes"));
+			// id Death
+			$this->idDeath 		= array(array("key" => "metric", "val" => 1));
+			// id Yld
+			$this->idYld 		= array(array("key" => "metric", "val" => 3));
+			// set the headers
+			$target_headers	= array(
+					"location_name",
+					"year",
+					"cause",
+					"cause_name",
+					"risk",
+					"risk_name",
+					"age",
+					"age_name",
+					"sex",
+					"sex_name",
+					"rt_mean",
+					"metric",
+					"metric_name");
+			// set the data
+			if(isset($package['dir']))
+			{
+				if(($handle = fopen($package['dir'], 'r')) !== false)
+				{
+					$this->data = array();
+					$this->totals = array();
+					// remove the first row, which contains the column-titles
+					$header = fgetcsv($handle);
+					// find the pointers
+					foreach($target_headers as $header)
+					{
+						$this->{$header} = $jinput->getInt('adv_'.$header);
+					}
+					// set the values
+					if(CostbenefitprojectionHelper::checkArray($get_list))
+					{
+						// loop through the file line-by-line
+						while(($data = fgetcsv($handle)) !== false)
+						{
+							if (($type =$this->loadValue($data,$get_list)) !== false)
+							{
+								// set the dataset
+								$this->setValue($data, $type);
+							}
+							unset($data);
+						}
+					}
+					fclose($handle);
+				}
+				return $this->saveAdv($db);
+			}
 		}
 		return false;
+	}
+
+	protected function setValue(&$data,&$type)
+	{
+		// set the year
+		$year = $data[$this->year];
+		if (isset($data['import_id']))
+		{
+			// set import ID
+			$id = $data['import_id'];
+			// load the year always first
+			if (!isset($this->data[$year]))
+			{
+				$this->data[$year] 			= array();
+			}
+			// set id of the cause/risk
+			if (!isset($this->data[$year][$id]['causerisk']))
+			{
+				$this->data[$year][$id]['causerisk'] 	= CostbenefitprojectionHelper::getVar('causerisk', $id, 'import_id', 'id');
+				$this->data[$year][$id]['year'] 		= $year;
+				$this->data[$year][$id]['country'] 		= CostbenefitprojectionHelper::getVar('country', $data[$this->location_name], 'name', 'id');
+			}
+			// insure the type is loaded
+			if (!isset($this->data[$year][$id][$type]))
+			{
+				$this->data[$year][$id][$type]			= array();
+				$this->data[$year][$id][$type]['age'] 		= $this->ageNames;
+				$this->data[$year][$id][$type]['number'] 	= array(0 => null, 1 => null, 2 => null, 3 => null, 4 => null, 5 => null, 6 => null, 7 => null, 8 => null, 9 => null);
+			}
+			// now loading the value
+			$this->data[$year][$id][$type]['number'][$this->ageKeys[$data[$this->age]]] = (float)$data[$this->rt_mean];
+		}
+		elseif (isset($data['country_name']))
+		{
+			// set the country name
+			if (!isset($this->totals['name']))
+			{
+				$this->totals['name']	= $data['country_name'];
+				$this->totals['id'] 		= CostbenefitprojectionHelper::getVar('country', $data['country_name'], 'name', 'id');
+			}
+			// always first set the basic columns
+			if (!isset($this->totals[$type]))
+			{
+				$this->totals[$type] = array();
+				$this->totals[$type]['age'] = array();
+				$this->totals[$type]['number'] = array();
+				$this->totals[$type]['year'] = array();
+			}
+			// load basics if type year not set
+			if (!in_array($year,$this->totals[$type]['year']))
+			{
+				// load this year
+				foreach ($this->ageNames as $nr => $age)
+				{
+					$this->totals[$type]['age'][] 		= $age;
+					$this->totals[$type]['number'][] 	= null;
+					$this->totals[$type]['year'][]		= (int) $year;
+				}
+			}
+			// set the value
+			$this->setCountryValue($type,$year,$this->ageKeyNames[$data[$this->age]],$data[$this->rt_mean]);
+		}
+	}
+
+	protected function setCountryValue(&$type,&$year,&$age,&$value)
+	{
+		// get the keys of this year
+		$keys = array_keys($this->totals[$type]['year'], $year);
+		foreach ($keys as $key)
+		{
+			// get the right age key
+			if ($this->totals[$type]['age'][$key] == $age)
+			{
+				// set the value now
+				$this->totals[$type]['number'][$key] = (float)$value;
+				break;
+			}
+		}
+	}
+
+	protected function loadValue(&$data, &$get_list)
+	{
+		if (	in_array($data[$this->year], $this->selection_years) && 
+				in_array($data[$this->age], $this->ageIds) && 
+				in_array($data[$this->sex], $this->genderIds))
+		{
+			// what value type is this
+			if ($data[$this->cause] > 0 && in_array($data[$this->cause], $get_list) && $this->identify($data,'Cause'))
+			{
+				// this is a cause
+				$data['import_id'] = $data[$this->cause];
+				$data['import_name'] = $data[$this->cause_name];
+				return $this->getType($data);
+			}
+			elseif ($data[$this->risk] > 0 && in_array($data[$this->risk], $get_list) && $this->identify($data,'Risk'))
+			{
+				// this is a risk
+				$data['import_id'] = $data[$this->risk];
+				$data['import_name'] = $data[$this->risk_name];
+				return $this->getType($data);
+			}
+			elseif ($this->identify($data,'Total'))
+			{
+				// load the totals
+				$data['country_name'] = $data[$this->location_name];
+				return $this->getType($data);	
+			}
+		}
+		return false;
+	}
+
+	protected function getType(&$data)
+	{
+		$type = false;
+		// what data type of import is this
+		if ($this->identify($data,'Death'))
+		{
+			// is a Death
+			$type = $this->genderKeys[$data[$this->sex]].'death';
+		}
+		elseif ($this->identify($data,'Yld'))
+		{
+			// is a YLD
+			$type = $this->genderKeys[$data[$this->sex]].'yld';
+		}
+		// set to type bucket for latter use
+		$this->typeBucket[$type] = $type;
+		// return the type
+		return $type;
+	}
+
+	protected function identify(&$data, $type)
+	{
+		$found = false;
+		if (isset($this->{'id'.$type}) && CostbenefitprojectionHelper::checkArray($this->{'id'.$type}))
+		{
+			foreach ($this->{'id'.$type} as $check)
+			{
+				if (isset($check['key']) && isset($check['val']) && $data[$this->$check['key']] == $check['val'])
+				{
+					$found = true;
+				}
+				else
+				{
+					$found = false;
+					break;
+				}
+			}
+		}
+		return $found;
 	} 
 	
 	/**
 	* Save the data from the file to the database
 	*
-	* @param string  $package Paths to the uploaded package file
+	* @return  boolean false on failure
+	*
+	**/
+	protected function saveAdv(&$db)
+	{
+		// todays date
+		$this->dateSql 	= JFactory::getDate()->toSql();
+		// set this user
+		$this->user 		= JFactory::getUser();
+		// save the country health data
+		if (isset($this->data) && CostbenefitprojectionHelper::checkArray($this->data))
+		{
+			// get global action permissions
+			$canDo			= CostbenefitprojectionHelper::getActions('health_data');
+			$this->canEdit	= $canDo->get('core.edit');
+			$this->canCreate	= $canDo->get('core.create');
+			foreach ($this->data as $year => &$values)
+			{
+				if (CostbenefitprojectionHelper::checkArray($values) && CostbenefitprojectionHelper::checkArray($this->typeBucket))
+				{
+					foreach ($values as $import_id => &$healthData)
+					{
+						foreach ($this->typeBucket as $type)
+						{
+							if (isset($healthData[$type]))
+							{
+								$healthData[$type] = json_encode($healthData[$type]);
+							}
+						}
+						if (!$this->saveObject( $db, (object) $healthData,'health_data'))
+						{
+							return false;
+						}
+					}
+				}
+			}
+			$doneData = true;
+		}
+		// save the country totals
+		if (isset($this->totals) && CostbenefitprojectionHelper::checkArray($this->totals))
+		{
+			// get global action permissions
+			$canDo			= CostbenefitprojectionHelper::getActions('country');
+			$this->canEdit	= $canDo->get('core.edit');
+			if (isset($this->typeBucket) && CostbenefitprojectionHelper::checkArray($this->typeBucket))
+			{
+				foreach ($this->typeBucket as $type)
+				{
+					if (isset($this->totals[$type]))
+					{
+						$this->totals[$type] = json_encode($this->totals[$type]);
+					}
+				}
+			}
+			if (!$this->saveObject( $db, (object) $this->totals,'country'))
+			{
+				return false;
+			}
+			$doneCountry = true;
+		}
+		if (isset($doneData) && isset($doneCountry) && ($doneData && $doneCountry))
+		{
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	* Save the data from the file to the database
+	*
+	* @param array  $data The values to save
 	*
 	* @return  boolean false on failure
 	*
 	**/
-	protected function save($data)
+	protected function saveObject(&$db, $data, $type)
+	{
+		if ($type == 'health_data')
+		{
+			// first we check if the data is already set
+			$id = $this->getHealthDataId($db, $data->causerisk,$data->year,$data->country);
+		}
+		// if new then insert data
+		if ($type == 'health_data' && !$id && $this->canCreate)
+		{
+			// build some extra data
+			$data->created_by = $this->user->id;
+			$data->created = $this->dateSql;
+			$data->version = 1;
+			$data->published = 1;
+			$data->access = 1;
+			$done = $db->insertObject('#__costbenefitprojection_'.$type, $data);
+			if ($done)
+			{
+				$aId = $db->insertid();
+				// make sure the access of asset is set
+				return CostbenefitprojectionHelper::setAsset($aId,$type);
+			}
+		}
+		elseif ($this->canEdit)
+		{
+			// build some extra data
+			if ($type == 'health_data' && $id > 0)
+			{
+				$data->id = $id;
+			}
+			if ($data->id > 0 )
+			{
+				$version = CostbenefitprojectionHelper::getVar($type, $data->id, 'id', 'version');
+				$data->version = $version + 1;
+				$data->modified_by = $this->user->id;
+				$data->modified = $this->dateSql;
+				return $db->updateObject('#__costbenefitprojection_'.$type, $data, 'id');
+			}
+		}
+		return false;						
+	}
+
+	protected function getHealthDataId($db, $causerisk,$year,$country)
+	{
+		// Create a new query object.
+		$query = $db->getQuery(true);
+		$query->select($db->quoteName(array('id')));
+		$query->from($db->quoteName('#__costbenefitprojection_health_data'));
+		$query->where($db->quoteName('causerisk') . ' = '.(int) $causerisk);
+		$query->where($db->quoteName('year') . ' = '. (int) $year);
+		$query->where($db->quoteName('country') . ' ='. (int) $country);
+		$db->setQuery($query);
+		$db->execute();
+		if ($db->getNumRows())
+		{
+			return $db->loadResult();
+		}
+		return false;
+	}
+
+	/**
+	* Save the data from the file to the database
+	*
+	* @param array  $data The values to save
+	*
+	* @return  boolean false on failure
+	*
+	**/
+	protected function saveBasic($data)
 	{
 		// import the data if there is any
 		if(CostbenefitprojectionHelper::checkArray($data['array']))

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.1
-	@build			14th May, 2016
+	@build			22nd May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		country.php
@@ -1218,6 +1218,12 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 			$metadata = new JRegistry;
 			$metadata->loadArray($data['metadata']);
 			$data['metadata'] = (string) $metadata;
+		}
+
+		// Set the empty causesrisks item to data
+		if (!isset($data['causesrisks']))
+		{
+			$data['causesrisks'] = '';
 		} 
 
 		// Set the causesrisks string to JSON string.

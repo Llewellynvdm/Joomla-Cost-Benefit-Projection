@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.1
-	@build			14th May, 2016
+	@build			22nd May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		service_provider.php
@@ -985,6 +985,12 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 			$metadata = new JRegistry;
 			$metadata->loadArray($data['metadata']);
 			$data['metadata'] = (string) $metadata;
+		}
+
+		// Set the empty testcompanies item to data
+		if (!isset($data['testcompanies']))
+		{
+			$data['testcompanies'] = '';
 		} 
 
 		// Set the testcompanies string to JSON string.
