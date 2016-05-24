@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.1
-	@build			22nd May, 2016
+	@build			24th May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -694,6 +694,30 @@ abstract class CostbenefitprojectionHelper
 		}
 		// close file.
 		fclose($fh);
+		return false;
+	}
+
+	/**
+	* Get CSV Headers
+	*/
+	public static function getFileHeadersCSV($path)
+	{
+		// set the headers
+		if(($handle = fopen($path, 'r')) !== false)
+		{
+			$result = fgetcsv($handle);
+			fclose($handle);
+			if (self::checkArray($result))
+			{
+				$key = 'A';
+				foreach ($result as $header)
+				{
+					$headers[$key] = $header;
+					$key++;
+				}
+				return $headers;
+			}
+		}
 		return false;
 	}
 	/**

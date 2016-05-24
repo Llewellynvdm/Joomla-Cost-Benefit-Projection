@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.1
-	@build			22nd May, 2016
+	@build			24th May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -85,9 +85,20 @@ class CostbenefitprojectionViewImport_health_data_sets extends JViewLegacy
 					"sex_name" => JText::_('COM_COSTBENEFITPROJECTION_GENDER_NAME'),
 					"rt_mean" => JText::_('COM_COSTBENEFITPROJECTION_RT_MEAN_VALUE'),
 					"metric" => JText::_('COM_COSTBENEFITPROJECTION_METRIC'),
-					"metric_name" => JText::_('COM_COSTBENEFITPROJECTION_METRIC_NAME'));
-			$this->headers	= CostbenefitprojectionHelper::getFileHeaders($this->dataType);
-			$this->years		= range(1990,2030);
+					"metric_name" => JText::_('COM_COSTBENEFITPROJECTION_METRIC_NAME'));	
+			// make sure these files are loaded		
+			JLoader::import('PHPExcel', JPATH_COMPONENT_ADMINISTRATOR . '/helpers');
+			$package		= $session->get('package', null);
+			$package		= json_decode($package, true);
+			$inputFileType	= PHPExcel_IOFactory::identify($package['dir']);
+			if ('csv' == trim(strtolower($inputFileType),'.'))
+			{
+				$this->headers	= CostbenefitprojectionHelper::getFileHeadersCSV($package['dir']);
+			}
+			else
+			{
+				$this->headers	= CostbenefitprojectionHelper::getFileHeaders($this->dataType);
+			}
 			// set active tab
 			if (in_array('rt_mean', $this->headers) || in_array('metric', $this->headers))
 			{

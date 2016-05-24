@@ -246,7 +246,7 @@
 			readonly="false"
 			disabled="false"
 			required="true"
-			filter="INT"
+			filter="FLOAT"
 			message="Error! Please add total number of medical turnovers for females here."
 			hint="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_FEMALES_HINT"
 		/>
@@ -314,7 +314,7 @@
 			readonly="false"
 			disabled="false"
 			required="true"
-			filter="INT"
+			filter="FLOAT"
 			message="Error! Please add total number of medical turnovers for males here."
 			hint="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_MALES_HINT"
 		/>

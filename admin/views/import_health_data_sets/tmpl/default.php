@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.1
-	@build			22nd May, 2016
+	@build			24th May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
@@ -55,7 +55,7 @@ JHtml::_('script', 'system/core.js', false, true);
 	{
 		var form = document.getElementById('adminForm');
 		var error = false;
-		var therequired = [<?php $i = 0; foreach($this->headerListAdv as $name => $title) { echo ($i != 0)? ', "adv_vdm_'.$name.'"':'"adv_vdm_'.$name.'"'; $i++; } ?>,"adv_vdm_selection_years"];
+		var therequired = [<?php $i = 0; foreach($this->headerListAdv as $name => $title) { echo ($i != 0)? ', "adv_vdm_'.$name.'"':'"adv_vdm_'.$name.'"'; $i++; } ?>];
 		for(i = 0; i < therequired.length; i++)
 		{
 			if(jQuery('#'+therequired[i]).val() == "" )
