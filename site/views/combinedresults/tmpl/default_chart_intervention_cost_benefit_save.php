@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.1
-	@build			24th May, 2016
+	@build			26th May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_chart_intervention_cost_benefit_save.php
@@ -38,7 +38,7 @@ if(isset($this->results->interventions) && CostbenefitprojectionHelper::checkArr
 					$rowArray[] = array('c' => array(
 							array('v' => $item->name),
 							array('v' => round($item->{'cost_of_problem_'.$scale}), 'f' => $item->{'costmoney_of_problem_'.$scale}), 
-							array('v' => $item->_cost, 'f' => $item->costmoney), 
+							array('v' => $item->cost, 'f' => $item->costmoney), 
 							array('v' => $item->{'benefit_'.$scale}, 'f' => $item->{'benefitmoney_'.$scale}), 
 							array('v' => $item->{'net_benefit_'.$scale}, 'f' => $item->{'net_benefitmoney_'.$scale})
 					));

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.1
-	@build			24th May, 2016
+	@build			26th May, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -156,6 +156,7 @@ class CostbenefitprojectionViewCompanyresults extends JViewLegacy
 		$this->document->addStyleSheet(JURI::root(true) ."/administrator/components/com_costbenefitprojection/assets/css/dashboard.css");
 		// add custom js
 		$this->document->addScript(JURI::root(true)  .'/media/com_costbenefitprojection/js/chartMenu.js');
+		$this->document->addScript(JURI::root(true)  .'/media/com_costbenefitprojection/js/table2excel.js');
 		// set chart stuff
 		$this->Chart['backgroundColor'] = $this->params->get('admin_chartbackground');
 		$this->Chart['width'] = $this->params->get('admin_mainwidth');
