@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.1
-	@build			26th May, 2016
+	@version		3.4.2
+	@build			27th June, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -1137,9 +1137,15 @@ abstract class CostbenefitprojectionHelper
 		$db = JFactory::getDbo();
 		// Create a new query object.
 		$query = $db->getQuery(true);
-
-		$query->select($db->quoteName(array($what)));
-		$query->from($db->quoteName('#__'.$main.'_'.$table));
+		$query->select($db->quoteName(array($what)));		
+		if (empty($table))
+		{
+			$query->from($db->quoteName('#__'.$main));
+		}
+		else
+		{
+			$query->from($db->quoteName('#__'.$main.'_'.$table));
+		}
 		if (is_numeric($where))
 		{
 			$query->where($db->quoteName($whereString) . ' '.$operator.' '.(int) $where);

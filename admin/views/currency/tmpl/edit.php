@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.1
-	@build			26th May, 2016
+	@version		3.4.2
+	@build			27th June, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -27,7 +27,7 @@ JHtml::_('formbehavior.chosen', 'select');
 JHtml::_('behavior.keepalive');
 $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 ?>
-
+<div id="costbenefitprojection_loader">
 <form action="<?php echo JRoute::_('index.php?option=com_costbenefitprojection&layout=edit&id='.(int) $this->item->id.$this->referral); ?>" method="post" name="adminForm" id="adminForm" class="form-validate" enctype="multipart/form-data">
 
 	<?php echo JLayoutHelper::render('currency.details_above', $this); ?><div class="form-horizontal">
@@ -85,3 +85,4 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 	</div>
 </div>
 </form>
+</div>

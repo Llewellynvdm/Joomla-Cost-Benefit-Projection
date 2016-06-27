@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.1
-	@build			26th May, 2016
+	@version		3.4.2
+	@build			27th June, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_batch_footer.php
@@ -22,7 +22,7 @@ defined('_JEXEC') or die('Restricted access');
 
 ?>
 <!-- clear the batch values if cancel -->
-<button class="btn" type="button" onclick="###BATCH_ONCLICK_CANCEL_SCRIPT###" data-dismiss="modal">
+<button class="btn" type="button" onclick="" data-dismiss="modal">
 	<?php echo JText::_('JCANCEL'); ?>
 </button>
 <!-- post the batch values if process -->

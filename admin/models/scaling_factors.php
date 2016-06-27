@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.1
-	@build			26th May, 2016
+	@version		3.4.2
+	@build			27th June, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		scaling_factors.php
@@ -247,6 +247,8 @@ class CostbenefitprojectionModelScaling_factors extends JModelList
 		// setup the query
 		if (CostbenefitprojectionHelper::checkArray($pks))
 		{
+			// Set a value to know this is exporting method.
+			$_export = true;
 			// Get the user object.
 			$user = JFactory::getUser();
 			// Create a new query object.

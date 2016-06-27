@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.1
-	@build			26th May, 2016
+	@version		3.4.2
+	@build			27th June, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		serviceprovider.php
@@ -75,7 +75,12 @@ class JFormFieldServiceprovider extends JFormFieldList
 			if ($user->authorise('service_provider.create', 'com_costbenefitprojection'))
 			{
 				// build Create button
-				$button[] = '<a id="'.$buttonName.'Create" class="btn btn-small btn-success hasTooltip" title="'.JText::sprintf('COM_COSTBENEFITPROJECTION_CREATE_NEW_S', CostbenefitprojectionHelper::safeString($buttonName, 'W')).'" style="border-radius: 0px 4px 4px 0px; padding: 4px 4px 4px 7px;"
+				$buttonNamee = trim($buttonName);
+				$buttonNamee = preg_replace('/_+/', ' ', $buttonNamee);
+				$buttonNamee = preg_replace('/\s+/', ' ', $buttonNamee);
+				$buttonNamee = preg_replace("/[^A-Za-z ]/", '', $buttonNamee);
+				$buttonNamee = ucfirst(strtolower($buttonNamee));
+				$button[] = '<a id="'.$buttonName.'Create" class="btn btn-small btn-success hasTooltip" title="'.JText::sprintf('COM_COSTBENEFITPROJECTION_CREATE_NEW_S', $buttonNamee).'" style="border-radius: 0px 4px 4px 0px; padding: 4px 4px 4px 7px;"
 					href="index.php?option=com_costbenefitprojection&amp;view=service_provider&amp;layout=edit'.$ref.'" >
 					<span class="icon-new icon-white"></span></a>';
 			}
@@ -83,7 +88,12 @@ class JFormFieldServiceprovider extends JFormFieldList
 			if (($buttonName == 'service_provider' || $buttonName == 'service_providers') && $user->authorise('service_provider.edit', 'com_costbenefitprojection'))
 			{
 				// build edit button
-				$button[] = '<a id="'.$buttonName.'Edit" class="btn btn-small hasTooltip" title="'.JText::sprintf('COM_COSTBENEFITPROJECTION_EDIT_S', CostbenefitprojectionHelper::safeString($buttonName, 'W')).'" style="display: none; padding: 4px 4px 4px 7px;" href="#" >
+				$buttonNamee = trim($buttonName);
+				$buttonNamee = preg_replace('/_+/', ' ', $buttonNamee);
+				$buttonNamee = preg_replace('/\s+/', ' ', $buttonNamee);
+				$buttonNamee = preg_replace("/[^A-Za-z ]/", '', $buttonNamee);
+				$buttonNamee = ucfirst(strtolower($buttonNamee));
+				$button[] = '<a id="'.$buttonName.'Edit" class="btn btn-small hasTooltip" title="'.JText::sprintf('COM_COSTBENEFITPROJECTION_EDIT_S', $buttonNamee).'" style="display: none; padding: 4px 4px 4px 7px;" href="#" >
 					<span class="icon-edit"></span></a>';
 				// build script
 				$script[] = "
@@ -113,7 +123,7 @@ class JFormFieldServiceprovider extends JFormFieldList
 					}";
 			}
 			// check if button was created for service_provider field.
-			if (CostbenefitprojectionHelper::checkArray($button))
+			if (is_array($button) && count($button) > 0)
 			{
 				// Add some final script
 				$script[] = "

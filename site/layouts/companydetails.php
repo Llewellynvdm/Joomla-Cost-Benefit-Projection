@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.1
-	@build			26th May, 2016
+	@version		3.4.2
+	@build			27th June, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		companydetails.php
@@ -32,11 +32,15 @@ if (isset($displayData->causesrisks) && CostbenefitprojectionHelper::checkArray(
 {
 	$causesrisks = '';
 	$body = '';
-	$head = array();
+	$keys = array(
+		'name' => JText::_('COM_COSTBENEFITPROJECTION_NAME'), 'description' => JText::_('COM_COSTBENEFITPROJECTION_DESCRIPTION'),
+		'ref' => JText::_('REF'),'importname' => JText::_('COM_COSTBENEFITPROJECTION_FULL_NAME'));
+	$getValues = array('name','description','ref','importname');
+	// header switces
+	$dataSwitch = array('name' => ' data-toggle="true"','description' => ' data-hide="phone"', 'ref' => ' data-hide="phone,tablet"', 'importname' => ' data-hide="all"');
 	foreach ($displayData->causesrisks as $id)
 	{
 		// get cause risk details
-		$getValues = array('name','description','ref');
 		$details = CostbenefitprojectionHelper::getCauseRiskDetails($id,$getValues);
 		if (CostbenefitprojectionHelper::checkObject($details))
 		{
@@ -63,8 +67,18 @@ if (isset($displayData->causesrisks) && CostbenefitprojectionHelper::checkArray(
 			$body .= $row;
 		}
 	}
-	$head = '<th data-toggle="true">'.implode('</th><th data-hide="phone,tablet">', array_map('setHeaderString',array_keys((array)$details))).'</th>';
-	$causesrisks .= '<table class="footable metro-blue" data-page-size="10"><thead><tr>'.$head.'</li></tr></thead><tbody>'.$body.'</tbody><tfoot class="hide-if-no-paging"><tr><td colspan="3"><div class="pagination pagination-centered"></div></td></tr></tfoot></table>';
+	$head = '';
+	foreach ($keys as $key => $header)
+	{
+		$head .= '<th';
+		if (array_key_exists($key, $dataSwitch))
+		{
+			// this should be save since all data passed is internal
+			$head .= $dataSwitch[$key];
+		}		
+		$head .= '>'.  $header.'</th>';
+	}
+	$causesrisks .= '<table class="footable metro-blue toggle-circle" data-page-size="10"><thead><tr>'.$head.'</li></tr></thead><tbody>'.$body.'</tbody><tfoot class="hide-if-no-paging"><tr><td colspan="4"><div class="pagination pagination-centered"></div></td></tr></tfoot></table>';
 }
 // setup the age groups display
 $agepercents = '<div class="uk-panel uk-width-1-1"><div class="uk-alert">'.JText::_('COM_COSTBENEFITPROJECTION_NO_AGE_GROUPS_HAS_BEEN_SET').'</div></div>';

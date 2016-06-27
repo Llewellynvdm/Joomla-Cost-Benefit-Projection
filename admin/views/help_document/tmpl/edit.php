@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.1
-	@build			26th May, 2016
+	@version		3.4.2
+	@build			27th June, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -27,7 +27,29 @@ JHtml::_('formbehavior.chosen', 'select');
 JHtml::_('behavior.keepalive');
 $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 ?>
-
+<script type="text/javascript">
+	// waiting spinner
+	var outerDiv = jQuery('body');
+	jQuery('<div id="loading"></div>')
+		.css("background", "rgba(255, 255, 255, .8) url('components/com_costbenefitprojection/assets/images/import.gif') 50% 15% no-repeat")
+		.css("top", outerDiv.position().top - jQuery(window).scrollTop())
+		.css("left", outerDiv.position().left - jQuery(window).scrollLeft())
+		.css("width", outerDiv.width())
+		.css("height", outerDiv.height())
+		.css("position", "fixed")
+		.css("opacity", "0.80")
+		.css("-ms-filter", "progid:DXImageTransform.Microsoft.Alpha(Opacity = 80)")
+		.css("filter", "alpha(opacity = 80)")
+		.css("display", "none")
+		.appendTo(outerDiv);
+	jQuery('#loading').show();
+	// when page is ready remove and show
+	jQuery(window).load(function() {
+		jQuery('#costbenefitprojection_loader').fadeIn('fast');
+		jQuery('#loading').hide();
+	});
+</script>
+<div id="costbenefitprojection_loader" style="display: none;">
 <form action="<?php echo JRoute::_('index.php?option=com_costbenefitprojection&layout=edit&id='.(int) $this->item->id.$this->referral); ?>" method="post" name="adminForm" id="adminForm" class="form-validate" enctype="multipart/form-data">
 
 	<?php echo JLayoutHelper::render('help_document.details_above', $this); ?><div class="form-horizontal">
@@ -93,6 +115,7 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 <div class="clearfix"></div>
 <?php echo JLayoutHelper::render('help_document.details_under', $this); ?>
 </form>
+</div>
 
 <script type="text/javascript">
 

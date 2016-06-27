@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.1
-	@build			26th May, 2016
+	@version		3.4.2
+	@build			27th June, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -573,7 +573,7 @@ abstract class CostbenefitprojectionHelper
 				'path' => JPATH_ADMINISTRATOR . '/components/com_users/models/users.php',
 				'replace' => array(
 					"JModelList\n{\n\t/**" => "JModelList\n{\n\t/*\n\t* A VDM hack to restrict users based on user's relation to their component\n\t*\n\t* This just proofs the the hack is inplace\n\t*/\n\tpublic \$restrictUsers = true;\n\n\t/**",
-					"\$excluded = json_decode(base64_decode(\$app->input->get('excluded', '', 'BASE64')));" => "\$excluded = json_decode(base64_decode(\$app->input->get('excluded', '', 'BASE64')));\n\t\t// add the global exclude for costbenefitprojection\n\t\tif (\$this->restrictUsers)\n\t\t{\n\t\t\tJLoader::register('CostbenefitprojectionHelper', JPATH_ADMINISTRATOR . '/components/com_costbenefitprojection/helpers/costbenefitprojection.php');\n\t\t\t// check if the component is installed\n\t\t\tif (class_exists('CostbenefitprojectionHelper'))\n\t\t\t{\n\t\t\t\t\$excludedGlobal = CostbenefitprojectionHelper::notHisUsers();\n\t\t\t\tif (\$excludedGlobal)\n\t\t\t\t{\n\t\t\t\t\t\$excluded = CostbenefitprojectionHelper::mergeArrays(array(\$excludedGlobal,\$excluded));\n\t\t\t\t}\n\t\t\t}\n\t\t}")
+					"\$excluded = json_decode(base64_decode(\$app->input->get('excluded', '', 'BASE64')));" => "\$excluded = json_decode(base64_decode(\$app->input->get('excluded', '', 'BASE64')));\n\t\t// add the global exclude for costbenefitprojection\n\t\tif (\$this->restrictUsers && !JFactory::getUser()->authorise('core.options', 'com_costbenefitprojection'))\n\t\t{\n\t\t\tJLoader::register('CostbenefitprojectionHelper', JPATH_ADMINISTRATOR . '/components/com_costbenefitprojection/helpers/costbenefitprojection.php');\n\t\t\t// check if the component is installed\n\t\t\tif (class_exists('CostbenefitprojectionHelper'))\n\t\t\t{\n\t\t\t\t\$excludedGlobal = CostbenefitprojectionHelper::notHisUsers();\n\t\t\t\tif (\$excludedGlobal)\n\t\t\t\t{\n\t\t\t\t\t\$excluded = CostbenefitprojectionHelper::mergeArrays(array(\$excludedGlobal,\$excluded));\n\t\t\t\t}\n\t\t\t}\n\t\t}")
 			),
 			1 => array(
 				'path' => JPATH_ADMINISTRATOR . '/components/com_users/models/user.php',
@@ -603,7 +603,7 @@ abstract class CostbenefitprojectionHelper
 		}
 
 		// The user should not be able to set the requireReset value on their own account",
-					"\$user->authorise('core.manage', 'com_users')" => "\$user->authorise('core.manage', 'com_users') &&  \$user->authorise('core.admin', 'com_costbenefitprojection')")
+					"\$user->authorise('core.manage', 'com_users')" => "\$user->authorise('core.manage', 'com_users') &&  \$user->authorise('core.options', 'com_costbenefitprojection')")
 			),
 			2 => array(
 				'path' => JPATH_ADMINISTRATOR . '/components/com_users/controllers/user.php',
@@ -628,12 +628,12 @@ abstract class CostbenefitprojectionHelper
 			3 => array(
 				'path' => JPATH_ADMINISTRATOR . '/components/com_users/views/users/view.html.php',
 				'replace' => array(
-					"if (\$canDo->get('core.create'))" => "if (\$canDo->get('core.create') && \$user->authorise('core.admin', 'com_costbenefitprojection'))")
+					"if (\$canDo->get('core.create'))" => "if (\$canDo->get('core.create') && \$user->authorise('core.options', 'com_costbenefitprojection'))")
 			),
 			4 => array(
 				'path' => JPATH_ADMINISTRATOR . '/components/com_users/views/users/view.html.php',
 				'replace' => array(					
-					"// Add a batch button\n\t\tif (\$user->authorise('core.create', 'com_users')" => "// Add a batch button only if user also has admin right in com_costbenefitprojection\n\t\tif (\$user->authorise('core.create', 'com_users')\n\t\t\t&& \$user->authorise('core.admin', 'com_costbenefitprojection')")
+					"// Add a batch button\n\t\tif (\$user->authorise('core.create', 'com_users')" => "// Add a batch button only if user also has admin right in com_costbenefitprojection\n\t\tif (\$user->authorise('core.create', 'com_users')\n\t\t\t&& \$user->authorise('core.options', 'com_costbenefitprojection')")
 			)
 		);
 		// check if hack is still set
@@ -1310,9 +1310,15 @@ abstract class CostbenefitprojectionHelper
 		$db = JFactory::getDbo();
 		// Create a new query object.
 		$query = $db->getQuery(true);
-
 		$query->select($db->quoteName(array($what)));
-		$query->from($db->quoteName('#__'.$main.'_'.$table));
+		if (empty($table))
+		{
+			$query->from($db->quoteName('#__'.$main));
+		}
+		else
+		{
+			$query->from($db->quoteName('#__'.$main.'_'.$table));
+		}
 		if (is_numeric($where))
 		{
 			$query->where($db->quoteName($whereString) . ' '.$operator.' '.(int) $where);

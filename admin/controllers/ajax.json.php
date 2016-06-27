@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.1
-	@build			26th May, 2016
+	@version		3.4.2
+	@build			27th June, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		ajax.json.php
@@ -67,9 +67,9 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 						{
 							$result = false;
 						}
-						if(array_key_exists('callback',$_GET))
+						if($callback = $jinput->get('callback', null, 'CMD'))
 						{
-							echo $_GET['callback'] . "(".json_encode($result).");";
+							echo $callback . "(".json_encode($result).");";
 						}
 						elseif($returnRaw)
 						{
@@ -82,9 +82,9 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 					}
 					catch(Exception $e)
 					{
-						if(array_key_exists('callback',$_GET))
+						if($callback = $jinput->get('callback', null, 'CMD'))
 						{
-							echo $_GET['callback']."(".json_encode($e).");";
+							echo $callback."(".json_encode($e).");";
 						}
 						else
 						{
@@ -107,9 +107,9 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 						{
 							$result = false;
 						}
-						if(array_key_exists('callback',$_GET))
+						if($callback = $jinput->get('callback', null, 'CMD'))
 						{
-							echo $_GET['callback'] . "(".json_encode($result).");";
+							echo $callback . "(".json_encode($result).");";
 						}
 						elseif($returnRaw)
 						{
@@ -122,9 +122,9 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 					}
 					catch(Exception $e)
 					{
-						if(array_key_exists('callback',$_GET))
+						if($callback = $jinput->get('callback', null, 'CMD'))
 						{
-							echo $_GET['callback']."(".json_encode($e).");";
+							echo $callback."(".json_encode($e).");";
 						}
 						else
 						{
@@ -146,9 +146,9 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 						{
 							$result = false;
 						}
-						if(array_key_exists('callback',$_GET))
+						if($callback = $jinput->get('callback', null, 'CMD'))
 						{
-							echo $_GET['callback'] . "(".json_encode($result).");";
+							echo $callback . "(".json_encode($result).");";
 						}
 						elseif($returnRaw)
 						{
@@ -161,9 +161,9 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 					}
 					catch(Exception $e)
 					{
-						if(array_key_exists('callback',$_GET))
+						if($callback = $jinput->get('callback', null, 'CMD'))
 						{
-							echo $_GET['callback']."(".json_encode($e).");";
+							echo $callback."(".json_encode($e).");";
 						}
 						else
 						{
@@ -175,9 +175,9 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 		}
                 else
                 {
-			if(array_key_exists('callback',$_GET))
+			if($callback = $jinput->get('callback', null, 'CMD'))
                         {
-				echo $_GET['callback']."(".json_encode(false).");";
+				echo $callback."(".json_encode(false).");";
 			}
                         else
                         {
