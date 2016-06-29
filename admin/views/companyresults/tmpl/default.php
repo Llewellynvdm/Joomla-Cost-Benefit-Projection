@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.2
-	@build			27th June, 2016
+	@build			29th June, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
@@ -39,7 +39,8 @@ JHtml::_('behavior.keepalive');
 		}
 	}
 </script>
-<form action="<?php echo JRoute::_('index.php?option=com_costbenefitprojection&view=companyresults&id='.$this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate" enctype="multipart/form-data">
+<?php $urlId = (isset($this->item->id)) ? '&id='. (int) $this->item->id : ''; ?>
+<form action="<?php echo JRoute::_('index.php?option=com_costbenefitprojection&view=companyresults'.$urlId); ?>" method="post" name="adminForm" id="adminForm" class="form-validate" enctype="multipart/form-data">
         <input type="hidden" name="task" value="" />
         <?php echo JHtml::_('form.token'); ?>
 </form>

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.2
-	@build			27th June, 2016
+	@build			29th June, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		ajax.json.php
@@ -175,7 +175,7 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 		}
                 else
                 {
-			if($callback = $jinput->get('callback', null, 'CMD')
+			if($callback = $jinput->get('callback', null, 'CMD'))
                         {
 				echo $callback."(".json_encode(false).");";
 			}
