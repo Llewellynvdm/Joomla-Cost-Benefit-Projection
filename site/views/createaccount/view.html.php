@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.2
-	@build			29th June, 2016
+	@build			13th July, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -44,7 +44,7 @@ class CostbenefitprojectionViewCreateaccount extends JViewLegacy
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
-			JError::raiseWarning(500, implode("\n", $errors));
+			JError::raiseError(500, implode("\n", $errors));
 			return false;
 		}
 

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.2
-	@build			29th June, 2016
+	@build			13th July, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -23,7 +23,7 @@ defined('_JEXEC') or die('Restricted access');
 // Access check.
 if (!JFactory::getUser()->authorise('core.manage', 'com_costbenefitprojection'))
 {
-	return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+	return JError::raiseWaring(404, JText::_('JERROR_ALERTNOAUTHOR'));
 };
 
 // Load cms libraries

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.2
-	@build			29th June, 2016
+	@build			13th July, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		createaccount.php
@@ -97,9 +97,10 @@ class CostbenefitprojectionModelCreateaccount extends JModelList
                 // check if this user has permission to access items
                 if (!$user->authorise('site.createaccount.access', 'com_costbenefitprojection'))
                 {
-			JError::raiseWarning(500, JText::_('Not authorised!'));
+			$app = JFactory::getApplication();
+			$app->enqueueMessage(JText::_('Not authorised!'), 'error');
 			// redirect away if not a correct (TODO for now we go to default view)
-			JFactory::getApplication()->redirect(JRoute::_('index.php?option=com_costbenefitprojection&view=cpanel'));
+			$app->redirect(JRoute::_('index.php?option=com_costbenefitprojection&view=cpanel'));
 			return false;
                 } 
 		// load parent items

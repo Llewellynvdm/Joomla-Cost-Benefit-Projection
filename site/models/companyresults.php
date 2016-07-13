@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.2
-	@build			29th June, 2016
+	@build			13th July, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		companyresults.php
@@ -90,9 +90,10 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
                 // check if this user has permission to access item
                 if (!$this->user->authorise('site.companyresults.access', 'com_costbenefitprojection'))
                 {
-			JError::raiseWarning(500, JText::_('Not authorised!'));
+			$app = JFactory::getApplication();
+			$app->enqueueMessage(JText::_('Not authorised!'), 'error');
 			// redirect away if not a correct (TODO for now we go to default view)
-			JFactory::getApplication()->redirect(JRoute::_('index.php?option=com_costbenefitprojection&view=cpanel'));
+			$app->redirect(JRoute::_('index.php?option=com_costbenefitprojection&view=cpanel'));
 			return false;
                 }
 		$this->userId		= $this->user->get('id');
@@ -171,9 +172,10 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 
 				if (empty($data))
 				{
+					$app = JFactory::getApplication();
 					// If no data is found redirect to default page and show warning.
-					JError::raiseWarning(500, JText::_('COM_COSTBENEFITPROJECTION_NOT_FOUND_OR_ACCESS_DENIED'));
-					JFactory::getApplication()->redirect('index.php?option=com_costbenefitprojection&view=cpanel');
+					$app->enqueueMessage(JText::_('COM_COSTBENEFITPROJECTION_NOT_FOUND_OR_ACCESS_DENIED'), 'warning');
+					$app->redirect('index.php?option=com_costbenefitprojection&view=cpanel');
 					return false;
 				}
 				if (!empty($data->medical_turnovers_females) && $advancedkey && !is_numeric($data->medical_turnovers_females) && $data->medical_turnovers_females === base64_encode(base64_decode($data->medical_turnovers_females, true)))
@@ -261,7 +263,7 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 				if ($e->getCode() == 404)
 				{
 					// Need to go thru the error handler to allow Redirect to work.
-					JError::raiseError(404, $e->getMessage());
+					JError::raiseWaring(404, $e->getMessage());
 				}
 				else
 				{

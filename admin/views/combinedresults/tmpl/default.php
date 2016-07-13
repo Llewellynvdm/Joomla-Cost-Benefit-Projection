@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.2
-	@build			29th June, 2016
+	@build			13th July, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
@@ -30,9 +30,9 @@ JHtml::_('behavior.keepalive');
 <script type="text/javascript">
 	Joomla.submitbutton = function(task) {
 		if (task == 'combinedresults.back') {
-                        parent.history.back();
+			parent.history.back();
 			return false;
-                } else {
+		} else {
 			var form = document.getElementById('adminForm');
 			form.task.value = task;
 			form.submit();

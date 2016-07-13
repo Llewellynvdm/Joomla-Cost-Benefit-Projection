@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.2
-	@build			29th June, 2016
+	@build			13th July, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -1694,7 +1694,7 @@ abstract class CostbenefitprojectionHelper
 
 			if (!$asset->check() || !$asset->store())
 			{
-				JError::raiseWarning(500, $asset->getError());
+				JFactory::getApplication()->enqueueMessage($asset->getError(), 'warning');
 				return false;
 			}
 			else

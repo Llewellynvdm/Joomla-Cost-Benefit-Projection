@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.2
-	@build			29th June, 2016
+	@build			13th July, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		datayear.php
@@ -125,16 +125,11 @@ class JFormFieldDatayear extends JFormFieldList
 			// check if button was created for health_data field.
 			if (is_array($button) && count($button) > 0)
 			{
-				// Add some final script
-				$script[] = "
-					jQuery(document).ready(function() {
-						jQuery('#jform_".$buttonName."').closest('.control-group').addClass('input-append');
-					});";
 				// Load the needed script.
 				$document = JFactory::getDocument();
 				$document->addScriptDeclaration(implode(' ',$script));
 				// return the button attached to input field.
-				return $html . implode('',$button);
+				return '<div class="input-append">' .$html . implode('',$button).'</div>';
 			}
 		}
 		return $html;

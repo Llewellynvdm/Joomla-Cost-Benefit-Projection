@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.2
-	@build			29th June, 2016
+	@build			13th July, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
@@ -23,6 +23,7 @@ defined('_JEXEC') or die('Restricted access');
 JHtml::_('jquery.framework');
 JHtml::_('bootstrap.tooltip');
 JHtml::_('script', 'system/core.js', false, true);
+JHtml::_('behavior.keepalive');
 ?>
 <script type="text/javascript">
 <?php if ($this->hasPackage && CostbenefitprojectionHelper::checkArray($this->headerList)) : ?>
