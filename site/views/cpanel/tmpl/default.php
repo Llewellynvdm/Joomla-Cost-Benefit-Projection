@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.2
-	@build			13th July, 2016
+	@build			11th August, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
@@ -208,6 +208,8 @@ function setIntervention($item)
 	}
 	return '<td><table class="uk-table  uk-table-hover uk-table-striped uk-table-condensed uk-hidden-small"><thead><tr><th>'.JText::_('COM_COSTBENEFITPROJECTION_CAUSERISK').'</th><th>'.JText::_('COM_COSTBENEFITPROJECTION_COST_PER_EMPLOYEE').'</th><th>'.JText::_('COM_COSTBENEFITPROJECTION_MORBIDITY_REDUCTION').'</th><th>'.JText::_('COM_COSTBENEFITPROJECTION_MORTALITY_REDUCTION').'</th></tr></thead><tbody><tr>'.implode('</tr><tr>',$bucket).'</tr></tbody></table><div class="uk-visible-small">'.implode('<br />',$bucketsmall).'</div></td>';
 }
+// get information url
+$information_url = $this->params->get('information_url', null);
 
 ?>
 <div class="uk-clearfix"><div class="uk-float-right"><?php echo $this->toolbar->render(); ?></div></div> 
@@ -278,14 +280,23 @@ function setIntervention($item)
 					<img style="display: block; margin-left: auto; margin-right: auto; vertical-align: middle;" src="<?php echo JRoute::_('media/com_costbenefitprojection/images/cbp_box.png'); ?>" alt="<?php echo JText::_('COM_COSTBENEFITPROJECTION_COST_BENEFIT_PROJECTION'); ?>"/>
 				</div>
 				<div class="uk-grid" data-uk-grid-match="{target:'.uk-panel'}" data-uk-grid-margin="">
-					<div class="uk-width-medium-1-2 uk-animation-scale-up">
+					<div class="uk-width-medium-1-<?php echo ($information_url) ? 3:2; ?> uk-animation-scale-up">
 						<div class="uk-panel uk-panel-box uk-text-center">
 						    <p><?php echo JText::_('COM_COSTBENEFITPROJECTION_TO_TRY_OUT_THE_TOOL_AND_DISCOVER_MORE'); ?></p>
 							<!-- This is a button toggling the modal -->
 								<button class="uk-button" data-uk-modal="{target:'#public'}"><?php echo JText::_('COM_COSTBENEFITPROJECTION_CLICK_HERE'); ?></button>
 						</div>
 					</div>
-					<div class="uk-width-medium-1-2 uk-animation-scale-up">
+					<?php if ($information_url): ?>
+					<div class="uk-width-medium-1-3 uk-animation-scale-up">
+						<div class="uk-panel uk-panel-box uk-text-center">
+							<p><?php echo JText::_('COM_COSTBENEFITPROJECTION_MORE_INFORMATION'); ?></p>
+							<!-- This is a button toggling the modal -->
+							<a class="uk-button" href="<?php echo $information_url; ?>"><?php echo JText::_('COM_COSTBENEFITPROJECTION_CLICK_HERE'); ?></a>
+						</div>
+					</div>
+					<?php endif; ?>
+					<div class="uk-width-medium-1-<?php echo ($information_url) ? 3:2; ?> uk-animation-scale-up">
 						<div class="uk-panel uk-panel-box uk-text-center">
 							<p><?php echo JText::_('COM_COSTBENEFITPROJECTION_MEMBER_LOGIN'); ?></p>
 							<!-- This is a button toggling the modal -->

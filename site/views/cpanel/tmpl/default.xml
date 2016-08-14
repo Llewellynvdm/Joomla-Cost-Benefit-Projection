@@ -5,4 +5,23 @@
 			<![CDATA[COM_COSTBENEFITPROJECTION_MENU_CPANEL_DESC]]>
 		</message>
 	</layout>
+	<!-- Adding page parameters -->
+	<fields name="params">
+		<fieldset name="basic" label="COM_COSTBENEFITPROJECTION">
+		<!-- Information_url Field. Type: Url. (joomla) -->
+		<field
+			type="url"
+			name="information_url"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_INFORMATION_URL_LABEL"
+			size="50"
+			maxlength="150"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_INFORMATION_URL_DESCRIPTION"
+			class="text_area"
+			filter="url"
+			validated="url"
+			message="Error! Please add information url here."
+			hint="COM_COSTBENEFITPROJECTION_CONFIG_INFORMATION_URL_HINT"
+		/>
+		</fieldset>
+	</fields>
 </metadata>

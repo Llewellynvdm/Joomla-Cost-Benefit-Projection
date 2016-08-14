@@ -687,6 +687,25 @@
 		/>
 	</fieldset>
 	<fieldset
+		name="cpanel_custom_config"
+		label="COM_COSTBENEFITPROJECTION_CONFIG_CPANEL">
+
+		<!-- Information_url Field. Type: Url. (joomla) -->
+		<field
+			type="url"
+			name="information_url"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_INFORMATION_URL_LABEL"
+			size="50"
+			maxlength="150"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_INFORMATION_URL_DESCRIPTION"
+			class="text_area"
+			filter="url"
+			validated="url"
+			message="Error! Please add information url here."
+			hint="COM_COSTBENEFITPROJECTION_CONFIG_INFORMATION_URL_HINT"
+		/>
+	</fieldset>
+	<fieldset
 		name="permissions"
 		label="JCONFIG_PERMISSIONS_LABEL"
 		description="JCONFIG_PERMISSIONS_DESC">
