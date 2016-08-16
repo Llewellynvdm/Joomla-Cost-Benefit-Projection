@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.2
-	@build			11th August, 2016
+	@build			16th August, 2016
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -105,4 +105,9 @@ jQuery('#adminForm').on('change', '#jform_company',function (e)
 
 });
 
+
+
+// add the calculator button
+var cal_button = '<br /><br /><a class="btn btn-small btn-success" href="https://www.staffhealthcbp.com/download/Scaling_Factor_Calculator_CBPT_3_0.xlsx"> <span class="icon-download icon-white"></span> Calculator </a>';
+jQuery('#jform_causerisk').closest('.controls').append(cal_button);
 </script>
