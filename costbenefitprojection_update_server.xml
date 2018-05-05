@@ -1,0 +1,325 @@
+<updates>
+	<update>
+		<name>Cost Benefit Projection</name>
+		<description>Cost Benefit Projection Tool.</description>
+		<element>com_costbenefitprojection</element>
+		<type>component</type>
+		<version>1.0.0</version>
+		<infourl title="Cost Benefit Projection!">http://www.vdm.io</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/namibia/CBP-Joomla-3-Component/archive/v1.0.0.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Llewellyn van der Merwe</maintainer>
+		<maintainerurl>http://www.vdm.io</maintainerurl>
+		<targetplatform name="joomla" version="3.*"/>
+	</update>
+	<update>
+		<name>Cost Benefit Projection</name>
+		<description>Cost Benefit Projection Tool.</description>
+		<element>com_costbenefitprojection</element>
+		<type>component</type>
+		<version>3.1.0</version>
+		<infourl title="Cost Benefit Projection!">http://www.vdm.io</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/namibia/CBP-Joomla-3-Component/archive/v3.1.0.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Llewellyn van der Merwe</maintainer>
+		<maintainerurl>http://www.vdm.io</maintainerurl>
+		<targetplatform name="joomla" version="3.*"/>
+	</update>
+	<update>
+		<name>Cost Benefit Projection</name>
+		<description>Cost Benefit Projection Tool.</description>
+		<element>com_costbenefitprojection</element>
+		<type>component</type>
+		<version>3.2.0</version>
+		<infourl title="Cost Benefit Projection!">http://www.vdm.io</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/namibia/CBP-Joomla-3-Component/archive/v3.2.0.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Llewellyn van der Merwe</maintainer>
+		<maintainerurl>http://www.vdm.io</maintainerurl>
+		<targetplatform name="joomla" version="3.*"/>
+	</update>
+	<update>
+		<name>Cost Benefit Projection</name>
+		<description>Cost Benefit Projection Tool.</description>
+		<element>com_costbenefitprojection</element>
+		<type>component</type>
+		<version>3.3.0</version>
+		<infourl title="Cost Benefit Projection!">http://www.vdm.io</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/namibia/CBP-Joomla-3-Component/archive/v3.3.0.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Llewellyn van der Merwe</maintainer>
+		<maintainerurl>http://www.vdm.io</maintainerurl>
+		<targetplatform name="joomla" version="3.*"/>
+	</update>
+	<update>
+		<name>Cost Benefit Projection</name>
+		<description>Cost Benefit Projection Tool.</description>
+		<element>com_costbenefitprojection</element>
+		<type>component</type>
+		<version>3.3.2</version>
+		<infourl title="Cost Benefit Projection!">http://www.vdm.io</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/namibia/CBP-Joomla-3-Component/archive/v3.3.2.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Llewellyn van der Merwe</maintainer>
+		<maintainerurl>http://www.vdm.io</maintainerurl>
+		<targetplatform name="joomla" version="3.*"/>
+	</update>
+	<update>
+		<name>Cost Benefit Projection</name>
+		<description>Cost Benefit Projection Tool.</description>
+		<element>com_costbenefitprojection</element>
+		<type>component</type>
+		<version>3.3.3</version>
+		<infourl title="Cost Benefit Projection!">http://www.vdm.io</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/namibia/CBP-Joomla-3-Component/archive/v3.3.3.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Llewellyn van der Merwe</maintainer>
+		<maintainerurl>http://www.vdm.io</maintainerurl>
+		<targetplatform name="joomla" version="3.*"/>
+	</update>
+	<update>
+		<name>Cost Benefit Projection</name>
+		<description>Cost Benefit Projection Tool.</description>
+		<element>com_costbenefitprojection</element>
+		<type>component</type>
+		<version>3.3.4</version>
+		<infourl title="Cost Benefit Projection!">http://www.vdm.io</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/namibia/CBP-Joomla-3-Component/archive/v3.3.4.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Llewellyn van der Merwe</maintainer>
+		<maintainerurl>http://www.vdm.io</maintainerurl>
+		<targetplatform name="joomla" version="3.*"/>
+	</update>
+	<update>
+		<name>Cost Benefit Projection</name>
+		<description>Cost Benefit Projection Tool.</description>
+		<element>com_costbenefitprojection</element>
+		<type>component</type>
+		<version>3.3.5</version>
+		<infourl title="Cost Benefit Projection!">http://www.vdm.io</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/namibia/CBP-Joomla-3-Component/archive/v3.3.5.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Llewellyn van der Merwe</maintainer>
+		<maintainerurl>http://www.vdm.io</maintainerurl>
+		<targetplatform name="joomla" version="3.*"/>
+	</update>
+	<update>
+		<name>Cost Benefit Projection</name>
+		<description>Cost Benefit Projection Tool.</description>
+		<element>com_costbenefitprojection</element>
+		<type>component</type>
+		<version>3.3.6</version>
+		<infourl title="Cost Benefit Projection!">http://www.vdm.io</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/namibia/CBP-Joomla-3-Component/archive/v3.3.6.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Llewellyn van der Merwe</maintainer>
+		<maintainerurl>http://www.vdm.io</maintainerurl>
+		<targetplatform name="joomla" version="3.*"/>
+	</update>
+	<update>
+		<name>Cost Benefit Projection</name>
+		<description>Cost Benefit Projection Tool.</description>
+		<element>com_costbenefitprojection</element>
+		<type>component</type>
+		<version>3.3.7</version>
+		<infourl title="Cost Benefit Projection!">http://www.vdm.io</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/namibia/CBP-Joomla-3-Component/archive/v3.3.7.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Llewellyn van der Merwe</maintainer>
+		<maintainerurl>http://www.vdm.io</maintainerurl>
+		<targetplatform name="joomla" version="3.*"/>
+	</update>
+	<update>
+		<name>Cost Benefit Projection</name>
+		<description>Cost Benefit Projection Tool.</description>
+		<element>com_costbenefitprojection</element>
+		<type>component</type>
+		<version>3.3.8</version>
+		<infourl title="Cost Benefit Projection!">http://www.vdm.io</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/namibia/CBP-Joomla-3-Component/archive/v3.3.8.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Llewellyn van der Merwe</maintainer>
+		<maintainerurl>http://www.vdm.io</maintainerurl>
+		<targetplatform name="joomla" version="3.*"/>
+	</update>
+	<update>
+		<name>Cost Benefit Projection</name>
+		<description>Cost Benefit Projection Tool.</description>
+		<element>com_costbenefitprojection</element>
+		<type>component</type>
+		<version>3.3.9</version>
+		<infourl title="Cost Benefit Projection!">http://www.vdm.io</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/namibia/CBP-Joomla-3-Component/archive/v3.3.9.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Llewellyn van der Merwe</maintainer>
+		<maintainerurl>http://www.vdm.io</maintainerurl>
+		<targetplatform name="joomla" version="3.*"/>
+	</update>
+	<update>
+		<name>Cost Benefit Projection</name>
+		<description>Cost Benefit Projection Tool.</description>
+		<element>com_costbenefitprojection</element>
+		<type>component</type>
+		<version>3.3.10</version>
+		<infourl title="Cost Benefit Projection!">http://www.vdm.io</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/namibia/CBP-Joomla-3-Component/archive/v3.3.10.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Llewellyn van der Merwe</maintainer>
+		<maintainerurl>http://www.vdm.io</maintainerurl>
+		<targetplatform name="joomla" version="3.*"/>
+	</update>
+	<update>
+		<name>Cost Benefit Projection</name>
+		<description>Cost Benefit Projection Tool.</description>
+		<element>com_costbenefitprojection</element>
+		<type>component</type>
+		<version>3.3.11</version>
+		<infourl title="Cost Benefit Projection!">http://www.vdm.io</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/namibia/CBP-Joomla-3-Component/archive/v3.3.11.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Llewellyn van der Merwe</maintainer>
+		<maintainerurl>http://www.vdm.io</maintainerurl>
+		<targetplatform name="joomla" version="3.*"/>
+	</update>
+	<update>
+		<name>Cost Benefit Projection</name>
+		<description>Cost Benefit Projection Tool.</description>
+		<element>com_costbenefitprojection</element>
+		<type>component</type>
+		<version>3.3.12</version>
+		<infourl title="Cost Benefit Projection!">http://www.vdm.io</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/namibia/CBP-Joomla-3-Component/archive/v3.3.12.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Llewellyn van der Merwe</maintainer>
+		<maintainerurl>http://www.vdm.io</maintainerurl>
+		<targetplatform name="joomla" version="3.*"/>
+	</update>
+	<update>
+		<name>Cost Benefit Projection</name>
+		<description>Cost Benefit Projection Tool.</description>
+		<element>com_costbenefitprojection</element>
+		<type>component</type>
+		<version>3.4.0</version>
+		<infourl title="Cost Benefit Projection!">http://www.vdm.io</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/namibia/CBP-Joomla-3-Component/archive/v3.4.0.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Llewellyn van der Merwe</maintainer>
+		<maintainerurl>http://www.vdm.io</maintainerurl>
+		<targetplatform name="joomla" version="3.*"/>
+	</update>
+	<update>
+		<name>Cost Benefit Projection</name>
+		<description>Cost Benefit Projection Tool.</description>
+		<element>com_costbenefitprojection</element>
+		<type>component</type>
+		<version>3.4.1</version>
+		<infourl title="Cost Benefit Projection!">http://www.vdm.io</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/namibia/CBP-Joomla-3-Component/archive/v3.4.1.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Llewellyn van der Merwe</maintainer>
+		<maintainerurl>http://www.vdm.io</maintainerurl>
+		<targetplatform name="joomla" version="3.*"/>
+	</update>
+	<update>
+		<name>Cost Benefit Projection</name>
+		<description>Cost Benefit Projection Tool.</description>
+		<element>com_costbenefitprojection</element>
+		<type>component</type>
+		<version>3.4.2</version>
+		<infourl title="Cost Benefit Projection!">http://www.vdm.io</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/namibia/CBP-Joomla-3-Component/archive/v3.4.2.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Llewellyn van der Merwe</maintainer>
+		<maintainerurl>http://www.vdm.io</maintainerurl>
+		<targetplatform name="joomla" version="3.*"/>
+	</update>
+	<update>
+		<name>Cost Benefit Projection</name>
+		<description>Cost Benefit Projection Tool.</description>
+		<element>com_costbenefitprojection</element>
+		<type>component</type>
+		<version>3.4.3</version>
+		<infourl title="Cost Benefit Projection!">http://www.vdm.io</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/namibia/CBP-Joomla-3-Component/releases/download/v3.4.3/CBP_v3.4.3.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<maintainer>Llewellyn van der Merwe</maintainer>
+		<maintainerurl>http://www.vdm.io</maintainerurl>
+		<targetplatform name="joomla" version="3.*"/>
+	</update>
+</updates>

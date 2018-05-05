@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 101 of this MVC
+	@build			29th June, 2016
+	@created		15th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -34,19 +34,12 @@ class CostbenefitprojectionViewCompany extends JViewLegacy
 	 */
 	public function display($tpl = null)
 	{
-		// Check for errors.
-		if (count($errors = $this->get('Errors')))
-                {
-			JError::raiseError(500, implode('<br />', $errors));
-			return false;
-		}
-
 		// Assign the variables
 		$this->form 		= $this->get('Form');
 		$this->item 		= $this->get('Item');
 		$this->script 		= $this->get('Script');
 		$this->state		= $this->get('State');
-                // get action permissions
+		// get action permissions
 		$this->canDo		= CostbenefitprojectionHelper::getActions('company',$this->item);
 		// get input
 		$jinput = JFactory::getApplication()->input;
@@ -54,24 +47,30 @@ class CostbenefitprojectionViewCompany extends JViewLegacy
 		$this->refid            = $jinput->get('refid', 0, 'int');
 		$this->referral         = '';
 		if ($this->refid)
-                {
-                        // return to the item that refered to this item
-                        $this->referral = '&ref='.(string)$this->ref.'&refid='.(int)$this->refid;
-                }
-                elseif($this->ref)
-                {
-                        // return to the list view that refered to this item
-                        $this->referral = '&ref='.(string)$this->ref;
-                }
+		{
+				// return to the item that refered to this item
+				$this->referral = '&ref='.(string)$this->ref.'&refid='.(int)$this->refid;
+		}
+		elseif($this->ref)
+		{
+				// return to the list view that refered to this item
+				$this->referral = '&ref='.(string)$this->ref;
+		}
 
 		// Get Linked view data
-		$this->vwcscaling_factors		= $this->get('Vwcscaling_factors');
+		$this->vwcscaling_factors = $this->get('Vwcscaling_factors');
 
 		// Get Linked view data
-		$this->vwdinterventions		= $this->get('Vwdinterventions');
+		$this->vwdinterventions = $this->get('Vwdinterventions');
 
 		// Set the toolbar
 		$this->addToolBar();
+		
+		// Check for errors.
+		if (count($errors = $this->get('Errors')))
+		{
+			throw new Exception(implode("\n", $errors), 500);
+		}
 
 		// Display the template
 		parent::display($tpl);
@@ -168,7 +167,7 @@ class CostbenefitprojectionViewCompany extends JViewLegacy
 		$this->toolbar = JToolbar::getInstance();
 	}
 
-        /**
+	/**
 	 * Escapes a value for output in a view script.
 	 *
 	 * @param   mixed  $var  The output to escape.
@@ -182,7 +181,7 @@ class CostbenefitprojectionViewCompany extends JViewLegacy
     		// use the helper htmlEscape method instead and shorten the string
 			return CostbenefitprojectionHelper::htmlEscape($var, $this->_charset, true, 30);
 		}
-                // use the helper htmlEscape method instead.
+		// use the helper htmlEscape method instead.
 		return CostbenefitprojectionHelper::htmlEscape($var, $this->_charset);
 	}
 
@@ -194,40 +193,45 @@ class CostbenefitprojectionViewCompany extends JViewLegacy
 	protected function setDocument()
 	{
 		$isNew = ($this->item->id < 1);
-		$document = JFactory::getDocument();
-		$document->setTitle(JText::_($isNew ? 'COM_COSTBENEFITPROJECTION_COMPANY_NEW' : 'COM_COSTBENEFITPROJECTION_COMPANY_EDIT'));
+		if (!isset($this->document))
+		{
+			$this->document = JFactory::getDocument();
+		}
+		$this->document->setTitle(JText::_($isNew ? 'COM_COSTBENEFITPROJECTION_COMPANY_NEW' : 'COM_COSTBENEFITPROJECTION_COMPANY_EDIT'));
 		// we need this to fix the form display
-		$document->addStyleSheet(JURI::root()."administrator/templates/isis/css/template.css");
-		$document->addScript(JURI::root()."administrator/templates/isis/js/template.js");
+		$this->document->addStyleSheet(JURI::root()."administrator/templates/isis/css/template.css", (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
+		$this->document->addScript(JURI::root()."administrator/templates/isis/js/template.js", (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
 		// the default style of this view
-		$document->addStyleSheet(JURI::root()."components/com_costbenefitprojection/assets/css/company.css"); 
+		$this->document->addStyleSheet(JURI::root()."components/com_costbenefitprojection/assets/css/company.css", (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
+		// Add Ajax Token
+		$this->document->addScriptDeclaration("var token = '".JSession::getFormToken()."';"); 
 
 		// Add the CSS for Footable.
-		$document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable/css/footable.core.min.css');
+		$this->document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable-v2/css/footable.core.min.css', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
 
 		// Use the Metro Style
 		if (!isset($this->fooTableStyle) || 0 == $this->fooTableStyle)
 		{
-			$document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable/css/footable.metro.min.css');
+			$this->document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable-v2/css/footable.metro.min.css', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
 		}
 		// Use the Legacy Style.
 		elseif (isset($this->fooTableStyle) && 1 == $this->fooTableStyle)
 		{
-			$document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable/css/footable.standalone.min.css');
+			$this->document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable-v2/css/footable.standalone.min.css', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
 		}
 
 		// Add the JavaScript for Footable
-		$document->addScript(JURI::root() .'media/com_costbenefitprojection/footable/js/footable.js');
-		$document->addScript(JURI::root() .'media/com_costbenefitprojection/footable/js/footable.sort.js');
-		$document->addScript(JURI::root() .'media/com_costbenefitprojection/footable/js/footable.filter.js');
-		$document->addScript(JURI::root() .'media/com_costbenefitprojection/footable/js/footable.paginate.js');
+		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable-v2/js/footable.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
+		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable-v2/js/footable.sort.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
+		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable-v2/js/footable.filter.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
+		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable-v2/js/footable.paginate.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
 
 		$footable = "jQuery(document).ready(function() { jQuery(function () { jQuery('.footable').footable(); }); jQuery('.nav-tabs').on('click', 'li', function() { setTimeout(tableFix, 10); }); }); function tableFix() { jQuery('.footable').trigger('footable_resize'); }";
-		$document->addScriptDeclaration($footable);
+		$this->document->addScriptDeclaration($footable);
 
 		// default javascript of this view
-		$document->addScript(JURI::root().$this->script);
-		$document->addScript(JURI::root(). "components/com_costbenefitprojection/views/company/submitbutton.js"); 
+		$this->document->addScript(JURI::root().$this->script, (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
+		$this->document->addScript(JURI::root(). "components/com_costbenefitprojection/views/company/submitbutton.js", (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript'); 
 		JText::script('view not acceptable. Error');
 	}
 }

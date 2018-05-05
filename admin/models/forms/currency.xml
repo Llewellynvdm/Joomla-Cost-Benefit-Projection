@@ -19,7 +19,6 @@
 			label="COM_COSTBENEFITPROJECTION_CURRENCY_CREATED_DATE_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CURRENCY_CREATED_DATE_DESC"
 			size="22"
-
 			format="%Y-%m-%d %H:%M:%S"
 			filter="user_utc"
 		/>
@@ -28,13 +27,11 @@
 			name="created_by"
 			type="user"
 			label="COM_COSTBENEFITPROJECTION_CURRENCY_CREATED_BY_LABEL"
-
 			description="COM_COSTBENEFITPROJECTION_CURRENCY_CREATED_BY_DESC"
 		/>
 		<!-- Published Field. Type: List (joomla) -->
 		<field name="published" type="list" label="JSTATUS"
 			description="JFIELD_PUBLISHED_DESC" class="chzn-color-state"
-
 			filter="intval" size="1" default="1" >
 			<option value="1">
 				JPUBLISHED</option>
@@ -63,7 +60,6 @@
 			label="JFIELD_ACCESS_LABEL"
 			description="JFIELD_ACCESS_DESC"
 			default="1"
-
 			required="false"
 		/>
 		<!-- Ordering Field. Type: Numbers (joomla) -->
@@ -75,7 +71,6 @@
 			description=""
 			default="0"
 			size="6"
-
 			required="false"
 		/>
 		<!-- Version Field. Type: Text (joomla) -->
@@ -103,7 +98,7 @@
 			disabled="false"
 			required="true"
 			filter="STRING"
-			message="Error! Please add name here."
+			message="COM_COSTBENEFITPROJECTION_CURRENCY_NAME_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_CURRENCY_NAME_HINT"
 		/>
 		<!-- Codethree Field. Type: Text. (joomla) -->
@@ -117,7 +112,7 @@
 			class="text_area"
 			required="true"
 			filter="WORD"
-			message="Error! Please add three-letter currency code here."
+			message="COM_COSTBENEFITPROJECTION_CURRENCY_CODETHREE_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_CURRENCY_CODETHREE_HINT"
 		/>
 		<!-- Numericcode Field. Type: Text. (joomla) -->
@@ -131,7 +126,7 @@
 			class="text_area"
 			required="true"
 			filter="INT"
-			message="Error! Please add numeric code here."
+			message="COM_COSTBENEFITPROJECTION_CURRENCY_NUMERICCODE_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_CURRENCY_NUMERICCODE_HINT"
 		/>
 		<!-- Symbol Field. Type: Text. (joomla) -->
@@ -145,7 +140,7 @@
 			class="text_area"
 			required="true"
 			filter="STRING"
-			message="Error! Please add currency symbol here."
+			message="COM_COSTBENEFITPROJECTION_CURRENCY_SYMBOL_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_CURRENCY_SYMBOL_HINT"
 		/>
 		<!-- Alias Field. Type: Text. (joomla) -->
@@ -157,6 +152,19 @@
 			filter="STRING"
 			hint="COM_COSTBENEFITPROJECTION_CURRENCY_ALIAS_HINT"
 		/>
+		<!-- Negativestyle Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="negativestyle"
+			label="COM_COSTBENEFITPROJECTION_CURRENCY_NEGATIVESTYLE_LABEL"
+			size="40"
+			description="COM_COSTBENEFITPROJECTION_CURRENCY_NEGATIVESTYLE_DESCRIPTION"
+			class="text_area"
+			required="true"
+			filter="STRING"
+			message="COM_COSTBENEFITPROJECTION_CURRENCY_NEGATIVESTYLE_MESSAGE"
+			hint="COM_COSTBENEFITPROJECTION_CURRENCY_NEGATIVESTYLE_HINT"
+		/>
 		<!-- Positivestyle Field. Type: Text. (joomla) -->
 		<field
 			type="text"
@@ -167,20 +175,8 @@
 			class="text_area"
 			required="true"
 			filter="STRING"
-			message="Error! Please add currency positive style here."
+			message="COM_COSTBENEFITPROJECTION_CURRENCY_POSITIVESTYLE_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_CURRENCY_POSITIVESTYLE_HINT"
-		/>
-		<!-- Thousands Field. Type: Text. (joomla) -->
-		<field
-			type="text"
-			name="thousands"
-			label="COM_COSTBENEFITPROJECTION_CURRENCY_THOUSANDS_LABEL"
-			size="40"
-			class="text_area"
-			required="true"
-			filter="STRING"
-			message="Error! Please add currency thousands separator here."
-			hint="COM_COSTBENEFITPROJECTION_CURRENCY_THOUSANDS_HINT"
 		/>
 		<!-- Decimalsymbol Field. Type: Text. (joomla) -->
 		<field
@@ -194,7 +190,7 @@
 			class="text_area"
 			required="true"
 			filter="STRING"
-			message="Error! Please add currency decimal symbol here."
+			message="COM_COSTBENEFITPROJECTION_CURRENCY_DECIMALSYMBOL_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_CURRENCY_DECIMALSYMBOL_HINT"
 		/>
 		<!-- Decimalplace Field. Type: Text. (joomla) -->
@@ -209,21 +205,20 @@
 			class="text_area"
 			required="true"
 			filter="INT"
-			message="Error! Please add currency decimal place here."
+			message="COM_COSTBENEFITPROJECTION_CURRENCY_DECIMALPLACE_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_CURRENCY_DECIMALPLACE_HINT"
 		/>
-		<!-- Negativestyle Field. Type: Text. (joomla) -->
+		<!-- Thousands Field. Type: Text. (joomla) -->
 		<field
 			type="text"
-			name="negativestyle"
-			label="COM_COSTBENEFITPROJECTION_CURRENCY_NEGATIVESTYLE_LABEL"
+			name="thousands"
+			label="COM_COSTBENEFITPROJECTION_CURRENCY_THOUSANDS_LABEL"
 			size="40"
-			description="COM_COSTBENEFITPROJECTION_CURRENCY_NEGATIVESTYLE_DESCRIPTION"
 			class="text_area"
 			required="true"
 			filter="STRING"
-			message="Error! Please add currency negative style here."
-			hint="COM_COSTBENEFITPROJECTION_CURRENCY_NEGATIVESTYLE_HINT"
+			message="COM_COSTBENEFITPROJECTION_CURRENCY_THOUSANDS_MESSAGE"
+			hint="COM_COSTBENEFITPROJECTION_CURRENCY_THOUSANDS_HINT"
 		/>
 	</fieldset>
 	

@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 35 of this MVC
+	@build			22nd March, 2016
+	@created		25th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		service_providers.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -128,7 +128,7 @@ class CostbenefitprojectionModelService_providers extends JModelList
 				}
 
 			}
-		} 
+		}  
         
 		// return items
 		return $items;
@@ -198,7 +198,7 @@ class CostbenefitprojectionModelService_providers extends JModelList
 			}
 			else
 			{
-				$search = $db->quote('%' . $db->escape($search, true) . '%');
+				$search = $db->quote('%' . $db->escape($search) . '%');
 				$query->where('(a.user LIKE '.$search.' OR g.name LIKE '.$search.' OR a.country LIKE '.$search.' OR h.name LIKE '.$search.' OR a.publicname LIKE '.$search.' OR a.publicemail LIKE '.$search.' OR a.publicnumber LIKE '.$search.' OR a.publicaddress LIKE '.$search.')');
 			}
 		}
@@ -206,7 +206,7 @@ class CostbenefitprojectionModelService_providers extends JModelList
 		// Filter by country.
 		if ($country = $this->getState('filter.country'))
 		{
-			$query->where('a.country = ' . $db->quote($db->escape($country, true)));
+			$query->where('a.country = ' . $db->quote($db->escape($country)));
 		}
 
 		// Add the list ordering clause.

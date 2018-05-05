@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 20 of this MVC
+	@build			25th October, 2017
+	@created		8th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		causesrisks.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -116,7 +116,7 @@ class CostbenefitprojectionModelCausesrisks extends JModelList
 				}
 
 			}
-		} 
+		}  
         
 		// return items
 		return $items;
@@ -176,7 +176,7 @@ class CostbenefitprojectionModelCausesrisks extends JModelList
 			}
 			else
 			{
-				$search = $db->quote('%' . $db->escape($search, true) . '%');
+				$search = $db->quote('%' . $db->escape($search) . '%');
 				$query->where('(a.name LIKE '.$search.' OR a.ref LIKE '.$search.' OR a.importname LIKE '.$search.' OR a.description LIKE '.$search.' OR a.alias LIKE '.$search.')');
 			}
 		}

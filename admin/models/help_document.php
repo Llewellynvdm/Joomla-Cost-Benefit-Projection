@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 20 of this MVC
+	@build			13th April, 2018
+	@created		13th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		help_document.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -73,7 +73,7 @@ class CostbenefitprojectionModelHelp_document extends JModelAdmin
 	{
 		if ($item = parent::getItem($pk))
 		{
-			if (!empty($item->params))
+			if (!empty($item->params) && !is_array($item->params))
 			{
 				// Convert the params field to an array.
 				$registry = new Registry;
@@ -116,7 +116,8 @@ class CostbenefitprojectionModelHelp_document extends JModelAdmin
 	 * @since   1.6
 	 */
 	public function getForm($data = array(), $loadData = true)
-	{		// Get the form.
+	{
+		// Get the form.
 		$form = $this->loadForm('com_costbenefitprojection.help_document', 'help_document', array('control' => 'jform', 'load_data' => $loadData));
 
 		if (empty($form))
@@ -415,6 +416,26 @@ class CostbenefitprojectionModelHelp_document extends JModelAdmin
 		
 		return true;
 	}
+
+	/**
+	 * Method to change the published state of one or more records.
+	 *
+	 * @param   array    &$pks   A list of the primary keys to change.
+	 * @param   integer  $value  The value of the published state.
+	 *
+	 * @return  boolean  True on success.
+	 *
+	 * @since   12.2
+	 */
+	public function publish(&$pks, $value = 1)
+	{
+		if (!parent::publish($pks, $value))
+		{
+			return false;
+		}
+		
+		return true;
+        }
     
 	/**
 	 * Method to perform batch operations on an item or a set of items.
@@ -531,8 +552,6 @@ class CostbenefitprojectionModelHelp_document extends JModelAdmin
 			$this->user 		= JFactory::getUser();
 			$this->table 		= $this->getTable();
 			$this->tableClassName	= get_class($this->table);
-			$this->contentType	= new JUcmType;
-			$this->type		= $this->contentType->getTypeByTable($this->tableClassName);
 			$this->canDo		= CostbenefitprojectionHelper::getActions('help_document');
 		}
 
@@ -557,7 +576,6 @@ class CostbenefitprojectionModelHelp_document extends JModelAdmin
 		}
 
 		$newIds = array();
-
 		// Parent exists so let's proceed
 		while (!empty($pks))
 		{
@@ -567,17 +585,11 @@ class CostbenefitprojectionModelHelp_document extends JModelAdmin
 			$this->table->reset();
 
 			// only allow copy if user may edit this item.
-
 			if (!$this->user->authorise('help_document.edit', $contexts[$pk]))
-
 			{
-
 				// Not fatal error
-
 				$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
-
 				continue;
-
 			}
 
 			// Check that the row actually exists
@@ -587,7 +599,6 @@ class CostbenefitprojectionModelHelp_document extends JModelAdmin
 				{
 					// Fatal error
 					$this->setError($error);
-
 					return false;
 				}
 				else
@@ -597,7 +608,6 @@ class CostbenefitprojectionModelHelp_document extends JModelAdmin
 					continue;
 				}
 			}
-
 			list($this->table->title, $this->table->alias) = $this->_generateNewTitle($this->table->alias, $this->table->title);
 
 			// insert all set values
@@ -680,8 +690,6 @@ class CostbenefitprojectionModelHelp_document extends JModelAdmin
 			$this->user		= JFactory::getUser();
 			$this->table		= $this->getTable();
 			$this->tableClassName	= get_class($this->table);
-			$this->contentType	= new JUcmType;
-			$this->type		= $this->contentType->getTypeByTable($this->tableClassName);
 			$this->canDo		= CostbenefitprojectionHelper::getActions('help_document');
 		}
 
@@ -705,7 +713,6 @@ class CostbenefitprojectionModelHelp_document extends JModelAdmin
 			if (!$this->user->authorise('help_document.edit', $contexts[$pk]))
 			{
 				$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_EDIT'));
-
 				return false;
 			}
 
@@ -716,7 +723,6 @@ class CostbenefitprojectionModelHelp_document extends JModelAdmin
 				{
 					// Fatal error
 					$this->setError($error);
-
 					return false;
 				}
 				else
@@ -733,7 +739,7 @@ class CostbenefitprojectionModelHelp_document extends JModelAdmin
 				foreach ($values as $key => $value)
 				{
 					// Do special action for access.
-					if ('access' == $key && strlen($value) > 0)
+					if ('access' === $key && strlen($value) > 0)
 					{
 						$this->table->$key = $value;
 					}
@@ -812,7 +818,7 @@ class CostbenefitprojectionModelHelp_document extends JModelAdmin
 		}
 
 		// Alter the title for save as copy
-		if ($input->get('task') == 'save2copy')
+		if ($input->get('task') === 'save2copy')
 		{
 			$origTable = clone $this->getTable();
 			$origTable->load($input->getInt('id'));
@@ -837,7 +843,7 @@ class CostbenefitprojectionModelHelp_document extends JModelAdmin
 		// Automatic handling of alias for empty fields
 		if (in_array($input->get('task'), array('apply', 'save', 'save2new')) && (int) $input->get('id') == 0)
 		{
-			if ($data['alias'] == null)
+			if ($data['alias'] == null || empty($data['alias']))
 			{
 				if (JFactory::getConfig()->get('unicodeslugs') == 1)
 				{
@@ -855,8 +861,7 @@ class CostbenefitprojectionModelHelp_document extends JModelAdmin
 					$msg = JText::_('COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_SAVE_WARNING');
 				}
 
-				list($title, $alias) = $this->_generateNewTitle($data['alias'], $data['title']);
-				$data['alias'] = $alias;
+				$data['alias'] = $this->_generateNewTitle($data['alias']);
 
 				if (isset($msg))
 				{
@@ -866,7 +871,7 @@ class CostbenefitprojectionModelHelp_document extends JModelAdmin
 		}
 
 		// Alter the uniqe field for save as copy
-		if ($input->get('task') == 'save2copy')
+		if ($input->get('task') === 'save2copy')
 		{
 			// Automatic handling of other uniqe fields
 			$uniqeFields = $this->getUniqeFields();
@@ -911,26 +916,49 @@ class CostbenefitprojectionModelHelp_document extends JModelAdmin
 	}
 
 	/**
-	* Method to change the title & alias.
+	* Method to change the title/s & alias.
 	*
-	* @param   string   $alias        The alias.
-	* @param   string   $title        The title.
+	* @param   string         $alias        The alias.
+	* @param   string/array   $title        The title.
 	*
-	* @return	array  Contains the modified title and alias.
+	* @return	array/string  Contains the modified title/s and/or alias.
 	*
 	*/
-	protected function _generateNewTitle($alias, $title)
+	protected function _generateNewTitle($alias, $title = null)
 	{
 
-		// Alter the title & alias
+		// Alter the title/s & alias
 		$table = $this->getTable();
 
 		while ($table->load(array('alias' => $alias)))
 		{
-			$title = JString::increment($title);
+			// Check if this is an array of titles
+			if (CostbenefitprojectionHelper::checkArray($title))
+			{
+				foreach($title as $nr => &$_title)
+				{
+					$_title = JString::increment($_title);
+				}
+			}
+			// Make sure we have a title
+			elseif ($title)
+			{
+				$title = JString::increment($title);
+			}
 			$alias = JString::increment($alias, 'dash');
 		}
-
-		return array($title, $alias);
+		// Check if this is an array of titles
+		if (CostbenefitprojectionHelper::checkArray($title))
+		{
+			$title[] = $alias;
+			return $title;
+		}
+		// Make sure we have a title
+		elseif ($title)
+		{
+			return array($title, $alias);
+		}
+		// We only had an alias
+		return $alias;
 	}
 }

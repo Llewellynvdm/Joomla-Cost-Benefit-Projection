@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
+	@version		3.4.3
+	@build			5th May, 2018
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		serviceprovider.php
@@ -34,7 +34,8 @@ class JFormFieldServiceprovider extends JFormFieldList
 	 *
 	 * @var		string
 	 */
-	public $type = 'serviceprovider'; 
+	public $type = 'serviceprovider';
+
 	/**
 	 * Override to add new button
 	 *
@@ -55,7 +56,8 @@ class JFormFieldServiceprovider extends JFormFieldList
 			$script = array();
 			$buttonName = $this->getAttribute('name');
 			// get the input from url
-			$jinput = JFactory::getApplication()->input;
+			$app = JFactory::getApplication();
+			$jinput = $app->input;
 			// get the view name & id
 			$values = $jinput->getArray(array(
 				'id' => 'int',
@@ -72,7 +74,7 @@ class JFormFieldServiceprovider extends JFormFieldList
 			}
 			$user = JFactory::getUser();
 			// only add if user allowed to create service_provider
-			if ($user->authorise('service_provider.create', 'com_costbenefitprojection'))
+			if ($user->authorise('service_provider.create', 'com_costbenefitprojection') && $app->isAdmin()) // TODO for now only in admin area.
 			{
 				// build Create button
 				$buttonNamee = trim($buttonName);
@@ -85,7 +87,7 @@ class JFormFieldServiceprovider extends JFormFieldList
 					<span class="icon-new icon-white"></span></a>';
 			}
 			// only add if user allowed to edit service_provider
-			if (($buttonName == 'service_provider' || $buttonName == 'service_providers') && $user->authorise('service_provider.edit', 'com_costbenefitprojection'))
+			if (($buttonName === 'service_provider' || $buttonName === 'service_providers') && $user->authorise('service_provider.edit', 'com_costbenefitprojection') && $app->isAdmin()) // TODO for now only in admin area.
 			{
 				// build edit button
 				$buttonNamee = trim($buttonName);

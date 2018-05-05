@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 52 of this MVC
+	@build			25th October, 2017
+	@created		25th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		countries.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -101,5 +101,5 @@ class CostbenefitprojectionControllerCountries extends JControllerAdmin
 		$message = JText::_('COM_COSTBENEFITPROJECTION_IMPORT_FAILED');
 		$this->setRedirect(JRoute::_('index.php?option=com_costbenefitprojection&view=countries', false), $message, 'error');
 		return;
-	} 
+	}  
 }

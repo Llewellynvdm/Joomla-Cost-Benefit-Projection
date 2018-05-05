@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
+	@version		3.4.3
+	@build			5th May, 2018
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		ajax.json.php
@@ -39,6 +39,8 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 		$this->registerTask('calculatedResult', 'ajax');
 		$this->registerTask('interventionBuildTable', 'ajax');
 		$this->registerTask('getClusterData', 'ajax');
+		$this->registerTask('isNew', 'ajax');
+		$this->registerTask('isRead', 'ajax');
 	}
 
 	public function ajax()
@@ -49,17 +51,17 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 		$token 		= JSession::getFormToken();
 		$call_token	= $jinput->get('token', 0, 'ALNUM');
 		if($token == $call_token)
-                {
+		{
 			$task = $this->getTask();
 			switch($task)
-                        {
+			{
 				case 'calculatedResult':
 					try
 					{
 						$returnRaw = $jinput->get('raw', false, 'BOOLEAN');
 						$idValue = $jinput->get('id', NULL, 'INT');
 						$dataValue = $jinput->get('data', NULL, 'BASE64');
-						if($idValue && $dataValue && $user->id != 0)
+						if($idValue && $dataValue)
 						{
 							$result = $this->getModel('ajax')->getCalculatedResult($idValue, $dataValue);
 						}
@@ -171,16 +173,92 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 						}
 					}
 				break;
+				case 'isNew':
+					try
+					{
+						$returnRaw = $jinput->get('raw', false, 'BOOLEAN');
+						$noticeValue = $jinput->get('notice', NULL, 'STRING');
+						if($noticeValue && $user->id != 0)
+						{
+							$result = $this->getModel('ajax')->isNew($noticeValue);
+						}
+						else
+						{
+							$result = false;
+						}
+						if($callback = $jinput->get('callback', null, 'CMD'))
+						{
+							echo $callback . "(".json_encode($result).");";
+						}
+						elseif($returnRaw)
+						{
+							echo json_encode($result);
+						}
+						else
+						{
+							echo "(".json_encode($result).");";
+						}
+					}
+					catch(Exception $e)
+					{
+						if($callback = $jinput->get('callback', null, 'CMD'))
+						{
+							echo $callback."(".json_encode($e).");";
+						}
+						else
+						{
+							echo "(".json_encode($e).");";
+						}
+					}
+				break;
+				case 'isRead':
+					try
+					{
+						$returnRaw = $jinput->get('raw', false, 'BOOLEAN');
+						$noticeValue = $jinput->get('notice', NULL, 'STRING');
+						if($noticeValue && $user->id != 0)
+						{
+							$result = $this->getModel('ajax')->isRead($noticeValue);
+						}
+						else
+						{
+							$result = false;
+						}
+						if($callback = $jinput->get('callback', null, 'CMD'))
+						{
+							echo $callback . "(".json_encode($result).");";
+						}
+						elseif($returnRaw)
+						{
+							echo json_encode($result);
+						}
+						else
+						{
+							echo "(".json_encode($result).");";
+						}
+					}
+					catch(Exception $e)
+					{
+						if($callback = $jinput->get('callback', null, 'CMD'))
+						{
+							echo $callback."(".json_encode($e).");";
+						}
+						else
+						{
+							echo "(".json_encode($e).");";
+						}
+					}
+				break;
 			}
 		}
-                else
-                {
+		else
+		{
 			if($callback = $jinput->get('callback', null, 'CMD'))
-                        {
+			{
 				echo $callback."(".json_encode(false).");";
 			}
-                        else
-                        {
+			else
+  			{
 				echo "(".json_encode(false).");";
 			}
 		}

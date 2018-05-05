@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 109 of this MVC
+	@build			23rd May, 2016
+	@created		15th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		health_data.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -259,7 +259,7 @@ class CostbenefitprojectionTableHealth_data extends JTable
 						}
 					}
 					// check if there are any view values remaining
-					if (count($_result))
+					if (count( (array) $_result))
 					{
 						$_result = json_encode($_result);
 						$_result = array($_result);
@@ -320,26 +320,13 @@ class CostbenefitprojectionTableHealth_data extends JTable
 	}
 
 	/**
-	 * Generate a valid alias from title / date.
-	 * Remains public to be able to check for duplicated alias before saving
-	 *
-	 * @return  string
-	 */
+	* This view does not actually have an alias
+	*
+	* @return  bool
+	*/
 	public function generateAlias()
 	{
-		if (empty($this->alias))
-		{
-			$this->alias = $this->name;
-		}
-
-		$this->alias = JApplication::stringURLSafe($this->alias);
-
-		if (trim(str_replace('-', '', $this->alias)) == '')
-		{
-			$this->alias = JFactory::getDate()->format("Y-m-d-H-i-s");
-		}
-
-		return $this->alias;
+		return false;
 	}
 
 }

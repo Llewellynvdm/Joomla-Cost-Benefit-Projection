@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
+	@version		@update number 21 of this MVC
 	@build			16th August, 2016
-	@created		15th June, 2012
+	@created		8th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		scaling_factor.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -102,7 +102,7 @@ class CostbenefitprojectionControllerScaling_factor extends JControllerForm
 		{
 			// The record has been set. Check the record permissions.
 			$permission = $user->authorise('scaling_factor.edit', 'com_costbenefitprojection.scaling_factor.' . (int) $recordId);
-			if (!$permission && !is_null($permission))
+			if (!$permission)
 			{
 				if ($user->authorise('scaling_factor.edit.own', 'com_costbenefitprojection.scaling_factor.' . $recordId))
 				{
@@ -162,10 +162,10 @@ class CostbenefitprojectionControllerScaling_factor extends JControllerForm
                 {
 			$append .= '&ref='.(string)$ref.'&refid='.(int)$refid;
 		}
-                elseif ($ref)
-                {
+		elseif ($ref)
+		{
 			$append .= '&ref='.(string)$ref;
-                }
+		}
 
 		if ($tmpl)
 		{
@@ -277,11 +277,11 @@ class CostbenefitprojectionControllerScaling_factor extends JControllerForm
 		$this->ref 		= $this->input->get('ref', 0, 'word');
 		$this->refid 	= $this->input->get('refid', 0, 'int');
 
-                if ($this->ref || $this->refid)
-                {
-                        // to make sure the item is checkedin on redirect
-                        $this->task = 'save';
-                }
+		if ($this->ref || $this->refid)
+		{
+			// to make sure the item is checkedin on redirect
+			$this->task = 'save';
+		}
 
 		$saved = parent::save($key, $urlVar);
 

@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
+	@version		3.4.3
+	@build			5th May, 2018
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -130,10 +130,10 @@ class CostbenefitprojectionViewImport_health_data_sets extends JViewLegacy
 		}
 
 		// set help url for this view if found
-                $help_url = CostbenefitprojectionHelper::getHelpUrl('import_health_data_sets');
-                if (CostbenefitprojectionHelper::checkString($help_url))
-                {
-                       JToolbarHelper::help('COM_COSTBENEFITPROJECTION_HELP_MANAGER', false, $help_url);
-                }
+		$help_url = CostbenefitprojectionHelper::getHelpUrl('import_health_data_sets');
+		if (CostbenefitprojectionHelper::checkString($help_url))
+		{
+			   JToolbarHelper::help('COM_COSTBENEFITPROJECTION_HELP_MANAGER', false, $help_url);
+		}
 	}
 }

@@ -19,7 +19,6 @@
 			label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_CREATED_DATE_LABEL"
 			description="COM_COSTBENEFITPROJECTION_HEALTH_DATA_CREATED_DATE_DESC"
 			size="22"
-
 			format="%Y-%m-%d %H:%M:%S"
 			filter="user_utc"
 		/>
@@ -28,13 +27,11 @@
 			name="created_by"
 			type="user"
 			label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_CREATED_BY_LABEL"
-
 			description="COM_COSTBENEFITPROJECTION_HEALTH_DATA_CREATED_BY_DESC"
 		/>
 		<!-- Published Field. Type: List (joomla) -->
 		<field name="published" type="list" label="JSTATUS"
 			description="JFIELD_PUBLISHED_DESC" class="chzn-color-state"
-
 			filter="intval" size="1" default="1" >
 			<option value="1">
 				JPUBLISHED</option>
@@ -63,7 +60,6 @@
 			label="JFIELD_ACCESS_LABEL"
 			description="JFIELD_ACCESS_DESC"
 			default="1"
-
 			required="false"
 		/>
 		<!-- Ordering Field. Type: Numbers (joomla) -->
@@ -75,7 +71,6 @@
 			description=""
 			default="0"
 			size="6"
-
 			required="false"
 		/>
 		<!-- Version Field. Type: Text (joomla) -->
@@ -107,7 +102,8 @@
 			label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_YEAR_LABEL"
 			class="list_class"
 			multiple="false"
-			filter="INT">
+			filter="INT"
+			required="true">
 			<!-- Option Set. -->
 			<option value="">
 				COM_COSTBENEFITPROJECTION_HEALTH_DATA_SELECT_A_YEAR</option>
@@ -153,191 +149,11 @@
 			default="0"
 			required="true"
 		/>
-		<!-- Femaledeath Field. Type: Repeatable. (joomla) -->
-		<field
-			type="repeatable"
-			name="femaledeath"
-			label="Set Females Death"
-			description="COM_COSTBENEFITPROJECTION_HEALTH_DATA_FEMALEDEATH_DESCRIPTION"
-			id="femaledeath"
-			class="femalesdeath"
-			select="COM_COSTBENEFITPROJECTION_HEALTH_DATA_FEMALEDEATH_SELECT"
-			icon="list"
-			maximum="10">
-			<fields name="femaledeath_fields" label="">
-				<fieldset hidden="true" name="femaledeath_modal" repeat="true">
-					<!-- Age Field. Type: List. (joomla) -->
-					<field
-						type="list"
-						name="age"
-						label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_AGE_LABEL"
-						class="list_class"
-						multiple="false"
-						filter="CMD">
-						<!-- Option Set. -->
-						<option value="15-19">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTEENNINETEEN</option>
-						<option value="20-24">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_TWENTYTWENTY_FOUR</option>
-						<option value="25-29">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_TWENTY_FIVETWENTY_NINE</option>
-						<option value="30-34">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_THIRTYTHIRTY_FOUR</option>
-						<option value="35-39">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_THIRTY_FIVETHIRTY_NINE</option>
-						<option value="40-44">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FORTYFORTY_FOUR</option>
-						<option value="45-49">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FORTY_FIVEFORTY_NINE</option>
-						<option value="50-54">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTYFIFTY_FOUR</option>
-						<option value="55-59">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTY_FIVEFIFTY_NINE</option>
-						<option value="60-64">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_SIXTYSIXTY_FOUR</option>
-					</field>
-					<!-- Number Field. Type: Text. (joomla) -->
-					<field
-						type="text"
-						name="number"
-						label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_NUMBER_LABEL"
-						size="10"
-						maxlength="50"
-						class="text_area"
-						readonly="false"
-						disabled="false"
-						filter="FLOAT"
-						message="Error! Please add number here."
-						hint="COM_COSTBENEFITPROJECTION_HEALTH_DATA_NUMBER_HINT"
-					/>
-				</fieldset>
-			</fields>
-		</field>
-		<!-- Maleyld Field. Type: Repeatable. (joomla) -->
-		<field
-			type="repeatable"
-			name="maleyld"
-			label="Set Males YLD"
-			description="COM_COSTBENEFITPROJECTION_HEALTH_DATA_MALEYLD_DESCRIPTION"
-			id="maleyld"
-			class="malesyld"
-			select="COM_COSTBENEFITPROJECTION_HEALTH_DATA_MALEYLD_SELECT"
-			icon="list"
-			maximum="10">
-			<fields name="maleyld_fields" label="">
-				<fieldset hidden="true" name="maleyld_modal" repeat="true">
-					<!-- Age Field. Type: List. (joomla) -->
-					<field
-						type="list"
-						name="age"
-						label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_AGE_LABEL"
-						class="list_class"
-						multiple="false"
-						filter="CMD">
-						<!-- Option Set. -->
-						<option value="15-19">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTEENNINETEEN</option>
-						<option value="20-24">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_TWENTYTWENTY_FOUR</option>
-						<option value="25-29">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_TWENTY_FIVETWENTY_NINE</option>
-						<option value="30-34">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_THIRTYTHIRTY_FOUR</option>
-						<option value="35-39">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_THIRTY_FIVETHIRTY_NINE</option>
-						<option value="40-44">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FORTYFORTY_FOUR</option>
-						<option value="45-49">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FORTY_FIVEFORTY_NINE</option>
-						<option value="50-54">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTYFIFTY_FOUR</option>
-						<option value="55-59">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTY_FIVEFIFTY_NINE</option>
-						<option value="60-64">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_SIXTYSIXTY_FOUR</option>
-					</field>
-					<!-- Number Field. Type: Text. (joomla) -->
-					<field
-						type="text"
-						name="number"
-						label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_NUMBER_LABEL"
-						size="10"
-						maxlength="50"
-						class="text_area"
-						readonly="false"
-						disabled="false"
-						filter="FLOAT"
-						message="Error! Please add number here."
-						hint="COM_COSTBENEFITPROJECTION_HEALTH_DATA_NUMBER_HINT"
-					/>
-				</fieldset>
-			</fields>
-		</field>
-		<!-- Maledeath Field. Type: Repeatable. (joomla) -->
-		<field
-			type="repeatable"
-			name="maledeath"
-			label="Set Males Death"
-			description="COM_COSTBENEFITPROJECTION_HEALTH_DATA_MALEDEATH_DESCRIPTION"
-			id="maledeath"
-			class="malesdeath"
-			select="COM_COSTBENEFITPROJECTION_HEALTH_DATA_MALEDEATH_SELECT"
-			icon="list"
-			maximum="10">
-			<fields name="maledeath_fields" label="">
-				<fieldset hidden="true" name="maledeath_modal" repeat="true">
-					<!-- Age Field. Type: List. (joomla) -->
-					<field
-						type="list"
-						name="age"
-						label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_AGE_LABEL"
-						class="list_class"
-						multiple="false"
-						filter="CMD">
-						<!-- Option Set. -->
-						<option value="15-19">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTEENNINETEEN</option>
-						<option value="20-24">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_TWENTYTWENTY_FOUR</option>
-						<option value="25-29">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_TWENTY_FIVETWENTY_NINE</option>
-						<option value="30-34">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_THIRTYTHIRTY_FOUR</option>
-						<option value="35-39">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_THIRTY_FIVETHIRTY_NINE</option>
-						<option value="40-44">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FORTYFORTY_FOUR</option>
-						<option value="45-49">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FORTY_FIVEFORTY_NINE</option>
-						<option value="50-54">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTYFIFTY_FOUR</option>
-						<option value="55-59">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTY_FIVEFIFTY_NINE</option>
-						<option value="60-64">
-							COM_COSTBENEFITPROJECTION_HEALTH_DATA_SIXTYSIXTY_FOUR</option>
-					</field>
-					<!-- Number Field. Type: Text. (joomla) -->
-					<field
-						type="text"
-						name="number"
-						label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_NUMBER_LABEL"
-						size="10"
-						maxlength="50"
-						class="text_area"
-						readonly="false"
-						disabled="false"
-						filter="FLOAT"
-						message="Error! Please add number here."
-						hint="COM_COSTBENEFITPROJECTION_HEALTH_DATA_NUMBER_HINT"
-					/>
-				</fieldset>
-			</fields>
-		</field>
 		<!-- Femaleyld Field. Type: Repeatable. (joomla) -->
 		<field
 			type="repeatable"
 			name="femaleyld"
-			label="Set Females YLD"
+			label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_FEMALEYLD_LABEL"
 			description="COM_COSTBENEFITPROJECTION_HEALTH_DATA_FEMALEYLD_DESCRIPTION"
 			id="femaleyld"
 			class="femalesyld"
@@ -353,7 +169,8 @@
 						label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_AGE_LABEL"
 						class="list_class"
 						multiple="false"
-						filter="CMD">
+						filter="CMD"
+						required="false">
 						<!-- Option Set. -->
 						<option value="15-19">
 							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTEENNINETEEN</option>
@@ -386,8 +203,195 @@
 						class="text_area"
 						readonly="false"
 						disabled="false"
+						required="false"
 						filter="FLOAT"
-						message="Error! Please add number here."
+						message="COM_COSTBENEFITPROJECTION_HEALTH_DATA_NUMBER_MESSAGE"
+						hint="COM_COSTBENEFITPROJECTION_HEALTH_DATA_NUMBER_HINT"
+					/>
+				</fieldset>
+			</fields>
+		</field>
+		<!-- Femaledeath Field. Type: Repeatable. (joomla) -->
+		<field
+			type="repeatable"
+			name="femaledeath"
+			label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_FEMALEDEATH_LABEL"
+			description="COM_COSTBENEFITPROJECTION_HEALTH_DATA_FEMALEDEATH_DESCRIPTION"
+			id="femaledeath"
+			class="femalesdeath"
+			select="COM_COSTBENEFITPROJECTION_HEALTH_DATA_FEMALEDEATH_SELECT"
+			icon="list"
+			maximum="10">
+			<fields name="femaledeath_fields" label="">
+				<fieldset hidden="true" name="femaledeath_modal" repeat="true">
+					<!-- Age Field. Type: List. (joomla) -->
+					<field
+						type="list"
+						name="age"
+						label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_AGE_LABEL"
+						class="list_class"
+						multiple="false"
+						filter="CMD"
+						required="false">
+						<!-- Option Set. -->
+						<option value="15-19">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTEENNINETEEN</option>
+						<option value="20-24">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_TWENTYTWENTY_FOUR</option>
+						<option value="25-29">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_TWENTY_FIVETWENTY_NINE</option>
+						<option value="30-34">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_THIRTYTHIRTY_FOUR</option>
+						<option value="35-39">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_THIRTY_FIVETHIRTY_NINE</option>
+						<option value="40-44">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FORTYFORTY_FOUR</option>
+						<option value="45-49">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FORTY_FIVEFORTY_NINE</option>
+						<option value="50-54">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTYFIFTY_FOUR</option>
+						<option value="55-59">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTY_FIVEFIFTY_NINE</option>
+						<option value="60-64">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_SIXTYSIXTY_FOUR</option>
+					</field>
+					<!-- Number Field. Type: Text. (joomla) -->
+					<field
+						type="text"
+						name="number"
+						label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_NUMBER_LABEL"
+						size="10"
+						maxlength="50"
+						class="text_area"
+						readonly="false"
+						disabled="false"
+						required="false"
+						filter="FLOAT"
+						message="COM_COSTBENEFITPROJECTION_HEALTH_DATA_NUMBER_MESSAGE"
+						hint="COM_COSTBENEFITPROJECTION_HEALTH_DATA_NUMBER_HINT"
+					/>
+				</fieldset>
+			</fields>
+		</field>
+		<!-- Maleyld Field. Type: Repeatable. (joomla) -->
+		<field
+			type="repeatable"
+			name="maleyld"
+			label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_MALEYLD_LABEL"
+			description="COM_COSTBENEFITPROJECTION_HEALTH_DATA_MALEYLD_DESCRIPTION"
+			id="maleyld"
+			class="malesyld"
+			select="COM_COSTBENEFITPROJECTION_HEALTH_DATA_MALEYLD_SELECT"
+			icon="list"
+			maximum="10">
+			<fields name="maleyld_fields" label="">
+				<fieldset hidden="true" name="maleyld_modal" repeat="true">
+					<!-- Age Field. Type: List. (joomla) -->
+					<field
+						type="list"
+						name="age"
+						label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_AGE_LABEL"
+						class="list_class"
+						multiple="false"
+						filter="CMD"
+						required="false">
+						<!-- Option Set. -->
+						<option value="15-19">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTEENNINETEEN</option>
+						<option value="20-24">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_TWENTYTWENTY_FOUR</option>
+						<option value="25-29">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_TWENTY_FIVETWENTY_NINE</option>
+						<option value="30-34">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_THIRTYTHIRTY_FOUR</option>
+						<option value="35-39">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_THIRTY_FIVETHIRTY_NINE</option>
+						<option value="40-44">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FORTYFORTY_FOUR</option>
+						<option value="45-49">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FORTY_FIVEFORTY_NINE</option>
+						<option value="50-54">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTYFIFTY_FOUR</option>
+						<option value="55-59">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTY_FIVEFIFTY_NINE</option>
+						<option value="60-64">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_SIXTYSIXTY_FOUR</option>
+					</field>
+					<!-- Number Field. Type: Text. (joomla) -->
+					<field
+						type="text"
+						name="number"
+						label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_NUMBER_LABEL"
+						size="10"
+						maxlength="50"
+						class="text_area"
+						readonly="false"
+						disabled="false"
+						required="false"
+						filter="FLOAT"
+						message="COM_COSTBENEFITPROJECTION_HEALTH_DATA_NUMBER_MESSAGE"
+						hint="COM_COSTBENEFITPROJECTION_HEALTH_DATA_NUMBER_HINT"
+					/>
+				</fieldset>
+			</fields>
+		</field>
+		<!-- Maledeath Field. Type: Repeatable. (joomla) -->
+		<field
+			type="repeatable"
+			name="maledeath"
+			label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_MALEDEATH_LABEL"
+			description="COM_COSTBENEFITPROJECTION_HEALTH_DATA_MALEDEATH_DESCRIPTION"
+			id="maledeath"
+			class="malesdeath"
+			select="COM_COSTBENEFITPROJECTION_HEALTH_DATA_MALEDEATH_SELECT"
+			icon="list"
+			maximum="10">
+			<fields name="maledeath_fields" label="">
+				<fieldset hidden="true" name="maledeath_modal" repeat="true">
+					<!-- Age Field. Type: List. (joomla) -->
+					<field
+						type="list"
+						name="age"
+						label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_AGE_LABEL"
+						class="list_class"
+						multiple="false"
+						filter="CMD"
+						required="false">
+						<!-- Option Set. -->
+						<option value="15-19">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTEENNINETEEN</option>
+						<option value="20-24">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_TWENTYTWENTY_FOUR</option>
+						<option value="25-29">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_TWENTY_FIVETWENTY_NINE</option>
+						<option value="30-34">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_THIRTYTHIRTY_FOUR</option>
+						<option value="35-39">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_THIRTY_FIVETHIRTY_NINE</option>
+						<option value="40-44">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FORTYFORTY_FOUR</option>
+						<option value="45-49">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FORTY_FIVEFORTY_NINE</option>
+						<option value="50-54">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTYFIFTY_FOUR</option>
+						<option value="55-59">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTY_FIVEFIFTY_NINE</option>
+						<option value="60-64">
+							COM_COSTBENEFITPROJECTION_HEALTH_DATA_SIXTYSIXTY_FOUR</option>
+					</field>
+					<!-- Number Field. Type: Text. (joomla) -->
+					<field
+						type="text"
+						name="number"
+						label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_NUMBER_LABEL"
+						size="10"
+						maxlength="50"
+						class="text_area"
+						readonly="false"
+						disabled="false"
+						required="false"
+						filter="FLOAT"
+						message="COM_COSTBENEFITPROJECTION_HEALTH_DATA_NUMBER_MESSAGE"
 						hint="COM_COSTBENEFITPROJECTION_HEALTH_DATA_NUMBER_HINT"
 					/>
 				</fieldset>

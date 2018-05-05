@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 20 of this MVC
+	@build			13th April, 2018
+	@created		13th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		default_head.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -50,10 +50,10 @@ defined('_JEXEC') or die('Restricted access');
 			<?php echo JHtml::_('grid.sort', 'COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_LOCATION_LABEL', 'location', $this->listDirn, $this->listOrder); ?>
 	</th>
 	<th class="nowrap hidden-phone" >
-			<?php echo JHtml::_('grid.sort', 'COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_ADMIN_VIEW_LABEL', 'admin_view', $this->listDirn, $this->listOrder); ?>
+			<?php echo JHtml::_('grid.sort', 'COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_ADMIN_VIEW_LABEL', 'admin_view_', $this->listDirn, $this->listOrder); ?>
 	</th>
 	<th class="nowrap hidden-phone" >
-			<?php echo JHtml::_('grid.sort', 'COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_SITE_VIEW_LABEL', 'site_view', $this->listDirn, $this->listOrder); ?>
+			<?php echo JHtml::_('grid.sort', 'COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_SITE_VIEW_LABEL', 'site_view_', $this->listDirn, $this->listOrder); ?>
 	</th>
 	<?php if ($this->canState): ?>
 		<th width="10" class="nowrap center" >

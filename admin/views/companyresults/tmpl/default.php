@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 60 of this MVC
+	@build			14th October, 2017
+	@created		13th August, 2015
 	@package		Cost Benefit Projection
 	@subpackage		default.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -29,7 +29,7 @@ JHtml::_('behavior.keepalive');
 <?php if ($this->canDo->get('companyresults.access')): ?>
 <script type="text/javascript">
 	Joomla.submitbutton = function(task) {
-		if (task == 'companyresults.back') {
+		if (task === 'companyresults.back') {
 			parent.history.back();
 			return false;
 		} else {

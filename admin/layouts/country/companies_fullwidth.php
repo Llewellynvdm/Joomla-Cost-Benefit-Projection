@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
+	@version		3.4.3
+	@build			5th May, 2018
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		companies_fullwidth.php
@@ -25,10 +25,10 @@ defined('_JEXEC') or die('Restricted access');
 $items	= $displayData->vwhcompanies;
 $user	= JFactory::getUser();
 $id	= $displayData->item->id;
-$edit	= "index.php?option=com_costbenefitprojection&view=companies&task=company.edit";
-$ref	= ($id) ? "&ref=country&refid=".$id : "";
-$new	= "index.php?option=com_costbenefitprojection&view=company&layout=edit".$ref;
-$can	= CostbenefitprojectionHelper::getActions('company');
+$edit = "index.php?option=com_costbenefitprojection&view=companies&task=company.edit";
+$ref = ($id) ? "&ref=country&refid=".$id : "";
+$new = "index.php?option=com_costbenefitprojection&view=company&layout=edit".$ref;
+$can = CostbenefitprojectionHelper::getActions('company');
 
 ?>
 <div class="form-vertical">
@@ -116,26 +116,26 @@ $can	= CostbenefitprojectionHelper::getActions('company');
 		</td>
 		<?php if ($item->published == 1):?>
 			<td class="center"  data-value="1">
-				<span class="status-metro status-published" title="<?php echo JText::_('PUBLISHED');  ?>">
-					<?php echo JText::_('PUBLISHED'); ?>
+				<span class="status-metro status-published" title="<?php echo JText::_('COM_COSTBENEFITPROJECTION_PUBLISHED');  ?>">
+					<?php echo JText::_('COM_COSTBENEFITPROJECTION_PUBLISHED'); ?>
 				</span>
 			</td>
 		<?php elseif ($item->published == 0):?>
 			<td class="center"  data-value="2">
-				<span class="status-metro status-inactive" title="<?php echo JText::_('INACTIVE');  ?>">
-					<?php echo JText::_('INACTIVE'); ?>
+				<span class="status-metro status-inactive" title="<?php echo JText::_('COM_COSTBENEFITPROJECTION_INACTIVE');  ?>">
+					<?php echo JText::_('COM_COSTBENEFITPROJECTION_INACTIVE'); ?>
 				</span>
 			</td>
 		<?php elseif ($item->published == 2):?>
 			<td class="center"  data-value="3">
-				<span class="status-metro status-archived" title="<?php echo JText::_('ARCHIVED');  ?>">
-					<?php echo JText::_('ARCHIVED'); ?>
+				<span class="status-metro status-archived" title="<?php echo JText::_('COM_COSTBENEFITPROJECTION_ARCHIVED');  ?>">
+					<?php echo JText::_('COM_COSTBENEFITPROJECTION_ARCHIVED'); ?>
 				</span>
 			</td>
 		<?php elseif ($item->published == -2):?>
 			<td class="center"  data-value="4">
-				<span class="status-metro status-trashed" title="<?php echo JText::_('ARCHIVED');  ?>">
-					<?php echo JText::_('ARCHIVED'); ?>
+				<span class="status-metro status-trashed" title="<?php echo JText::_('COM_COSTBENEFITPROJECTION_TRASHED');  ?>">
+					<?php echo JText::_('COM_COSTBENEFITPROJECTION_TRASHED'); ?>
 				</span>
 			</td>
 		<?php endif; ?>

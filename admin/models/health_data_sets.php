@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 109 of this MVC
+	@build			23rd May, 2016
+	@created		15th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		health_data_sets.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -131,7 +131,7 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 				$item->year = $this->selectionTranslation($item->year, 'year');
 			}
 		}
-
+ 
         
 		// return items
 		return $items;
@@ -145,7 +145,7 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 	public function selectionTranslation($value,$name)
 	{
 		// Array of year language strings
-		if ($name == 'year')
+		if ($name === 'year')
 		{
 			$yearArray = array(
 				0 => 'COM_COSTBENEFITPROJECTION_HEALTH_DATA_SELECT_A_YEAR',
@@ -254,7 +254,7 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 			}
 			else
 			{
-				$search = $db->quote('%' . $db->escape($search, true) . '%');
+				$search = $db->quote('%' . $db->escape($search) . '%');
 				$query->where('(a.causerisk LIKE '.$search.' OR g.name LIKE '.$search.' OR a.year LIKE '.$search.' OR a.country LIKE '.$search.' OR h.name LIKE '.$search.')');
 			}
 		}
@@ -262,17 +262,17 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 		// Filter by causerisk.
 		if ($causerisk = $this->getState('filter.causerisk'))
 		{
-			$query->where('a.causerisk = ' . $db->quote($db->escape($causerisk, true)));
+			$query->where('a.causerisk = ' . $db->quote($db->escape($causerisk)));
 		}
 		// Filter by Year.
 		if ($year = $this->getState('filter.year'))
 		{
-			$query->where('a.year = ' . $db->quote($db->escape($year, true)));
+			$query->where('a.year = ' . $db->quote($db->escape($year)));
 		}
 		// Filter by country.
 		if ($country = $this->getState('filter.country'))
 		{
-			$query->where('a.country = ' . $db->quote($db->escape($country, true)));
+			$query->where('a.country = ' . $db->quote($db->escape($country)));
 		}
 
 		// Add the list ordering clause.

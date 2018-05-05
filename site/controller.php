@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
+	@version		3.4.3
+	@build			5th May, 2018
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		controller.php
@@ -29,22 +29,34 @@ jimport('joomla.application.component.controller');
 class CostbenefitprojectionController extends JControllerLegacy
 {
 	/**
-	 * display task
+	 * Method to display a view.
 	 *
-	 * @return void
+	 * @param   boolean  $cachable   If true, the view output will be cached.
+	 * @param   boolean  $urlparams  An array of safe URL parameters and their variable types, for valid values see {@link JFilterInput::clean()}.
+	 *
+	 * @return  JController  This object to support chaining.
+	 *
 	 */
-        function display($cachable = false, $urlparams = false)
+	function display($cachable = false, $urlparams = false)
 	{
 		// set default view if not set
 		$view		= $this->input->getCmd('view', 'cpanel');
+		$this->input->set('view', $view);
 		$isEdit		= $this->checkEditView($view);
 		$layout		= $this->input->get('layout', null, 'WORD');
-		$id		= $this->input->getInt('id');
-		$cachable	= true;
+		$id			= $this->input->getInt('id');
+		// $cachable	= true; (TODO) working on a fix [gh-238](https://github.com/vdm-io/Joomla-Component-Builder/issues/238)
+		
+		// insure that the view is not cashable if edit view or if user is logged in
+		$user = JFactory::getUser();
+		if ($user->get('id') || $isEdit)
+		{
+			$cachable = false;
+		}
 		
 		// Check for edit form.
-                if($isEdit)
-                {
+		if($isEdit)
+		{
 			if ($layout == 'edit' && !$this->checkEditId('com_costbenefitprojection.edit.'.$view, $id))
 			{
 				// Somehow the person just went to the form - we don't allow that.
@@ -61,7 +73,6 @@ class CostbenefitprojectionController extends JControllerLegacy
 				}
 				elseif (CostbenefitprojectionHelper::checkString($ref))
 				{
-
 					// redirect to ref
 					 $this->setRedirect(JRoute::_('index.php?option=com_costbenefitprojection&view='.(string)$ref, false));
 				}
@@ -72,26 +83,51 @@ class CostbenefitprojectionController extends JControllerLegacy
 				}
 				return false;
 			}
-                }
+		}
+		
+		// we may need to make this more dynamic in the future. (TODO)
+		$safeurlparams = array(
+			'catid' => 'INT',
+			'id' => 'INT',
+			'cid' => 'ARRAY',
+			'year' => 'INT',
+			'month' => 'INT',
+			'limit' => 'UINT',
+			'limitstart' => 'UINT',
+			'showall' => 'INT',
+			'return' => 'BASE64',
+			'filter' => 'STRING',
+			'filter_order' => 'CMD',
+			'filter_order_Dir' => 'CMD',
+			'filter-search' => 'STRING',
+			'print' => 'BOOLEAN',
+			'lang' => 'CMD',
+			'Itemid' => 'INT');
 
-		return parent::display($cachable, $urlparams);
+		// should these not merge?
+		if (CostbenefitprojectionHelper::checkArray($urlparams))
+		{
+			$safeurlparams = CostbenefitprojectionHelper::mergeArrays(array($urlparams, $safeurlparams));
+		}
+
+		return parent::display($cachable, $safeurlparams);
 	}
 
 	protected function checkEditView($view)
 	{
-                if (CostbenefitprojectionHelper::checkString($view))
-                {
-                        $views = array(
+		if (CostbenefitprojectionHelper::checkString($view))
+		{
+			$views = array(
 				'company',
 				'scaling_factor',
 				'intervention'
-                                );
-                        // check if this is a edit view
-                        if (in_array($view,$views))
-                        {
-                                return true;
-                        }
-                }
+				);
+			// check if this is a edit view
+			if (in_array($view,$views))
+			{
+				return true;
+			}
+		}
 		return false;
 	}
 }

@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
+	@version		@update number 21 of this MVC
 	@build			16th August, 2016
-	@created		15th June, 2012
+	@created		8th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		scaling_factors.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -140,7 +140,7 @@ class CostbenefitprojectionModelScaling_factors extends JModelList
 				}
 
 			}
-		} 
+		}  
         
 		// return items
 		return $items;
@@ -210,7 +210,7 @@ class CostbenefitprojectionModelScaling_factors extends JModelList
 			}
 			else
 			{
-				$search = $db->quote('%' . $db->escape($search, true) . '%');
+				$search = $db->quote('%' . $db->escape($search) . '%');
 				$query->where('(a.causerisk LIKE '.$search.' OR g.name LIKE '.$search.' OR a.company LIKE '.$search.' OR h.name LIKE '.$search.' OR a.reference LIKE '.$search.')');
 			}
 		}
@@ -218,12 +218,12 @@ class CostbenefitprojectionModelScaling_factors extends JModelList
 		// Filter by causerisk.
 		if ($causerisk = $this->getState('filter.causerisk'))
 		{
-			$query->where('a.causerisk = ' . $db->quote($db->escape($causerisk, true)));
+			$query->where('a.causerisk = ' . $db->quote($db->escape($causerisk)));
 		}
 		// Filter by company.
 		if ($company = $this->getState('filter.company'))
 		{
-			$query->where('a.company = ' . $db->quote($db->escape($company, true)));
+			$query->where('a.company = ' . $db->quote($db->escape($company)));
 		}
 
 		// Add the list ordering clause.

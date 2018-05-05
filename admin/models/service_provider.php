@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 35 of this MVC
+	@build			22nd March, 2016
+	@created		25th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		service_provider.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -73,7 +73,7 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 	{
 		if ($item = parent::getItem($pk))
 		{
-			if (!empty($item->params))
+			if (!empty($item->params) && !is_array($item->params))
 			{
 				// Convert the params field to an array.
 				$registry = new Registry;
@@ -237,7 +237,7 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 	public function selectionTranslationVwecompanies($value,$name)
 	{
 		// Array of department language strings
-		if ($name == 'department')
+		if ($name === 'department')
 		{
 			$departmentArray = array(
 				1 => 'COM_COSTBENEFITPROJECTION_COMPANY_BASIC',
@@ -250,7 +250,7 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 			}
 		}
 		// Array of per language strings
-		if ($name == 'per')
+		if ($name === 'per')
 		{
 			$perArray = array(
 				1 => 'COM_COSTBENEFITPROJECTION_COMPANY_OPEN',
@@ -276,7 +276,8 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 	 * @since   1.6
 	 */
 	public function getForm($data = array(), $loadData = true)
-	{		// Get the form.
+	{
+		// Get the form.
 		$form = $this->loadForm('com_costbenefitprojection.service_provider', 'service_provider', array('control' => 'jform', 'load_data' => $loadData));
 
 		if (empty($form))
@@ -427,16 +428,7 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 	{
 		// Check specific edit permission then general edit permission.
 		$user = JFactory::getUser();
-		$recordId	= (int) isset($data[$key]) ? $data[$key] : 0;
-		if (!$user->authorise('core.options', 'com_costbenefitprojection'))
-		{
-			// make absolutely sure that this Service Providers can be edited
-			$serviceproviders = CostbenefitprojectionHelper::hisServiceProviders($user->id);
-			if (!CostbenefitprojectionHelper::checkArray($serviceproviders) || !in_array($recordId,$serviceproviders))
-			{
-				return false;
-			}
-		}
+
 		return $user->authorise('service_provider.edit', 'com_costbenefitprojection.service_provider.'. ((int) isset($data[$key]) ? $data[$key] : 0)) or $user->authorise('service_provider.edit',  'com_costbenefitprojection');
 	}
     
@@ -548,6 +540,26 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 		
 		return true;
 	}
+
+	/**
+	 * Method to change the published state of one or more records.
+	 *
+	 * @param   array    &$pks   A list of the primary keys to change.
+	 * @param   integer  $value  The value of the published state.
+	 *
+	 * @return  boolean  True on success.
+	 *
+	 * @since   12.2
+	 */
+	public function publish(&$pks, $value = 1)
+	{
+		if (!parent::publish($pks, $value))
+		{
+			return false;
+		}
+		
+		return true;
+        }
     
 	/**
 	 * Method to perform batch operations on an item or a set of items.
@@ -664,8 +676,6 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 			$this->user 		= JFactory::getUser();
 			$this->table 		= $this->getTable();
 			$this->tableClassName	= get_class($this->table);
-			$this->contentType	= new JUcmType;
-			$this->type		= $this->contentType->getTypeByTable($this->tableClassName);
 			$this->canDo		= CostbenefitprojectionHelper::getActions('service_provider');
 		}
 
@@ -720,7 +730,6 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 		}
 
 		$newIds = array();
-
 		// Parent exists so let's proceed
 		while (!empty($pks))
 		{
@@ -730,17 +739,11 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 			$this->table->reset();
 
 			// only allow copy if user may edit this item.
-
 			if (!$this->user->authorise('service_provider.edit', $contexts[$pk]))
-
 			{
-
 				// Not fatal error
-
 				$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
-
 				continue;
-
 			}
 
 			// Check that the row actually exists
@@ -750,7 +753,6 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 				{
 					// Fatal error
 					$this->setError($error);
-
 					return false;
 				}
 				else
@@ -841,8 +843,6 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 			$this->user		= JFactory::getUser();
 			$this->table		= $this->getTable();
 			$this->tableClassName	= get_class($this->table);
-			$this->contentType	= new JUcmType;
-			$this->type		= $this->contentType->getTypeByTable($this->tableClassName);
 			$this->canDo		= CostbenefitprojectionHelper::getActions('service_provider');
 		}
 
@@ -895,7 +895,6 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 			if (!$this->user->authorise('service_provider.edit', $contexts[$pk]))
 			{
 				$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_EDIT'));
-
 				return false;
 			}
 
@@ -906,7 +905,6 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 				{
 					// Fatal error
 					$this->setError($error);
-
 					return false;
 				}
 				else
@@ -923,7 +921,7 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 				foreach ($values as $key => $value)
 				{
 					// Do special action for access.
-					if ('access' == $key && strlen($value) > 0)
+					if ('access' === $key && strlen($value) > 0)
 					{
 						$this->table->$key = $value;
 					}
@@ -1008,7 +1006,7 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 		}
 
 		// Alter the uniqe field for save as copy
-		if ($input->get('task') == 'save2copy')
+		if ($input->get('task') === 'save2copy')
 		{
 			// Automatic handling of other uniqe fields
 			$uniqeFields = $this->getUniqeFields();
@@ -1053,9 +1051,9 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 	}
 
 	/**
-	* Method to change the title & alias.
+	* Method to change the title
 	*
-	* @param   string   $title        The title.
+	* @param   string   $title   The title.
 	*
 	* @return	array  Contains the modified title and alias.
 	*

@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 71 of this MVC
+	@build			12th November, 2016
+	@created		8th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -40,39 +40,38 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 			CostbenefitprojectionHelper::addSubmenu('interventions');
 		}
 
-		// Check for errors.
-		if (count($errors = $this->get('Errors')))
-                {
-			JError::raiseError(500, implode('<br />', $errors));
-			return false;
-		}
-
 		// Assign data to the view
-		$this->items 		= $this->get('Items');
-		$this->pagination 	= $this->get('Pagination');
-		$this->state		= $this->get('State');
-		$this->user 		= JFactory::getUser();
-		$this->listOrder	= $this->escape($this->state->get('list.ordering'));
-		$this->listDirn		= $this->escape($this->state->get('list.direction'));
-		$this->saveOrder	= $this->listOrder == 'ordering';
-                // get global action permissions
-		$this->canDo		= CostbenefitprojectionHelper::getActions('intervention');
-		$this->canEdit		= $this->canDo->get('intervention.edit');
-		$this->canState		= $this->canDo->get('intervention.edit.state');
-		$this->canCreate	= $this->canDo->get('intervention.create');
-		$this->canDelete	= $this->canDo->get('intervention.delete');
-		$this->canBatch	= $this->canDo->get('core.batch');
+		$this->items = $this->get('Items');
+		$this->pagination = $this->get('Pagination');
+		$this->state = $this->get('State');
+		$this->user = JFactory::getUser();
+		$this->listOrder = $this->escape($this->state->get('list.ordering'));
+		$this->listDirn = $this->escape($this->state->get('list.direction'));
+		$this->saveOrder = $this->listOrder == 'ordering';
+		// get global action permissions
+		$this->canDo = CostbenefitprojectionHelper::getActions('intervention');
+		$this->canEdit = $this->canDo->get('intervention.edit');
+		$this->canState = $this->canDo->get('intervention.edit.state');
+		$this->canCreate = $this->canDo->get('intervention.create');
+		$this->canDelete = $this->canDo->get('intervention.delete');
+		$this->canBatch = $this->canDo->get('core.batch');
 
 		// We don't need toolbar in the modal window.
 		if ($this->getLayout() !== 'modal')
 		{
 			$this->addToolbar();
 			$this->sidebar = JHtmlSidebar::render();
-                        // load the batch html
-                        if ($this->canCreate && $this->canEdit && $this->canState)
-                        {
-                                $this->batchDisplay = JHtmlBatch_::render();
-                        }
+			// load the batch html
+			if ($this->canCreate && $this->canEdit && $this->canState)
+			{
+				$this->batchDisplay = JHtmlBatch_::render();
+			}
+		}
+		
+		// Check for errors.
+		if (count($errors = $this->get('Errors')))
+		{
+			throw new Exception(implode("\n", $errors), 500);
 		}
 
 		// Display the template
@@ -89,96 +88,96 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 	{
 		JToolBarHelper::title(JText::_('COM_COSTBENEFITPROJECTION_INTERVENTIONS'), 'wand');
 		JHtmlSidebar::setAction('index.php?option=com_costbenefitprojection&view=interventions');
-                JFormHelper::addFieldPath(JPATH_COMPONENT . '/models/fields');
+		JFormHelper::addFieldPath(JPATH_COMPONENT . '/models/fields');
 
 		if ($this->canCreate)
-                {
+		{
 			JToolBarHelper::addNew('intervention.add');
 		}
 
-                // Only load if there are items
-                if (CostbenefitprojectionHelper::checkArray($this->items))
+		// Only load if there are items
+		if (CostbenefitprojectionHelper::checkArray($this->items))
 		{
-                        if ($this->canEdit)
-                        {
-                            JToolBarHelper::editList('intervention.edit');
-                        }
+			if ($this->canEdit)
+			{
+				JToolBarHelper::editList('intervention.edit');
+			}
 
-                        if ($this->canState)
-                        {
-                            JToolBarHelper::publishList('interventions.publish');
-                            JToolBarHelper::unpublishList('interventions.unpublish');
-                            JToolBarHelper::archiveList('interventions.archive');
+			if ($this->canState)
+			{
+				JToolBarHelper::publishList('interventions.publish');
+				JToolBarHelper::unpublishList('interventions.unpublish');
+				JToolBarHelper::archiveList('interventions.archive');
 
-                            if ($this->canDo->get('core.admin'))
-                            {
-                                JToolBarHelper::checkin('interventions.checkin');
-                            }
-                        }
+				if ($this->canDo->get('core.admin'))
+				{
+					JToolBarHelper::checkin('interventions.checkin');
+				}
+			}
 
-                        // Add a batch button
-                        if ($this->canBatch && $this->canCreate && $this->canEdit && $this->canState)
-                        {
-                                // Get the toolbar object instance
-                                $bar = JToolBar::getInstance('toolbar');
-                                // set the batch button name
-                                $title = JText::_('JTOOLBAR_BATCH');
-                                // Instantiate a new JLayoutFile instance and render the batch button
-                                $layout = new JLayoutFile('joomla.toolbar.batch');
-                                // add the button to the page
-                                $dhtml = $layout->render(array('title' => $title));
-                                $bar->appendButton('Custom', $dhtml, 'batch');
-                        } 
+			// Add a batch button
+			if ($this->canBatch && $this->canCreate && $this->canEdit && $this->canState)
+			{
+				// Get the toolbar object instance
+				$bar = JToolBar::getInstance('toolbar');
+				// set the batch button name
+				$title = JText::_('JTOOLBAR_BATCH');
+				// Instantiate a new JLayoutFile instance and render the batch button
+				$layout = new JLayoutFile('joomla.toolbar.batch');
+				// add the button to the page
+				$dhtml = $layout->render(array('title' => $title));
+				$bar->appendButton('Custom', $dhtml, 'batch');
+			} 
 
-                        if ($this->state->get('filter.published') == -2 && ($this->canState && $this->canDelete))
-                        {
-                            JToolbarHelper::deleteList('', 'interventions.delete', 'JTOOLBAR_EMPTY_TRASH');
-                        }
-                        elseif ($this->canState && $this->canDelete)
-                        {
-                                JToolbarHelper::trash('interventions.trash');
-                        }
+			if ($this->state->get('filter.published') == -2 && ($this->canState && $this->canDelete))
+			{
+				JToolbarHelper::deleteList('', 'interventions.delete', 'JTOOLBAR_EMPTY_TRASH');
+			}
+			elseif ($this->canState && $this->canDelete)
+			{
+				JToolbarHelper::trash('interventions.trash');
+			}
 
 			if ($this->canDo->get('core.export') && $this->canDo->get('intervention.export'))
 			{
 				JToolBarHelper::custom('interventions.exportData', 'download', '', 'COM_COSTBENEFITPROJECTION_EXPORT_DATA', true);
 			}
-                }
+		} 
 
 		if ($this->canDo->get('core.import') && $this->canDo->get('intervention.import'))
 		{
 			JToolBarHelper::custom('interventions.importData', 'upload', '', 'COM_COSTBENEFITPROJECTION_IMPORT_DATA', false);
 		}
 
-                // set help url for this view if found
-                $help_url = CostbenefitprojectionHelper::getHelpUrl('interventions');
-                if (CostbenefitprojectionHelper::checkString($help_url))
-                {
-                        JToolbarHelper::help('COM_COSTBENEFITPROJECTION_HELP_MANAGER', false, $help_url);
-                }
+		// set help url for this view if found
+		$help_url = CostbenefitprojectionHelper::getHelpUrl('interventions');
+		if (CostbenefitprojectionHelper::checkString($help_url))
+		{
+				JToolbarHelper::help('COM_COSTBENEFITPROJECTION_HELP_MANAGER', false, $help_url);
+		}
 
-                // add the options comp button
-                if ($this->canDo->get('core.admin') || $this->canDo->get('core.options'))
-                {
-                        JToolBarHelper::preferences('com_costbenefitprojection');
-                }
+		// add the options comp button
+		if ($this->canDo->get('core.admin') || $this->canDo->get('core.options'))
+		{
+			JToolBarHelper::preferences('com_costbenefitprojection');
+		}
 
-                if ($this->canState)
-                {
+		if ($this->canState)
+		{
 			JHtmlSidebar::addFilter(
 				JText::_('JOPTION_SELECT_PUBLISHED'),
 				'filter_published',
 				JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.published'), true)
 			);
-                        // only load if batch allowed
-                        if ($this->canBatch)
-                        {
-                            JHtmlBatch_::addListSelection(
-                                JText::_('COM_COSTBENEFITPROJECTION_KEEP_ORIGINAL_STATE'),
-                                'batch[published]',
-                                JHtml::_('select.options', JHtml::_('jgrid.publishedOptions', array('all' => false)), 'value', 'text', '', true)
-                            );
-                        }
+			// only load if batch allowed
+			if ($this->canBatch)
+			{
+				JHtmlBatch_::addListSelection(
+					JText::_('COM_COSTBENEFITPROJECTION_KEEP_ORIGINAL_STATE'),
+					'batch[published]',
+					JHtml::_('select.options', JHtml::_('jgrid.publishedOptions', array('all' => false)), 'value', 'text', '', true)
+				);
+			}
 		}
 
 		JHtmlSidebar::addFilter(
@@ -190,11 +189,11 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 		if ($this->canBatch && $this->canCreate && $this->canEdit)
 		{
 			JHtmlBatch_::addListSelection(
-                                JText::_('COM_COSTBENEFITPROJECTION_KEEP_ORIGINAL_ACCESS'),
-                                'batch[access]',
-                                JHtml::_('select.options', JHtml::_('access.assetgroups'), 'value', 'text')
+				JText::_('COM_COSTBENEFITPROJECTION_KEEP_ORIGINAL_ACCESS'),
+				'batch[access]',
+				JHtml::_('select.options', JHtml::_('access.assetgroups'), 'value', 'text')
 			);
-                }  
+		} 
 
 		// Set Company Name Selection
 		$this->companyNameOptions = JFormHelper::loadFieldType('Company')->getOptions();
@@ -292,12 +291,15 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 	 */
 	protected function setDocument()
 	{
-		$document = JFactory::getDocument();
-		$document->setTitle(JText::_('COM_COSTBENEFITPROJECTION_INTERVENTIONS'));
-		$document->addStyleSheet(JURI::root() . "administrator/components/com_costbenefitprojection/assets/css/interventions.css");
+		if (!isset($this->document))
+		{
+			$this->document = JFactory::getDocument();
+		}
+		$this->document->setTitle(JText::_('COM_COSTBENEFITPROJECTION_INTERVENTIONS'));
+		$this->document->addStyleSheet(JURI::root() . "administrator/components/com_costbenefitprojection/assets/css/interventions.css", (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
 	}
 
-        /**
+	/**
 	 * Escapes a value for output in a view script.
 	 *
 	 * @param   mixed  $var  The output to escape.
@@ -308,10 +310,10 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 	{
 		if(strlen($var) > 50)
 		{
-                        // use the helper htmlEscape method instead and shorten the string
+			// use the helper htmlEscape method instead and shorten the string
 			return CostbenefitprojectionHelper::htmlEscape($var, $this->_charset, true);
 		}
-                // use the helper htmlEscape method instead.
+		// use the helper htmlEscape method instead.
 		return CostbenefitprojectionHelper::htmlEscape($var, $this->_charset);
 	}
 
@@ -333,7 +335,7 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 			'a.duration' => JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_DURATION_LABEL'),
 			'a.id' => JText::_('JGRID_HEADING_ID')
 		);
-	} 
+	}
 
 	protected function getTheTypeSelections()
 	{
@@ -358,15 +360,15 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 			// get model
 			$model = $this->getModel();
 			$results = array_unique($results);
-			$filter = array();
+			$_filter = array();
 			foreach ($results as $type)
 			{
 				// Translate the type selection
 				$text = $model->selectionTranslation($type,'type');
 				// Now add the type and its text to the options array
-				$filter[] = JHtml::_('select.option', $type, JText::_($text));
+				$_filter[] = JHtml::_('select.option', $type, JText::_($text));
 			}
-			return $filter;
+			return $_filter;
 		}
 		return false;
 	}
@@ -392,13 +394,13 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 		if ($results)
 		{
 			$results = array_unique($results);
-			$filter = array();
+			$_filter = array();
 			foreach ($results as $coverage)
 			{
 				// Now add the coverage and its text to the options array
-				$filter[] = JHtml::_('select.option', $coverage, $coverage);
+				$_filter[] = JHtml::_('select.option', $coverage, $coverage);
 			}
-			return $filter;
+			return $_filter;
 		}
 		return false;
 	}
@@ -424,13 +426,13 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 		if ($results)
 		{
 			$results = array_unique($results);
-			$filter = array();
+			$_filter = array();
 			foreach ($results as $duration)
 			{
 				// Now add the duration and its text to the options array
-				$filter[] = JHtml::_('select.option', $duration, $duration);
+				$_filter[] = JHtml::_('select.option', $duration, $duration);
 			}
-			return $filter;
+			return $_filter;
 		}
 		return false;
 	}

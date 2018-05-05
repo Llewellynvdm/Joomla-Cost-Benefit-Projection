@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
+	@version		3.4.3
+	@build			5th May, 2018
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		import.php
@@ -25,6 +25,11 @@ defined('_JEXEC') or die('Restricted access');
  */
 class CostbenefitprojectionModelImport extends JModelLegacy
 {
+	// set uploading values
+	protected $use_streams = false;
+	protected $allow_unsafe = false;
+	protected $safeFileOptions = array();
+	
 	/**
 	 * @var object JTable object
 	 */
@@ -66,10 +71,6 @@ class CostbenefitprojectionModelImport extends JModelLegacy
 		// Recall the 'Import from Directory' path.
 		$path = $app->getUserStateFromRequest($this->_context . '.import_directory', 'import_directory', $app->get('tmp_path'));
 		$this->setState('import.directory', $path);
-		// set uploading values
-		$this->use_streams = false;
-		$this->allow_unsafe = false;
-		$this->safeFileOptions = array();
 		parent::populateState();
 	}
 
@@ -82,10 +83,10 @@ class CostbenefitprojectionModelImport extends JModelLegacy
 	public function import()
 	{
 		$this->setState('action', 'import');
-		$app 		= JFactory::getApplication();
-		$session 	= JFactory::getSession();
-		$package 	= null;
-		$continue	= false;
+		$app = JFactory::getApplication();
+		$session = JFactory::getSession();
+		$package = null;
+		$continue = false;
 		// get import type
 		$this->getType = $app->input->getString('gettype', NULL);
 		// get import type
@@ -140,7 +141,7 @@ class CostbenefitprojectionModelImport extends JModelLegacy
 		
 		// first link data to table headers
 		if(!$continue){
-			$package	= json_encode($package);
+			$package = json_encode($package);
 			$session->set('package', $package);
 			$session->set('dataType', $this->dataType);
 			$session->set('hasPackage', true);
@@ -192,8 +193,8 @@ class CostbenefitprojectionModelImport extends JModelLegacy
 	protected function _getPackageFromUpload()
 	{		
 		// Get the uploaded file information
-		$app	= JFactory::getApplication();
-		$input	= $app->input;
+		$app = JFactory::getApplication();
+		$input = $app->input;
 
 		// Do not change the filter type 'raw'. We need this to let files containing PHP code to upload. See JInputFiles::get.
 		$userfile = $input->files->get('import_package', null, 'raw');
@@ -220,9 +221,9 @@ class CostbenefitprojectionModelImport extends JModelLegacy
 		}
 
 		// Build the appropriate paths
-		$config		= JFactory::getConfig();
-		$tmp_dest	= $config->get('tmp_path') . '/' . $userfile['name'];
-		$tmp_src	= $userfile['tmp_name'];
+		$config = JFactory::getConfig();
+		$tmp_dest = $config->get('tmp_path') . '/' . $userfile['name'];
+		$tmp_src = $userfile['tmp_name'];
 
 		// Move uploaded file
 		jimport('joomla.filesystem.file');
@@ -253,8 +254,8 @@ class CostbenefitprojectionModelImport extends JModelLegacy
 	 */
 	protected function _getPackageFromFolder()
 	{
-		$app	= JFactory::getApplication();
-		$input	= $app->input;
+		$app = JFactory::getApplication();
+		$input = $app->input;
 
 		// Get the path to the package to import
 		$p_dir = $input->getString('import_directory');
@@ -276,21 +277,16 @@ class CostbenefitprojectionModelImport extends JModelLegacy
 		}
 		
 		// check the extention
-		switch(strtolower(pathinfo($p_dir, PATHINFO_EXTENSION))){
-			case 'xls':
-			case 'ods':
-			case 'csv':
-			break;
-			
-			default:
+		if(!$this->checkExtension($p_dir))
+		{
+			// set error message
 			$app->enqueueMessage(JText::_('COM_COSTBENEFITPROJECTION_IMPORT_MSG_DOES_NOT_HAVE_A_VALID_FILE_TYPE'), 'warning');
 			return false;
-			break;
 		}
 		
 		$package['packagename'] = null;
-		$package['dir'] 		= $p_dir;
-		$package['type'] 		= $type;
+		$package['dir'] = $p_dir;
+		$package['type'] = $type;
 
 		return $package;
 	}
@@ -303,8 +299,8 @@ class CostbenefitprojectionModelImport extends JModelLegacy
 	 */
 	protected function _getPackageFromUrl()
 	{
-		$app	= JFactory::getApplication();
-		$input	= $app->input;
+		$app = JFactory::getApplication();
+		$input = $app->input;
 		
 		// Get the URL of the package to import
 		$url = $input->getString('import_url');
@@ -343,36 +339,52 @@ class CostbenefitprojectionModelImport extends JModelLegacy
 	 */
 	protected function check($archivename)
 	{
-		$app	= JFactory::getApplication();
+		$app = JFactory::getApplication();
 		// Clean the name
 		$archivename = JPath::clean($archivename);
 		
 		// check the extention
-		switch(strtolower(pathinfo($archivename, PATHINFO_EXTENSION))){
-			case 'xls':
-			case 'ods':
-			case 'csv':
-			break;
-			
-			default:
+		if(!$this->checkExtension($archivename))
+		{
 			// Cleanup the import files
 			$this->remove($archivename);
 			$app->enqueueMessage(JText::_('COM_COSTBENEFITPROJECTION_IMPORT_MSG_DOES_NOT_HAVE_A_VALID_FILE_TYPE'), 'warning');
 			return false;
-			break;
-		}	
+		}
 		
-		$config					= JFactory::getConfig();
+		$config = JFactory::getConfig();
 		// set Package Name
-		$check['packagename']	= $archivename;
+		$check['packagename'] = $archivename;
 		
 		// set directory
-		$check['dir']		= $config->get('tmp_path'). '/' .$archivename;
+		$check['dir'] = $config->get('tmp_path'). '/' .$archivename;
 		
 		// set type
-		$check['type']		= $this->getType;
+		$check['type'] = $this->getType;
 		
 		return $check;
+	}
+	
+	/**
+	 * Check the extension 
+	 *
+	 * @param   string  $file    Name of the uploaded file
+	 *
+	 * @return  boolean  True on success
+	 *
+	 */
+	protected function checkExtension($file)
+	{		
+		// check the extention
+		switch(strtolower(pathinfo($file, PATHINFO_EXTENSION)))
+		{
+			case 'xls':
+			case 'ods':
+			case 'csv':
+			return true;
+			break;
+		}
+		return false;
 	}
 	
 	/**
@@ -387,8 +399,8 @@ class CostbenefitprojectionModelImport extends JModelLegacy
 	{
 		jimport('joomla.filesystem.file');
 		
-		$config		= JFactory::getConfig();
-		$package	= $config->get('tmp_path'). '/' .$package;
+		$config = JFactory::getConfig();
+		$package = $config->get('tmp_path'). '/' .$package;
 
 		// Is the package file a valid file?
 		if (is_file($package))
@@ -451,11 +463,11 @@ class CostbenefitprojectionModelImport extends JModelLegacy
 		if(CostbenefitprojectionHelper::checkArray($data['array']))
 		{
 			// get user object
-			$user  		= JFactory::getUser();
+			$user = JFactory::getUser();
 			// remove header if it has headers
-			$id_key 	= $data['target_headers']['id'];
-			$published_key 	= $data['target_headers']['published'];
-			$ordering_key 	= $data['target_headers']['ordering'];
+			$id_key = $data['target_headers']['id'];
+			$published_key = $data['target_headers']['published'];
+			$ordering_key = $data['target_headers']['ordering'];
 			// get the first array set
 			$firstSet = reset($data['array']);
             
@@ -473,13 +485,13 @@ class CostbenefitprojectionModelImport extends JModelLegacy
 				// Get a db connection.
 				$db = JFactory::getDbo();
 				// set some defaults
-				$todayDate		= JFactory::getDate()->toSql();
+				$todayDate = JFactory::getDate()->toSql();
 				// get global action permissions
-				$canDo			= CostbenefitprojectionHelper::getActions($table);
-				$canEdit		= $canDo->get('core.edit');
-				$canState		= $canDo->get('core.edit.state');
-				$canCreate		= $canDo->get('core.create');
-				$hasAlias		= $this->getAliasesUsed($table);
+				$canDo = CostbenefitprojectionHelper::getActions($table);
+				$canEdit = $canDo->get('core.edit');
+				$canState = $canDo->get('core.edit.state');
+				$canCreate = $canDo->get('core.create');
+				$hasAlias = $this->getAliasesUsed($table);
 				// prosses the data
 				foreach($data['array'] as $row)
 				{
@@ -501,11 +513,11 @@ class CostbenefitprojectionModelImport extends JModelLegacy
 					if($found && $canEdit)
 					{
 						// update item
-						$id 		= $row[$id_key];
-						$version	= $db->loadResult();
+						$id = $row[$id_key];
+						$version = $db->loadResult();
 						// reset all buckets
-						$query 		= $db->getQuery(true);
-						$fields 	= array();
+						$query = $db->getQuery(true);
+						$fields = array();
 						// Fields to update.
 						foreach($row as $key => $cell)
 						{
@@ -550,8 +562,8 @@ class CostbenefitprojectionModelImport extends JModelLegacy
 							}
 						}
 						// load the defaults
-						$fields[]	= $db->quoteName('modified_by') . ' = ' . $db->quote($user->id);
-						$fields[]	= $db->quoteName('modified') . ' = ' . $db->quote($todayDate);
+						$fields[] = $db->quoteName('modified_by') . ' = ' . $db->quote($user->id);
+						$fields[] = $db->quoteName('modified') . ' = ' . $db->quote($todayDate);
 						// Conditions for which records should be updated.
 						$conditions = array(
 							$db->quoteName('id') . ' = ' . $id
@@ -566,9 +578,9 @@ class CostbenefitprojectionModelImport extends JModelLegacy
 						// insert item
 						$query = $db->getQuery(true);
 						// reset all buckets
-						$columns 	= array();
-						$values 	= array();
-						$version	= false;
+						$columns = array();
+						$values = array();
+						$version = false;
 						// Insert columns. Insert values.
 						foreach($row as $key => $cell)
 						{
@@ -606,30 +618,30 @@ class CostbenefitprojectionModelImport extends JModelLegacy
 							// set to insert array
 							if(in_array($key, $data['target_headers']) && is_numeric($cell))
 							{
-								$columns[] 	= $target[$key];
-								$values[] 	= $cell;
+								$columns[] = $target[$key];
+								$values[] = $cell;
 							}
 							elseif(in_array($key, $data['target_headers']) && is_string($cell))
 							{
-								$columns[] 	= $target[$key];
-								$values[] 	= $db->quote($cell);
+								$columns[] = $target[$key];
+								$values[] = $db->quote($cell);
 							}
 							elseif(in_array($key, $data['target_headers']) && is_null($cell))
 							{
 								// if import data is null then set empty
-								$columns[] 	= $target[$key];
-								$values[] 	= "''";
+								$columns[] = $target[$key];
+								$values[] = "''";
 							}
 						}
 						// load the defaults
-						$columns[] 	= 'created_by';
-						$values[] 	= $db->quote($user->id);
-						$columns[] 	= 'created';
-						$values[] 	= $db->quote($todayDate);
+						$columns[] = 'created_by';
+						$values[] = $db->quote($user->id);
+						$columns[] = 'created';
+						$values[] = $db->quote($todayDate);
 						if (!$version)
 						{
-							$columns[] 	= 'version';
-							$values[] 	= 1;
+							$columns[] = 'version';
+							$values[] = 1;
 						}
 						// Prepare the insert query.
 						$query

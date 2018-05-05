@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
+	@version		3.4.3
+	@build			5th May, 2018
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -31,16 +31,18 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 {
 	public function getIcons()
 	{
-                // load user for access menus
-                $user = JFactory::getUser();
-                // reset icon array
+		// load user for access menus
+		$user = JFactory::getUser();
+		// reset icon array
 		$icons  = array();
-                // view groups array
+		// view groups array
 		$viewGroups = array(
 			'main' => array('png.company.add', 'png.companies', 'png.service_provider.add', 'png.service_providers', 'png.countries', 'png.causerisk.add', 'png.causesrisks', 'png.health_data_sets', 'png.scaling_factor.add', 'png.scaling_factors', 'png.intervention.add', 'png.interventions', 'png.currencies', 'png.help_documents')
 		);
 		// view access array
 		$viewAccess = array(
+			'companyresults.access' => 'companyresults.access',
+			'combinedresults.access' => 'combinedresults.access',
 			'combinedresults.dashboard_list' => 'combinedresults.dashboard_list',
 			'company.create' => 'company.create',
 			'companies.access' => 'company.access',
@@ -92,93 +94,109 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 			'help_document.access' => 'help_document.access',
 			'help_documents.submenu' => 'help_document.submenu',
 			'help_documents.dashboard_list' => 'help_document.dashboard_list');
+		// loop over the $views
 		foreach($viewGroups as $group => $views)
-                {
+		{
 			$i = 0;
 			if (CostbenefitprojectionHelper::checkArray($views))
-                        {
+			{
 				foreach($views as $view)
 				{
 					$add = false;
-					if (strpos($view,'.') !== false)
-                                        {
-                                                $dwd = explode('.', $view);
-                                                if (count($dwd) == 3)
-                                                {
-                                                        list($type, $name, $action) = $dwd;
-                                                }
-                                                elseif (count($dwd) == 2)
-                                                {
-                                                        list($type, $name) = $dwd;
-                                                        $action = false;
-                                                }
-                                                if ($action)
-                                                {
-                                                        $viewName = $name;
-                                                        switch($action)
-                                                        {
-                                                                case 'add':
-                                                                        $url 	='index.php?option=com_costbenefitprojection&view='.$name.'&layout=edit';
-                                                                        $image 	= $name.'_'.$action.'.'.$type;
-                                                                        $alt 	= $name.'&nbsp;'.$action;
-                                                                        $name	= 'COM_COSTBENEFITPROJECTION_DASHBOARD_'.CostbenefitprojectionHelper::safeString($name,'U').'_ADD';
-                                                                        $add	= true;
-                                                                break;
-                                                                default:
-                                                                        $url 	= 'index.php?option=com_categories&view=categories&extension=com_costbenefitprojection.'.$name;
-                                                                        $image 	= $name.'_'.$action.'.'.$type;
-                                                                        $alt 	= $name.'&nbsp;'.$action;
-                                                                        $name	= 'COM_COSTBENEFITPROJECTION_DASHBOARD_'.CostbenefitprojectionHelper::safeString($name,'U').'_'.CostbenefitprojectionHelper::safeString($action,'U');
-                                                                break;
-                                                        }
-                                                }
-                                                else
-                                                {
-                                                        $viewName 	= $name;
-                                                        $alt 		= $name;
-                                                        $url 		= 'index.php?option=com_costbenefitprojection&view='.$name;
-                                                        $image 		= $name.'.'.$type;
-                                                        $name 		= 'COM_COSTBENEFITPROJECTION_DASHBOARD_'.CostbenefitprojectionHelper::safeString($name,'U');
-                                                        $hover		= false;
-                                                }
-                                        }
-                                        else
-                                        {
-                                                $viewName 	= $view;
-                                                $alt 		= $view;
-                                                $url 		= 'index.php?option=com_costbenefitprojection&view='.$view;
-                                                $image 		= $view.'.png';
-                                                $name 		= ucwords($view).'<br /><br />';
-                                                $hover		= false;
-                                        }
-                                        // first make sure the view access is set
-                                        if (CostbenefitprojectionHelper::checkArray($viewAccess))
-                                        {
+					// external views (links)
+					if (strpos($view,'||') !== false)
+					{
+						$dwd = explode('||', $view);
+						if (count($dwd) == 3)
+						{
+							list($type, $name, $url) = $dwd;
+							$viewName 	= $name;
+							$alt 		= $name;
+							$url 		= $url;
+							$image 		= $name.'.'.$type;
+							$name 		= 'COM_COSTBENEFITPROJECTION_DASHBOARD_'.CostbenefitprojectionHelper::safeString($name,'U');
+						}
+					}
+					// internal views
+					elseif (strpos($view,'.') !== false)
+					{
+						$dwd = explode('.', $view);
+						if (count($dwd) == 3)
+						{
+							list($type, $name, $action) = $dwd;
+						}
+						elseif (count($dwd) == 2)
+						{
+							list($type, $name) = $dwd;
+							$action = false;
+						}
+						if ($action)
+						{
+							$viewName = $name;
+							switch($action)
+							{
+								case 'add':
+									$url 	= 'index.php?option=com_costbenefitprojection&view='.$name.'&layout=edit';
+									$image 	= $name.'_'.$action.'.'.$type;
+									$alt 	= $name.'&nbsp;'.$action;
+									$name	= 'COM_COSTBENEFITPROJECTION_DASHBOARD_'.CostbenefitprojectionHelper::safeString($name,'U').'_ADD';
+									$add	= true;
+								break;
+								default:
+									$url 	= 'index.php?option=com_categories&view=categories&extension=com_costbenefitprojection.'.$name;
+									$image 	= $name.'_'.$action.'.'.$type;
+									$alt 	= $name.'&nbsp;'.$action;
+									$name	= 'COM_COSTBENEFITPROJECTION_DASHBOARD_'.CostbenefitprojectionHelper::safeString($name,'U').'_'.CostbenefitprojectionHelper::safeString($action,'U');
+								break;
+							}
+						}
+						else
+						{
+							$viewName 	= $name;
+							$alt 		= $name;
+							$url 		= 'index.php?option=com_costbenefitprojection&view='.$name;
+							$image 		= $name.'.'.$type;
+							$name 		= 'COM_COSTBENEFITPROJECTION_DASHBOARD_'.CostbenefitprojectionHelper::safeString($name,'U');
+							$hover		= false;
+						}
+					}
+					else
+					{
+						$viewName 	= $view;
+						$alt 		= $view;
+						$url 		= 'index.php?option=com_costbenefitprojection&view='.$view;
+						$image 		= $view.'.png';
+						$name 		= ucwords($view).'<br /><br />';
+						$hover		= false;
+					}
+					// first make sure the view access is set
+					if (CostbenefitprojectionHelper::checkArray($viewAccess))
+					{
 						// setup some defaults
 						$dashboard_add = false;
 						$dashboard_list = false;
-                                                $accessTo = '';
-                                                $accessAdd = '';
-                                                // acces checking start
-                                                $accessCreate = (isset($viewAccess[$viewName.'.create'])) ? CostbenefitprojectionHelper::checkString($viewAccess[$viewName.'.create']):false;
-                                                $accessAccess = (isset($viewAccess[$viewName.'.access'])) ? CostbenefitprojectionHelper::checkString($viewAccess[$viewName.'.access']):false;
+						$accessTo = '';
+						$accessAdd = '';
+						// acces checking start
+						$accessCreate = (isset($viewAccess[$viewName.'.create'])) ? CostbenefitprojectionHelper::checkString($viewAccess[$viewName.'.create']):false;
+						$accessAccess = (isset($viewAccess[$viewName.'.access'])) ? CostbenefitprojectionHelper::checkString($viewAccess[$viewName.'.access']):false;
 						// set main controllers
 						$accessDashboard_add = (isset($viewAccess[$viewName.'.dashboard_add'])) ? CostbenefitprojectionHelper::checkString($viewAccess[$viewName.'.dashboard_add']):false;
 						$accessDashboard_list = (isset($viewAccess[$viewName.'.dashboard_list'])) ? CostbenefitprojectionHelper::checkString($viewAccess[$viewName.'.dashboard_list']):false;
-                                                // check for adding access
-                                                if ($add && $accessCreate)
-                                                {
-                                                        $accessAdd = $viewAccess[$viewName.'.create'];
-                                                }
-                                                elseif ($add)
-                                                {
-                                                        $accessAdd = 'core.create';
-                                                }
-                                                // check if acces to view is set
-                                                if ($accessAccess)
-                                                {
-                                                        $accessTo = $viewAccess[$viewName.'.access'];
-                                                }
+						// check for adding access
+						if ($add && $accessCreate)
+						{
+							$accessAdd = $viewAccess[$viewName.'.create'];
+						}
+						elseif ($add)
+						{
+							$accessAdd = 'core.create';
+						}
+						// check if acces to view is set
+						if ($accessAccess)
+						{
+							$accessTo = $viewAccess[$viewName.'.access'];
+						}
 						// set main access controllers
 						if ($accessDashboard_add)
 						{
@@ -188,65 +206,65 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 						{
 							$dashboard_list = $user->authorise($viewAccess[$viewName.'.dashboard_list'], 'com_costbenefitprojection');
 						}
-                                                if (CostbenefitprojectionHelper::checkString($accessAdd) && CostbenefitprojectionHelper::checkString($accessTo))
-                                                {
-                                                        // check access
-                                                        if($user->authorise($accessAdd, 'com_costbenefitprojection') && $user->authorise($accessTo, 'com_costbenefitprojection') && $dashboard_add)
-                                                        {
-                                                                $icons[$group][$i]              = new StdClass;
-                                                                $icons[$group][$i]->url 	= $url;
-                                                                $icons[$group][$i]->name 	= $name;
-                                                                $icons[$group][$i]->image 	= $image;
-                                                                $icons[$group][$i]->alt 	= $alt;
-                                                        }
-                                                }
-                                                elseif (CostbenefitprojectionHelper::checkString($accessTo))
-                                                {
-                                                        // check access
-                                                        if($user->authorise($accessTo, 'com_costbenefitprojection') && $dashboard_list)
-                                                        {
-                                                                $icons[$group][$i]              = new StdClass;
-                                                                $icons[$group][$i]->url 	= $url;
-                                                                $icons[$group][$i]->name 	= $name;
-                                                                $icons[$group][$i]->image 	= $image;
-                                                                $icons[$group][$i]->alt 	= $alt;
-                                                        }
-                                                }
-                                                elseif (CostbenefitprojectionHelper::checkString($accessAdd))
-                                                {
-                                                        // check access
-                                                        if($user->authorise($accessAdd, 'com_costbenefitprojection') && $dashboard_add)
-                                                        {
-                                                                $icons[$group][$i]              = new StdClass;
-                                                                $icons[$group][$i]->url 	= $url;
-                                                                $icons[$group][$i]->name 	= $name;
-                                                                $icons[$group][$i]->image 	= $image;
-                                                                $icons[$group][$i]->alt 	= $alt;
-                                                        }
-                                                }
-                                                else
-                                                {
-                                                        $icons[$group][$i]              = new StdClass;
-                                                        $icons[$group][$i]->url 	= $url;
-                                                        $icons[$group][$i]->name 	= $name;
-                                                        $icons[$group][$i]->image 	= $image;
-                                                        $icons[$group][$i]->alt 	= $alt;
-                                                }
-                                        }
-                                        else
-                                        {
-                                                $icons[$group][$i]              = new StdClass;
-                                                $icons[$group][$i]->url 	= $url;
-                                                $icons[$group][$i]->name 	= $name;
-                                                $icons[$group][$i]->image 	= $image;
-                                                $icons[$group][$i]->alt 	= $alt;
-                                        }
-                                        $i++;
-                                }
-                        }
-                        else
-                        {
-                                $icons[$group][$i] = false;
+						if (CostbenefitprojectionHelper::checkString($accessAdd) && CostbenefitprojectionHelper::checkString($accessTo))
+						{
+							// check access
+							if($user->authorise($accessAdd, 'com_costbenefitprojection') && $user->authorise($accessTo, 'com_costbenefitprojection') && $dashboard_add)
+							{
+								$icons[$group][$i]			= new StdClass;
+								$icons[$group][$i]->url 	= $url;
+								$icons[$group][$i]->name 	= $name;
+								$icons[$group][$i]->image 	= $image;
+								$icons[$group][$i]->alt 	= $alt;
+							}
+						}
+						elseif (CostbenefitprojectionHelper::checkString($accessTo))
+						{
+							// check access
+							if($user->authorise($accessTo, 'com_costbenefitprojection') && $dashboard_list)
+							{
+								$icons[$group][$i]			= new StdClass;
+								$icons[$group][$i]->url 	= $url;
+								$icons[$group][$i]->name 	= $name;
+								$icons[$group][$i]->image 	= $image;
+								$icons[$group][$i]->alt 	= $alt;
+							}
+						}
+						elseif (CostbenefitprojectionHelper::checkString($accessAdd))
+						{
+							// check access
+							if($user->authorise($accessAdd, 'com_costbenefitprojection') && $dashboard_add)
+							{
+								$icons[$group][$i]			= new StdClass;
+								$icons[$group][$i]->url 	= $url;
+								$icons[$group][$i]->name 	= $name;
+								$icons[$group][$i]->image 	= $image;
+								$icons[$group][$i]->alt 	= $alt;
+							}
+						}
+						else
+						{
+							$icons[$group][$i]			= new StdClass;
+							$icons[$group][$i]->url 	= $url;
+							$icons[$group][$i]->name 	= $name;
+							$icons[$group][$i]->image 	= $image;
+							$icons[$group][$i]->alt 	= $alt;
+						}
+					}
+					else
+					{
+						$icons[$group][$i]			= new StdClass;
+						$icons[$group][$i]->url 	= $url;
+						$icons[$group][$i]->name 	= $name;
+						$icons[$group][$i]->image 	= $image;
+						$icons[$group][$i]->alt 	= $alt;
+					}
+					$i++;
+				}
+			}
+			else
+			{
+					$icons[$group][$i] = false;
 			}
 		}
 		return $icons;
@@ -580,5 +598,153 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 			return $this->db->loadAssocList('id', 'name');
 		}
 		return false;
+	}
+
+	public function getGithub()
+	{
+		$document = JFactory::getDocument();
+		$document->addScript(JURI::root() . "media/com_costbenefitprojection/js/marked.js");
+		$document->addScriptDeclaration('
+		var token = "'.JSession::getFormToken().'";
+		var urlToGetAllOpenIssues = "https://api.github.com/repos/namibia/CBP-Joomla-3-Component/issues?state=open&page=1&per_page=5";
+		var urlToGetAllClosedIssues = "https://api.github.com/repos/namibia/CBP-Joomla-3-Component/issues?state=closed&page=1&per_page=5";
+		jQuery(document).ready(function () {
+			jQuery.getJSON(urlToGetAllOpenIssues, function (openissues) {
+				jQuery("#openissues").html("");
+				jQuery.each(openissues, function (i, issue) {
+					jQuery("#openissues")
+            				.append("<h3><a href=\"" + issue.html_url + "\" target=\"_blank\">" + issue.title + "</a></h3>")
+            				.append("<small><em>#" + issue.number + " '.JText::_('COM_COSTBENEFITPROJECTION_OPENED_BY').' " + issue.user.login + "<em></small>")
+            				.append(marked(issue.body))
+            				.append("<a href=\"" + issue.html_url + "\" target=\"_blank\">'.JText::_('COM_COSTBENEFITPROJECTION_RESPOND_TO_THIS_ISSUE_ON_GITHUB').'</a>...<hr />");
+    				});
+			});
+			jQuery.getJSON(urlToGetAllClosedIssues, function (closedissues) {
+				jQuery("#closedissues").html("");
+				jQuery.each(closedissues, function (i, issue) {
+					jQuery("#closedissues")
+            				.append("<h3><a href=\"" + issue.html_url + "\" target=\"_blank\">" + issue.title + "</a></h3>")
+            				.append("<small><em>#" + issue.number + " '.JText::_('COM_COSTBENEFITPROJECTION_OPENED_BY').' " + issue.user.login + "<em></small>")
+            				.append(marked(issue.body))
+            				.append("<a href=\"" + issue.html_url + "\" target=\"_blank\">'.JText::_('COM_COSTBENEFITPROJECTION_REVIEW_THIS_ISSUE_ON_GITHUB').'</a>...<hr />");
+    				});
+			});
+		});
+		// to check is READ/NEW
+		function getIS(type,notice){
+			if(type == 1){
+				var getUrl = "index.php?option=com_costbenefitprojection&task=ajax.isNew&format=json";
+			} else if (type == 2) {
+				var getUrl = "index.php?option=com_costbenefitprojection&task=ajax.isRead&format=json";
+			}	
+			if(token.length > 0 && notice.length){
+				var request = "token="+token+"&notice="+notice;
+			}
+			return jQuery.ajax({
+				type: "POST",
+				url: getUrl,
+				dataType: "jsonp",
+				data: request,
+				jsonp: "callback"
+			});
+		}
+		// nice little dot trick :)
+		jQuery(document).ready( function($) {
+			var x=0;
+			setInterval(function() {
+				var dots = "";
+				x++;
+				for (var y=0; y < x%8; y++) {
+					dots+=".";
+				}
+				$(".loading-dots").text(dots);
+			} , 500);
+		});');
+		$create = '<div class="btn-group pull-right">
+					<a href="https://github.com/namibia/CBP-Joomla-3-Component/issues/new" class="btn btn-primary"  target="_blank">'.JText::_('COM_COSTBENEFITPROJECTION_NEW_ISSUE').'</a>
+				</div></br >';
+		$moreopen = '<b><a href="https://github.com/namibia/CBP-Joomla-3-Component/issues" target="_blank">'.JText::_('COM_COSTBENEFITPROJECTION_VIEW_MORE_ISSUES_ON_GITHUB').'</a>...</b>';
+		$moreclosed = '<b><a href="https://github.com/namibia/CBP-Joomla-3-Component/issues?q=is%3Aissue+is%3Aclosed" target="_blank">'.JText::_('COM_COSTBENEFITPROJECTION_VIEW_MORE_ISSUES_ON_GITHUB').'</a>...</b>';
+
+		return (object) array(
+				'openissues' => $create.'<div id="openissues">'.JText::_('COM_COSTBENEFITPROJECTION_A_FEW_OPEN_ISSUES_FROM_GITHUB_IS_LOADING').'.<span class="loading-dots">.</span></small></div>'.$moreopen, 
+				'closedissues' => $create.'<div id="closedissues">'.JText::_('COM_COSTBENEFITPROJECTION_A_FEW_CLOSED_ISSUES_FROM_GITHUB_IS_LOADING').'.<span class="loading-dots">.</span></small></div>'.$moreclosed
+		);
+	}
+
+	public function getReadme()
+	{
+		$document = JFactory::getDocument();
+		$document->addScriptDeclaration('
+		var getreadme = "'. JURI::root() . 'administrator/components/com_costbenefitprojection/README.txt";
+		jQuery(document).ready(function () {
+			jQuery.get(getreadme)
+			.success(function(readme) { 
+				jQuery("#readme-md").html(marked(readme));
+			})
+			.error(function(jqXHR, textStatus, errorThrown) { 
+				jQuery("#readme-md").html("'.JText::_('COM_COSTBENEFITPROJECTION_PLEASE_CHECK_AGAIN_LATTER').'");
+			});
+		});');
+
+		return '<div id="readme-md">'.JText::_('COM_COSTBENEFITPROJECTION_THE_README_IS_LOADING').'.<span class="loading-dots">.</span></small></div>';
+	}
+
+	public function getWiki()
+	{
+		$document = JFactory::getDocument();
+		$document->addScriptDeclaration('
+		var gewiki = "https://raw.githubusercontent.com/wiki/namibia/CBP-Joomla-3-Component/Home.md";
+		jQuery(document).ready(function () {
+			jQuery.get(gewiki)
+			.success(function(wiki) { 
+				jQuery("#wiki-md").html(marked(wiki));
+			})
+			.error(function(jqXHR, textStatus, errorThrown) { 
+				jQuery("#wiki-md").html("'.JText::_('COM_COSTBENEFITPROJECTION_PLEASE_CHECK_AGAIN_LATTER').'");
+			});
+		});');
+
+		return '<div id="wiki-md">'.JText::_('COM_COSTBENEFITPROJECTION_THE_WIKI_IS_LOADING').'.<span class="loading-dots">.</span></small></div>';
+	}
+
+	public function getNoticeboard()
+	{
+		$document = JFactory::getDocument();
+		$document->addScriptDeclaration('
+		var noticeboard = "https://www.vdm.io/costbenefitprojection-noticeboard-md";
+		jQuery(document).ready(function () {
+			jQuery.get(noticeboard)
+			.success(function(board) { 
+				if (board.length > 5) {
+					jQuery("#noticeboard-md").html(marked(board));
+					getIS(1,board).done(function(result) {
+						if (result){
+							jQuery("#cpanel_tabTabs a").each(function() {
+								if (this.href.indexOf("#vast_development_method") >= 0) {
+									var textVDM = jQuery(this).text();
+									jQuery(this).html("<span class=\"label label-important vdm-new-notice\">1</span> "+textVDM);
+									jQuery(this).attr("id","vdm-new-notice");
+									jQuery("#vdm-new-notice").click(function() {
+										getIS(2,board).done(function(result) {
+												if (result) {
+												jQuery(".vdm-new-notice").fadeOut(500);
+											}
+										});
+									});
+								}
+							});
+						}
+					});
+				} else {
+					jQuery("#noticeboard-md").html("'.JText::_('COM_COSTBENEFITPROJECTION_ALL_IS_GOOD_PLEASE_CHECK_AGAIN_LATTER').'");
+				}
+			})
+			.error(function(jqXHR, textStatus, errorThrown) { 
+				jQuery("#noticeboard-md").html("'.JText::_('COM_COSTBENEFITPROJECTION_ALL_IS_GOOD_PLEASE_CHECK_AGAIN_LATTER').'");
+			});
+		});');
+
+		return '<div id="noticeboard-md">'.JText::_('COM_COSTBENEFITPROJECTION_THE_NOTICE_BOARD_IS_LOADING').'.<span class="loading-dots">.</span></small></div>';
 	}
 }

@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
+	@version		3.4.3
+	@build			5th May, 2018
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		router.php
@@ -76,11 +76,11 @@ class CostbenefitprojectionRouter extends JComponentRouterBase
 			return $segments;
 		}
 
-		if (isset($view) && isset($query['id']) && ($view == 'company' || $view == 'scaling_factor' || $view == 'intervention' || $view == 'cpanel' || $view == 'publicresults' || $view == 'createaccount' || $view == 'companyresults' || $view == 'combinedresults'))
+		if (isset($view) && isset($query['id']) && ($view === 'company' || $view === 'scaling_factor' || $view === 'intervention' || $view === 'cpanel' || $view === 'publicresults' || $view === 'createaccount' || $view === 'companyresults' || $view === 'combinedresults'))
 		{
 			if ($mId != (int) $query['id'] || $mView != $view)
 			{
-				if (($view == 'company' || $view == 'scaling_factor' || $view == 'intervention' || $view == 'cpanel' || $view == 'publicresults' || $view == 'createaccount' || $view == 'companyresults' || $view == 'combinedresults'))
+				if (($view === 'company' || $view === 'scaling_factor' || $view === 'intervention' || $view === 'cpanel' || $view === 'publicresults' || $view === 'createaccount' || $view === 'companyresults' || $view === 'combinedresults'))
 				{
 					$segments[] = $view;
 					$id = explode(':', $query['id']);
@@ -118,16 +118,10 @@ class CostbenefitprojectionRouter extends JComponentRouterBase
 	 * @since   3.3
 	 */
 	public function parse(&$segments)
-	{
-		//var_dump($segments);
-		//$app = JFactory::getApplication();
-		//$menu = $app->getMenu();
-		//$item = $menu->getActive();
-		
+	{		
 		$count = count($segments);
 		$vars = array();
-				
-		//var_dump($item->query['view']);
+		
 		//Handle View and Identifier
 		switch($segments[0])
 		{
@@ -137,28 +131,12 @@ class CostbenefitprojectionRouter extends JComponentRouterBase
 				{
 					$vars['id'] = (int) $segments[$count-1];
 				}
-				else
-				{
-					$id = $this->getVar('company', $segments[$count-1], 'alias', 'id');
-					if($id)
-					{
-						$vars['id'] = $id;
-					}
-				}
 				break;
 			case 'scaling_factor':
 				$vars['view'] = 'scaling_factor';
 				if (is_numeric($segments[$count-1]))
 				{
 					$vars['id'] = (int) $segments[$count-1];
-				}
-				else
-				{
-					$id = $this->getVar('scaling_factor', $segments[$count-1], 'alias', 'id');
-					if($id)
-					{
-						$vars['id'] = $id;
-					}
 				}
 				break;
 			case 'intervention':
@@ -167,14 +145,6 @@ class CostbenefitprojectionRouter extends JComponentRouterBase
 				{
 					$vars['id'] = (int) $segments[$count-1];
 				}
-				else
-				{
-					$id = $this->getVar('intervention', $segments[$count-1], 'alias', 'id');
-					if($id)
-					{
-						$vars['id'] = $id;
-					}
-				}
 				break;
 			case 'cpanel':
 				$vars['view'] = 'cpanel';
@@ -182,9 +152,9 @@ class CostbenefitprojectionRouter extends JComponentRouterBase
 				{
 					$vars['id'] = (int) $segments[$count-1];
 				}
-				else
+				elseif ($segments[$count-1])
 				{
-					$id = $this->getVar('cpanel', $segments[$count-1], 'alias', 'id');
+					$id = $this->getVar('company', $segments[$count-1], 'alias', 'id');
 					if($id)
 					{
 						$vars['id'] = $id;
@@ -197,9 +167,9 @@ class CostbenefitprojectionRouter extends JComponentRouterBase
 				{
 					$vars['id'] = (int) $segments[$count-1];
 				}
-				else
+				elseif ($segments[$count-1])
 				{
-					$id = $this->getVar('publicresults', $segments[$count-1], 'alias', 'id');
+					$id = $this->getVar('country', $segments[$count-1], 'alias', 'id');
 					if($id)
 					{
 						$vars['id'] = $id;
@@ -212,9 +182,9 @@ class CostbenefitprojectionRouter extends JComponentRouterBase
 				{
 					$vars['id'] = (int) $segments[$count-1];
 				}
-				else
+				elseif ($segments[$count-1])
 				{
-					$id = $this->getVar('createaccount', $segments[$count-1], 'alias', 'id');
+					$id = $this->getVar('country', $segments[$count-1], 'alias', 'id');
 					if($id)
 					{
 						$vars['id'] = $id;
@@ -227,9 +197,9 @@ class CostbenefitprojectionRouter extends JComponentRouterBase
 				{
 					$vars['id'] = (int) $segments[$count-1];
 				}
-				else
+				elseif ($segments[$count-1])
 				{
-					$id = $this->getVar('companyresults', $segments[$count-1], 'alias', 'id');
+					$id = $this->getVar('company', $segments[$count-1], 'alias', 'id');
 					if($id)
 					{
 						$vars['id'] = $id;
@@ -242,9 +212,9 @@ class CostbenefitprojectionRouter extends JComponentRouterBase
 				{
 					$vars['id'] = (int) $segments[$count-1];
 				}
-				else
+				elseif ($segments[$count-1])
 				{
-					$id = $this->getVar('combinedresults', $segments[$count-1], 'alias', 'id');
+					$id = $this->getVar('company', $segments[$count-1], 'alias', 'id');
 					if($id)
 					{
 						$vars['id'] = $id;
@@ -256,11 +226,11 @@ class CostbenefitprojectionRouter extends JComponentRouterBase
 		return $vars;
 	} 
 
-	protected function getVar($table, $where = null, $whereString = 'user', $what = 'id', $operator = '=', $main = 'costbenefitprojection')
+	protected function getVar($table, $where = null, $whereString = null, $what = null, $category = false, $operator = '=', $main = 'costbenefitprojection')
 	{
-		if(!$where)
+		if(!$where || !$what || !$whereString)
 		{
-			$where = JFactory::getUser()->id;
+			return false;
 		}
 		// Get a db connection.
 		$db = JFactory::getDbo();
@@ -268,21 +238,44 @@ class CostbenefitprojectionRouter extends JComponentRouterBase
 		$query = $db->getQuery(true);
 
 		$query->select($db->quoteName(array($what)));
-		if ('categories' == $table || 'category' == $table)
+		if ('categories' == $table || 'category' == $table || $category)
 		{
-			$query->from($db->quoteName('#__categories'));
+			$getTable = '#__categories';
+			$query->from($db->quoteName($getTable));
 		}
 		else
 		{
-			$query->from($db->quoteName('#__'.$main.'_'.$table));
+			// we must check if the table exist (TODO not ideal)
+			$tables = $db->getTableList();
+			$app = JFactory::getApplication();
+			$prefix = $app->get('dbprefix');
+			$check = $prefix.$main.'_'.$table;
+			if (in_array($check, $tables))
+			{
+				$getTable = '#__'.$main.'_'.$table;
+				$query->from($db->quoteName($getTable));
+			}
+			else
+			{
+				return false;
+			}
 		}
 		if (is_numeric($where))
 		{
-			$query->where($db->quoteName($whereString) . ' '.$operator.' '.(int) $where);
+			return false;
 		}
-		elseif (is_string($where))
+		elseif ($this->checkString($where))
 		{
-			$query->where($db->quoteName($whereString) . ' '.$operator.' '. $db->quote((string)$where));
+			// we must first check if this table has the column
+			$columns = $db->getTableColumns($getTable);
+			if (isset($columns[$whereString]))
+			{
+				$query->where($db->quoteName($whereString) . ' '.$operator.' '. $db->quote((string)$where));
+			}
+			else
+			{
+				return false;
+			}
 		}
 		else
 		{
@@ -293,6 +286,15 @@ class CostbenefitprojectionRouter extends JComponentRouterBase
 		if ($db->getNumRows())
 		{
 			return $db->loadResult();
+		}
+		return false;
+	}
+	
+	protected function checkString($string)
+	{
+		if (isset($string) && is_string($string) && strlen($string) > 0)
+		{
+			return true;
 		}
 		return false;
 	}
@@ -307,7 +309,7 @@ function CostbenefitprojectionBuildRoute(&$query)
 
 function CostbenefitprojectionParseRoute($segments)
 {
-	$router = new ContentRouter;
+	$router = new CostbenefitprojectionRouter;
 
 	return $router->parse($segments);
 }

@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 19 of this MVC
+	@build			25th October, 2017
+	@created		8th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -27,10 +27,33 @@ JHtml::_('formbehavior.chosen', 'select');
 JHtml::_('behavior.keepalive');
 $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 ?>
-<div id="costbenefitprojection_loader">
+<script type="text/javascript">
+	// waiting spinner
+	var outerDiv = jQuery('body');
+	jQuery('<div id="loading"></div>')
+		.css("background", "rgba(255, 255, 255, .8) url('components/com_costbenefitprojection/assets/images/import.gif') 50% 15% no-repeat")
+		.css("top", outerDiv.position().top - jQuery(window).scrollTop())
+		.css("left", outerDiv.position().left - jQuery(window).scrollLeft())
+		.css("width", outerDiv.width())
+		.css("height", outerDiv.height())
+		.css("position", "fixed")
+		.css("opacity", "0.80")
+		.css("-ms-filter", "progid:DXImageTransform.Microsoft.Alpha(Opacity = 80)")
+		.css("filter", "alpha(opacity = 80)")
+		.css("display", "none")
+		.appendTo(outerDiv);
+	jQuery('#loading').show();
+	// when page is ready remove and show
+	jQuery(window).load(function() {
+		jQuery('#costbenefitprojection_loader').fadeIn('fast');
+		jQuery('#loading').hide();
+	});
+</script>
+<div id="costbenefitprojection_loader" style="display: none;">
 <form action="<?php echo JRoute::_('index.php?option=com_costbenefitprojection&layout=edit&id='.(int) $this->item->id.$this->referral); ?>" method="post" name="adminForm" id="adminForm" class="form-validate" enctype="multipart/form-data">
 
-	<?php echo JLayoutHelper::render('currency.details_above', $this); ?><div class="form-horizontal">
+	<?php echo JLayoutHelper::render('currency.details_above', $this); ?>
+<div class="form-horizontal">
 
 	<?php echo JHtml::_('bootstrap.startTabSet', 'currencyTab', array('active' => 'details')); ?>
 
@@ -82,6 +105,7 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 	<div>
 		<input type="hidden" name="task" value="currency.edit" />
 		<?php echo JHtml::_('form.token'); ?>
+	</div>
 	</div>
 </div>
 </form>

@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 52 of this MVC
+	@build			25th October, 2017
+	@created		25th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -52,7 +52,8 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 <div id="costbenefitprojection_loader" style="display: none;">
 <form action="<?php echo JRoute::_('index.php?option=com_costbenefitprojection&layout=edit&id='.(int) $this->item->id.$this->referral); ?>" method="post" name="adminForm" id="adminForm" class="form-validate" enctype="multipart/form-data">
 
-	<?php echo JLayoutHelper::render('country.details_above', $this); ?><div class="form-horizontal">
+	<?php echo JLayoutHelper::render('country.details_above', $this); ?>
+<div class="form-horizontal">
 
 	<?php echo JHtml::_('bootstrap.startTabSet', 'countryTab', array('active' => 'details')); ?>
 
@@ -183,6 +184,7 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 		<input type="hidden" name="task" value="country.edit" />
 		<?php echo JHtml::_('form.token'); ?>
 	</div>
+	</div>
 </div>
 </form>
 </div>
@@ -190,6 +192,41 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 <script type="text/javascript">
 
 
+
+jQuery('#adminForm').on('change', '#jform_causesrisks',function (e)
+{
+	// first we build the checked array
+	checkedArray = [];
+	jQuery('#jform_causesrisks input[type=checkbox]').each(function()
+	{
+		if (jQuery(this).is(':checked'))
+		{
+			checkedArray.push(jQuery("label[for='"+jQuery(this).prop('id')+"'] > span").prop('id'));
+		}
+	});
+	// now we check if child is checked and uncheck perant
+	jQuery('#jform_causesrisks input[type=checkbox]').each(function()
+	{
+		if (jQuery(this).is(':checked'))
+		{
+			var checing = jQuery("label[for='"+jQuery(this).prop('id')+"'] > span").prop('id');
+			// first remove this checkd item from array
+			checkedArrayChecker = jQuery.grep(checkedArray, function(value) {
+				return value != checing;
+			});
+			
+			// now uncheck the perant checkboxes
+			jQuery.each( checkedArrayChecker,function(index,value)
+			{
+				if (checing.indexOf(value) >= 0)
+				{
+					var block = jQuery('#'+value).closest('label').find('input').prop('id');
+					jQuery('#'+block).prop('checked', false);
+				}
+			});
+		}
+	});
+});
 jQuery('input.form-field-repeatable').on('weready', function(e, value){
 	if ("jform_percentmale" == e.currentTarget.id)
 	{

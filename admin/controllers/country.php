@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 52 of this MVC
+	@build			25th October, 2017
+	@created		25th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		country.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -102,7 +102,7 @@ class CostbenefitprojectionControllerCountry extends JControllerForm
 		{
 			// The record has been set. Check the record permissions.
 			$permission = $user->authorise('country.edit', 'com_costbenefitprojection.country.' . (int) $recordId);
-			if (!$permission && !is_null($permission))
+			if (!$permission)
 			{
 				if ($user->authorise('country.edit.own', 'com_costbenefitprojection.country.' . $recordId))
 				{
@@ -162,10 +162,10 @@ class CostbenefitprojectionControllerCountry extends JControllerForm
                 {
 			$append .= '&ref='.(string)$ref.'&refid='.(int)$refid;
 		}
-                elseif ($ref)
-                {
+		elseif ($ref)
+		{
 			$append .= '&ref='.(string)$ref;
-                }
+		}
 
 		if ($tmpl)
 		{
@@ -277,11 +277,11 @@ class CostbenefitprojectionControllerCountry extends JControllerForm
 		$this->ref 		= $this->input->get('ref', 0, 'word');
 		$this->refid 	= $this->input->get('refid', 0, 'int');
 
-                if ($this->ref || $this->refid)
-                {
-                        // to make sure the item is checkedin on redirect
-                        $this->task = 'save';
-                }
+		if ($this->ref || $this->refid)
+		{
+			// to make sure the item is checkedin on redirect
+			$this->task = 'save';
+		}
 
 		$saved = parent::save($key, $urlVar);
 

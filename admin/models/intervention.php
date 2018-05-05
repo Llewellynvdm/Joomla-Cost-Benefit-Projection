@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 71 of this MVC
+	@build			12th November, 2016
+	@created		8th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		intervention.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -73,7 +73,7 @@ class CostbenefitprojectionModelIntervention extends JModelAdmin
 	{
 		if ($item = parent::getItem($pk))
 		{
-			if (!empty($item->params))
+			if (!empty($item->params) && !is_array($item->params))
 			{
 				// Convert the params field to an array.
 				$registry = new Registry;
@@ -116,7 +116,8 @@ class CostbenefitprojectionModelIntervention extends JModelAdmin
 	 * @since   1.6
 	 */
 	public function getForm($data = array(), $loadData = true)
-	{		// Get the form.
+	{
+		// Get the form.
 		$form = $this->loadForm('com_costbenefitprojection.intervention', 'intervention', array('control' => 'jform', 'load_data' => $loadData));
 
 		if (empty($form))
@@ -267,23 +268,7 @@ class CostbenefitprojectionModelIntervention extends JModelAdmin
 	{
 		// Check specific edit permission then general edit permission.
 		$user = JFactory::getUser();
-		$recordId	= (int) isset($data[$key]) ? $data[$key] : 0;
-		// get company id
-		$company = CostbenefitprojectionHelper::getId('intervention',$recordId,'id','company');
-		if (!$user->authorise('core.options', 'com_costbenefitprojection'))
-		{
-			// make absolutely sure that this intervention can be edited
-			$companies = CostbenefitprojectionHelper::hisCompanies($user->id);
-			if (!CostbenefitprojectionHelper::checkArray($companies) || !in_array($company,$companies))
-			{
-				return false;
-			}
-		}
-		// now check the access by sharing
-		if (!CostbenefitprojectionHelper::checkIntervetionAccess($recordId,null,$company))
-		{
-			return false;
-		}
+
 		return $user->authorise('intervention.edit', 'com_costbenefitprojection.intervention.'. ((int) isset($data[$key]) ? $data[$key] : 0)) or $user->authorise('intervention.edit',  'com_costbenefitprojection');
 	}
     
@@ -431,6 +416,26 @@ class CostbenefitprojectionModelIntervention extends JModelAdmin
 		
 		return true;
 	}
+
+	/**
+	 * Method to change the published state of one or more records.
+	 *
+	 * @param   array    &$pks   A list of the primary keys to change.
+	 * @param   integer  $value  The value of the published state.
+	 *
+	 * @return  boolean  True on success.
+	 *
+	 * @since   12.2
+	 */
+	public function publish(&$pks, $value = 1)
+	{
+		if (!parent::publish($pks, $value))
+		{
+			return false;
+		}
+		
+		return true;
+        }
     
 	/**
 	 * Method to perform batch operations on an item or a set of items.
@@ -547,8 +552,6 @@ class CostbenefitprojectionModelIntervention extends JModelAdmin
 			$this->user 		= JFactory::getUser();
 			$this->table 		= $this->getTable();
 			$this->tableClassName	= get_class($this->table);
-			$this->contentType	= new JUcmType;
-			$this->type		= $this->contentType->getTypeByTable($this->tableClassName);
 			$this->canDo		= CostbenefitprojectionHelper::getActions('intervention');
 		}
 
@@ -617,7 +620,6 @@ class CostbenefitprojectionModelIntervention extends JModelAdmin
 		}
 
 		$newIds = array();
-
 		// Parent exists so let's proceed
 		while (!empty($pks))
 		{
@@ -627,17 +629,11 @@ class CostbenefitprojectionModelIntervention extends JModelAdmin
 			$this->table->reset();
 
 			// only allow copy if user may edit this item.
-
 			if (!$this->user->authorise('intervention.edit', $contexts[$pk]))
-
 			{
-
 				// Not fatal error
-
 				$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
-
 				continue;
-
 			}
 
 			// Check that the row actually exists
@@ -647,7 +643,6 @@ class CostbenefitprojectionModelIntervention extends JModelAdmin
 				{
 					// Fatal error
 					$this->setError($error);
-
 					return false;
 				}
 				else
@@ -658,7 +653,11 @@ class CostbenefitprojectionModelIntervention extends JModelAdmin
 				}
 			}
 
-			$this->table->name = $this->generateUniqe('name',$this->table->name);
+			// Only for strings
+			if (CostbenefitprojectionHelper::checkString($this->table->name) && !is_numeric($this->table->name))
+			{
+				$this->table->name = $this->generateUniqe('name',$this->table->name);
+			}
 
 			// insert all set values
 			if (CostbenefitprojectionHelper::checkArray($values))
@@ -740,8 +739,6 @@ class CostbenefitprojectionModelIntervention extends JModelAdmin
 			$this->user		= JFactory::getUser();
 			$this->table		= $this->getTable();
 			$this->tableClassName	= get_class($this->table);
-			$this->contentType	= new JUcmType;
-			$this->type		= $this->contentType->getTypeByTable($this->tableClassName);
 			$this->canDo		= CostbenefitprojectionHelper::getActions('intervention');
 		}
 
@@ -809,7 +806,6 @@ class CostbenefitprojectionModelIntervention extends JModelAdmin
 			if (!$this->user->authorise('intervention.edit', $contexts[$pk]))
 			{
 				$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_EDIT'));
-
 				return false;
 			}
 
@@ -820,7 +816,6 @@ class CostbenefitprojectionModelIntervention extends JModelAdmin
 				{
 					// Fatal error
 					$this->setError($error);
-
 					return false;
 				}
 				else
@@ -837,7 +832,7 @@ class CostbenefitprojectionModelIntervention extends JModelAdmin
 				foreach ($values as $key => $value)
 				{
 					// Do special action for access.
-					if ('access' == $key && strlen($value) > 0)
+					if ('access' === $key && strlen($value) > 0)
 					{
 						$this->table->$key = $value;
 					}
@@ -916,7 +911,7 @@ class CostbenefitprojectionModelIntervention extends JModelAdmin
 		}
 
 		// Alter the uniqe field for save as copy
-		if ($input->get('task') == 'save2copy')
+		if ($input->get('task') === 'save2copy')
 		{
 			// Automatic handling of other uniqe fields
 			$uniqeFields = $this->getUniqeFields();
@@ -961,9 +956,9 @@ class CostbenefitprojectionModelIntervention extends JModelAdmin
 	}
 
 	/**
-	* Method to change the title & alias.
+	* Method to change the title
 	*
-	* @param   string   $title        The title.
+	* @param   string   $title   The title.
 	*
 	* @return	array  Contains the modified title and alias.
 	*

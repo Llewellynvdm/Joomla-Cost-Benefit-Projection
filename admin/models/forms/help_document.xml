@@ -19,7 +19,6 @@
 			label="COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_CREATED_DATE_LABEL"
 			description="COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_CREATED_DATE_DESC"
 			size="22"
-
 			format="%Y-%m-%d %H:%M:%S"
 			filter="user_utc"
 		/>
@@ -28,13 +27,11 @@
 			name="created_by"
 			type="user"
 			label="COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_CREATED_BY_LABEL"
-
 			description="COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_CREATED_BY_DESC"
 		/>
 		<!-- Published Field. Type: List (joomla) -->
 		<field name="published" type="list" label="JSTATUS"
 			description="JFIELD_PUBLISHED_DESC" class="chzn-color-state"
-
 			filter="intval" size="1" default="1" >
 			<option value="1">
 				JPUBLISHED</option>
@@ -66,7 +63,6 @@
 			description=""
 			default="0"
 			size="6"
-
 			required="false"
 		/>
 		<!-- Version Field. Type: Text (joomla) -->
@@ -94,7 +90,7 @@
 			disabled="false"
 			required="true"
 			filter="STRING"
-			message="Error! Please add title here."
+			message="COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_TITLE_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_TITLE_HINT"
 		/>
 		<!-- Type Field. Type: List. (joomla) -->
@@ -139,40 +135,34 @@
 			<option value="2">
 				COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_SITE</option>
 		</field>
-		<!-- Admin_view Field. Type: Folderlist. (joomla) -->
+		<!-- Admin_view Field. Type: Adminviewfolderlist. (custom) -->
 		<field
-			type="folderlist"
+			type="adminviewfolderlist"
 			name="admin_view"
 			label="COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_ADMIN_VIEW_LABEL"
-			directory="/administrator/components/com_costbenefitprojection/views"
 			description="COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_ADMIN_VIEW_DESCRIPTION"
-			hide_none="true"
-			hide_default="true"
+			class="list_class"
+			multiple="false"
+			required="true"
+			button="false"
 		/>
-		<!-- Site_view Field. Type: Folderlist. (joomla) -->
+		<!-- Site_view Field. Type: Siteviewfolderlist. (custom) -->
 		<field
-			type="folderlist"
+			type="siteviewfolderlist"
 			name="site_view"
 			label="COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_SITE_VIEW_LABEL"
-			directory="/components/com_costbenefitprojection/views"
 			description="COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_SITE_VIEW_DESCRIPTION"
-			hide_none="true"
-			hide_default="true"
+			class="list_class"
+			multiple="false"
+			required="true"
+			button="false"
 		/>
-		<!-- Target Field. Type: Radio. (joomla) -->
+		<!-- Not_required Field. Type: Hidden. (joomla) -->
 		<field
-			type="radio"
-			name="target"
-			label="COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_TARGET_LABEL"
-			description="COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_TARGET_DESCRIPTION"
-			class="btn-group"
-			required="true">
-			<!-- Option Set. -->
-			<option value="1">
-				COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_SOME</option>
-			<option value="2">
-				COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_ALL</option>
-		</field>
+			type="hidden"
+			name="not_required"
+			default="[]"
+		/>
 		<!-- Content Field. Type: Editor. (joomla) -->
 		<field
 			type="editor"
@@ -183,15 +173,6 @@
 			buttons="false"
 			filter="safehtml"
 			required="true"
-		/>
-		<!-- Alias Field. Type: Text. (joomla) -->
-		<field
-			type="text"
-			name="alias"
-			label="COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_ALIAS_LABEL"
-			description="JFIELD_ALIAS_DESC"
-			filter="STRING"
-			hint="COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_ALIAS_HINT"
 		/>
 		<!-- Article Field. Type: Articles. (custom) -->
 		<field
@@ -215,14 +196,32 @@
 			required="true"
 			filter="url"
 			validated="url"
-			message="Error! Please add url here."
+			scheme="http,https"
+			message="COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_URL_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_URL_HINT"
 		/>
-		<!-- Not_required Field. Type: Hidden. (joomla) -->
+		<!-- Target Field. Type: Radio. (joomla) -->
 		<field
-			type="hidden"
-			name="not_required"
-			default="[]"
+			type="radio"
+			name="target"
+			label="COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_TARGET_LABEL"
+			description="COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_TARGET_DESCRIPTION"
+			class="btn-group"
+			required="true">
+			<!-- Option Set. -->
+			<option value="1">
+				COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_SOME</option>
+			<option value="2">
+				COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_ALL</option>
+		</field>
+		<!-- Alias Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="alias"
+			label="COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_ALIAS_LABEL"
+			description="JFIELD_ALIAS_DESC"
+			filter="STRING"
+			hint="COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_ALIAS_HINT"
 		/>
 	</fieldset>
 	

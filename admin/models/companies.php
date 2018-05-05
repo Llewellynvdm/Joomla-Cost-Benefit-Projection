@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 101 of this MVC
+	@build			29th June, 2016
+	@created		15th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		companies.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -145,7 +145,7 @@ class CostbenefitprojectionModelCompanies extends JModelList
 				$item->per = $this->selectionTranslation($item->per, 'per');
 			}
 		}
-
+ 
         
 		// return items
 		return $items;
@@ -159,7 +159,7 @@ class CostbenefitprojectionModelCompanies extends JModelList
 	public function selectionTranslation($value,$name)
 	{
 		// Array of department language strings
-		if ($name == 'department')
+		if ($name === 'department')
 		{
 			$departmentArray = array(
 				1 => 'COM_COSTBENEFITPROJECTION_COMPANY_BASIC',
@@ -172,7 +172,7 @@ class CostbenefitprojectionModelCompanies extends JModelList
 			}
 		}
 		// Array of per language strings
-		if ($name == 'per')
+		if ($name === 'per')
 		{
 			$perArray = array(
 				1 => 'COM_COSTBENEFITPROJECTION_COMPANY_OPEN',
@@ -270,7 +270,7 @@ class CostbenefitprojectionModelCompanies extends JModelList
 			}
 			else
 			{
-				$search = $db->quote('%' . $db->escape($search, true) . '%');
+				$search = $db->quote('%' . $db->escape($search) . '%');
 				$query->where('(a.name LIKE '.$search.' OR a.email LIKE '.$search.' OR a.user LIKE '.$search.' OR g.name LIKE '.$search.' OR a.department LIKE '.$search.' OR a.country LIKE '.$search.' OR h.name LIKE '.$search.' OR a.service_provider LIKE '.$search.' OR i.user LIKE '.$search.' OR a.per LIKE '.$search.')');
 			}
 		}
@@ -278,22 +278,22 @@ class CostbenefitprojectionModelCompanies extends JModelList
 		// Filter by Department.
 		if ($department = $this->getState('filter.department'))
 		{
-			$query->where('a.department = ' . $db->quote($db->escape($department, true)));
+			$query->where('a.department = ' . $db->quote($db->escape($department)));
 		}
 		// Filter by country.
 		if ($country = $this->getState('filter.country'))
 		{
-			$query->where('a.country = ' . $db->quote($db->escape($country, true)));
+			$query->where('a.country = ' . $db->quote($db->escape($country)));
 		}
 		// Filter by service_provider.
 		if ($service_provider = $this->getState('filter.service_provider'))
 		{
-			$query->where('a.service_provider = ' . $db->quote($db->escape($service_provider, true)));
+			$query->where('a.service_provider = ' . $db->quote($db->escape($service_provider)));
 		}
 		// Filter by Per.
 		if ($per = $this->getState('filter.per'))
 		{
-			$query->where('a.per = ' . $db->quote($db->escape($per, true)));
+			$query->where('a.per = ' . $db->quote($db->escape($per)));
 		}
 
 		// Add the list ordering clause.
@@ -365,10 +365,10 @@ class CostbenefitprojectionModelCompanies extends JModelList
 			{
 				$items = $db->loadObjectList();
 
-				// Get the advanced encription key.
-				$advancedkey = CostbenefitprojectionHelper::getCryptKey('advanced');
-				// Get the encription object.
-				$advanced = new FOFEncryptAes($advancedkey, 256);
+				// Get the whmcs encryption key.
+				$whmcskey = CostbenefitprojectionHelper::getCryptKey('whmcs');
+				// Get the encryption object.
+				$whmcs = new FOFEncryptAes($whmcskey);
 
 				// set values to display correctly.
 				if (CostbenefitprojectionHelper::checkArray($items))
@@ -384,45 +384,45 @@ class CostbenefitprojectionModelCompanies extends JModelList
 							continue;
 						}
 
-						if ($advancedkey && !is_numeric($item->medical_turnovers_females) && $item->medical_turnovers_females === base64_encode(base64_decode($item->medical_turnovers_females, true)))
-						{
-							// decrypt medical_turnovers_females
-							$item->medical_turnovers_females = $advanced->decryptString($item->medical_turnovers_females);
-						}
-						if ($advancedkey && !is_numeric($item->females) && $item->females === base64_encode(base64_decode($item->females, true)))
-						{
-							// decrypt females
-							$item->females = $advanced->decryptString($item->females);
-						}
-						if ($advancedkey && !is_numeric($item->sick_leave_males) && $item->sick_leave_males === base64_encode(base64_decode($item->sick_leave_males, true)))
-						{
-							// decrypt sick_leave_males
-							$item->sick_leave_males = $advanced->decryptString($item->sick_leave_males);
-						}
-						if ($advancedkey && !is_numeric($item->medical_turnovers_males) && $item->medical_turnovers_males === base64_encode(base64_decode($item->medical_turnovers_males, true)))
+						if ($whmcskey && !is_numeric($item->medical_turnovers_males) && $item->medical_turnovers_males === base64_encode(base64_decode($item->medical_turnovers_males, true)))
 						{
 							// decrypt medical_turnovers_males
-							$item->medical_turnovers_males = $advanced->decryptString($item->medical_turnovers_males);
+							$item->medical_turnovers_males = $whmcs->decryptString($item->medical_turnovers_males);
 						}
-						if ($advancedkey && !is_numeric($item->total_salary) && $item->total_salary === base64_encode(base64_decode($item->total_salary, true)))
+						if ($whmcskey && !is_numeric($item->females) && $item->females === base64_encode(base64_decode($item->females, true)))
 						{
-							// decrypt total_salary
-							$item->total_salary = $advanced->decryptString($item->total_salary);
+							// decrypt females
+							$item->females = $whmcs->decryptString($item->females);
 						}
-						if ($advancedkey && !is_numeric($item->sick_leave_females) && $item->sick_leave_females === base64_encode(base64_decode($item->sick_leave_females, true)))
+						if ($whmcskey && !is_numeric($item->sick_leave_males) && $item->sick_leave_males === base64_encode(base64_decode($item->sick_leave_males, true)))
+						{
+							// decrypt sick_leave_males
+							$item->sick_leave_males = $whmcs->decryptString($item->sick_leave_males);
+						}
+						if ($whmcskey && !is_numeric($item->medical_turnovers_females) && $item->medical_turnovers_females === base64_encode(base64_decode($item->medical_turnovers_females, true)))
+						{
+							// decrypt medical_turnovers_females
+							$item->medical_turnovers_females = $whmcs->decryptString($item->medical_turnovers_females);
+						}
+						if ($whmcskey && !is_numeric($item->sick_leave_females) && $item->sick_leave_females === base64_encode(base64_decode($item->sick_leave_females, true)))
 						{
 							// decrypt sick_leave_females
-							$item->sick_leave_females = $advanced->decryptString($item->sick_leave_females);
+							$item->sick_leave_females = $whmcs->decryptString($item->sick_leave_females);
 						}
-						if ($advancedkey && !is_numeric($item->total_healthcare) && $item->total_healthcare === base64_encode(base64_decode($item->total_healthcare, true)))
+						if ($whmcskey && !is_numeric($item->total_salary) && $item->total_salary === base64_encode(base64_decode($item->total_salary, true)))
+						{
+							// decrypt total_salary
+							$item->total_salary = $whmcs->decryptString($item->total_salary);
+						}
+						if ($whmcskey && !is_numeric($item->total_healthcare) && $item->total_healthcare === base64_encode(base64_decode($item->total_healthcare, true)))
 						{
 							// decrypt total_healthcare
-							$item->total_healthcare = $advanced->decryptString($item->total_healthcare);
+							$item->total_healthcare = $whmcs->decryptString($item->total_healthcare);
 						}
-						if ($advancedkey && !is_numeric($item->males) && $item->males === base64_encode(base64_decode($item->males, true)))
+						if ($whmcskey && !is_numeric($item->males) && $item->males === base64_encode(base64_decode($item->males, true)))
 						{
 							// decrypt males
-							$item->males = $advanced->decryptString($item->males);
+							$item->males = $whmcs->decryptString($item->males);
 						}
 						// unset the values we don't want exported.
 						unset($item->asset_id);

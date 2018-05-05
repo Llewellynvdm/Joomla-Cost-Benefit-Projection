@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
+	@version		3.4.3
+	@build			5th May, 2018
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
@@ -169,7 +169,7 @@ jQuery(document).ready(function($) {
 	<?php if ($this->hasPackage && CostbenefitprojectionHelper::checkArray($this->headerList) && CostbenefitprojectionHelper::checkArray($this->headers)) : ?>
 		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => $this->activeTab)); ?>
 
-		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'basic', JText::_('Basic Method', true)); ?>
+		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'basic', JText::_('COM_COSTBENEFITPROJECTION_BASIC_METHOD', true)); ?>
 		<fieldset class="uploadform">
 			<legend><?php echo JText::_('COM_COSTBENEFITPROJECTION_IMPORT_LINK_FILE_TO_TABLE_COLUMNS'); ?></legend>
 			<div class="control-group">
@@ -199,7 +199,7 @@ jQuery(document).ready(function($) {
 		</fieldset>
 		<?php echo JHtml::_('bootstrap.endTab'); ?>
 
-		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'advanced', JText::_('Advanced Method', true)); ?>
+		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'advanced', JText::_('COM_COSTBENEFITPROJECTION_ADVANCED_METHOD', true)); ?>
 		<fieldset class="uploadform">
 			<legend><?php echo JText::_('COM_COSTBENEFITPROJECTION_HERE_YOU_CAN_SET_THE_IMPORT_RELATIONSHIPS_TO_ALL_ADVANCED_DATA_MAPPING_AND_RECONSTRUCTION'); ?></legend>
 			<div class="control-group">

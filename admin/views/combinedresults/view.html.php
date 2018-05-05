@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 22 of this MVC
+	@build			14th October, 2017
+	@created		3rd October, 2015
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -31,23 +31,16 @@ class CostbenefitprojectionViewCombinedresults extends JViewLegacy
 	// Overwriting JView display method
 	function display($tpl = null)
 	{
-                // get component params
-		$this->params	= JComponentHelper::getParams('com_costbenefitprojection');
+		// get component params
+		$this->params = JComponentHelper::getParams('com_costbenefitprojection');
 		// get the application
-		$this->app	= JFactory::getApplication();
+		$this->app = JFactory::getApplication();
 		// get the user object
 		$this->user	= JFactory::getUser();
-                // get global action permissions
-		$this->canDo	= CostbenefitprojectionHelper::getActions('combinedresults');
+		// get global action permissions
+		$this->canDo = CostbenefitprojectionHelper::getActions('combinedresults');
 		// Initialise variables.
-		$this->items	= $this->get('Items');
-
-		// Check for errors.
-		if (count($errors = $this->get('Errors')))
-		{
-			JError::raiseError(500, implode("\n", $errors));
-			return false;
-		}
+		$this->items = $this->get('Items');
 		// check if the data was returned
 		if ($this->items)
 		{
@@ -83,6 +76,12 @@ class CostbenefitprojectionViewCombinedresults extends JViewLegacy
 
 		// set the document
 		$this->setDocument();
+
+		// Check for errors.
+		if (count($errors = $this->get('Errors')))
+		{
+			throw new Exception(implode("\n", $errors), 500);
+		}
 
 		parent::display($tpl);
 	}
@@ -124,7 +123,7 @@ class CostbenefitprojectionViewCombinedresults extends JViewLegacy
 		return $items;
 	}
 
-        /**
+	/**
 	 * Prepares the document
 	 */
 	protected function setDocument()
@@ -133,9 +132,9 @@ class CostbenefitprojectionViewCombinedresults extends JViewLegacy
 		// always make sure jquery is loaded.
 		JHtml::_('jquery.framework');
 		// Load the header checker class.
-		require_once( JPATH_COMPONENT_SITE.'/helpers/headercheck.php' );
+		require_once( JPATH_COMPONENT_ADMINISTRATOR.'/helpers/headercheck.php' );
 		// Initialize the header checker.
-		$HeaderCheck = new HeaderCheck;
+		$HeaderCheck = new costbenefitprojectionHeaderCheck; 
 
 		// Load uikit options.
 		$uikit = $this->params->get('uikit_load');
@@ -147,12 +146,12 @@ class CostbenefitprojectionViewCombinedresults extends JViewLegacy
 		// The uikit css.
 		if ((!$HeaderCheck->css_loaded('uikit.min') || $uikit == 1) && $uikit != 2 && $uikit != 3)
 		{
-			$this->document->addStyleSheet(JURI::root(true) .'/media/com_costbenefitprojection/uikit/css/uikit'.$style.$size.'.css');
+			$this->document->addStyleSheet(JURI::root(true) .'/media/com_costbenefitprojection/uikit-v2/css/uikit'.$style.$size.'.css', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
 		}
 		// The uikit js.
 		if ((!$HeaderCheck->js_loaded('uikit.min') || $uikit == 1) && $uikit != 2 && $uikit != 3)
 		{
-			$this->document->addScript(JURI::root(true) .'/media/com_costbenefitprojection/uikit/js/uikit'.$size.'.js');
+			$this->document->addScript(JURI::root(true) .'/media/com_costbenefitprojection/uikit-v2/js/uikit'.$size.'.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
 		}
 
 		// Load the needed uikit components in this view.
@@ -167,16 +166,16 @@ class CostbenefitprojectionViewCombinedresults extends JViewLegacy
 				foreach (CostbenefitprojectionHelper::$uk_components[$class] as $name)
 				{
 					// check if the CSS file exists.
-					if (JFile::exists(JPATH_ROOT.'/media/com_costbenefitprojection/uikit/css/components/'.$name.$style.$size.'.css'))
+					if (JFile::exists(JPATH_ROOT.'/media/com_costbenefitprojection/uikit-v2/css/components/'.$name.$style.$size.'.css'))
 					{
 						// load the css.
-						$this->document->addStyleSheet(JURI::root(true) .'/media/com_costbenefitprojection/uikit/css/components/'.$name.$style.$size.'.css');
+						$this->document->addStyleSheet(JURI::root(true) .'/media/com_costbenefitprojection/uikit-v2/css/components/'.$name.$style.$size.'.css', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
 					}
 					// check if the JavaScript file exists.
-					if (JFile::exists(JPATH_ROOT.'/media/com_costbenefitprojection/uikit/js/components/'.$name.$size.'.js'))
+					if (JFile::exists(JPATH_ROOT.'/media/com_costbenefitprojection/uikit-v2/js/components/'.$name.$size.'.js'))
 					{
 						// load the js.
-						$this->document->addScript(JURI::root(true) .'/media/com_costbenefitprojection/uikit/js/components/'.$name.$size.'.js');
+						$this->document->addScript(JURI::root(true) .'/media/com_costbenefitprojection/uikit-v2/js/components/'.$name.$size.'.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('type' => 'text/javascript', 'async' => 'async') : true);
 					}
 				}
 			}
@@ -185,29 +184,29 @@ class CostbenefitprojectionViewCombinedresults extends JViewLegacy
 		// add the google chart builder class.
 		require_once JPATH_COMPONENT_ADMINISTRATOR.'/helpers/chartbuilder.php';
 		// load the google chart js.
-		$this->document->addScript(JURI::root(true) .'/media/com_costbenefitprojection/js/google.jsapi.js');
-		$this->document->addScript('https://canvg.googlecode.com/svn/trunk/rgbcolor.js');
-		$this->document->addScript('https://canvg.googlecode.com/svn/trunk/canvg.js'); 
+		$this->document->addScript(JURI::root(true) .'/media/com_costbenefitprojection/js/google.jsapi.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
+		$this->document->addScript('https://canvg.googlecode.com/svn/trunk/rgbcolor.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
+		$this->document->addScript('https://canvg.googlecode.com/svn/trunk/canvg.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript'); 
 
 		// Add the CSS for Footable.
-		$this->document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable/css/footable.core.min.css');
+		$this->document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable-v2/css/footable.core.min.css', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
 
 		// Use the Metro Style
 		if (!isset($this->fooTableStyle) || 0 == $this->fooTableStyle)
 		{
-			$this->document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable/css/footable.metro.min.css');
+			$this->document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable-v2/css/footable.metro.min.css', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
 		}
 		// Use the Legacy Style.
 		elseif (isset($this->fooTableStyle) && 1 == $this->fooTableStyle)
 		{
-			$this->document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable/css/footable.standalone.min.css');
+			$this->document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable-v2/css/footable.standalone.min.css', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
 		}
 
 		// Add the JavaScript for Footable
-		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable/js/footable.js');
-		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable/js/footable.sort.js');
-		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable/js/footable.filter.js');
-		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable/js/footable.paginate.js'); 
+		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable-v2/js/footable.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
+		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable-v2/js/footable.sort.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
+		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable-v2/js/footable.filter.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
+		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable-v2/js/footable.paginate.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript'); 
 		// set header
 		JToolbarHelper::title(JText::_('COM_COSTBENEFITPROJECTION_COMBINED_RESULTS_OF').' ('.$this->names.')','cogs');
 		// add custom css
@@ -235,9 +234,9 @@ class CostbenefitprojectionViewCombinedresults extends JViewLegacy
 			$this->menuNotice++;
 			$session->set( 'CT_SubMenuNotice', $this->menuNotice);
 		}
-                // add the document default css file
-		$this->document->addStyleSheet(JURI::root(true) .'/administrator/components/com_costbenefitprojection/assets/css/combinedresults.css'); 
-        }
+		// add the document default css file
+		$this->document->addStyleSheet(JURI::root(true) .'/administrator/components/com_costbenefitprojection/assets/css/combinedresults.css', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css'); 
+	}
 
 	/**
 	 * Setting the toolbar
@@ -245,12 +244,12 @@ class CostbenefitprojectionViewCombinedresults extends JViewLegacy
 	protected function addToolBar()
 	{
 		// hide the main menu
-                $this->app->input->set('hidemainmenu', true);
+		$this->app->input->set('hidemainmenu', true);
 		// add title to the page
 		JToolbarHelper::title(JText::_('COM_COSTBENEFITPROJECTION_COMBINEDRESULTS'),'cogs');
-                // add the back button
-                // JToolBarHelper::custom('combinedresults.back', 'undo-2', '', 'COM_COSTBENEFITPROJECTION_BACK', false);
-                // add cpanel button
+		// add the back button
+		// JToolBarHelper::custom('combinedresults.back', 'undo-2', '', 'COM_COSTBENEFITPROJECTION_BACK', false);
+		// add cpanel button
 		JToolBarHelper::custom('combinedresults.dashboard', 'grid-2', '', 'COM_COSTBENEFITPROJECTION_DASH', false);
 		if ($this->canDo->get('combinedresults.companies'))
 		{
@@ -259,20 +258,20 @@ class CostbenefitprojectionViewCombinedresults extends JViewLegacy
 		}
 
 		// set help url for this view if found
-                $help_url = CostbenefitprojectionHelper::getHelpUrl('combinedresults');
-                if (CostbenefitprojectionHelper::checkString($help_url))
-                {
-                        JToolbarHelper::help('COM_COSTBENEFITPROJECTION_HELP_MANAGER', false, $help_url);
-                }
+		$help_url = CostbenefitprojectionHelper::getHelpUrl('combinedresults');
+		if (CostbenefitprojectionHelper::checkString($help_url))
+		{
+			JToolbarHelper::help('COM_COSTBENEFITPROJECTION_HELP_MANAGER', false, $help_url);
+		}
 
-                // add the options comp button
-                if ($this->canDo->get('core.admin') || $this->canDo->get('core.options'))
+		// add the options comp button
+		if ($this->canDo->get('core.admin') || $this->canDo->get('core.options'))
 		{
 			JToolBarHelper::preferences('com_costbenefitprojection');
 		}
 	}
 
-        /**
+	/**
 	 * Escapes a value for output in a view script.
 	 *
 	 * @param   mixed  $var  The output to escape.
@@ -281,7 +280,7 @@ class CostbenefitprojectionViewCombinedresults extends JViewLegacy
 	 */
 	public function escape($var)
 	{
-                // use the helper htmlEscape method instead.
+		// use the helper htmlEscape method instead.
 		return CostbenefitprojectionHelper::htmlEscape($var, $this->_charset);
 	}
 }

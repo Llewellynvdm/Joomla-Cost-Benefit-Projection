@@ -19,7 +19,6 @@
 			label="COM_COSTBENEFITPROJECTION_INTERVENTION_CREATED_DATE_LABEL"
 			description="COM_COSTBENEFITPROJECTION_INTERVENTION_CREATED_DATE_DESC"
 			size="22"
-
 			format="%Y-%m-%d %H:%M:%S"
 			filter="user_utc"
 		/>
@@ -28,13 +27,11 @@
 			name="created_by"
 			type="user"
 			label="COM_COSTBENEFITPROJECTION_INTERVENTION_CREATED_BY_LABEL"
-
 			description="COM_COSTBENEFITPROJECTION_INTERVENTION_CREATED_BY_DESC"
 		/>
 		<!-- Published Field. Type: List (joomla) -->
 		<field name="published" type="list" label="JSTATUS"
 			description="JFIELD_PUBLISHED_DESC" class="chzn-color-state"
-
 			filter="intval" size="1" default="1" >
 			<option value="1">
 				JPUBLISHED</option>
@@ -66,7 +63,6 @@
 			description=""
 			default="0"
 			size="6"
-
 			required="false"
 		/>
 		<!-- Version Field. Type: Text (joomla) -->
@@ -94,7 +90,7 @@
 			disabled="false"
 			required="true"
 			filter="STRING"
-			message="Error! Please add intervention name here."
+			message="COM_COSTBENEFITPROJECTION_INTERVENTION_NAME_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_INTERVENTION_NAME_HINT"
 		/>
 		<!-- Company Field. Type: Company. (custom) -->
@@ -157,30 +153,17 @@
 			last="30"
 			step="1"
 		/>
-		<!-- Share Field. Type: List. (joomla) -->
+		<!-- Not_required Field. Type: Hidden. (joomla) -->
 		<field
-			type="list"
-			name="share"
-			label="COM_COSTBENEFITPROJECTION_INTERVENTION_SHARE_LABEL"
-			description="COM_COSTBENEFITPROJECTION_INTERVENTION_SHARE_DESCRIPTION"
-			class="list_class"
-			multiple="false"
-			filter="INT"
-			required="true"
-			default="3">
-			<!-- Option Set. -->
-			<option value="3">
-				COM_COSTBENEFITPROJECTION_INTERVENTION_ALL_SERVICE_PROVIDERS_AND_ADMIN</option>
-			<option value="2">
-				COM_COSTBENEFITPROJECTION_INTERVENTION_ONLY_MY_SERVICE_PROVIDER</option>
-			<option value="1">
-				COM_COSTBENEFITPROJECTION_INTERVENTION_ONLY_ME</option>
-		</field>
+			type="hidden"
+			name="not_required"
+			default="[]"
+		/>
 		<!-- Intervention Field. Type: Repeatable. (joomla) -->
 		<field
 			type="repeatable"
 			name="intervention"
-			label="Set Intervention"
+			label="COM_COSTBENEFITPROJECTION_INTERVENTION_INTERVENTION_LABEL"
 			description="COM_COSTBENEFITPROJECTION_INTERVENTION_INTERVENTION_DESCRIPTION"
 			id="intervention"
 			class="interventions"
@@ -197,6 +180,7 @@
 						class="list_class causewidth"
 						multiple="false"
 						default="0"
+						required="false"
 						button="false"
 					/>
 					<!-- Cpe Field. Type: Text. (joomla) -->
@@ -208,6 +192,7 @@
 						maxlength="50"
 						description="COM_COSTBENEFITPROJECTION_INTERVENTION_CPE_DESCRIPTION"
 						class="text_area"
+						required="false"
 						filter="INT"
 					/>
 					<!-- Mbr Field. Type: Text. (joomla) -->
@@ -219,6 +204,7 @@
 						maxlength="50"
 						description="COM_COSTBENEFITPROJECTION_INTERVENTION_MBR_DESCRIPTION"
 						class="text_area"
+						required="false"
 						filter="INT"
 					/>
 					<!-- Mtr Field. Type: Text. (joomla) -->
@@ -230,22 +216,12 @@
 						maxlength="50"
 						description="COM_COSTBENEFITPROJECTION_INTERVENTION_MTR_DESCRIPTION"
 						class="text_area"
+						required="false"
 						filter="INT"
 					/>
 				</fieldset>
 			</fields>
 		</field>
-		<!-- Country Field. Type: Countries. (custom) -->
-		<field
-			type="countries"
-			name="country"
-			label="COM_COSTBENEFITPROJECTION_INTERVENTION_COUNTRY_LABEL"
-			description="COM_COSTBENEFITPROJECTION_INTERVENTION_COUNTRY_DESCRIPTION"
-			class="list_class"
-			multiple="false"
-			default="0"
-			required="true"
-		/>
 		<!-- Interventions Field. Type: Interventions. (custom) -->
 		<field
 			type="interventions"
@@ -268,11 +244,35 @@
 			filter="HTML"
 			hint="COM_COSTBENEFITPROJECTION_INTERVENTION_REFERENCE_HINT"
 		/>
-		<!-- Not_required Field. Type: Hidden. (joomla) -->
+		<!-- Share Field. Type: List. (joomla) -->
 		<field
-			type="hidden"
-			name="not_required"
-			default="[]"
+			type="list"
+			name="share"
+			label="COM_COSTBENEFITPROJECTION_INTERVENTION_SHARE_LABEL"
+			description="COM_COSTBENEFITPROJECTION_INTERVENTION_SHARE_DESCRIPTION"
+			class="list_class"
+			multiple="false"
+			filter="INT"
+			required="true"
+			default="3">
+			<!-- Option Set. -->
+			<option value="3">
+				COM_COSTBENEFITPROJECTION_INTERVENTION_ALL_SERVICE_PROVIDERS_AND_ADMIN</option>
+			<option value="2">
+				COM_COSTBENEFITPROJECTION_INTERVENTION_ONLY_MY_SERVICE_PROVIDER</option>
+			<option value="1">
+				COM_COSTBENEFITPROJECTION_INTERVENTION_ONLY_ME</option>
+		</field>
+		<!-- Country Field. Type: Countries. (custom) -->
+		<field
+			type="countries"
+			name="country"
+			label="COM_COSTBENEFITPROJECTION_INTERVENTION_COUNTRY_LABEL"
+			description="COM_COSTBENEFITPROJECTION_INTERVENTION_COUNTRY_DESCRIPTION"
+			class="list_class"
+			multiple="false"
+			default="0"
+			required="true"
 		/>
 	</fieldset>
 	

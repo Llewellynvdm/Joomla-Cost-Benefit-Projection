@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
+	@version		3.4.3
+	@build			5th May, 2018
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		help.php
@@ -42,7 +42,8 @@ class CostbenefitprojectionControllerHelp extends JControllerLegacy
 		// Check Token!
 		$token 		= JSession::getFormToken();
 		$call_token	= $jinput->get('token', 0, 'ALNUM');
-		if($token == $call_token){
+		if($token == $call_token)
+		{
 			$task = $this->getTask();
 			switch($task){
 				case 'getText':
@@ -58,25 +59,25 @@ class CostbenefitprojectionControllerHelp extends JControllerLegacy
 							$result = '';
 						}
 						echo $result;
-                                                // stop execution gracefully
-                                                jexit();
+						// stop execution gracefully
+						jexit();
 					}
 					catch(Exception $e)
 					{
-                                                // stop execution gracefully
+						// stop execution gracefully
 						jexit();
 					}
 				break;
 			}
 		}
-                else
-                {
-                        // stop execution gracefully
+		else
+		{
+			// stop execution gracefully
 			jexit();
 		}
 	}
 
-        protected function getHelpDocumentText($id)
+	protected function getHelpDocumentText($id)
 	{
 		$db	= JFactory::getDbo();
 		$query	= $db->getQuery(true);

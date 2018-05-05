@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 19 of this MVC
+	@build			25th October, 2017
+	@created		8th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		currencies.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -124,7 +124,7 @@ class CostbenefitprojectionModelCurrencies extends JModelList
 				}
 
 			}
-		} 
+		}  
         
 		// return items
 		return $items;
@@ -184,7 +184,7 @@ class CostbenefitprojectionModelCurrencies extends JModelList
 			}
 			else
 			{
-				$search = $db->quote('%' . $db->escape($search, true) . '%');
+				$search = $db->quote('%' . $db->escape($search) . '%');
 				$query->where('(a.name LIKE '.$search.' OR a.codethree LIKE '.$search.' OR a.numericcode LIKE '.$search.' OR a.alias LIKE '.$search.')');
 			}
 		}

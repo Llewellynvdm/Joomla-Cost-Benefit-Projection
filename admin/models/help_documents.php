@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 20 of this MVC
+	@build			13th April, 2018
+	@created		13th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		help_documents.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -161,7 +161,7 @@ class CostbenefitprojectionModelHelp_documents extends JModelList
 				$item->location = $this->selectionTranslation($item->location, 'location');
 			}
 		}
-
+ 
         
 		// return items
 		return $items;
@@ -175,7 +175,7 @@ class CostbenefitprojectionModelHelp_documents extends JModelList
 	public function selectionTranslation($value,$name)
 	{
 		// Array of type language strings
-		if ($name == 'type')
+		if ($name === 'type')
 		{
 			$typeArray = array(
 				0 => 'COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_SELECT_AN_OPTION',
@@ -190,7 +190,7 @@ class CostbenefitprojectionModelHelp_documents extends JModelList
 			}
 		}
 		// Array of location language strings
-		if ($name == 'location')
+		if ($name === 'location')
 		{
 			$locationArray = array(
 				1 => 'COM_COSTBENEFITPROJECTION_HELP_DOCUMENT_ADMIN',
@@ -244,30 +244,30 @@ class CostbenefitprojectionModelHelp_documents extends JModelList
 			}
 			else
 			{
-				$search = $db->quote('%' . $db->escape($search, true) . '%');
-				$query->where('(a.title LIKE '.$search.' OR a.type LIKE '.$search.' OR a.location LIKE '.$search.' OR a.admin_view LIKE '.$search.' OR a.site_view LIKE '.$search.')');
+				$search = $db->quote('%' . $db->escape($search) . '%');
+				$query->where('(a.title LIKE '.$search.' OR a.type LIKE '.$search.' OR a.location LIKE '.$search.' OR a.admin_view LIKE '.$search.' OR g. LIKE '.$search.' OR a.site_view LIKE '.$search.' OR h. LIKE '.$search.')');
 			}
 		}
 
 		// Filter by Type.
 		if ($type = $this->getState('filter.type'))
 		{
-			$query->where('a.type = ' . $db->quote($db->escape($type, true)));
+			$query->where('a.type = ' . $db->quote($db->escape($type)));
 		}
 		// Filter by Location.
 		if ($location = $this->getState('filter.location'))
 		{
-			$query->where('a.location = ' . $db->quote($db->escape($location, true)));
+			$query->where('a.location = ' . $db->quote($db->escape($location)));
 		}
-		// Filter by Admin_view.
+		// Filter by admin_view.
 		if ($admin_view = $this->getState('filter.admin_view'))
 		{
-			$query->where('a.admin_view = ' . $db->quote($db->escape($admin_view, true)));
+			$query->where('a.admin_view = ' . $db->quote($db->escape($admin_view)));
 		}
-		// Filter by Site_view.
+		// Filter by site_view.
 		if ($site_view = $this->getState('filter.site_view'))
 		{
-			$query->where('a.site_view = ' . $db->quote($db->escape($site_view, true)));
+			$query->where('a.site_view = ' . $db->quote($db->escape($site_view)));
 		}
 
 		// Add the list ordering clause.

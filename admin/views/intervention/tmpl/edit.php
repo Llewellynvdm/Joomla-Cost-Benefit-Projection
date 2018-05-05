@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 71 of this MVC
+	@build			12th November, 2016
+	@created		8th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -30,7 +30,8 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 <div id="costbenefitprojection_loader">
 <form action="<?php echo JRoute::_('index.php?option=com_costbenefitprojection&layout=edit&id='.(int) $this->item->id.$this->referral); ?>" method="post" name="adminForm" id="adminForm" class="form-validate" enctype="multipart/form-data">
 
-	<?php echo JLayoutHelper::render('intervention.details_above', $this); ?><div class="form-horizontal">
+	<?php echo JLayoutHelper::render('intervention.details_above', $this); ?>
+<div class="form-horizontal">
 
 	<?php echo JHtml::_('bootstrap.startTabSet', 'interventionTab', array('active' => 'details')); ?>
 
@@ -95,6 +96,7 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 		<input type="hidden" name="task" value="intervention.edit" />
 		<?php echo JHtml::_('form.token'); ?>
 	</div>
+	</div>
 </div>
 
 <div class="clearfix"></div>
@@ -148,6 +150,7 @@ jQuery('#adminForm').on('change', '#jform_company',function (e)
 	vvvvvwa(company_vvvvvwa);
 
 });
+
 
 
 jQuery('#adminForm').on('change', '#jform_interventions',function (e)

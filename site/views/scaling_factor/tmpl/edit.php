@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
+	@version		@update number 21 of this MVC
 	@build			16th August, 2016
-	@created		15th June, 2012
+	@created		8th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -32,7 +32,8 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 <?php echo $this->toolbar->render(); ?>
 <form action="<?php echo JRoute::_('index.php?option=com_costbenefitprojection&layout=edit&id='.(int) $this->item->id.$this->referral); ?>" method="post" name="adminForm" id="adminForm" class="form-validate" enctype="multipart/form-data">
 
-	<?php echo JLayoutHelper::render('scaling_factor.details_above', $this); ?><div class="form-horizontal">
+	<?php echo JLayoutHelper::render('scaling_factor.details_above', $this); ?>
+<div class="form-horizontal">
 
 	<?php echo JHtml::_('bootstrap.startTabSet', 'scaling_factorTab', array('active' => 'details')); ?>
 
@@ -84,6 +85,7 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 	<div>
 		<input type="hidden" name="task" value="scaling_factor.edit" />
 		<?php echo JHtml::_('form.token'); ?>
+	</div>
 	</div>
 </div>
 </form>

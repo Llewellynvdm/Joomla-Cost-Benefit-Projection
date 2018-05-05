@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
+	@version		3.4.3
+	@build			5th May, 2018
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		datayear.php
@@ -34,106 +34,7 @@ class JFormFieldDatayear extends JFormFieldList
 	 *
 	 * @var		string
 	 */
-	public $type = 'datayear'; 
-	/**
-	 * Override to add new button
-	 *
-	 * @return  string  The field input markup.
-	 *
-	 * @since   3.2
-	 */
-	protected function getInput()
-	{
-		// see if we should add buttons
-		$setButton = $this->getAttribute('button');
-		// get html
-		$html = parent::getInput();
-		// if true set button
-		if ($setButton === 'true')
-		{
-			$button = array();
-			$script = array();
-			$buttonName = $this->getAttribute('name');
-			// get the input from url
-			$jinput = JFactory::getApplication()->input;
-			// get the view name & id
-			$values = $jinput->getArray(array(
-				'id' => 'int',
-				'view' => 'word'
-			));
-			// check if new item
-			$ref = '';
-			$refJ = '';
-			if (!is_null($values['id']) && strlen($values['view']))
-			{
-				// only load referal if not new item.
-				$ref = '&amp;ref=' . $values['view'] . '&amp;refid=' . $values['id'];
-				$refJ = '&ref=' . $values['view'] . '&refid=' . $values['id'];
-			}
-			$user = JFactory::getUser();
-			// only add if user allowed to create health_data
-			if ($user->authorise('health_data.create', 'com_costbenefitprojection'))
-			{
-				// build Create button
-				$buttonNamee = trim($buttonName);
-				$buttonNamee = preg_replace('/_+/', ' ', $buttonNamee);
-				$buttonNamee = preg_replace('/\s+/', ' ', $buttonNamee);
-				$buttonNamee = preg_replace("/[^A-Za-z ]/", '', $buttonNamee);
-				$buttonNamee = ucfirst(strtolower($buttonNamee));
-				$button[] = '<a id="'.$buttonName.'Create" class="btn btn-small btn-success hasTooltip" title="'.JText::sprintf('COM_COSTBENEFITPROJECTION_CREATE_NEW_S', $buttonNamee).'" style="border-radius: 0px 4px 4px 0px; padding: 4px 4px 4px 7px;"
-					href="index.php?option=com_costbenefitprojection&amp;view=health_data&amp;layout=edit'.$ref.'" >
-					<span class="icon-new icon-white"></span></a>';
-			}
-			// only add if user allowed to edit health_data
-			if (($buttonName == 'health_data' || $buttonName == 'health_data_sets') && $user->authorise('health_data.edit', 'com_costbenefitprojection'))
-			{
-				// build edit button
-				$buttonNamee = trim($buttonName);
-				$buttonNamee = preg_replace('/_+/', ' ', $buttonNamee);
-				$buttonNamee = preg_replace('/\s+/', ' ', $buttonNamee);
-				$buttonNamee = preg_replace("/[^A-Za-z ]/", '', $buttonNamee);
-				$buttonNamee = ucfirst(strtolower($buttonNamee));
-				$button[] = '<a id="'.$buttonName.'Edit" class="btn btn-small hasTooltip" title="'.JText::sprintf('COM_COSTBENEFITPROJECTION_EDIT_S', $buttonNamee).'" style="display: none; padding: 4px 4px 4px 7px;" href="#" >
-					<span class="icon-edit"></span></a>';
-				// build script
-				$script[] = "
-					jQuery(document).ready(function() {
-						jQuery('#adminForm').on('change', '#jform_".$buttonName."',function (e) {
-							e.preventDefault();
-							var ".$buttonName."Value = jQuery('#jform_".$buttonName."').val();
-							".$buttonName."Button(".$buttonName."Value);
-						});
-						var ".$buttonName."Value = jQuery('#jform_".$buttonName."').val();
-						".$buttonName."Button(".$buttonName."Value);
-					});
-					function ".$buttonName."Button(value) {
-						if (value > 0) {
-							// hide the create button
-							jQuery('#".$buttonName."Create').hide();
-							// show edit button
-							jQuery('#".$buttonName."Edit').show();
-							var url = 'index.php?option=com_costbenefitprojection&view=health_data_sets&task=health_data.edit&id='+value+'".$refJ."';
-							jQuery('#".$buttonName."Edit').attr('href', url);
-						} else {
-							// show the create button
-							jQuery('#".$buttonName."Create').show();
-							// hide edit button
-							jQuery('#".$buttonName."Edit').hide();
-						}
-					}";
-			}
-			// check if button was created for health_data field.
-			if (is_array($button) && count($button) > 0)
-			{
-				// Load the needed script.
-				$document = JFactory::getDocument();
-				$document->addScriptDeclaration(implode(' ',$script));
-				// return the button attached to input field.
-				return '<div class="input-append">' .$html . implode('',$button).'</div>';
-			}
-		}
-		return $html;
-	}
+	public $type = 'datayear';
 
 	/**
 	 * Method to get a list of options for a list input.

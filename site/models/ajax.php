@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
+	@version		3.4.3
+	@build			5th May, 2018
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		ajax.php
@@ -234,5 +234,53 @@ public function getInterventionBuildTable($idName,$oject,$cluster)
 			return $old.' & '.$new;
 		}
 		return $new;
+	}
+
+	/**
+	* 	Check and if a vdm notice is new (per/user)
+	**/
+	public function isNew($notice)
+	{
+		// first get the file path
+		$path_filename = CostbenefitprojectionHelper::getFilePath('user', 'notice', JFactory::getUser()->username, $fileType = '.md', JPATH_COMPONENT_ADMINISTRATOR);
+		// check if the file is set
+		if (($content = @file_get_contents($path_filename)) !== FALSE)
+		{
+			if ($notice == $content)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	* 	set That a notice has been read (per/user)
+	**/
+	public function isRead($notice)
+	{
+		// first get the file path
+		$path_filename = CostbenefitprojectionHelper::getFilePath('user', 'notice', JFactory::getUser()->username, $fileType = '.md', JPATH_COMPONENT_ADMINISTRATOR);
+		// set as read if not already set
+		if (($content = @file_get_contents($path_filename)) !== FALSE)
+		{
+			if ($notice == $content)
+			{
+				return true;
+			}
+		}
+		return $this->saveFile($notice,$path_filename);
+	}
+
+	protected function saveFile($data,$path_filename)
+	{
+		if (CostbenefitprojectionHelper::checkString($data))
+		{
+			$fp = fopen($path_filename, 'w');
+			fwrite($fp, $data);
+			fclose($fp);
+			return true;
+		}
+		return false;
 	}
 }

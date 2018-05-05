@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
+	@version		@update number 21 of this MVC
 	@build			16th August, 2016
-	@created		15th June, 2012
+	@created		8th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		scaling_factors.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -101,5 +101,5 @@ class CostbenefitprojectionControllerScaling_factors extends JControllerAdmin
 		$message = JText::_('COM_COSTBENEFITPROJECTION_IMPORT_FAILED');
 		$this->setRedirect(JRoute::_('index.php?option=com_costbenefitprojection&view=scaling_factors', false), $message, 'error');
 		return;
-	} 
+	}  
 }

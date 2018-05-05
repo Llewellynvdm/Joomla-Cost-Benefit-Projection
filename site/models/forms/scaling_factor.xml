@@ -19,7 +19,6 @@
 			label="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_CREATED_DATE_LABEL"
 			description="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_CREATED_DATE_DESC"
 			size="22"
-
 			format="%Y-%m-%d %H:%M:%S"
 			filter="user_utc"
 		/>
@@ -28,13 +27,11 @@
 			name="created_by"
 			type="user"
 			label="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_CREATED_BY_LABEL"
-
 			description="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_CREATED_BY_DESC"
 		/>
 		<!-- Published Field. Type: List (joomla) -->
 		<field name="published" type="list" label="JSTATUS"
 			description="JFIELD_PUBLISHED_DESC" class="chzn-color-state"
-
 			filter="intval" size="1" default="1" >
 			<option value="1">
 				JPUBLISHED</option>
@@ -66,7 +63,6 @@
 			description=""
 			default="0"
 			size="6"
-
 			required="false"
 		/>
 		<!-- Version Field. Type: Text (joomla) -->
@@ -115,7 +111,7 @@
 			disabled="false"
 			required="true"
 			filter="CMD"
-			message="Error! Please add scaling factor for males here."
+			message="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_YLD_SCALING_FACTOR_MALES_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_YLD_SCALING_FACTOR_MALES_HINT"
 		/>
 		<!-- Yld_scaling_factor_females Field. Type: Text. (joomla) -->
@@ -132,7 +128,7 @@
 			disabled="false"
 			required="true"
 			filter="CMD"
-			message="Error! Please add scaling factor for females here."
+			message="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_YLD_SCALING_FACTOR_FEMALES_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_YLD_SCALING_FACTOR_FEMALES_HINT"
 		/>
 		<!-- Mortality_scaling_factor_males Field. Type: Text. (joomla) -->
@@ -149,7 +145,7 @@
 			disabled="false"
 			required="true"
 			filter="CMD"
-			message="Error! Please add scaling factor for males here."
+			message="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_MORTALITY_SCALING_FACTOR_MALES_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_MORTALITY_SCALING_FACTOR_MALES_HINT"
 		/>
 		<!-- Mortality_scaling_factor_females Field. Type: Text. (joomla) -->
@@ -166,7 +162,7 @@
 			disabled="false"
 			required="true"
 			filter="CMD"
-			message="Error! Please add scaling factor for females here."
+			message="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_MORTALITY_SCALING_FACTOR_FEMALES_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_MORTALITY_SCALING_FACTOR_FEMALES_HINT"
 		/>
 		<!-- Presenteeism_scaling_factor_males Field. Type: Text. (joomla) -->
@@ -183,7 +179,7 @@
 			disabled="false"
 			required="true"
 			filter="CMD"
-			message="Error! Please add scaling factor for males here."
+			message="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_PRESENTEEISM_SCALING_FACTOR_MALES_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_PRESENTEEISM_SCALING_FACTOR_MALES_HINT"
 		/>
 		<!-- Presenteeism_scaling_factor_females Field. Type: Text. (joomla) -->
@@ -200,8 +196,25 @@
 			disabled="false"
 			required="true"
 			filter="CMD"
-			message="Error! Please add scaling factor for females here."
+			message="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_PRESENTEEISM_SCALING_FACTOR_FEMALES_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_PRESENTEEISM_SCALING_FACTOR_FEMALES_HINT"
+		/>
+		<!-- Health_scaling_factor Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="health_scaling_factor"
+			label="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_HEALTH_SCALING_FACTOR_LABEL"
+			size="10"
+			maxlength="10"
+			default="1"
+			description="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_HEALTH_SCALING_FACTOR_DESCRIPTION"
+			class="text_area"
+			readonly="false"
+			disabled="false"
+			required="true"
+			filter="CMD"
+			message="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_HEALTH_SCALING_FACTOR_MESSAGE"
+			hint="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_HEALTH_SCALING_FACTOR_HINT"
 		/>
 		<!-- Reference Field. Type: Textarea. (joomla) -->
 		<field
@@ -225,23 +238,6 @@
 			multiple="false"
 			default="0"
 			required="true"
-		/>
-		<!-- Health_scaling_factor Field. Type: Text. (joomla) -->
-		<field
-			type="text"
-			name="health_scaling_factor"
-			label="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_HEALTH_SCALING_FACTOR_LABEL"
-			size="10"
-			maxlength="10"
-			default="1"
-			description="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_HEALTH_SCALING_FACTOR_DESCRIPTION"
-			class="text_area"
-			readonly="false"
-			disabled="false"
-			required="true"
-			filter="CMD"
-			message="Error! Please add scaling factor for health here."
-			hint="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_HEALTH_SCALING_FACTOR_HINT"
 		/>
 	</fieldset>
 	

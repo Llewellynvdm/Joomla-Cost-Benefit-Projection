@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
+	@version		3.4.3
+	@build			5th May, 2018
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -586,13 +586,20 @@ abstract class CostbenefitprojectionHelper
 			return implode(', ',$groupsNames);
 		}
 		return '';
-	}
+	} 
 	
-	public static function jsonToString($value, $sperator = ", ", $table = null)
+	public static function jsonToString($value, $sperator = ", ", $table = null, $id = 'id', $name = 'name')
 	{
-                // check if string is JSON
-                $result = json_decode($value, true);
-                if (json_last_error() === JSON_ERROR_NONE)
+		// do some table foot work
+		$external = false;
+		if (strpos($table, '#__') !== false)
+		{
+			$external = true;
+			$table = str_replace('#__', '', $table);
+		}
+		// check if string is JSON
+		$result = json_decode($value, true);
+		if (json_last_error() === JSON_ERROR_NONE)
 		{
 			// is JSON
 			if (self::checkArray($result))
@@ -602,9 +609,19 @@ abstract class CostbenefitprojectionHelper
 					$names = array();
 					foreach ($result as $val)
 					{
-						if ($name = self::getVar($table, $val, 'id', 'name'))
+						if ($external)
 						{
-							$names[] = $name;
+							if ($name = self::getVar(null, $val, $id, $name, '=', $table))
+							{
+								$names[] = $name;
+							}
+						}
+						else
+						{
+							if ($name = self::getVar($table, $val, $id, $name))
+							{
+								$names[] = $name;
+							}
 						}
 					}
 					if (self::checkArray($names))
@@ -614,18 +631,36 @@ abstract class CostbenefitprojectionHelper
 				}
 				return (string) implode($sperator,$result);
 			}
-                        return (string) json_decode($value);
-                }
-                return $value;
-        }
-	
+			return (string) json_decode($value);
+		}
+		return $value;
+	}
+
 	/**
 	*	Load the Component xml manifest.
 	**/
-        public static function manifest()
-        {
-                $manifestUrl = JPATH_ADMINISTRATOR."/components/com_costbenefitprojection/costbenefitprojection.xml";
-                return simplexml_load_file($manifestUrl);
+	public static function manifest()
+	{
+		$manifestUrl = JPATH_ADMINISTRATOR."/components/com_costbenefitprojection/costbenefitprojection.xml";
+		return simplexml_load_file($manifestUrl);
+	}
+
+	/**
+	*	Joomla version object
+	**/	
+	protected static $JVersion;
+
+	/**
+	*	set/get Joomla version
+	**/
+	public static function jVersion()
+	{
+		// check if set
+		if (!self::checkObject(self::$JVersion))
+		{
+			self::$JVersion = new JVersion();
+		}
+		return self::$JVersion;
 	}
 
 	/**
@@ -640,9 +675,9 @@ abstract class CostbenefitprojectionHelper
 		// get all Contributors (max 20)
 		$searchArray = range('0','20');
 		foreach($searchArray as $nr)
-                {
+		{
 			if ((NULL !== $params->get("showContributor".$nr)) && ($params->get("showContributor".$nr) == 2 || $params->get("showContributor".$nr) == 3))
-                        {
+			{
 				// set link based of selected option
 				if($params->get("useContributor".$nr) == 1)
                                 {
@@ -741,16 +776,47 @@ abstract class CostbenefitprojectionHelper
 	/**
 	*	Get any component's model
 	**/
-	public static function getModel($name, $path = JPATH_COMPONENT_SITE, $component = 'costbenefitprojection')
+	public static function getModel($name, $path = JPATH_COMPONENT_SITE, $component = 'Costbenefitprojection', $config = array())
 	{
-		// load some joomla helpers
-		JLoader::import('joomla.application.component.model');
+		// fix the name
+		$name = self::safeString($name);
+		// full path
+		$fullPath = $path . '/models';
+		// set prefix
+		$prefix = $component.'Model';
 		// load the model file
-		JLoader::import( $name, $path . '/models' );
-		// return instance
-		return JModelLegacy::getInstance( $name, $component.'Model' );
+		JModelLegacy::addIncludePath($fullPath, $prefix);
+		// get instance
+		$model = JModelLegacy::getInstance($name, $prefix, $config);
+		// if model not found (strange)
+		if ($model == false)
+		{
+			jimport('joomla.filesystem.file');
+			// get file path
+			$filePath = $path.'/'.$name.'.php';
+			$fullPath = $fullPath.'/'.$name.'.php';
+			// check if it exists
+			if (JFile::exists($filePath))
+			{
+				// get the file
+				require_once $filePath;
+			}
+			elseif (JFile::exists($fullPath))
+			{
+				// get the file
+				require_once $fullPath;
+			}
+			// build class names
+			$modelClass = $prefix.$name;
+			if (class_exists($modelClass))
+			{
+				// initialize the model
+				return new $modelClass($config);
+			}
+		}
+		return $model;
 	}
-	
+
 	/**
 	*	Add to asset Table
 	*/
@@ -814,7 +880,7 @@ abstract class CostbenefitprojectionHelper
 		}
 		return false;
 	}
-	
+
 	/**
 	 *	Gets the default asset Rules for a component/view.
 	 */
@@ -867,28 +933,141 @@ abstract class CostbenefitprojectionHelper
 		return JAccess::getAssetRules(0);
 	}
 
+	/**
+	 * xmlAppend
+	 *
+	 * @param   SimpleXMLElement   $xml      The XML element reference in which to inject a comment
+	 * @param   mixed              $node     A SimpleXMLElement node to append to the XML element reference, or a stdClass object containing a comment attribute to be injected before the XML node and a fieldXML attribute containing a SimpleXMLElement
+	 *
+	 * @return  null
+	 *
+	 */
+	public static function xmlAppend(&$xml, $node)
+	{
+		if (!$node)
+		{
+			// element was not returned
+			return;
+		}
+		switch (get_class($node))
+		{
+			case 'stdClass':
+				if (property_exists($node, 'comment'))
+				{
+					self::xmlComment($xml, $node->comment);
+				}
+				if (property_exists($node, 'fieldXML'))
+				{
+					self::xmlAppend($xml, $node->fieldXML);
+				}
+				break;
+			case 'SimpleXMLElement':
+				$domXML = dom_import_simplexml($xml);
+				$domNode = dom_import_simplexml($node);
+				$domXML->appendChild($domXML->ownerDocument->importNode($domNode, true));
+				$xml = simplexml_import_dom($domXML);
+				break;
+		}
+	}
+
+	/**
+	 * xmlComment
+	 *
+	 * @param   SimpleXMLElement   $xml        The XML element reference in which to inject a comment
+	 * @param   string             $comment    The comment to inject
+	 *
+	 * @return  null
+	 *
+	 */
+	public static function xmlComment(&$xml, $comment)
+	{
+		$domXML = dom_import_simplexml($xml);
+		$domComment = new DOMComment($comment);
+		$nodeTarget = $domXML->ownerDocument->importNode($domComment, true);
+		$domXML->appendChild($nodeTarget);
+		$xml = simplexml_import_dom($domXML);
+	}
+
+	/**
+	 * xmlAddAttributes
+	 *
+	 * @param   SimpleXMLElement   $xml          The XML element reference in which to inject a comment
+	 * @param   array              $attributes   The attributes to apply to the XML element
+	 *
+	 * @return  null
+	 *
+	 */
+	public static function xmlAddAttributes(&$xml, $attributes = array())
+	{
+		foreach ($attributes as $key => $value)
+		{
+			$xml->addAttribute($key, $value);
+		}
+	}
+
+	/**
+	 * xmlAddOptions
+	 *
+	 * @param   SimpleXMLElement   $xml          The XML element reference in which to inject a comment
+	 * @param   array              $options      The options to apply to the XML element
+	 *
+	 * @return  void
+	 *
+	 */
+	public static function xmlAddOptions(&$xml, $options = array())
+	{
+		foreach ($options as $key => $value)
+		{
+			$addOption = $xml->addChild('option');
+			$addOption->addAttribute('value', $key);
+			$addOption[] = $value;
+		}
+	}
+
+	/**
+	 * Render Bool Button
+	 *
+	 * @param   array    $args   All the args for the button
+	 *                             0) name
+	 *                             1) additional (options class) // not used at this time
+	 *                             2) default
+	 *                             3) yes (name)
+	 *                             4) no (name)
+	 *
+	 * @return  string    The input html of the button
+	 *
+	 */
 	public static function renderBoolButton()
 	{
 		$args = func_get_args();
+		// check if there is additional button class
+		$additional = isset($args[1]) ? (string) $args[1] : ''; // not used at this time
+		// start the xml
+		$buttonXML = new SimpleXMLElement('<field/>');
+		// button attributes
+		$buttonAttributes = array(
+			'type' => 'radio',
+			'name' => isset($args[0]) ? self::htmlEscape($args[0]) : 'bool_button',
+			'label' => isset($args[0]) ? self::safeString(self::htmlEscape($args[0]), 'Ww') : 'Bool Button', // not seen anyway
+			'class' => 'btn-group',
+			'filter' => 'INT',
+			'default' => isset($args[2]) ? (int) $args[2] : 0);
+		// load the haskey attributes
+		self::xmlAddAttributes($buttonXML, $buttonAttributes);
+		// set the button options
+		$buttonOptions = array(
+			'1' => isset($args[3]) ? self::htmlEscape($args[3]) : 'JYES',
+			'0' => isset($args[4]) ? self::htmlEscape($args[4]) : 'JNO');
+		// load the button options
+		self::xmlAddOptions($buttonXML, $buttonOptions);
 
 		// get the radio element
 		$button = JFormHelper::loadFieldType('radio');
 
-		// setup the properties
-		$name	 	= self::htmlEscape($args[0]);
-		$additional = isset($args[1]) ? (string) $args[1] : '';
-		$value		= $args[2];
-		$yes 	 	= isset($args[3]) ? self::htmlEscape($args[3]) : 'JYES';
-		$no 	 	= isset($args[4]) ? self::htmlEscape($args[4]) : 'JNO';
-
-		// prepare the xml
-		$element = new SimpleXMLElement('<field name="'.$name.'" type="radio" class="btn-group"><option '.$additional.' value="0">'.$no.'</option><option '.$additional.' value="1">'.$yes.'</option></field>');
-
 		// run
-		$button->setup($element, $value);
+		$button->setup($buttonXML, $buttonAttributes['default']);
 
 		return $button->input;
-
 	}
 
 	/**
@@ -1024,14 +1203,10 @@ abstract class CostbenefitprojectionHelper
 			$password = self::randomkey(8);
 			$password2 = $password;
 		}
-		// set username
-		if (isset($new['username']) && self::checkString($new['username']))
+		// set username if not set
+		if (!isset($new['username']) || !self::checkString($new['username']))
 		{
-			$new['username'] = self::safeString($new['username']);
-		}
-		else
-		{
-			$new['username'] = self::safeString($new['name']);			
+			$new['username'] = self::safeString($new['name']);
 		}
 		// linup new user data
 		$data = array(
@@ -1127,6 +1302,19 @@ abstract class CostbenefitprojectionHelper
 		return $model->getError();
 	}
 
+	/**
+	 * Get a variable 
+	 *
+	 * @param   string   $table        The table from which to get the variable
+	 * @param   string   $where        The value where
+	 * @param   string   $whereString  The target/field string where/name
+	 * @param   string   $what         The return field
+	 * @param   string   $operator     The operator between $whereString/field and $where/value
+	 * @param   string   $main         The component in which the table is found
+	 *
+	 * @return  mix string/int/float
+	 *
+	 */
 	public static function getVar($table, $where = null, $whereString = 'user', $what = 'id', $operator = '=', $main = 'costbenefitprojection')
 	{
 		if(!$where)
@@ -1167,6 +1355,20 @@ abstract class CostbenefitprojectionHelper
 		return false;
 	}
 
+	/**
+	 * Get array of variables
+	 *
+	 * @param   string   $table        The table from which to get the variables
+	 * @param   string   $where        The value where
+	 * @param   string   $whereString  The target/field string where/name
+	 * @param   string   $what         The return field
+	 * @param   string   $operator     The operator between $whereString/field and $where/value
+	 * @param   string   $main         The component in which the table is found
+	 * @param   bool     $unique       The switch to return a unique array
+	 *
+	 * @return  array
+	 *
+	 */
 	public static function getVars($table, $where = null, $whereString = 'user', $what = 'id', $operator = 'IN', $main = 'costbenefitprojection', $unique = true)
 	{
 		if(!$where)
@@ -1181,13 +1383,25 @@ abstract class CostbenefitprojectionHelper
 
 		if (self::checkArray($where))
 		{
+			// prep main <-- why? well if $main='' is empty then $table can be categories or users
+			if (self::checkString($main))
+			{
+				$main = '_'.ltrim($main, '_');
+			}
 			// Get a db connection.
 			$db = JFactory::getDbo();
 			// Create a new query object.
 			$query = $db->getQuery(true);
 
 			$query->select($db->quoteName(array($what)));
-			$query->from($db->quoteName('#__'.$main.'_'.$table));
+			if (empty($table))
+			{
+				$query->from($db->quoteName('#__'.$main));
+			}
+			else
+			{
+				$query->from($db->quoteName('#_'.$main.'_'.$table));
+			}
 			$query->where($db->quoteName($whereString) . ' '.$operator.' (' . implode(',',$where) . ')');
 			$db->setQuery($query);
 			$db->execute();
@@ -1206,7 +1420,7 @@ abstract class CostbenefitprojectionHelper
 	public static function isPublished($id,$type)
 	{
 		if ($type == 'raw')
-                {
+		{
 			$type = 'item';
 		}
 		$db = JFactory::getDbo();
@@ -1219,7 +1433,7 @@ abstract class CostbenefitprojectionHelper
 		$db->execute();
 		$found = $db->getNumRows();
 		if($found)
-                {
+		{
 			return true;
 		}
 		return false;
@@ -1236,40 +1450,40 @@ abstract class CostbenefitprojectionHelper
 		$db->execute();
 		$found = $db->getNumRows();
 		if($found)
-                {
+		{
 			return $db->loadResult();
 		}
 		return $id;
 	}
-	
+
 	/**
 	*	Get the actions permissions
 	**/
-        public static function getActions($view,&$record = null,$views = null)
+	public static function getActions($view,&$record = null,$views = null)
 	{
 		jimport('joomla.access.access');
 
 		$user	= JFactory::getUser();
 		$result	= new JObject;
 		$view	= self::safeString($view);
-                if (self::checkString($views))
-                {
+		if (self::checkString($views))
+		{
 			$views = self::safeString($views);
-                }
+		}
 		// get all actions from component
 		$actions = JAccess::getActions('com_costbenefitprojection', 'component');
-                // set acctions only set in component settiongs
-                $componentActions = array('core.admin','core.manage','core.options','core.export');
+		// set acctions only set in component settiongs
+		$componentActions = array('core.admin','core.manage','core.options','core.export');
 		// loop the actions and set the permissions
 		foreach ($actions as $action)
-                {
+		{
 			// set to use component default
 			$fallback = true;
 			if (self::checkObject($record) && isset($record->id) && $record->id > 0 && !in_array($action->name,$componentActions))
 			{
 				// The record has been set. Check the record permissions.
 				$permission = $user->authorise($action->name, 'com_costbenefitprojection.'.$view.'.' . (int) $record->id);
-				if (!$permission && !is_null($permission))
+				if (!$permission) // TODO removed && !is_null($permission)
 				{
 					if ($action->name == 'core.edit' || $action->name == $view.'.edit')
 					{
@@ -1341,17 +1555,17 @@ abstract class CostbenefitprojectionHelper
 				}
 				elseif (self::checkString($views) && isset($record->catid) && $record->catid > 0)
 				{
-                                        // make sure we use the core. action check for the categories
-                                        if (strpos($action->name,$view) !== false && strpos($action->name,'core.') === false ) {
-                                                $coreCheck		= explode('.',$action->name);
-                                                $coreCheck[0]	= 'core';
-                                                $categoryCheck	= implode('.',$coreCheck);
-                                        }
-                                        else
-                                        {
-                                                $categoryCheck = $action->name;
-                                        }
-                                        // The record has a category. Check the category permissions.
+					// make sure we use the core. action check for the categories
+					if (strpos($action->name,$view) !== false && strpos($action->name,'core.') === false ) {
+						$coreCheck		= explode('.',$action->name);
+						$coreCheck[0]	= 'core';
+						$categoryCheck	= implode('.',$coreCheck);
+					}
+					else
+					{
+						$categoryCheck = $action->name;
+					}
+					// The record has a category. Check the category permissions.
 					$catpermission = $user->authorise($categoryCheck, 'com_costbenefitprojection.'.$views.'.category.' . (int) $record->catid);
 					if (!$catpermission && !is_null($catpermission))
 					{
@@ -1433,7 +1647,14 @@ abstract class CostbenefitprojectionHelper
 		}
 		return $result;
 	}
-	
+
+	/**
+	*	Check if have an json string
+	*
+	*	@input	string   The json string to check
+	*
+	*	@returns bool true on success
+	**/
 	public static function checkJson($string)
 	{
 		if (self::checkString($string))
@@ -1444,24 +1665,57 @@ abstract class CostbenefitprojectionHelper
 		return false;
 	}
 
+	/**
+	*	Check if have an object with a length
+	*
+	*	@input	object   The object to check
+	*
+	*	@returns bool true on success
+	**/
 	public static function checkObject($object)
 	{
-		if (isset($object) && is_object($object) && count($object) > 0)
+		if (isset($object) && is_object($object))
 		{
-			return true;
+			return count((array)$object) > 0;
 		}
 		return false;
 	}
 
-	public static function checkArray($array)
+	/**
+	*	Check if have an array with a length
+	*
+	*	@input	array   The array to check
+	*
+	*	@returns bool true on success
+	**/
+	public static function checkArray($array, $removeEmptyString = false)
 	{
 		if (isset($array) && is_array($array) && count($array) > 0)
 		{
+			// also make sure the empty strings are removed
+			if ($removeEmptyString)
+			{
+				foreach ($array as $key => $string)
+				{
+					if (empty($string))
+					{
+						unset($array[$key]);
+					}
+				}
+				return self::checkArray($array, false);
+			}
 			return true;
 		}
 		return false;
 	}
 
+	/**
+	*	Check if have a string with a length
+	*
+	*	@input	string   The string to check
+	*
+	*	@returns bool true on success
+	**/
 	public static function checkString($string)
 	{
 		if (isset($string) && is_string($string) && strlen($string) > 0)
@@ -1471,6 +1725,38 @@ abstract class CostbenefitprojectionHelper
 		return false;
 	}
 
+	/**
+	*	Check if we are connected
+	*	Thanks https://stackoverflow.com/a/4860432/1429677
+	*
+	*	@returns bool true on success
+	**/
+	public static function isConnected()
+	{
+		// If example.com is down, then probably the whole internet is down, since IANA maintains the domain. Right?
+		$connected = @fsockopen("www.example.com", 80); 
+			// website, port  (try 80 or 443)
+		if ($connected)
+		{
+			//action when connected
+			$is_conn = true;
+			fclose($connected);
+		}
+		else
+		{
+			//action in connection failure
+			$is_conn = false;
+		}
+		return $is_conn;
+	}
+
+	/**
+	*	Merge an array of array's
+	*
+	*	@input	array   The arrays you would like to merge
+	*
+	*	@returns array on success
+	**/
 	public static function mergeArrays($arrays)
 	{
 		if(self::checkArray($arrays))
@@ -1488,7 +1774,20 @@ abstract class CostbenefitprojectionHelper
 		return false;
 	}
 
+	// typo sorry!
 	public static function sorten($string, $length = 40, $addTip = true)
+	{
+		return self::shorten($string, $length, $addTip);
+	}
+
+	/**
+	*	Shorten a string
+	*
+	*	@input	string   The you would like to shorten
+	*
+	*	@returns string on success
+	**/
+	public static function shorten($string, $length = 40, $addTip = true)
 	{
 		if (self::checkString($string))
 		{
@@ -1511,7 +1810,7 @@ abstract class CostbenefitprojectionHelper
 			$final	= strlen($newString);
 			if ($initial != $final && $addTip)
 			{
-				$title = self::sorten($string, 400 , false);
+				$title = self::shorten($string, 400 , false);
 				return '<span class="hasTip" title="'.$title.'" style="cursor:help">'.trim($newString).'...</span>';
 			}
 			elseif ($initial != $final && !$addTip)
@@ -1522,57 +1821,94 @@ abstract class CostbenefitprojectionHelper
 		return $string;
 	}
 
-	public static function safeString($string, $type = 'L', $spacer = '_')
+	/**
+	*	Making strings safe (various ways)
+	*
+	*	@input	string   The you would like to make safe
+	*
+	*	@returns string on success
+	**/
+	public static function safeString($string, $type = 'L', $spacer = '_', $replaceNumbers = true)
 	{
-		// remove all numbers and replace with english text version (works well only up to a thousand)
-		$string = self::replaceNumbers($string);
-
+		if ($replaceNumbers === true)
+		{
+			// remove all numbers and replace with english text version (works well only up to millions)
+			$string = self::replaceNumbers($string);
+		}
+		// 0nly continue if we have a string
 		if (self::checkString($string))
 		{
+			// create file name without the extention that is safe
+			if ($type === 'filename')
+			{
+				// make sure VDM is not in the string
+				$string = str_replace('VDM', 'vDm', $string);
+				// Remove anything which isn't a word, whitespace, number
+				// or any of the following caracters -_()
+				// If you don't need to handle multi-byte characters
+				// you can use preg_replace rather than mb_ereg_replace
+				// Thanks @Łukasz Rysiak!
+				// $string = mb_ereg_replace("([^\w\s\d\-_\(\)])", '', $string);
+				$string = preg_replace("([^\w\s\d\-_\(\)])", '', $string);
+				// http://stackoverflow.com/a/2021729/1429677
+				return preg_replace('/\s+/', ' ', $string);
+			}
 			// remove all other characters
 			$string = trim($string);
 			$string = preg_replace('/'.$spacer.'+/', ' ', $string);
 			$string = preg_replace('/\s+/', ' ', $string);
 			$string = preg_replace("/[^A-Za-z ]/", '', $string);
-			// return a string with all first letter of each word uppercase(no undersocre)
-			if ($type == 'W')
-				    {
-			    return ucwords(strtolower($string));
+			// select final adaptations
+			if ($type === 'L' || $type === 'strtolower')
+			{
+				// replace white space with underscore
+				$string = preg_replace('/\s+/', $spacer, $string);
+				// default is to return lower
+				return strtolower($string);
 			}
-				    elseif ($type == 'w')
-				    {
-			    return strtolower($string);
+			elseif ($type === 'W')
+			{
+				// return a string with all first letter of each word uppercase(no undersocre)
+				return ucwords(strtolower($string));
 			}
-				    elseif ($type == 'Ww')
-				    {
-			    return ucfirst(strtolower($string));
+			elseif ($type === 'w' || $type === 'word')
+			{
+				// return a string with all lowercase(no undersocre)
+				return strtolower($string);
 			}
-				    elseif ($type == 'WW')
-				    {
-			    return strtoupper($string);
+			elseif ($type === 'Ww' || $type === 'Word')
+			{
+				// return a string with first letter of the first word uppercase and all the rest lowercase(no undersocre)
+				return ucfirst(strtolower($string));
 			}
-			elseif ($type == 'U')
+			elseif ($type === 'WW' || $type === 'WORD')
+			{
+				// return a string with all the uppercase(no undersocre)
+				return strtoupper($string);
+			}
+			elseif ($type === 'U' || $type === 'strtoupper')
 			{
 				// replace white space with underscore
 				$string = preg_replace('/\s+/', $spacer, $string);
 				// return all upper
 				return strtoupper($string);
 			}
-			elseif ($type == 'F')
+			elseif ($type === 'F' || $type === 'ucfirst')
 			{
 				// replace white space with underscore
 				$string = preg_replace('/\s+/', $spacer, $string);
 				// return with first caracter to upper
 				return ucfirst(strtolower($string));
 			}
-			elseif ($type == 'L')
+			elseif ($type === 'cA' || $type === 'cAmel' || $type === 'camelcase')
 			{
-				// replace white space with underscore
-				$string = preg_replace('/\s+/', $spacer, $string);
-				// default is to return lower
-				    return strtolower($string);
+				// convert all words to first letter uppercase
+				$string = ucwords(strtolower($string));
+				// remove white space
+				$string = preg_replace('/\s+/', '', $string);
+				// now return first letter lowercase
+				return lcfirst($string);
 			}
-
 			// return string
 			return $string;
 		}
@@ -1580,15 +1916,15 @@ abstract class CostbenefitprojectionHelper
 		return '';
 	}
 
-	public static function htmlEscape($var, $charset = 'UTF-8', $sorten = false, $length = 40)
+	public static function htmlEscape($var, $charset = 'UTF-8', $shorten = false, $length = 40)
 	{
 		if (self::checkString($var))
 		{
 			$filter = new JFilterInput();
 			$string = $filter->clean(html_entity_decode(htmlentities($var, ENT_COMPAT, $charset)), 'HTML');
-			if ($sorten)
+			if ($shorten)
 			{
-           		return self::sorten($string,$length);
+           		return self::shorten($string,$length);
 			}
 			return $string;
 		}
@@ -1619,7 +1955,7 @@ abstract class CostbenefitprojectionHelper
 		// return the string with no numbers remaining.
 		return $string;
 	}
-	
+
 	/**
 	*	Convert an integer into an English word string
 	*	Thanks to Tom Nicholson <http://php.net/manual/en/function.strval.php#41988>
@@ -1729,23 +2065,34 @@ abstract class CostbenefitprojectionHelper
 		return implode($key);
 	}
 
-	public static function getCryptKey($type)
+	/**
+	 *	Get The Encryption Keys
+	 *
+	 *	@param  string        $type     The type of key
+	 *	@param  string/bool   $default  The return value if no key was found
+	 *
+	 *	@return  string   On success
+	 *
+	 **/
+	public static function getCryptKey($type, $default = false)
 	{
-		if ('advanced' == $type)
+		// Get the global params
+		$params = JComponentHelper::getParams('com_costbenefitprojection', true);
+		// WHMCS Encryption Type
+		if ('whmcs' === $type || 'advanced' === $type)
 		{
-			// Get the global params
-			$params = JComponentHelper::getParams('com_costbenefitprojection', true);
-			$advanced_key = $params->get('advanced_key', null);
-			if ($advanced_key)
+			$key = $params->get('advanced_key', $default);
+			if (self::checkString($key))
 			{
 				// load the file
-				JLoader::import( 'vdm', JPATH_COMPONENT_ADMINISTRATOR);
+				JLoader::import( 'whmcs', JPATH_COMPONENT_ADMINISTRATOR);
 
-				$the = new VDM($advanced_key);
+				$the = new WHMCS($key);
 
 				return $the->_key;
 			}
 		}
-		return false;
+
+		return $default;
 	}
 }

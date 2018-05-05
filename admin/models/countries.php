@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 52 of this MVC
+	@build			25th October, 2017
+	@created		25th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		countries.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -132,7 +132,7 @@ class CostbenefitprojectionModelCountries extends JModelList
 				}
 
 			}
-		} 
+		}  
         
 		// return items
 		return $items;
@@ -216,15 +216,15 @@ class CostbenefitprojectionModelCountries extends JModelList
 			}
 			else
 			{
-				$search = $db->quote('%' . $db->escape($search, true) . '%');
-				$query->where('(a.name LIKE '.$search.' OR a.user LIKE '.$search.' OR g.name LIKE '.$search.' OR a.currency LIKE '.$search.' OR h.name LIKE '.$search.' OR a.codethree LIKE '.$search.' OR a.codetwo LIKE '.$search.' OR a.working_days LIKE '.$search.' OR a.datayear LIKE '.$search.' OR a.alias LIKE '.$search.')');
+				$search = $db->quote('%' . $db->escape($search) . '%');
+				$query->where('(a.name LIKE '.$search.' OR a.user LIKE '.$search.' OR g.name LIKE '.$search.' OR a.currency LIKE '.$search.' OR h.name LIKE '.$search.' OR a.codethree LIKE '.$search.' OR a.codetwo LIKE '.$search.' OR a.working_days LIKE '.$search.' OR a.alias LIKE '.$search.' OR a.datayear LIKE '.$search.')');
 			}
 		}
 
 		// Filter by currency.
 		if ($currency = $this->getState('filter.currency'))
 		{
-			$query->where('a.currency = ' . $db->quote($db->escape($currency, true)));
+			$query->where('a.currency = ' . $db->quote($db->escape($currency)));
 		}
 
 		// Add the list ordering clause.

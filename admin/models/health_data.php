@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 109 of this MVC
+	@build			23rd May, 2016
+	@created		15th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		health_data.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -73,7 +73,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 	{
 		if ($item = parent::getItem($pk))
 		{
-			if (!empty($item->params))
+			if (!empty($item->params) && !is_array($item->params))
 			{
 				// Convert the params field to an array.
 				$registry = new Registry;
@@ -110,7 +110,8 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 	 * @since   1.6
 	 */
 	public function getForm($data = array(), $loadData = true)
-	{		// Get the form.
+	{
+		// Get the form.
 		$form = $this->loadForm('com_costbenefitprojection.health_data', 'health_data', array('control' => 'jform', 'load_data' => $loadData));
 
 		if (empty($form))
@@ -217,6 +218,25 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 				$form->setFieldAttribute('country', 'required', 'false');
 			}
 		}
+		// Modify the form based on Edit Femaleyld access controls.
+		if ($id != 0 && (!$user->authorise('health_data.edit.femaleyld', 'com_costbenefitprojection.health_data.' . (int) $id))
+			|| ($id == 0 && !$user->authorise('health_data.edit.femaleyld', 'com_costbenefitprojection')))
+		{
+			// Disable fields for display.
+			$form->setFieldAttribute('femaleyld', 'disabled', 'true');
+			// Disable fields for display.
+			$form->setFieldAttribute('femaleyld', 'readonly', 'true');
+			// Disable radio button for display.
+			$class = $form->getFieldAttribute('femaleyld', 'class', '');
+			$form->setFieldAttribute('femaleyld', 'class', $class.' disabled no-click');
+			if (!$form->getValue('femaleyld'))
+			{
+				// Disable fields while saving.
+				$form->setFieldAttribute('femaleyld', 'filter', 'unset');
+				// Disable fields while saving.
+				$form->setFieldAttribute('femaleyld', 'required', 'false');
+			}
+		}
 		// Modify the form based on Edit Femaledeath access controls.
 		if ($id != 0 && (!$user->authorise('health_data.edit.femaledeath', 'com_costbenefitprojection.health_data.' . (int) $id))
 			|| ($id == 0 && !$user->authorise('health_data.edit.femaledeath', 'com_costbenefitprojection')))
@@ -272,25 +292,6 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 				$form->setFieldAttribute('maledeath', 'filter', 'unset');
 				// Disable fields while saving.
 				$form->setFieldAttribute('maledeath', 'required', 'false');
-			}
-		}
-		// Modify the form based on Edit Femaleyld access controls.
-		if ($id != 0 && (!$user->authorise('health_data.edit.femaleyld', 'com_costbenefitprojection.health_data.' . (int) $id))
-			|| ($id == 0 && !$user->authorise('health_data.edit.femaleyld', 'com_costbenefitprojection')))
-		{
-			// Disable fields for display.
-			$form->setFieldAttribute('femaleyld', 'disabled', 'true');
-			// Disable fields for display.
-			$form->setFieldAttribute('femaleyld', 'readonly', 'true');
-			// Disable radio button for display.
-			$class = $form->getFieldAttribute('femaleyld', 'class', '');
-			$form->setFieldAttribute('femaleyld', 'class', $class.' disabled no-click');
-			if (!$form->getValue('femaleyld'))
-			{
-				// Disable fields while saving.
-				$form->setFieldAttribute('femaleyld', 'filter', 'unset');
-				// Disable fields while saving.
-				$form->setFieldAttribute('femaleyld', 'required', 'false');
 			}
 		}
 		// Only load these values if no id is found
@@ -385,18 +386,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 	{
 		// Check specific edit permission then general edit permission.
 		$user = JFactory::getUser();
-		$recordId	= (int) isset($data[$key]) ? $data[$key] : 0;
-		if (!$user->authorise('core.options', 'com_costbenefitprojection'))
-		{
-			// make absolutely sure that this health data can be edited
-			$is = CostbenefitprojectionHelper::userIs($user->id);
-			$countries = CostbenefitprojectionHelper::hisCountries($user->id);
-			$country = CostbenefitprojectionHelper::getId('health_data',$recordId,'id','country');
-			if ((3 != $is) || !CostbenefitprojectionHelper::checkArray($countries) || !in_array($country,$countries))
-			{
-				return false;
-			}
-		}
+
 		return $user->authorise('health_data.edit', 'com_costbenefitprojection.health_data.'. ((int) isset($data[$key]) ? $data[$key] : 0)) or $user->authorise('health_data.edit',  'com_costbenefitprojection');
 	}
     
@@ -508,6 +498,26 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 		
 		return true;
 	}
+
+	/**
+	 * Method to change the published state of one or more records.
+	 *
+	 * @param   array    &$pks   A list of the primary keys to change.
+	 * @param   integer  $value  The value of the published state.
+	 *
+	 * @return  boolean  True on success.
+	 *
+	 * @since   12.2
+	 */
+	public function publish(&$pks, $value = 1)
+	{
+		if (!parent::publish($pks, $value))
+		{
+			return false;
+		}
+		
+		return true;
+        }
     
 	/**
 	 * Method to perform batch operations on an item or a set of items.
@@ -624,8 +634,6 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 			$this->user 		= JFactory::getUser();
 			$this->table 		= $this->getTable();
 			$this->tableClassName	= get_class($this->table);
-			$this->contentType	= new JUcmType;
-			$this->type		= $this->contentType->getTypeByTable($this->tableClassName);
 			$this->canDo		= CostbenefitprojectionHelper::getActions('health_data');
 		}
 
@@ -681,7 +689,6 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 		}
 
 		$newIds = array();
-
 		// Parent exists so let's proceed
 		while (!empty($pks))
 		{
@@ -691,17 +698,11 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 			$this->table->reset();
 
 			// only allow copy if user may edit this item.
-
 			if (!$this->user->authorise('health_data.edit', $contexts[$pk]))
-
 			{
-
 				// Not fatal error
-
 				$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
-
 				continue;
-
 			}
 
 			// Check that the row actually exists
@@ -711,7 +712,6 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 				{
 					// Fatal error
 					$this->setError($error);
-
 					return false;
 				}
 				else
@@ -722,7 +722,11 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 				}
 			}
 
-			$this->table->causerisk = $this->generateUniqe('causerisk',$this->table->causerisk);
+			// Only for strings
+			if (CostbenefitprojectionHelper::checkString($this->table->causerisk) && !is_numeric($this->table->causerisk))
+			{
+				$this->table->causerisk = $this->generateUniqe('causerisk',$this->table->causerisk);
+			}
 
 			// insert all set values
 			if (CostbenefitprojectionHelper::checkArray($values))
@@ -804,8 +808,6 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 			$this->user		= JFactory::getUser();
 			$this->table		= $this->getTable();
 			$this->tableClassName	= get_class($this->table);
-			$this->contentType	= new JUcmType;
-			$this->type		= $this->contentType->getTypeByTable($this->tableClassName);
 			$this->canDo		= CostbenefitprojectionHelper::getActions('health_data');
 		}
 
@@ -860,7 +862,6 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 			if (!$this->user->authorise('health_data.edit', $contexts[$pk]))
 			{
 				$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_EDIT'));
-
 				return false;
 			}
 
@@ -871,7 +872,6 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 				{
 					// Fatal error
 					$this->setError($error);
-
 					return false;
 				}
 				else
@@ -888,7 +888,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 				foreach ($values as $key => $value)
 				{
 					// Do special action for access.
-					if ('access' == $key && strlen($value) > 0)
+					if ('access' === $key && strlen($value) > 0)
 					{
 						$this->table->$key = $value;
 					}
@@ -961,7 +961,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 		}
 
 		// Alter the uniqe field for save as copy
-		if ($input->get('task') == 'save2copy')
+		if ($input->get('task') === 'save2copy')
 		{
 			// Automatic handling of other uniqe fields
 			$uniqeFields = $this->getUniqeFields();
@@ -1006,9 +1006,9 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 	}
 
 	/**
-	* Method to change the title & alias.
+	* Method to change the title
 	*
-	* @param   string   $title        The title.
+	* @param   string   $title   The title.
 	*
 	* @return	array  Contains the modified title and alias.
 	*

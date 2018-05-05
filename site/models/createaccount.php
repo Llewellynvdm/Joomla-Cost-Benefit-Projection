@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 22 of this MVC
+	@build			18th August, 2017
+	@created		28th November, 2015
 	@package		Cost Benefit Projection
 	@subpackage		createaccount.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -50,15 +50,15 @@ class CostbenefitprojectionModelCreateaccount extends JModelList
 	protected function getListQuery()
 	{
 		// Get the current user for authorisation checks
-		$this->user		= JFactory::getUser();
-		$this->userId		= $this->user->get('id');
-		$this->guest		= $this->user->get('guest');
-                $this->groups		= $this->user->get('groups');
-                $this->authorisedGroups	= $this->user->getAuthorisedGroups();
-		$this->levels		= $this->user->getAuthorisedViewLevels();
-		$this->app		= JFactory::getApplication();
-		$this->input		= $this->app->input;
-		$this->initSet		= true; 
+		$this->user = JFactory::getUser();
+		$this->userId = $this->user->get('id');
+		$this->guest = $this->user->get('guest');
+		$this->groups = $this->user->get('groups');
+		$this->authorisedGroups = $this->user->getAuthorisedGroups();
+		$this->levels = $this->user->getAuthorisedViewLevels();
+		$this->app = JFactory::getApplication();
+		$this->input = $this->app->input;
+		$this->initSet = true; 
 		// Make sure all records load, since no pagination allowed.
 		$this->setState('list.limit', 0);
 		// Get a db connection.
@@ -79,6 +79,7 @@ class CostbenefitprojectionModelCreateaccount extends JModelList
 		$query->where('CHAR_LENGTH(a.productivity_losses) > 0');
 		$query->where('CHAR_LENGTH(a.sick_leave) > 0');
 		$query->where('CHAR_LENGTH(a.medical_turnovers) > 0');
+		// Get where a.published is 1
 		$query->where('a.published = 1');
 		$query->order('a.name ASC');
 
@@ -94,32 +95,41 @@ class CostbenefitprojectionModelCreateaccount extends JModelList
 	public function getItems()
 	{
 		$user = JFactory::getUser();
-                // check if this user has permission to access items
-                if (!$user->authorise('site.createaccount.access', 'com_costbenefitprojection'))
-                {
+		// check if this user has permission to access item
+		if (!$user->authorise('site.createaccount.access', 'com_costbenefitprojection'))
+		{
 			$app = JFactory::getApplication();
-			$app->enqueueMessage(JText::_('Not authorised!'), 'error');
-			// redirect away if not a correct (TODO for now we go to default view)
+			$app->enqueueMessage(JText::_('COM_COSTBENEFITPROJECTION_NOT_AUTHORISED_TO_VIEW_CREATEACCOUNT'), 'error');
+			// redirect away to the default view if no access allowed.
 			$app->redirect(JRoute::_('index.php?option=com_costbenefitprojection&view=cpanel'));
 			return false;
-                } 
+		}  
 		// load parent items
 		$items = parent::getItems();
 
 		// Get the global params
 		$globalParams = JComponentHelper::getParams('com_costbenefitprojection', true);
 
-		// Convert the parameter fields into objects.
-		foreach ($items as $nr => &$item)
+		// Insure all item fields are adapted where needed.
+		if (CostbenefitprojectionHelper::checkArray($items))
 		{
-			// Always create a slug for sef URL's
-			$item->slug = (isset($item->alias)) ? $item->id.':'.$item->alias : $item->id;
-			// Make sure the content prepare plugins fire on publicaddress.
-			$item->publicaddress = JHtml::_('content.prepare',$item->publicaddress);
-			// Checking if publicaddress has uikit components that must be loaded.
-			$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->publicaddress,$this->uikitComp);
-			// set idCountryService_providerB to the $item object.
-			$item->idCountryService_providerB = $this->getIdCountryService_providerCace_B($item->id);
+			// Load the JEvent Dispatcher
+			JPluginHelper::importPlugin('content');
+			$this->_dispatcher = JEventDispatcher::getInstance();
+			foreach ($items as $nr => &$item)
+			{
+				// Always create a slug for sef URL's
+				$item->slug = (isset($item->alias) && isset($item->id)) ? $item->id.':'.$item->alias : $item->id;
+				// Make sure the content prepare plugins fire on publicaddress
+				$_publicaddress = new stdClass();
+				$_publicaddress->text =& $item->publicaddress; // value must be in text
+				// Since all values are now in text (Joomla Limitation), we also add the field name (publicaddress) to context
+				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.createaccount.publicaddress', &$_publicaddress, &$this->params, 0));
+				// Checking if publicaddress has uikit components that must be loaded.
+				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->publicaddress,$this->uikitComp);
+				// set idCountryService_providerB to the $item object.
+				$item->idCountryService_providerB = $this->getIdCountryService_providerCace_B($item->id);
+			}
 		} 
 
 		// return items
@@ -146,6 +156,7 @@ class CostbenefitprojectionModelCreateaccount extends JModelList
 			array('id','user','publicname','publicemail','publicnumber','publicaddress')));
 		$query->from($db->quoteName('#__costbenefitprojection_service_provider', 'b'));
 		$query->where('b.country = ' . $db->quote($id));
+		// Get where b.published is 1
 		$query->where('b.published = 1');
 		$query->order('b.publicname ASC');
 
@@ -156,13 +167,19 @@ class CostbenefitprojectionModelCreateaccount extends JModelList
 		// check if there was data returned
 		if ($db->getNumRows())
 		{
+			// Load the JEvent Dispatcher
+			JPluginHelper::importPlugin('content');
+			$this->_dispatcher = JEventDispatcher::getInstance();
 			$items = $db->loadObjectList();
 
 			// Convert the parameter fields into objects.
 			foreach ($items as $nr => &$item)
 			{
-				// Make sure the content prepare plugins fire on publicaddress.
-				$item->publicaddress = JHtml::_('content.prepare',$item->publicaddress);
+				// Make sure the content prepare plugins fire on publicaddress
+				$_publicaddress = new stdClass();
+				$_publicaddress->text =& $item->publicaddress; // value must be in text
+				// Since all values are now in text (Joomla Limitation), we also add the field name (publicaddress) to context
+				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.createaccount.publicaddress', &$_publicaddress, &$this->params, 0));
 				// Checking if publicaddress has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->publicaddress,$this->uikitComp);
 			}

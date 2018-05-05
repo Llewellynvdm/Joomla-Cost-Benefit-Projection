@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="component" version="3.2" method="upgrade">
 	<name>COM_COSTBENEFITPROJECTION</name>
-	<creationDate>16th August, 2016</creationDate>
+	<creationDate>5th May, 2018</creationDate>
 	<author>Llewellyn van der Merwe</author>
-	<authorEmail>llewellyn@vdm.io</authorEmail>
+	<authorEmail>joomla@vdm.io</authorEmail>
 	<authorUrl>http://www.vdm.io</authorUrl>
 	<copyright>Copyright (C) 2015. All Rights Reserved</copyright>
 	<license>GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html</license>
-	<version>3.4.2</version>
+	<version>3.4.3</version>
 	<description><![CDATA[
-		<h1>Cost Benefit Projection (v.3.4.2)</h1>
+		<h1>Cost Benefit Projection (v.3.4.3)</h1>
 		<div style="clear: both;"></div>
-		<p>[Create Epidemiological Profiles] (https://www.staffhealthcbp.com/) for diseases and risks affecting your company. Detailed information on projected work days lost and costs. Create and edit activities and wellness responses for your workplace. Access to Small Business Modelling. Results displayed by gender. Network with other companies and wellness professionals.
+		<p>Create Epidemiological Profiles for diseases and risks affecting your company. Detailed information on projected work days lost and costs. Create and edit activities and wellness responses for your workplace. Access to Small Business Modeling. Results displayed by gender. Network with other companies and wellness professionals.
 
 Having seen the health priorities for your workforce, the tool outputs projections for how the interventions – which you have designed - are expected to benefit the company financially.
 
@@ -41,8 +41,8 @@ Benefits are calculated based on the model projecting reductions in workdays los
 		<folder>js</folder>
 		<folder>css</folder>
 		<folder>images</folder>
-		<folder>uikit</folder>
-		<folder>footable</folder>
+		<folder>uikit-v2</folder>
+		<folder>footable-v2</folder>
 	</media>
 
 	<!-- Update Schema; New in Joomla 2.5 -->
@@ -83,9 +83,10 @@ Benefits are calculated based on the model projecting reductions in workdays los
 			<filename>access.xml</filename>
 			<filename>config.xml</filename>
 			<filename>controller.php</filename>
-			<filename>vdm.php</filename>
+			<filename>whmcs.php</filename>
 			<filename>index.html</filename>
 			<filename>costbenefitprojection.php</filename>
+			<filename>README.txt</filename>
 			<folder>assets</folder>
 			<folder>controllers</folder>
 			<folder>helpers</folder>
@@ -103,6 +104,6 @@ Benefits are calculated based on the model projecting reductions in workdays los
 
 	</administration>
 	<updateservers>
-		<server type="extension" enabled="1" element="com_costbenefitprojection" name="Cost Benefit Projection">https://www.vdm.io/updates/costbenefitprojection_update_server.xml</server>
+		<server type="extension" enabled="1" element="com_costbenefitprojection" name="Cost Benefit Projection">https://raw.githubusercontent.com/namibia/CBP-Joomla-3-Component/master/costbenefitprojection_update_server.xml</server>
 	</updateservers>
 </extension>

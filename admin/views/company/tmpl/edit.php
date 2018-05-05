@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 101 of this MVC
+	@build			29th June, 2016
+	@created		15th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -52,7 +52,8 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 <div id="costbenefitprojection_loader" style="display: none;">
 <form action="<?php echo JRoute::_('index.php?option=com_costbenefitprojection&layout=edit&id='.(int) $this->item->id.$this->referral); ?>" method="post" name="adminForm" id="adminForm" class="form-validate" enctype="multipart/form-data">
 
-	<?php echo JLayoutHelper::render('company.details_above', $this); ?><div class="form-horizontal">
+	<?php echo JLayoutHelper::render('company.details_above', $this); ?>
+<div class="form-horizontal">
 
 	<?php echo JHtml::_('bootstrap.startTabSet', 'companyTab', array('active' => 'details')); ?>
 
@@ -155,6 +156,7 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 		<input type="hidden" name="task" value="company.edit" />
 		<?php echo JHtml::_('form.token'); ?>
 	</div>
+	</div>
 </div>
 
 <div class="clearfix"></div>
@@ -196,6 +198,9 @@ jQuery('#adminForm').on('change', '#jform_department',function (e)
 
 
 
+// add the calculator button
+var cal_button = ' <a class="btn btn-small btn-success" href="https://www.staffhealthcbp.com/download/Productivity_Losses_Calculator_V1.xlsx"> <span class="icon-download icon-white"></span> Calculator </a>';
+jQuery('#jform_productivity_losses').closest('.controls').append(cal_button);
 jQuery('#adminForm').on('change', '#jform_causesrisks',function (e)
 {
 	// first we build the checked array
@@ -230,9 +235,7 @@ jQuery('#adminForm').on('change', '#jform_causesrisks',function (e)
 		}
 	});
 });
-// add the calculator button
-var cal_button = ' <a class="btn btn-small btn-success" href="https://www.staffhealthcbp.com/download/Productivity_Losses_Calculator_V1.xlsx"> <span class="icon-download icon-white"></span> Calculator </a>';
-jQuery('#jform_productivity_losses').closest('.controls').append(cal_button);jQuery('input.form-field-repeatable').on('weready', function(e, value){
+jQuery('input.form-field-repeatable').on('weready', function(e, value){
 	if ("jform_percentmale" == e.currentTarget.id)
 	{
 		calPercent('male');

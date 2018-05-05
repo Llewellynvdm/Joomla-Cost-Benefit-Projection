@@ -7,7 +7,9 @@
 	</layout>
 	<!-- Adding page parameters -->
 	<fields name="params">
-		<fieldset name="basic" label="COM_COSTBENEFITPROJECTION">
+		<fieldset name="basic" label="COM_COSTBENEFITPROJECTION"
+			addrulepath="/administrator/components/com_costbenefitprojection/models/rules"
+			addfieldpath="/administrator/components/com_costbenefitprojection/models/fields">
 		<!-- Information_url Field. Type: Url. (joomla) -->
 		<field
 			type="url"
@@ -19,7 +21,7 @@
 			class="text_area"
 			filter="url"
 			validated="url"
-			message="Error! Please add information url here."
+			message="COM_COSTBENEFITPROJECTION_CONFIG_INFORMATION_URL_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_CONFIG_INFORMATION_URL_HINT"
 		/>
 		</fieldset>

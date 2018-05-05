@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
+	@version		3.4.3
+	@build			5th May, 2018
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
@@ -23,7 +23,7 @@ defined('_JEXEC') or die('Restricted access');
 JHtml::_('behavior.tooltip');
 
 ?>
-<div id="j-main-container" class="span12">
+<div id="j-main-container">
 	<div class="form-horizontal">
 	<?php echo JHtml::_('bootstrap.startTabSet', 'cpanel_tab', array('active' => 'cpanel')); ?>
 
@@ -49,9 +49,57 @@ JHtml::_('behavior.tooltip');
 		<?php echo JHtml::_('bootstrap.addTab', 'cpanel_tab', 'usage_statistics', JText::_('Usage Statistics', true)); ?>
 		<div class="row-fluid">
 			<div class="span12">
-				<?php  echo JHtml::_('bootstrap.startAccordion', 'usage_statistics_accordian', array('active' => 'one')); ?>
-					<?php  echo JHtml::_('bootstrap.addSlide', 'usage_statistics_accordian', 'Table', 'one'); ?>
+				<?php  echo JHtml::_('bootstrap.startAccordion', 'usage_statistics_accordian', array('active' => 'usage_statistics_one')); ?>
+					<?php  echo JHtml::_('bootstrap.addSlide', 'usage_statistics_accordian', 'Table', 'usage_statistics_one'); ?>
 						<?php echo $this->loadTemplate('usage_statistics_table');?>
+					<?php  echo JHtml::_('bootstrap.endSlide'); ?>
+				<?php  echo JHtml::_('bootstrap.endAccordion'); ?>
+			</div>
+		</div>
+		<?php echo JHtml::_('bootstrap.endTab'); ?>
+
+		<?php echo JHtml::_('bootstrap.addTab', 'cpanel_tab', 'open_issues', JText::_('Open Issues', true)); ?>
+		<div class="row-fluid">
+			<div class="span12">
+				<?php  echo JHtml::_('bootstrap.startAccordion', 'open_issues_accordian', array('active' => 'open_issues_one')); ?>
+					<?php  echo JHtml::_('bootstrap.addSlide', 'open_issues_accordian', 'The open issues on GitHub', 'open_issues_one'); ?>
+						<?php echo $this->loadTemplate('open_issues_the_open_issues_on_github');?>
+					<?php  echo JHtml::_('bootstrap.endSlide'); ?>
+				<?php  echo JHtml::_('bootstrap.endAccordion'); ?>
+			</div>
+		</div>
+		<?php echo JHtml::_('bootstrap.endTab'); ?>
+
+		<?php echo JHtml::_('bootstrap.addTab', 'cpanel_tab', 'closed_issues', JText::_('Closed Issues', true)); ?>
+		<div class="row-fluid">
+			<div class="span12">
+				<?php  echo JHtml::_('bootstrap.startAccordion', 'closed_issues_accordian', array('active' => 'closed_issues_one')); ?>
+					<?php  echo JHtml::_('bootstrap.addSlide', 'closed_issues_accordian', 'The closed issues on GitHub', 'closed_issues_one'); ?>
+						<?php echo $this->loadTemplate('closed_issues_the_closed_issues_on_github');?>
+					<?php  echo JHtml::_('bootstrap.endSlide'); ?>
+				<?php  echo JHtml::_('bootstrap.endAccordion'); ?>
+			</div>
+		</div>
+		<?php echo JHtml::_('bootstrap.endTab'); ?>
+
+		<?php echo JHtml::_('bootstrap.addTab', 'cpanel_tab', 'readme', JText::_('Readme', true)); ?>
+		<div class="row-fluid">
+			<div class="span12">
+				<?php  echo JHtml::_('bootstrap.startAccordion', 'readme_accordian', array('active' => 'readme_one')); ?>
+					<?php  echo JHtml::_('bootstrap.addSlide', 'readme_accordian', 'Information', 'readme_one'); ?>
+						<?php echo $this->loadTemplate('readme_information');?>
+					<?php  echo JHtml::_('bootstrap.endSlide'); ?>
+				<?php  echo JHtml::_('bootstrap.endAccordion'); ?>
+			</div>
+		</div>
+		<?php echo JHtml::_('bootstrap.endTab'); ?>
+
+		<?php echo JHtml::_('bootstrap.addTab', 'cpanel_tab', 'vast_development_method', JText::_('Vast Development Method', true)); ?>
+		<div class="row-fluid">
+			<div class="span12">
+				<?php  echo JHtml::_('bootstrap.startAccordion', 'vast_development_method_accordian', array('active' => 'vast_development_method_one')); ?>
+					<?php  echo JHtml::_('bootstrap.addSlide', 'vast_development_method_accordian', 'Notice Board', 'vast_development_method_one'); ?>
+						<?php echo $this->loadTemplate('vast_development_method_notice_board');?>
 					<?php  echo JHtml::_('bootstrap.endSlide'); ?>
 				<?php  echo JHtml::_('bootstrap.endAccordion'); ?>
 			</div>

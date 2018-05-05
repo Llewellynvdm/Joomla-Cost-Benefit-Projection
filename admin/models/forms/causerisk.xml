@@ -19,7 +19,6 @@
 			label="COM_COSTBENEFITPROJECTION_CAUSERISK_CREATED_DATE_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CAUSERISK_CREATED_DATE_DESC"
 			size="22"
-
 			format="%Y-%m-%d %H:%M:%S"
 			filter="user_utc"
 		/>
@@ -28,13 +27,11 @@
 			name="created_by"
 			type="user"
 			label="COM_COSTBENEFITPROJECTION_CAUSERISK_CREATED_BY_LABEL"
-
 			description="COM_COSTBENEFITPROJECTION_CAUSERISK_CREATED_BY_DESC"
 		/>
 		<!-- Published Field. Type: List (joomla) -->
 		<field name="published" type="list" label="JSTATUS"
 			description="JFIELD_PUBLISHED_DESC" class="chzn-color-state"
-
 			filter="intval" size="1" default="1" >
 			<option value="1">
 				JPUBLISHED</option>
@@ -63,7 +60,6 @@
 			label="JFIELD_ACCESS_LABEL"
 			description="JFIELD_ACCESS_DESC"
 			default="1"
-
 			required="false"
 		/>
 		<!-- Ordering Field. Type: Numbers (joomla) -->
@@ -75,7 +71,6 @@
 			description=""
 			default="0"
 			size="6"
-
 			required="false"
 		/>
 		<!-- Version Field. Type: Text (joomla) -->
@@ -103,7 +98,7 @@
 			disabled="false"
 			required="true"
 			filter="STRING"
-			message="Error! Please add name here."
+			message="COM_COSTBENEFITPROJECTION_CAUSERISK_NAME_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_CAUSERISK_NAME_HINT"
 		/>
 		<!-- Ref Field. Type: Text. (joomla) -->
@@ -119,7 +114,7 @@
 			disabled="false"
 			required="true"
 			filter="CMD"
-			message="Error! Please add the reference number here."
+			message="COM_COSTBENEFITPROJECTION_CAUSERISK_REF_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_CAUSERISK_REF_HINT"
 		/>
 		<!-- Importname Field. Type: Text. (joomla) -->
@@ -135,7 +130,7 @@
 			disabled="false"
 			required="true"
 			filter="STRING"
-			message="Error! Please add import name here."
+			message="COM_COSTBENEFITPROJECTION_CAUSERISK_IMPORTNAME_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_CAUSERISK_IMPORTNAME_HINT"
 		/>
 		<!-- Import_id Field. Type: Text. (joomla) -->
@@ -149,7 +144,7 @@
 			class="text_area"
 			required="true"
 			filter="ID"
-			message="Error! Please add some the import ID here."
+			message="COM_COSTBENEFITPROJECTION_CAUSERISK_IMPORT_ID_MESSAGE"
 		/>
 		<!-- Description Field. Type: Textarea. (joomla) -->
 		<field

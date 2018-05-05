@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
+	@version		3.4.3
+	@build			5th May, 2018
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -35,17 +35,11 @@ class CostbenefitprojectionViewImport extends JViewLegacy
 	protected $dataType;
 
 	public function display($tpl = null)
-	{
+	{		
 		if ($this->getLayout() !== 'modal')
 		{
 			// Include helper submenu
 			CostbenefitprojectionHelper::addSubmenu('import');
-		}
-
-		// Check for errors.
-		if (count($errors = $this->get('Errors'))){
-			JError::raiseError(500, implode('<br />', $errors));
-			return false;
 		}
 
 		$paths = new stdClass;
@@ -76,6 +70,12 @@ class CostbenefitprojectionViewImport extends JViewLegacy
 			// clear the data type
 			$session->clear('dataType');
 		}
+		
+		// Check for errors.
+		if (count($errors = $this->get('Errors')))
+		{
+			throw new Exception(implode("\n", $errors), 500);
+		}
 
 		// Display the template
 		parent::display($tpl);
@@ -95,10 +95,10 @@ class CostbenefitprojectionViewImport extends JViewLegacy
 		}
 
 		// set help url for this view if found
-                $help_url = CostbenefitprojectionHelper::getHelpUrl('import');
-                if (CostbenefitprojectionHelper::checkString($help_url))
-                {
-                       JToolbarHelper::help('COM_COSTBENEFITPROJECTION_HELP_MANAGER', false, $help_url);
-                }
+		$help_url = CostbenefitprojectionHelper::getHelpUrl('import');
+		if (CostbenefitprojectionHelper::checkString($help_url))
+		{
+			   JToolbarHelper::help('COM_COSTBENEFITPROJECTION_HELP_MANAGER', false, $help_url);
+		}
 	}
 }

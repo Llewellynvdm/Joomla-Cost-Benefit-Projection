@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
+	@version		@update number 21 of this MVC
 	@build			16th August, 2016
-	@created		15th June, 2012
+	@created		8th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		scaling_factor.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -73,7 +73,7 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 	{
 		if ($item = parent::getItem($pk))
 		{
-			if (!empty($item->params))
+			if (!empty($item->params) && !is_array($item->params))
 			{
 				// Convert the params field to an array.
 				$registry = new Registry;
@@ -110,7 +110,8 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 	 * @since   1.6
 	 */
 	public function getForm($data = array(), $loadData = true)
-	{		// Get the form.
+	{
+		// Get the form.
 		$form = $this->loadForm('com_costbenefitprojection.scaling_factor', 'scaling_factor', array('control' => 'jform', 'load_data' => $loadData));
 
 		if (empty($form))
@@ -261,17 +262,7 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 	{
 		// Check specific edit permission then general edit permission.
 		$user = JFactory::getUser();
-		$recordId	= (int) isset($data[$key]) ? $data[$key] : 0;
-		if (!$user->authorise('core.options', 'com_costbenefitprojection'))
-		{
-			// make absolutely sure that this scaling factor can be edited
-			$companies = CostbenefitprojectionHelper::hisCompanies($user->id);
-			$company = CostbenefitprojectionHelper::getId('scaling_factor',$recordId,'id','company');
-			if (!CostbenefitprojectionHelper::checkArray($companies) || !in_array($company,$companies))
-			{
-				return false;
-			}
-		}
+
 		return $user->authorise('scaling_factor.edit', 'com_costbenefitprojection.scaling_factor.'. ((int) isset($data[$key]) ? $data[$key] : 0)) or $user->authorise('scaling_factor.edit',  'com_costbenefitprojection');
 	}
     
@@ -400,6 +391,45 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 	{
 		return false;
 	}
+	
+	/**
+	 * Method to delete one or more records.
+	 *
+	 * @param   array  &$pks  An array of record primary keys.
+	 *
+	 * @return  boolean  True if successful, false if an error occurs.
+	 *
+	 * @since   12.2
+	 */
+	public function delete(&$pks)
+	{
+		if (!parent::delete($pks))
+		{
+			return false;
+		}
+		
+		return true;
+	}
+
+	/**
+	 * Method to change the published state of one or more records.
+	 *
+	 * @param   array    &$pks   A list of the primary keys to change.
+	 * @param   integer  $value  The value of the published state.
+	 *
+	 * @return  boolean  True on success.
+	 *
+	 * @since   12.2
+	 */
+	public function publish(&$pks, $value = 1)
+	{
+		if (!parent::publish($pks, $value))
+		{
+			return false;
+		}
+		
+		return true;
+        }
     
 	/**
 	 * Method to perform batch operations on an item or a set of items.
@@ -516,8 +546,6 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 			$this->user 		= JFactory::getUser();
 			$this->table 		= $this->getTable();
 			$this->tableClassName	= get_class($this->table);
-			$this->contentType	= new JUcmType;
-			$this->type		= $this->contentType->getTypeByTable($this->tableClassName);
 			$this->canDo		= CostbenefitprojectionHelper::getActions('scaling_factor');
 		}
 
@@ -572,7 +600,6 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 		}
 
 		$newIds = array();
-
 		// Parent exists so let's proceed
 		while (!empty($pks))
 		{
@@ -582,17 +609,11 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 			$this->table->reset();
 
 			// only allow copy if user may edit this item.
-
 			if (!$this->user->authorise('scaling_factor.edit', $contexts[$pk]))
-
 			{
-
 				// Not fatal error
-
 				$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', $pk));
-
 				continue;
-
 			}
 
 			// Check that the row actually exists
@@ -602,7 +623,6 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 				{
 					// Fatal error
 					$this->setError($error);
-
 					return false;
 				}
 				else
@@ -613,7 +633,11 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 				}
 			}
 
-			$this->table->causerisk = $this->generateUniqe('causerisk',$this->table->causerisk);
+			// Only for strings
+			if (CostbenefitprojectionHelper::checkString($this->table->causerisk) && !is_numeric($this->table->causerisk))
+			{
+				$this->table->causerisk = $this->generateUniqe('causerisk',$this->table->causerisk);
+			}
 
 			// insert all set values
 			if (CostbenefitprojectionHelper::checkArray($values))
@@ -695,8 +719,6 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 			$this->user		= JFactory::getUser();
 			$this->table		= $this->getTable();
 			$this->tableClassName	= get_class($this->table);
-			$this->contentType	= new JUcmType;
-			$this->type		= $this->contentType->getTypeByTable($this->tableClassName);
 			$this->canDo		= CostbenefitprojectionHelper::getActions('scaling_factor');
 		}
 
@@ -750,7 +772,6 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 			if (!$this->user->authorise('scaling_factor.edit', $contexts[$pk]))
 			{
 				$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_EDIT'));
-
 				return false;
 			}
 
@@ -761,7 +782,6 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 				{
 					// Fatal error
 					$this->setError($error);
-
 					return false;
 				}
 				else
@@ -778,7 +798,7 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 				foreach ($values as $key => $value)
 				{
 					// Do special action for access.
-					if ('access' == $key && strlen($value) > 0)
+					if ('access' === $key && strlen($value) > 0)
 					{
 						$this->table->$key = $value;
 					}
@@ -851,7 +871,7 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 		}
 
 		// Alter the uniqe field for save as copy
-		if ($input->get('task') == 'save2copy')
+		if ($input->get('task') === 'save2copy')
 		{
 			// Automatic handling of other uniqe fields
 			$uniqeFields = $this->getUniqeFields();
@@ -896,9 +916,9 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 	}
 
 	/**
-	* Method to change the title & alias.
+	* Method to change the title
 	*
-	* @param   string   $title        The title.
+	* @param   string   $title   The title.
 	*
 	* @return	array  Contains the modified title and alias.
 	*

@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 38 of this MVC
+	@build			18th August, 2017
+	@created		27th September, 2015
 	@package		Cost Benefit Projection
 	@subpackage		companyresults.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -65,10 +65,10 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 	 */
 	protected function populateState()
 	{
-		$this->app	= JFactory::getApplication();
-		$this->input 	= $this->app->input;
+		$this->app = JFactory::getApplication();
+		$this->input = $this->app->input;
 		// Get the itme main id
-		$id		= $this->input->getInt('id', null);
+		$id = $this->input->getInt('id', null);
 		$this->setState('companyresults.id', $id);
 
 		// Load the parameters.
@@ -86,22 +86,22 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 	 */
 	public function getItem($pk = null)
 	{
-		$this->user	= JFactory::getUser();
-                // check if this user has permission to access item
-                if (!$this->user->authorise('site.companyresults.access', 'com_costbenefitprojection'))
-                {
+		$this->user = JFactory::getUser();
+		// check if this user has permission to access item
+		if (!$this->user->authorise('site.companyresults.access', 'com_costbenefitprojection'))
+		{
 			$app = JFactory::getApplication();
-			$app->enqueueMessage(JText::_('Not authorised!'), 'error');
-			// redirect away if not a correct (TODO for now we go to default view)
+			$app->enqueueMessage(JText::_('COM_COSTBENEFITPROJECTION_NOT_AUTHORISED_TO_VIEW_COMPANYRESULTS'), 'error');
+			// redirect away to the default view if no access allowed.
 			$app->redirect(JRoute::_('index.php?option=com_costbenefitprojection&view=cpanel'));
 			return false;
-                }
-		$this->userId		= $this->user->get('id');
-		$this->guest		= $this->user->get('guest');
-                $this->groups		= $this->user->get('groups');
-                $this->authorisedGroups	= $this->user->getAuthorisedGroups();
-		$this->levels		= $this->user->getAuthorisedViewLevels();
-		$this->initSet		= true;
+		}
+		$this->userId = $this->user->get('id');
+		$this->guest = $this->user->get('guest');
+		$this->groups = $this->user->get('groups');
+		$this->authorisedGroups = $this->user->getAuthorisedGroups();
+		$this->levels = $this->user->getAuthorisedViewLevels();
+		$this->initSet = true;
 
 		$pk = (!empty($pk)) ? $pk : (int) $this->getState('companyresults.id');
 
@@ -111,7 +111,7 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 			$companies = CostbenefitprojectionHelper::hisCompanies($this->userId);
 			if (!CostbenefitprojectionHelper::checkArray($companies) || !in_array($pk,$companies))
 			{
-				JError::raiseWarning(500, JText::_('Access denied!'));
+				JError::raiseWarning(500, JText::_('COM_COSTBENEFITPROJECTION_ACCESS_DENIED'));
 				// redirect away if not a correct (TODO for now we go to default view)
 				$app = JFactory::getApplication();
 				if ($app->isAdmin())
@@ -136,10 +136,10 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 			try
 			{
 
-				// Get the advanced encription.
-				$advancedkey = CostbenefitprojectionHelper::getCryptKey('advanced');
-				// Get the encription object.
-				$advanced = new FOFEncryptAes($advancedkey, 256);
+				// Get the whmcs encryption.
+				$whmcskey = CostbenefitprojectionHelper::getCryptKey('whmcs');
+				// Get the encryption object.
+				$whmcs = new FOFEncryptAes($whmcskey);
 				// Get a db connection.
 				$db = JFactory::getDbo();
 
@@ -175,61 +175,67 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 					$app = JFactory::getApplication();
 					// If no data is found redirect to default page and show warning.
 					$app->enqueueMessage(JText::_('COM_COSTBENEFITPROJECTION_NOT_FOUND_OR_ACCESS_DENIED'), 'warning');
-					$app->redirect('index.php?option=com_costbenefitprojection&view=cpanel');
+					$app->redirect(JRoute::_('index.php?option=com_costbenefitprojection&view=cpanel'));
 					return false;
 				}
-				if (!empty($data->medical_turnovers_females) && $advancedkey && !is_numeric($data->medical_turnovers_females) && $data->medical_turnovers_females === base64_encode(base64_decode($data->medical_turnovers_females, true)))
+			// Load the JEvent Dispatcher
+			JPluginHelper::importPlugin('content');
+			$this->_dispatcher = JEventDispatcher::getInstance();
+				if (!empty($data->medical_turnovers_males) && $whmcskey && !is_numeric($data->medical_turnovers_males) && $data->medical_turnovers_males === base64_encode(base64_decode($data->medical_turnovers_males, true)))
 				{
-					// Decode medical_turnovers_females
-					$data->medical_turnovers_females = rtrim($advanced->decryptString($data->medical_turnovers_females), "\0");
+					// Decode medical_turnovers_males
+					$data->medical_turnovers_males = rtrim($whmcs->decryptString($data->medical_turnovers_males), "\0");
 				}
-				if (!empty($data->females) && $advancedkey && !is_numeric($data->females) && $data->females === base64_encode(base64_decode($data->females, true)))
+				if (!empty($data->females) && $whmcskey && !is_numeric($data->females) && $data->females === base64_encode(base64_decode($data->females, true)))
 				{
 					// Decode females
-					$data->females = rtrim($advanced->decryptString($data->females), "\0");
+					$data->females = rtrim($whmcs->decryptString($data->females), "\0");
 				}
-				if (!empty($data->sick_leave_males) && $advancedkey && !is_numeric($data->sick_leave_males) && $data->sick_leave_males === base64_encode(base64_decode($data->sick_leave_males, true)))
-				{
-					// Decode sick_leave_males
-					$data->sick_leave_males = rtrim($advanced->decryptString($data->sick_leave_males), "\0");
-				}
-				if (CostbenefitprojectionHelper::checkString($data->causesrisks))
+				if (CostbenefitprojectionHelper::checkJson($data->causesrisks))
 				{
 					// Decode causesrisks
 					$data->causesrisks = json_decode($data->causesrisks, true);
 				}
-				if (!empty($data->medical_turnovers_males) && $advancedkey && !is_numeric($data->medical_turnovers_males) && $data->medical_turnovers_males === base64_encode(base64_decode($data->medical_turnovers_males, true)))
+				if (!empty($data->sick_leave_males) && $whmcskey && !is_numeric($data->sick_leave_males) && $data->sick_leave_males === base64_encode(base64_decode($data->sick_leave_males, true)))
 				{
-					// Decode medical_turnovers_males
-					$data->medical_turnovers_males = rtrim($advanced->decryptString($data->medical_turnovers_males), "\0");
+					// Decode sick_leave_males
+					$data->sick_leave_males = rtrim($whmcs->decryptString($data->sick_leave_males), "\0");
 				}
-				if (!empty($data->total_salary) && $advancedkey && !is_numeric($data->total_salary) && $data->total_salary === base64_encode(base64_decode($data->total_salary, true)))
+				if (!empty($data->medical_turnovers_females) && $whmcskey && !is_numeric($data->medical_turnovers_females) && $data->medical_turnovers_females === base64_encode(base64_decode($data->medical_turnovers_females, true)))
 				{
-					// Decode total_salary
-					$data->total_salary = rtrim($advanced->decryptString($data->total_salary), "\0");
+					// Decode medical_turnovers_females
+					$data->medical_turnovers_females = rtrim($whmcs->decryptString($data->medical_turnovers_females), "\0");
 				}
-				if (!empty($data->sick_leave_females) && $advancedkey && !is_numeric($data->sick_leave_females) && $data->sick_leave_females === base64_encode(base64_decode($data->sick_leave_females, true)))
+				if (!empty($data->sick_leave_females) && $whmcskey && !is_numeric($data->sick_leave_females) && $data->sick_leave_females === base64_encode(base64_decode($data->sick_leave_females, true)))
 				{
 					// Decode sick_leave_females
-					$data->sick_leave_females = rtrim($advanced->decryptString($data->sick_leave_females), "\0");
+					$data->sick_leave_females = rtrim($whmcs->decryptString($data->sick_leave_females), "\0");
 				}
-				if (!empty($data->total_healthcare) && $advancedkey && !is_numeric($data->total_healthcare) && $data->total_healthcare === base64_encode(base64_decode($data->total_healthcare, true)))
+				if (!empty($data->total_salary) && $whmcskey && !is_numeric($data->total_salary) && $data->total_salary === base64_encode(base64_decode($data->total_salary, true)))
+				{
+					// Decode total_salary
+					$data->total_salary = rtrim($whmcs->decryptString($data->total_salary), "\0");
+				}
+				if (!empty($data->total_healthcare) && $whmcskey && !is_numeric($data->total_healthcare) && $data->total_healthcare === base64_encode(base64_decode($data->total_healthcare, true)))
 				{
 					// Decode total_healthcare
-					$data->total_healthcare = rtrim($advanced->decryptString($data->total_healthcare), "\0");
+					$data->total_healthcare = rtrim($whmcs->decryptString($data->total_healthcare), "\0");
 				}
-				if (!empty($data->males) && $advancedkey && !is_numeric($data->males) && $data->males === base64_encode(base64_decode($data->males, true)))
+				if (!empty($data->males) && $whmcskey && !is_numeric($data->males) && $data->males === base64_encode(base64_decode($data->males, true)))
 				{
 					// Decode males
-					$data->males = rtrim($advanced->decryptString($data->males), "\0");
+					$data->males = rtrim($whmcs->decryptString($data->males), "\0");
 				}
-				if (CostbenefitprojectionHelper::checkString($data->country_causesrisks))
+				if (CostbenefitprojectionHelper::checkJson($data->country_causesrisks))
 				{
 					// Decode country_causesrisks
 					$data->country_causesrisks = json_decode($data->country_causesrisks, true);
 				}
-				// Make sure the content prepare plugins fire on country_publicaddress.
-				$data->country_publicaddress = JHtml::_('content.prepare',$data->country_publicaddress);
+				// Make sure the content prepare plugins fire on country_publicaddress
+				$_country_publicaddress = new stdClass();
+				$_country_publicaddress->text =& $data->country_publicaddress; // value must be in text
+				// Since all values are now in text (Joomla Limitation), we also add the field name (country_publicaddress) to context
+				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.companyresults.country_publicaddress', &$_country_publicaddress, &$this->params, 0));
 				// Checking if country_publicaddress has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($data->country_publicaddress,$this->uikitComp);
 				// set the global causesrisks value.
@@ -306,7 +312,9 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 				{
 					return false;
 				}
+		// Get where b.published is 1
 		$query->where('b.published = 1');
+		// Get where b.year is $this->a_datayear
 		$query->where('b.year = ' . $db->quote($this->a_datayear));
 		$query->order('b.ordering ASC');
 
@@ -317,6 +325,9 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 		// check if there was data returned
 		if ($db->getNumRows())
 		{
+			// Load the JEvent Dispatcher
+			JPluginHelper::importPlugin('content');
+			$this->_dispatcher = JEventDispatcher::getInstance();
 			return $db->loadObjectList();
 		}
 		return false;
@@ -342,6 +353,7 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 			array('id','causerisk','reference','yld_scaling_factor_males','yld_scaling_factor_females','mortality_scaling_factor_males','mortality_scaling_factor_females','presenteeism_scaling_factor_males','presenteeism_scaling_factor_females','health_scaling_factor','published')));
 		$query->from($db->quoteName('#__costbenefitprojection_scaling_factor', 'c'));
 		$query->where('c.company = ' . $db->quote($id));
+		// Get where c.published is 1
 		$query->where('c.published = 1');
 		$query->order('c.ordering ASC');
 
@@ -352,13 +364,19 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 		// check if there was data returned
 		if ($db->getNumRows())
 		{
+			// Load the JEvent Dispatcher
+			JPluginHelper::importPlugin('content');
+			$this->_dispatcher = JEventDispatcher::getInstance();
 			$items = $db->loadObjectList();
 
 			// Convert the parameter fields into objects.
 			foreach ($items as $nr => &$item)
 			{
-				// Make sure the content prepare plugins fire on reference.
-				$item->reference = JHtml::_('content.prepare',$item->reference);
+				// Make sure the content prepare plugins fire on reference
+				$_reference = new stdClass();
+				$_reference->text =& $item->reference; // value must be in text
+				// Since all values are now in text (Joomla Limitation), we also add the field name (reference) to context
+				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.companyresults.reference', &$_reference, &$this->params, 0));
 				// Checking if reference has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->reference,$this->uikitComp);
 			}
@@ -387,6 +405,7 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 			array('id','name','type','coverage','duration','share','description','reference','intervention','published','created_by','modified_by','created','modified')));
 		$query->from($db->quoteName('#__costbenefitprojection_intervention', 'd'));
 		$query->where('d.company = ' . $db->quote($id));
+		// Get where d.published is 1
 		$query->where('d.published = 1');
 		$query->order('d.ordering ASC');
 
@@ -397,13 +416,19 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 		// check if there was data returned
 		if ($db->getNumRows())
 		{
+			// Load the JEvent Dispatcher
+			JPluginHelper::importPlugin('content');
+			$this->_dispatcher = JEventDispatcher::getInstance();
 			$items = $db->loadObjectList();
 
 			// Convert the parameter fields into objects.
 			foreach ($items as $nr => &$item)
 			{
-				// Make sure the content prepare plugins fire on reference.
-				$item->reference = JHtml::_('content.prepare',$item->reference);
+				// Make sure the content prepare plugins fire on reference
+				$_reference = new stdClass();
+				$_reference->text =& $item->reference; // value must be in text
+				// Since all values are now in text (Joomla Limitation), we also add the field name (reference) to context
+				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.companyresults.reference', &$_reference, &$this->params, 0));
 				// Checking if reference has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->reference,$this->uikitComp);
 			}
@@ -434,7 +459,7 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 
 		// Check if $causesrisks is an array with values.
 		$array = $causesrisks;
-		if (isset($array) && CostbenefitprojectionHelper::checkArray($array))
+		if (isset($array) && CostbenefitprojectionHelper::checkArray($array, true))
 		{
 			$query->where('g.id IN (' . implode(',', $array) . ')');
 		}
@@ -450,6 +475,9 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 		// check if there was data returned
 		if ($db->getNumRows())
 		{
+			// Load the JEvent Dispatcher
+			JPluginHelper::importPlugin('content');
+			$this->_dispatcher = JEventDispatcher::getInstance();
 			return $db->loadObjectList();
 		}
 		return false;
@@ -485,7 +513,9 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 				{
 					return false;
 				}
+		// Get where bb.published is 1
 		$query->where('bb.published = 1');
+		// Get where bb.year is $this->e_datayear
 		$query->where('bb.year = ' . $db->quote($this->e_datayear));
 		$query->order('bb.ordering ASC');
 
@@ -496,6 +526,9 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 		// check if there was data returned
 		if ($db->getNumRows())
 		{
+			// Load the JEvent Dispatcher
+			JPluginHelper::importPlugin('content');
+			$this->_dispatcher = JEventDispatcher::getInstance();
 			return $db->loadObjectList();
 		}
 		return false;
@@ -523,7 +556,7 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 
 		// Check if $causesrisks is an array with values.
 		$array = $causesrisks;
-		if (isset($array) && CostbenefitprojectionHelper::checkArray($array))
+		if (isset($array) && CostbenefitprojectionHelper::checkArray($array, true))
 		{
 			$query->where('gg.id IN (' . implode(',', $array) . ')');
 		}
@@ -539,13 +572,19 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 		// check if there was data returned
 		if ($db->getNumRows())
 		{
+			// Load the JEvent Dispatcher
+			JPluginHelper::importPlugin('content');
+			$this->_dispatcher = JEventDispatcher::getInstance();
 			$items = $db->loadObjectList();
 
 			// Convert the parameter fields into objects.
 			foreach ($items as $nr => &$item)
 			{
-				// Make sure the content prepare plugins fire on description.
-				$item->description = JHtml::_('content.prepare',$item->description);
+				// Make sure the content prepare plugins fire on description
+				$_description = new stdClass();
+				$_description->text =& $item->description; // value must be in text
+				// Since all values are now in text (Joomla Limitation), we also add the field name (description) to context
+				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.companyresults.description', &$_description, &$this->params, 0));
 				// Checking if description has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->description,$this->uikitComp);
 			}
@@ -574,6 +613,7 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 			array('id','name','type','coverage','duration','share','description','reference','intervention','published','created_by','modified_by','created','modified')));
 		$query->from($db->quoteName('#__costbenefitprojection_intervention', 'dd'));
 		$query->where('dd.country = ' . $db->quote($country));
+		// Get where dd.published is 1
 		$query->where('dd.published = 1');
 
 		// Reset the query using our newly populated query object.
@@ -583,17 +623,26 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 		// check if there was data returned
 		if ($db->getNumRows())
 		{
+			// Load the JEvent Dispatcher
+			JPluginHelper::importPlugin('content');
+			$this->_dispatcher = JEventDispatcher::getInstance();
 			$items = $db->loadObjectList();
 
 			// Convert the parameter fields into objects.
 			foreach ($items as $nr => &$item)
 			{
-				// Make sure the content prepare plugins fire on description.
-				$item->description = JHtml::_('content.prepare',$item->description);
+				// Make sure the content prepare plugins fire on description
+				$_description = new stdClass();
+				$_description->text =& $item->description; // value must be in text
+				// Since all values are now in text (Joomla Limitation), we also add the field name (description) to context
+				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.companyresults.description', &$_description, &$this->params, 0));
+				// Make sure the content prepare plugins fire on reference
+				$_reference = new stdClass();
+				$_reference->text =& $item->reference; // value must be in text
+				// Since all values are now in text (Joomla Limitation), we also add the field name (reference) to context
+				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.companyresults.reference', &$_reference, &$this->params, 0));
 				// Checking if description has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->description,$this->uikitComp);
-				// Make sure the content prepare plugins fire on reference.
-				$item->reference = JHtml::_('content.prepare',$item->reference);
 				// Checking if reference has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->reference,$this->uikitComp);
 			}

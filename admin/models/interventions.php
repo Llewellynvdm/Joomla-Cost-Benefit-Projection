@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 71 of this MVC
+	@build			12th November, 2016
+	@created		8th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		interventions.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -156,7 +156,7 @@ class CostbenefitprojectionModelInterventions extends JModelList
 				$item->type = $this->selectionTranslation($item->type, 'type');
 			}
 		}
-
+ 
         
 		// return items
 		return $items;
@@ -170,7 +170,7 @@ class CostbenefitprojectionModelInterventions extends JModelList
 	public function selectionTranslation($value,$name)
 	{
 		// Array of type language strings
-		if ($name == 'type')
+		if ($name === 'type')
 		{
 			$typeArray = array(
 				1 => 'COM_COSTBENEFITPROJECTION_INTERVENTION_SINGLE',
@@ -245,7 +245,7 @@ class CostbenefitprojectionModelInterventions extends JModelList
 			}
 			else
 			{
-				$search = $db->quote('%' . $db->escape($search, true) . '%');
+				$search = $db->quote('%' . $db->escape($search) . '%');
 				$query->where('(a.name LIKE '.$search.' OR a.company LIKE '.$search.' OR g.name LIKE '.$search.' OR a.type LIKE '.$search.' OR a.coverage LIKE '.$search.' OR a.description LIKE '.$search.' OR a.duration LIKE '.$search.' OR a.reference LIKE '.$search.')');
 			}
 		}
@@ -253,22 +253,22 @@ class CostbenefitprojectionModelInterventions extends JModelList
 		// Filter by company.
 		if ($company = $this->getState('filter.company'))
 		{
-			$query->where('a.company = ' . $db->quote($db->escape($company, true)));
+			$query->where('a.company = ' . $db->quote($db->escape($company)));
 		}
 		// Filter by Type.
 		if ($type = $this->getState('filter.type'))
 		{
-			$query->where('a.type = ' . $db->quote($db->escape($type, true)));
+			$query->where('a.type = ' . $db->quote($db->escape($type)));
 		}
 		// Filter by Coverage.
 		if ($coverage = $this->getState('filter.coverage'))
 		{
-			$query->where('a.coverage = ' . $db->quote($db->escape($coverage, true)));
+			$query->where('a.coverage = ' . $db->quote($db->escape($coverage)));
 		}
 		// Filter by Duration.
 		if ($duration = $this->getState('filter.duration'))
 		{
-			$query->where('a.duration = ' . $db->quote($db->escape($duration, true)));
+			$query->where('a.duration = ' . $db->quote($db->escape($duration)));
 		}
 
 		// Add the list ordering clause.

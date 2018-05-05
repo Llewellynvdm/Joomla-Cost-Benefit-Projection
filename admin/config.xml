@@ -64,7 +64,7 @@
 			label="COM_COSTBENEFITPROJECTION_CONFIG_AUTHOR_EMAIL_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_AUTHOR_EMAIL_DESC"
 			size="60"
-			default="llewellyn@vdm.io"
+			default="joomla@vdm.io"
 			readonly="true"
 			class="readonly"
 		/>
@@ -364,7 +364,7 @@
 			label="COM_COSTBENEFITPROJECTION_CONFIG_MEMBERBASICGROUP_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_MEMBERBASICGROUP_DESCRIPTION"
 			multiple="true"
-		/>		
+		/>
 		<!-- Advancedmembergroup Field. Type: Usergroup. (joomla) -->
 		<field
 			type="usergroup"
@@ -662,11 +662,11 @@
 		name="encryption_config"
 		label="COM_COSTBENEFITPROJECTION_CONFIG_ENCRYPTION_LABEL"
 		description="COM_COSTBENEFITPROJECTION_CONFIG_ENCRYPTION_DESC">
-		<field type="note" name="vdm_key_note" class="alert alert-info" label="COM_COSTBENEFITPROJECTION_CONFIG_VDM_KEY_NOTE_LABEL" description="COM_COSTBENEFITPROJECTION_CONFIG_VDM_KEY_NOTE_DESC"  />
+		<field type="note" name="whmcs_key_note" class="alert alert-info" label="COM_COSTBENEFITPROJECTION_CONFIG_WHMCS_KEY_NOTE_LABEL" description="COM_COSTBENEFITPROJECTION_CONFIG_WHMCS_KEY_NOTE_DESC"  />
 		<field name="advanced_key"
 			type="text"
-			label="COM_COSTBENEFITPROJECTION_CONFIG_VDM_KEY_LABEL"
-			description="COM_COSTBENEFITPROJECTION_CONFIG_VDM_KEY_DESC"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_WHMCS_KEY_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_WHMCS_KEY_DESC"
 			size="60"
 			default=""
 		/>
@@ -682,7 +682,7 @@
 			class="text_area"
 			required="true"
 			filter="PATH"
-			message="Error! Please add the path where the result json should be sotred here."
+			message="COM_COSTBENEFITPROJECTION_CONFIG_RESULTPATH_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_CONFIG_RESULTPATH_HINT"
 		/>
 	</fieldset>
@@ -701,7 +701,7 @@
 			class="text_area"
 			filter="url"
 			validated="url"
-			message="Error! Please add information url here."
+			message="COM_COSTBENEFITPROJECTION_CONFIG_INFORMATION_URL_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_CONFIG_INFORMATION_URL_HINT"
 		/>
 	</fieldset>

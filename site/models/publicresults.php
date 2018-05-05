@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
-	@created		15th June, 2012
+	@version		@update number 10 of this MVC
+	@build			18th August, 2017
+	@created		16th December, 2015
 	@package		Cost Benefit Projection
 	@subpackage		publicresults.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -65,10 +65,10 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 	 */
 	protected function populateState()
 	{
-		$this->app	= JFactory::getApplication();
-		$this->input 	= $this->app->input;
+		$this->app = JFactory::getApplication();
+		$this->input = $this->app->input;
 		// Get the itme main id
-		$id		= $this->input->getInt('id', null);
+		$id = $this->input->getInt('id', null);
 		$this->setState('publicresults.id', $id);
 
 		// Load the parameters.
@@ -86,28 +86,19 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 	 */
 	public function getItem($pk = null)
 	{
-		$this->user	= JFactory::getUser();
-                // check if this user has permission to access item
-                if (!$this->user->authorise('site.publicresults.access', 'com_costbenefitprojection'))
-                {
-			$app = JFactory::getApplication();
-			$app->enqueueMessage(JText::_('Not authorised!'), 'error');
-			// redirect away if not a correct (TODO for now we go to default view)
-			$app->redirect(JRoute::_('index.php?option=com_costbenefitprojection&view=cpanel'));
-			return false;
-                }
-		$this->userId		= $this->user->get('id');
-		$this->guest		= $this->user->get('guest');
-                $this->groups		= $this->user->get('groups');
-                $this->authorisedGroups	= $this->user->getAuthorisedGroups();
-		$this->levels		= $this->user->getAuthorisedViewLevels();
-		$this->initSet		= true;
+		$this->user = JFactory::getUser();
+		$this->userId = $this->user->get('id');
+		$this->guest = $this->user->get('guest');
+		$this->groups = $this->user->get('groups');
+		$this->authorisedGroups = $this->user->getAuthorisedGroups();
+		$this->levels = $this->user->getAuthorisedViewLevels();
+		$this->initSet = true;
 
 		$pk = (!empty($pk)) ? $pk : (int) $this->getState('publicresults.id');
 
 		if (!$pk)
 		{
-			JError::raiseWarning(500, JText::_('No Direct Access Allowed!'));
+			JError::raiseWarning(500, JText::_('COM_COSTBENEFITPROJECTION_NO_DIRECT_ACCESS_ALLOWED'));
 			// redirect away if not a correct (TODO for now we go to default view)
 			JFactory::getApplication()->redirect('index.php?option=com_costbenefitprojection&view=cpanel');
 			return false;
@@ -157,16 +148,22 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 					$app = JFactory::getApplication();
 					// If no data is found redirect to default page and show warning.
 					$app->enqueueMessage(JText::_('COM_COSTBENEFITPROJECTION_NOT_FOUND_OR_ACCESS_DENIED'), 'warning');
-					$app->redirect('index.php?option=com_costbenefitprojection&view=cpanel');
+					$app->redirect(JRoute::_('index.php?option=com_costbenefitprojection&view=cpanel'));
 					return false;
 				}
-				if (CostbenefitprojectionHelper::checkString($data->country_causesrisks))
+			// Load the JEvent Dispatcher
+			JPluginHelper::importPlugin('content');
+			$this->_dispatcher = JEventDispatcher::getInstance();
+				if (CostbenefitprojectionHelper::checkJson($data->country_causesrisks))
 				{
 					// Decode country_causesrisks
 					$data->country_causesrisks = json_decode($data->country_causesrisks, true);
 				}
-				// Make sure the content prepare plugins fire on country_publicaddress.
-				$data->country_publicaddress = JHtml::_('content.prepare',$data->country_publicaddress);
+				// Make sure the content prepare plugins fire on country_publicaddress
+				$_country_publicaddress = new stdClass();
+				$_country_publicaddress->text =& $data->country_publicaddress; // value must be in text
+				// Since all values are now in text (Joomla Limitation), we also add the field name (country_publicaddress) to context
+				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.publicresults.country_publicaddress', &$_country_publicaddress, &$this->params, 0));
 				// Checking if country_publicaddress has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($data->country_publicaddress,$this->uikitComp);
 				// set the global causesrisks value.
@@ -252,7 +249,9 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 				{
 					return false;
 				}
+		// Get where b.published is 1
 		$query->where('b.published = 1');
+		// Get where b.year is $this->a_datayear
 		$query->where('b.year = ' . $db->quote($this->a_datayear));
 		$query->order('b.ordering ASC');
 
@@ -263,6 +262,9 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 		// check if there was data returned
 		if ($db->getNumRows())
 		{
+			// Load the JEvent Dispatcher
+			JPluginHelper::importPlugin('content');
+			$this->_dispatcher = JEventDispatcher::getInstance();
 			return $db->loadObjectList();
 		}
 		return false;
@@ -290,7 +292,7 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 
 		// Check if $causesrisks is an array with values.
 		$array = $causesrisks;
-		if (isset($array) && CostbenefitprojectionHelper::checkArray($array))
+		if (isset($array) && CostbenefitprojectionHelper::checkArray($array, true))
 		{
 			$query->where('g.id IN (' . implode(',', $array) . ')');
 		}
@@ -306,6 +308,9 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 		// check if there was data returned
 		if ($db->getNumRows())
 		{
+			// Load the JEvent Dispatcher
+			JPluginHelper::importPlugin('content');
+			$this->_dispatcher = JEventDispatcher::getInstance();
 			return $db->loadObjectList();
 		}
 		return false;
@@ -341,7 +346,9 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 				{
 					return false;
 				}
+		// Get where bb.published is 1
 		$query->where('bb.published = 1');
+		// Get where bb.year is $this->e_datayear
 		$query->where('bb.year = ' . $db->quote($this->e_datayear));
 		$query->order('bb.ordering ASC');
 
@@ -352,6 +359,9 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 		// check if there was data returned
 		if ($db->getNumRows())
 		{
+			// Load the JEvent Dispatcher
+			JPluginHelper::importPlugin('content');
+			$this->_dispatcher = JEventDispatcher::getInstance();
 			return $db->loadObjectList();
 		}
 		return false;
@@ -379,7 +389,7 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 
 		// Check if $causesrisks is an array with values.
 		$array = $causesrisks;
-		if (isset($array) && CostbenefitprojectionHelper::checkArray($array))
+		if (isset($array) && CostbenefitprojectionHelper::checkArray($array, true))
 		{
 			$query->where('gg.id IN (' . implode(',', $array) . ')');
 		}
@@ -395,13 +405,19 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 		// check if there was data returned
 		if ($db->getNumRows())
 		{
+			// Load the JEvent Dispatcher
+			JPluginHelper::importPlugin('content');
+			$this->_dispatcher = JEventDispatcher::getInstance();
 			$items = $db->loadObjectList();
 
 			// Convert the parameter fields into objects.
 			foreach ($items as $nr => &$item)
 			{
-				// Make sure the content prepare plugins fire on description.
-				$item->description = JHtml::_('content.prepare',$item->description);
+				// Make sure the content prepare plugins fire on description
+				$_description = new stdClass();
+				$_description->text =& $item->description; // value must be in text
+				// Since all values are now in text (Joomla Limitation), we also add the field name (description) to context
+				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.publicresults.description', &$_description, &$this->params, 0));
 				// Checking if description has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->description,$this->uikitComp);
 			}
@@ -438,22 +454,31 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 		// check if there was data returned
 		if ($db->getNumRows())
 		{
+			// Load the JEvent Dispatcher
+			JPluginHelper::importPlugin('content');
+			$this->_dispatcher = JEventDispatcher::getInstance();
 			$items = $db->loadObjectList();
 
 			// Convert the parameter fields into objects.
 			foreach ($items as $nr => &$item)
 			{
-				if (CostbenefitprojectionHelper::checkString($item->interventions))
+				if (CostbenefitprojectionHelper::checkJson($item->interventions))
 				{
 					// Decode interventions
 					$item->interventions = json_decode($item->interventions, true);
 				}
-				// Make sure the content prepare plugins fire on description.
-				$item->description = JHtml::_('content.prepare',$item->description);
+				// Make sure the content prepare plugins fire on description
+				$_description = new stdClass();
+				$_description->text =& $item->description; // value must be in text
+				// Since all values are now in text (Joomla Limitation), we also add the field name (description) to context
+				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.publicresults.description', &$_description, &$this->params, 0));
+				// Make sure the content prepare plugins fire on reference
+				$_reference = new stdClass();
+				$_reference->text =& $item->reference; // value must be in text
+				// Since all values are now in text (Joomla Limitation), we also add the field name (reference) to context
+				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.publicresults.reference', &$_reference, &$this->params, 0));
 				// Checking if description has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->description,$this->uikitComp);
-				// Make sure the content prepare plugins fire on reference.
-				$item->reference = JHtml::_('content.prepare',$item->reference);
 				// Checking if reference has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->reference,$this->uikitComp);
 			}
@@ -496,7 +521,9 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 			array('a.id','a.name','a.published'),
 			array('id','name','published')));
 		$query->from($db->quoteName('#__costbenefitprojection_country', 'a'));
+		// Get where a.published is 1
 		$query->where('a.published = 1');
+		// Get where a.datayear is 2000
 		$query->where('a.datayear > 2000');
 
 		// Reset the query using our newly populated query object.
@@ -508,11 +535,17 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 			return false;
 		}
 
-		// Convert the parameter fields into objects.
-		foreach ($items as $nr => &$item)
+		// Insure all item fields are adapted where needed.
+		if (CostbenefitprojectionHelper::checkArray($items))
 		{
-			// Always create a slug for sef URL's
-			$item->slug = (isset($item->alias)) ? $item->id.':'.$item->alias : $item->id;
+			// Load the JEvent Dispatcher
+			JPluginHelper::importPlugin('content');
+			$this->_dispatcher = JEventDispatcher::getInstance();
+			foreach ($items as $nr => &$item)
+			{
+				// Always create a slug for sef URL's
+				$item->slug = (isset($item->alias) && isset($item->id)) ? $item->id.':'.$item->alias : $item->id;
+			}
 		}
 		// return items
 		return $items;

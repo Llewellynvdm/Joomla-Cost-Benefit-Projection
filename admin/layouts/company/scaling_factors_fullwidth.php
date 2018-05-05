@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.2
-	@build			16th August, 2016
+	@version		3.4.3
+	@build			5th May, 2018
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		scaling_factors_fullwidth.php
@@ -25,7 +25,7 @@ defined('_JEXEC') or die('Restricted access');
 $items	= $displayData->vwcscaling_factors;
 $user	= JFactory::getUser();
 $id	= $displayData->item->id;
-$edit	= "index.php?option=com_costbenefitprojection&view=scaling_factors&task=scaling_factor.edit";
+$edit = "index.php?option=com_costbenefitprojection&view=scaling_factors&task=scaling_factor.edit";
 
 ?>
 <div class="form-vertical">
@@ -106,26 +106,26 @@ $edit	= "index.php?option=com_costbenefitprojection&view=scaling_factors&task=sc
 		</td>
 		<?php if ($item->published == 1):?>
 			<td class="center"  data-value="1">
-				<span class="status-metro status-published" title="<?php echo JText::_('PUBLISHED');  ?>">
-					<?php echo JText::_('PUBLISHED'); ?>
+				<span class="status-metro status-published" title="<?php echo JText::_('COM_COSTBENEFITPROJECTION_PUBLISHED');  ?>">
+					<?php echo JText::_('COM_COSTBENEFITPROJECTION_PUBLISHED'); ?>
 				</span>
 			</td>
 		<?php elseif ($item->published == 0):?>
 			<td class="center"  data-value="2">
-				<span class="status-metro status-inactive" title="<?php echo JText::_('INACTIVE');  ?>">
-					<?php echo JText::_('INACTIVE'); ?>
+				<span class="status-metro status-inactive" title="<?php echo JText::_('COM_COSTBENEFITPROJECTION_INACTIVE');  ?>">
+					<?php echo JText::_('COM_COSTBENEFITPROJECTION_INACTIVE'); ?>
 				</span>
 			</td>
 		<?php elseif ($item->published == 2):?>
 			<td class="center"  data-value="3">
-				<span class="status-metro status-archived" title="<?php echo JText::_('ARCHIVED');  ?>">
-					<?php echo JText::_('ARCHIVED'); ?>
+				<span class="status-metro status-archived" title="<?php echo JText::_('COM_COSTBENEFITPROJECTION_ARCHIVED');  ?>">
+					<?php echo JText::_('COM_COSTBENEFITPROJECTION_ARCHIVED'); ?>
 				</span>
 			</td>
 		<?php elseif ($item->published == -2):?>
 			<td class="center"  data-value="4">
-				<span class="status-metro status-trashed" title="<?php echo JText::_('ARCHIVED');  ?>">
-					<?php echo JText::_('ARCHIVED'); ?>
+				<span class="status-metro status-trashed" title="<?php echo JText::_('COM_COSTBENEFITPROJECTION_TRASHED');  ?>">
+					<?php echo JText::_('COM_COSTBENEFITPROJECTION_TRASHED'); ?>
 				</span>
 			</td>
 		<?php endif; ?>

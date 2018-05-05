@@ -19,7 +19,6 @@
 			label="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_CREATED_DATE_LABEL"
 			description="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_CREATED_DATE_DESC"
 			size="22"
-
 			format="%Y-%m-%d %H:%M:%S"
 			filter="user_utc"
 		/>
@@ -28,13 +27,11 @@
 			name="created_by"
 			type="user"
 			label="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_CREATED_BY_LABEL"
-
 			description="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_CREATED_BY_DESC"
 		/>
 		<!-- Published Field. Type: List (joomla) -->
 		<field name="published" type="list" label="JSTATUS"
 			description="JFIELD_PUBLISHED_DESC" class="chzn-color-state"
-
 			filter="intval" size="1" default="1" >
 			<option value="1">
 				JPUBLISHED</option>
@@ -66,7 +63,6 @@
 			description=""
 			default="0"
 			size="6"
-
 			required="false"
 		/>
 		<!-- Version Field. Type: Text (joomla) -->
@@ -112,7 +108,7 @@
 			readonly="false"
 			disabled="false"
 			filter="STRING"
-			message="Error! Please add public name here."
+			message="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_PUBLICNAME_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_PUBLICNAME_HINT"
 		/>
 		<!-- Publicemail Field. Type: Text. (joomla) -->
@@ -126,7 +122,7 @@
 			class="text_area"
 			filter="STRING"
 			validate="email"
-			message="Error! Please public email address here."
+			message="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_PUBLICEMAIL_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_PUBLICEMAIL_HINT"
 		/>
 		<!-- Publicnumber Field. Type: Tel. (joomla) -->
@@ -140,7 +136,7 @@
 			class="text_area"
 			filter="STRING"
 			validated="tel"
-			message="Error! Please add public phone number here."
+			message="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_PUBLICNUMBER_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_PUBLICNUMBER_HINT"
 		/>
 		<!-- Publicaddress Field. Type: Editor. (joomla) -->
@@ -153,8 +149,6 @@
 			buttons="false"
 			filter="safehtml"
 		/>
-		<!-- Public_details_note Field. Type: Note. A None Database Field. (joomla) -->
-		<field type="note" name="public_details_note" description="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_PUBLIC_DETAILS_NOTE_DESCRIPTION" class="alert alert-info, public_details_note" />
 		<!-- Testcompanies Field. Type: Companycheck. (custom) -->
 		<field
 			type="companycheck"
@@ -164,6 +158,8 @@
 			class="list_class"
 			button="false"
 		/>
+		<!-- Public_details_note Field. Type: Note. A None Database Field. (joomla) -->
+		<field type="note" name="public_details_note" description="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_PUBLIC_DETAILS_NOTE_DESCRIPTION" class="alert alert-info, public_details_note" />
 	</fieldset>
 	
 	<!-- Access Control Fields. -->
