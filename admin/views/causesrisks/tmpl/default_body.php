@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 20 of this MVC
-	@build			25th October, 2017
+	@version		@update number 24 of this MVC
+	@build			17th May, 2018
 	@created		8th July, 2015
 	@package		Cost Benefit Projection
 	@subpackage		default_body.php

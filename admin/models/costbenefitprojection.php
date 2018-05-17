@@ -505,7 +505,7 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 				$query->where('a.id NOT IN (' . implode(',', $remove) . ')');
 			}
 			// Check that we only use the real companies and none of the dummy companies
-			$query->where('a.mode = 1'); // this will insure only real companies are loaded
+			// $query->where('a.mode = 1'); // this will insure only real companies are loaded (TODO) this switch has moved, and I am not sure where
 			// get only from set countries
 			$countryIds = array_keys($this->countries);
 			// limit to only load these countries
