@@ -100,7 +100,7 @@
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_DESC"
 			size="60"
-			default="http://www.swisstph.ch/about-us/staff/detailview.html?tx_x4epersdb_pi1[showUid]=2267&amp;cHash=1b1c5db0808e04d3f1afe0f3a3f67998"
+			default="https://www.swisstph.ch/en/staff/profile/people/patrick-hanlon/"
 		/>
 		<field name="useContributor1"
 			type="list"
@@ -132,28 +132,28 @@
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_DESC"
 			size="60"
-			default="Development Advisor"
+			default="GIZ EWP CBA"
 		/>
 		<field name="nameContributor2"
 			type="text"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_DESC"
 			size="60"
-			default="Matthew Black"
+			default="Swiss TPH"
 		/>
 		<field name="emailContributor2"
 			type="email"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_DESC"
 			size="60"
-			default="matthew.black@giz.de"
+			default=""
 		/>
 		<field name="linkContributor2"
 			type="url"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_DESC"
 			size="60"
-			default="http://www.giz.de"
+			default="https://www.swisstph.ch/en/projects/project-detail/project/cost-benefit-projection-tool-for-employee-health-programmes/"
 		/>
 		<field name="useContributor2"
 			type="list"
@@ -185,21 +185,21 @@
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_DESC"
 			size="60"
-			default="Associate Expert"
+			default="Development Advisor"
 		/>
 		<field name="nameContributor3"
 			type="text"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_DESC"
 			size="60"
-			default="Dr. Pascal Geldsetzer"
+			default="Matthew Black"
 		/>
 		<field name="emailContributor3"
 			type="email"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_DESC"
 			size="60"
-			default="pascal.geldsetzer@giz.de"
+			default="matthew.black@giz.de"
 		/>
 		<field name="linkContributor3"
 			type="url"
@@ -219,7 +219,7 @@
 		</field>
 		<field name="showContributor3"
 			type="list"
-			default="1"
+			default="3"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_DESC">
 			<option value="0">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_NONE</option>
@@ -238,32 +238,32 @@
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_DESC"
 			size="60"
-			default=""
+			default="Associate Expert"
 		/>
 		<field name="nameContributor4"
 			type="text"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_DESC"
 			size="60"
-			default=""
+			default="Dr. Pascal Geldsetzer"
 		/>
 		<field name="emailContributor4"
 			type="email"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_DESC"
 			size="60"
-			default=""
+			default="pascal.geldsetzer@giz.de"
 		/>
 		<field name="linkContributor4"
 			type="url"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_DESC"
 			size="60"
-			default=""
+			default="http://www.giz.de"
 		/>
 		<field name="useContributor4"
 			type="list"
-			default="0"
+			default="2"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_DESC">
 			<option value="0">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_NONE</option>
@@ -272,7 +272,7 @@
 		</field>
 		<field name="showContributor4"
 			type="list"
-			default="0"
+			default="1"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_DESC">
 			<option value="0">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_NONE</option>
@@ -324,6 +324,59 @@
 			<option value="2">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_WWW</option>
 		</field>
 		<field name="showContributor5"
+			type="list"
+			default="0"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_DESC">
+			<option value="0">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_NONE</option>
+			<option value="1">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_BACK</option>
+			<option value="2">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_FRONT</option>
+			<option value="3">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_ALL</option>
+		</field>
+		<field type="spacer" name="spacerContributor6" hr="true" />
+		<field name="contributor6"
+			type="spacer"
+			class="text"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SIX"
+		/>
+		<field name="titleContributor6"
+			type="text"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_DESC"
+			size="60"
+			default=""
+		/>
+		<field name="nameContributor6"
+			type="text"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_DESC"
+			size="60"
+			default=""
+		/>
+		<field name="emailContributor6"
+			type="email"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_DESC"
+			size="60"
+			default=""
+		/>
+		<field name="linkContributor6"
+			type="url"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_DESC"
+			size="60"
+			default=""
+		/>
+		<field name="useContributor6"
+			type="list"
+			default="0"
+			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_LABEL"
+			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_DESC">
+			<option value="0">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_NONE</option>
+			<option value="1">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_EMAIL</option>
+			<option value="2">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_WWW</option>
+		</field>
+		<field name="showContributor6"
 			type="list"
 			default="0"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_LABEL"
