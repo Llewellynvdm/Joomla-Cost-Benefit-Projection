@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.3
-	@build			17th May, 2018
+	@version		3.4.x
+	@build			4th April, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		causerisk_selection_fullwidth.php
@@ -18,7 +18,6 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // No direct access to this file
-
 defined('_JEXEC') or die('Restricted access');
 
 $form = $displayData->getForm();
@@ -27,16 +26,14 @@ $fields = $displayData->get('fields') ?: array(
 	'causesrisks'
 );
 
+$hiddenFields = $displayData->get('hidden_fields') ?: array();
+
 ?>
 <div class="form-vertical">
-<?php foreach($fields as $field): ?>
-    <div class="control-group">
-        <div class="control-label">
-            <?php echo $form->getLabel($field); ?>
-        </div>
-        <div class="controls">
-            <?php echo $form->getInput($field); ?>
-        </div>
-    </div>
-<?php endforeach; ?>
+	<?php foreach($fields as $field): ?>
+		<?php if (in_array($field, $hiddenFields)) : ?>
+			<?php $form->setFieldAttribute($field, 'type', 'hidden'); ?>
+		<?php endif; ?>
+		<?php echo $form->renderField($field, null, null, array('class' => 'control-wrapper-' . $field)); ?>
+	<?php endforeach; ?>
 </div>

@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 71 of this MVC
-	@build			12th November, 2016
-	@created		8th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_batch_footer.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	

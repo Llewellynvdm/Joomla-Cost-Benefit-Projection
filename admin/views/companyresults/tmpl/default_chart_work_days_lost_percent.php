@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 60 of this MVC
-	@build			14th October, 2017
-	@created		13th August, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_chart_work_days_lost_percent.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -18,7 +18,7 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // No direct access to this file
-defined('_JEXEC') or die('Restricted access'); 
+defined('_JEXEC') or die('Restricted access');
 
 // load chart builder
 $chart = new Chartbuilder('BarChart');

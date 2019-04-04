@@ -83,6 +83,7 @@
 			name="user"
 			label="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_USER_LABEL"
 			description="JFIELD_TITLE_DESC"
+			default=""
 			hint="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_USER_HINT"
 		/>
 		<!-- Country Field. Type: Countries. (custom) -->
@@ -125,13 +126,14 @@
 			message="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_PUBLICEMAIL_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_PUBLICEMAIL_HINT"
 		/>
-		<!-- Publicnumber Field. Type: Tel. (joomla) -->
+		<!-- Publicnumber Field. Type: Text. (joomla) -->
 		<field
-			type="tel"
+			type="text"
 			name="publicnumber"
 			label="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_PUBLICNUMBER_LABEL"
 			size="60"
 			maxlength="150"
+			default=""
 			description="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_PUBLICNUMBER_DESCRIPTION"
 			class="text_area"
 			filter="STRING"

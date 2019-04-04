@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.3
-	@build			17th May, 2018
+	@version		3.4.x
+	@build			4th April, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -19,6 +19,7 @@
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
+JHtml::_('behavior.tabstate');
 
 // Set the component css/js
 $document = JFactory::getDocument();
@@ -26,18 +27,14 @@ $document->addStyleSheet('components/com_costbenefitprojection/assets/css/site.c
 $document->addScript('components/com_costbenefitprojection/assets/js/site.js');
 
 // Require helper files
-JLoader::register('CostbenefitprojectionHelper', dirname(__FILE__) . '/helpers/costbenefitprojection.php'); 
-JLoader::register('CostbenefitprojectionHelperRoute', dirname(__FILE__) . '/helpers/route.php'); 
-
-// import joomla controller library
-jimport('joomla.application.component.controller');
+JLoader::register('CostbenefitprojectionHelper', __DIR__ . '/helpers/costbenefitprojection.php'); 
+JLoader::register('CostbenefitprojectionHelperRoute', __DIR__ . '/helpers/route.php'); 
 
 // Get an instance of the controller prefixed by Costbenefitprojection
 $controller = JControllerLegacy::getInstance('Costbenefitprojection');
 
 // Perform the request task
-$jinput = JFactory::getApplication()->input;
-$controller->execute($jinput->get('task', null, 'CMD'));
+$controller->execute(JFactory::getApplication()->input->get('task'));
 
 // Redirect if set by the controller
 $controller->redirect();

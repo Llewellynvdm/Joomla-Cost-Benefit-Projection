@@ -2,9 +2,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 21 of this MVC
-	@build			16th August, 2016
-	@created		8th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		scaling_factor.js
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -46,6 +46,7 @@ function vvvvvvx(company_vvvvvvx)
 	if (company)
 	{
 		jQuery('#jform_country').closest('.control-group').show();
+		// add required attribute to country field
 		if (jform_vvvvvvxvwi_required)
 		{
 			updateFieldRequired('country',0);
@@ -54,11 +55,11 @@ function vvvvvvx(company_vvvvvvx)
 			jQuery('#jform_country').addClass('required');
 			jform_vvvvvvxvwi_required = false;
 		}
-
 	}
 	else
 	{
 		jQuery('#jform_country').closest('.control-group').hide();
+		// remove required attribute from country field
 		if (!jform_vvvvvvxvwi_required)
 		{
 			updateFieldRequired('country',1);

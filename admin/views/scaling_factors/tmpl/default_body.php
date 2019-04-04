@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 21 of this MVC
-	@build			16th August, 2016
-	@created		8th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_body.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -69,25 +69,25 @@ $edit = "index.php?option=com_costbenefitprojection&view=scaling_factors&task=sc
 		<?php endif; ?>
 		</td>
 		<td class="nowrap">
-			<?php if ($canDo->get('scaling_factor.edit')): ?>
-				<div class="name">
+			<div class="name">
+				<?php if ($canDo->get('scaling_factor.edit')): ?>
 					<a href="<?php echo $edit; ?>&id=<?php echo $item->id; ?>"><?php echo $this->escape($item->causerisk_name); ?></a>
 					<?php if ($item->checked_out): ?>
 						<?php echo JHtml::_('jgrid.checkedout', $i, $userChkOut->name, $item->checked_out_time, 'scaling_factors.', $canCheckin); ?>
 					<?php endif; ?>
-				</div>
-			<?php else: ?>
-				<div class="name"><?php echo $this->escape($item->causerisk_name); ?></div>
-			<?php endif; ?>
+				<?php else: ?>
+					<?php echo $this->escape($item->causerisk_name); ?>
+				<?php endif; ?>
+			</div>
 		</td>
 		<td class="nowrap">
-			<?php if ($this->user->authorise('company.edit', 'com_costbenefitprojection.company.' . (int)$item->company)): ?>
-				<div class="name">
-					<a href="index.php?option=com_costbenefitprojection&view=companies&task=company.edit&id=<?php echo $item->company; ?>&ref=scaling_factors"><?php echo $this->escape($item->company_name); ?></a>
-				</div>
-			<?php else: ?>
-				<div class="name"><?php echo $this->escape($item->company_name); ?></div>
-			<?php endif; ?>
+			<div class="name">
+				<?php if ($this->user->authorise('company.edit', 'com_costbenefitprojection.company.' . (int)$item->company)): ?>
+					<a href="index.php?option=com_costbenefitprojection&view=companies&task=company.edit&id=<?php echo $item->company; ?>&return=<?php echo $this->return_here; ?>"><?php echo $this->escape($item->company_name); ?></a>
+				<?php else: ?>
+					<?php echo $this->escape($item->company_name); ?>
+				<?php endif; ?>
+			</div>
 		</td>
 		<td class="hidden-phone">
 			<?php echo $this->escape($item->yld_scaling_factor_males); ?>

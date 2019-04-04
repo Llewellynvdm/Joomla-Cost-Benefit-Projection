@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 35 of this MVC
-	@build			22nd March, 2016
-	@created		25th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_body.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -69,25 +69,25 @@ $edit = "index.php?option=com_costbenefitprojection&view=service_providers&task=
 		<?php endif; ?>
 		</td>
 		<td class="nowrap">
-			<?php if ($canDo->get('service_provider.edit')): ?>
-				<div class="name">
-					<a href="<?php echo $edit; ?>&id=<?php echo $item->id; ?>"><?php echo $this->escape($item->user_name); ?></a>
+			<div class="name">
+				<?php if ($canDo->get('service_provider.edit')): ?>
+					<a href="<?php echo $edit; ?>&id=<?php echo $item->id; ?>"><?php echo JFactory::getUser((int)$item->user)->name; ?></a>
 					<?php if ($item->checked_out): ?>
 						<?php echo JHtml::_('jgrid.checkedout', $i, $userChkOut->name, $item->checked_out_time, 'service_providers.', $canCheckin); ?>
 					<?php endif; ?>
-				</div>
-			<?php else: ?>
-				<div class="name"><?php echo $this->escape($item->user_name); ?></div>
-			<?php endif; ?>
+				<?php else: ?>
+					<?php echo JFactory::getUser((int)$item->user)->name; ?>
+				<?php endif; ?>
+			</div>
 		</td>
 		<td class="nowrap">
-			<?php if ($this->user->authorise('country.edit', 'com_costbenefitprojection.country.' . (int)$item->country)): ?>
-				<div class="name">
-					<a href="index.php?option=com_costbenefitprojection&view=countries&task=country.edit&id=<?php echo $item->country; ?>&ref=service_providers"><?php echo $this->escape($item->country_name); ?></a>
-				</div>
-			<?php else: ?>
-				<div class="name"><?php echo $this->escape($item->country_name); ?></div>
-			<?php endif; ?>
+			<div class="name">
+				<?php if ($this->user->authorise('country.edit', 'com_costbenefitprojection.country.' . (int)$item->country)): ?>
+					<a href="index.php?option=com_costbenefitprojection&view=countries&task=country.edit&id=<?php echo $item->country; ?>&return=<?php echo $this->return_here; ?>"><?php echo $this->escape($item->country_name); ?></a>
+				<?php else: ?>
+					<?php echo $this->escape($item->country_name); ?>
+				<?php endif; ?>
+			</div>
 		</td>
 		<td class="hidden-phone">
 			<?php echo $this->escape($item->publicname); ?>

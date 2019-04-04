@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.3
-	@build			17th May, 2018
+	@version		3.4.x
+	@build			4th April, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		service_providers_fullwidth.php
@@ -18,16 +18,35 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // No direct access to this file
-
 defined('_JEXEC') or die('Restricted access');
 
 // set the defaults
-$items	= $displayData->vwgservice_providers;
-$user	= JFactory::getUser();
-$id	= $displayData->item->id;
+$items = $displayData->vwgservice_providers;
+$user = JFactory::getUser();
+$id = $displayData->item->id;
+// set the edit URL
 $edit = "index.php?option=com_costbenefitprojection&view=service_providers&task=service_provider.edit";
-$ref = ($id) ? "&ref=country&refid=".$id : "";
-$new = "index.php?option=com_costbenefitprojection&view=service_provider&layout=edit".$ref;
+// set a return value
+$return = ($id) ? "index.php?option=com_costbenefitprojection&view=country&layout=edit&id=" . $id : "";
+// check for a return value
+$jinput = JFactory::getApplication()->input;
+if ($_return = $jinput->get('return', null, 'base64'))
+{
+	$return .= "&return=" . $_return;
+}
+// check if return value was set
+if (CostbenefitprojectionHelper::checkString($return))
+{
+	// set the referral values
+	$ref = ($id) ? "&ref=country&refid=" . $id . "&return=" . urlencode(base64_encode($return)) : "&return=" . urlencode(base64_encode($return));
+}
+else
+{
+	$ref = ($id) ? "&ref=country&refid=" . $id : "";
+}
+// set the create new URL
+$new = "index.php?option=com_costbenefitprojection&view=service_providers&task=service_provider.edit" . $ref;
+// load the action object
 $can = CostbenefitprojectionHelper::getActions('service_provider');
 
 ?>
@@ -73,14 +92,14 @@ $can = CostbenefitprojectionHelper::getActions('service_provider');
 		$canDo = CostbenefitprojectionHelper::getActions('service_provider',$item,'service_providers');
 	?>
 	<tr>
-		<td class="nowrap">
+		<td>
 			<?php if ($canDo->get('service_provider.edit')): ?>
-				<a href="<?php echo $edit; ?>&id=<?php echo $item->id; ?>&ref=country&refid=<?php echo $id; ?>"><?php echo $displayData->escape($item->user_name); ?></a>
-					<?php if ($item->checked_out): ?>
-						<?php echo JHtml::_('jgrid.checkedout', $i, $userChkOut->name, $item->checked_out_time, 'service_providers.', $canCheckin); ?>
-					<?php endif; ?>
+				<a href="<?php echo $edit; ?>&id=<?php echo $item->id; ?><?php echo $ref; ?>"><?php echo JFactory::getUser((int)$item->user)->name; ?></a>
+				<?php if ($item->checked_out): ?>
+					<?php echo JHtml::_('jgrid.checkedout', $i, $userChkOut->name, $item->checked_out_time, 'service_providers.', $canCheckin); ?>
+				<?php endif; ?>
 			<?php else: ?>
-				<div class="name"><?php echo $displayData->escape($item->user_name); ?></div>
+				<?php echo JFactory::getUser((int)$item->user)->name; ?>
 			<?php endif; ?>
 		</td>
 		<td>

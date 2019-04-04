@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 24 of this MVC
-	@build			17th May, 2018
-	@created		8th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		causesrisks.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -20,24 +20,33 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-// import Joomla controlleradmin library
-jimport('joomla.application.component.controlleradmin');
-
 /**
  * Causesrisks Controller
  */
 class CostbenefitprojectionControllerCausesrisks extends JControllerAdmin
 {
-	protected $text_prefix = 'COM_COSTBENEFITPROJECTION_CAUSESRISKS';
 	/**
-	 * Proxy for getModel.
-	 * @since	2.5
+	 * The prefix to use with controller messages.
+	 *
+	 * @var    string
+	 * @since  1.6
 	 */
-	public function getModel($name = 'Causerisk', $prefix = 'CostbenefitprojectionModel', $config = array())
+	protected $text_prefix = 'COM_COSTBENEFITPROJECTION_CAUSESRISKS';
+
+	/**
+	 * Method to get a model object, loading it if required.
+	 *
+	 * @param   string  $name    The model name. Optional.
+	 * @param   string  $prefix  The class prefix. Optional.
+	 * @param   array   $config  Configuration array for model. Optional.
+	 *
+	 * @return  JModelLegacy  The model.
+	 *
+	 * @since   1.6
+	 */
+	public function getModel($name = 'Causerisk', $prefix = 'CostbenefitprojectionModel', $config = array('ignore_request' => true))
 	{
-		$model = parent::getModel($name, $prefix, array('ignore_request' => true));
-		
-		return $model;
+		return parent::getModel($name, $prefix, $config);
 	}
 
 	public function exportData()
@@ -101,5 +110,5 @@ class CostbenefitprojectionControllerCausesrisks extends JControllerAdmin
 		$message = JText::_('COM_COSTBENEFITPROJECTION_IMPORT_FAILED');
 		$this->setRedirect(JRoute::_('index.php?option=com_costbenefitprojection&view=causesrisks', false), $message, 'error');
 		return;
-	}  
+	}
 }

@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 71 of this MVC
-	@build			12th November, 2016
-	@created		8th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		intervention.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -19,9 +19,6 @@
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
-
-// import Joomla controllerform library
-jimport('joomla.application.component.controllerform');
 
 /**
  * Intervention Controller
@@ -37,6 +34,13 @@ class CostbenefitprojectionControllerIntervention extends JControllerForm
 	 */
 	protected $task;
 
+	/**
+	 * Class constructor.
+	 *
+	 * @param   array  $config  A named array of configuration variables.
+	 *
+	 * @since   1.6
+	 */
 	public function __construct($config = array())
 	{
 		$this->view_list = 'cpanel'; // safeguard for setting the return view listing to the default site view.
@@ -54,14 +58,17 @@ class CostbenefitprojectionControllerIntervention extends JControllerForm
 	 */
 	protected function allowAdd($data = array())
 	{
+		// Get user object.
+		$user = JFactory::getUser();
 		// Access check.
-		$access = JFactory::getUser()->authorise('intervention.access', 'com_costbenefitprojection');
+		$access = $user->authorise('intervention.access', 'com_costbenefitprojection');
 		if (!$access)
 		{
 			return false;
 		}
+
 		// In the absense of better information, revert to the component permissions.
-		return JFactory::getUser()->authorise('intervention.create', $this->option);
+		return $user->authorise('intervention.create', $this->option);
 	}
 
 	/**
@@ -77,9 +84,9 @@ class CostbenefitprojectionControllerIntervention extends JControllerForm
 	protected function allowEdit($data = array(), $key = 'id')
 	{
 		// get user object.
-		$user		= JFactory::getUser();
+		$user = JFactory::getUser();
 		// get record id.
-		$recordId	= (int) isset($data[$key]) ? $data[$key] : 0;
+		$recordId = (int) isset($data[$key]) ? $data[$key] : 0;
 		// get company id
 		$company = CostbenefitprojectionHelper::getId('intervention',$recordId,'id','company');
 		if (!$user->authorise('core.options', 'com_costbenefitprojection'))
@@ -150,42 +157,25 @@ class CostbenefitprojectionControllerIntervention extends JControllerForm
 	 *
 	 * @return  string  The arguments to append to the redirect URL.
 	 *
-	 * @since   12.2
+	 * @since   1.6
 	 */
 	protected function getRedirectToItemAppend($recordId = null, $urlVar = 'id')
 	{
-		$tmpl   = $this->input->get('tmpl');
-		$layout = $this->input->get('layout', 'edit', 'string');
+		// get the referral options (old method use return instead see parent)
+		$ref = $this->input->get('ref', 0, 'string');
+		$refid = $this->input->get('refid', 0, 'int');
 
-		$ref 	= $this->input->get('ref', 0, 'string');
-		$refid 	= $this->input->get('refid', 0, 'int');
+		// get redirect info.
+		$append = parent::getRedirectToItemAppend($recordId, $urlVar);
 
-		// Setup redirect info.
-
-		$append = '';
-
-		if ($refid)
-		{
-			$append .= '&ref='.(string)$ref.'&refid='.(int)$refid;
+		// set the referral options
+		if ($refid && $ref)
+                {
+			$append = '&ref=' . (string)$ref . '&refid='. (int)$refid . $append;
 		}
 		elseif ($ref)
 		{
-			$append .= '&ref='.(string)$ref;
-		}
-
-		if ($tmpl)
-		{
-			$append .= '&tmpl=' . $tmpl;
-		}
-
-		if ($layout)
-		{
-			$append .= '&layout=' . $layout;
-		}
-
-		if ($recordId)
-		{
-			$append .= '&' . $urlVar . '=' . $recordId;
+			$append = '&ref='. (string)$ref . $append;
 		}
 
 		return $append;
@@ -224,43 +214,45 @@ class CostbenefitprojectionControllerIntervention extends JControllerForm
 	 */
 	public function cancel($key = null)
 	{
-		// get the referal details
-		$this->ref 		= $this->input->get('ref', 0, 'word');
-		$this->refid 	= $this->input->get('refid', 0, 'int');
+		// get the referral options
+		$this->ref = $this->input->get('ref', 0, 'word');
+		$this->refid = $this->input->get('refid', 0, 'int');
+
+		// Check if there is a return value
+		$return = $this->input->get('return', null, 'base64');
 
 		$cancel = parent::cancel($key);
 
-		if ($cancel)
+		if (!is_null($return) && JUri::isInternal(base64_decode($return)))
 		{
-			if ($this->refid)
-			{
-				$redirect = '&view='.(string)$this->ref.'&layout=edit&id='.(int)$this->refid;
+			$redirect = base64_decode($return);
 
-				// Redirect to the item screen.
-				$this->setRedirect(
-					JRoute::_(
-						'index.php?option=' . $this->option . $redirect, false
-					)
-				);
-			}
-			elseif ($this->ref)
-			{
-				$redirect = '&view='.(string)$this->ref;
-
-				// Redirect to the list screen.
-				$this->setRedirect(
-					JRoute::_(
-						'index.php?option=' . $this->option . $redirect, false
-					)
-				);
-			}
-		}
-		else
-		{
-			// Redirect to the items screen.
+			// Redirect to the return value.
 			$this->setRedirect(
 				JRoute::_(
-					'index.php?option=' . $this->option . '&view=' . $this->view_list, false
+					$redirect, false
+				)
+			);
+		}
+		elseif ($this->refid && $this->ref)
+		{
+			$redirect = '&view=' . (string)$this->ref . '&layout=edit&id=' . (int)$this->refid;
+
+			// Redirect to the item screen.
+			$this->setRedirect(
+				JRoute::_(
+					'index.php?option=' . $this->option . $redirect, false
+				)
+			);
+		}
+		elseif ($this->ref)
+		{
+			$redirect = '&view=' . (string)$this->ref;
+
+			// Redirect to the list screen.
+			$this->setRedirect(
+				JRoute::_(
+					'index.php?option=' . $this->option . $redirect, false
 				)
 			);
 		}
@@ -279,11 +271,15 @@ class CostbenefitprojectionControllerIntervention extends JControllerForm
 	 */
 	public function save($key = null, $urlVar = null)
 	{
-		// get the referal details
-		$this->ref 		= $this->input->get('ref', 0, 'word');
-		$this->refid 	= $this->input->get('refid', 0, 'int');
+		// get the referral options
+		$this->ref = $this->input->get('ref', 0, 'word');
+		$this->refid = $this->input->get('refid', 0, 'int');
 
-		if ($this->ref || $this->refid)
+		// Check if there is a return value
+		$return = $this->input->get('return', null, 'base64');
+		$canReturn = (!is_null($return) && JUri::isInternal(base64_decode($return)));
+
+		if ($this->ref || $this->refid || $canReturn)
 		{
 			// to make sure the item is checkedin on redirect
 			$this->task = 'save';
@@ -291,9 +287,22 @@ class CostbenefitprojectionControllerIntervention extends JControllerForm
 
 		$saved = parent::save($key, $urlVar);
 
-		if ($this->refid && $saved)
+		// This is not needed since parent save already does this
+		// Due to the ref and refid implementation we need to add this
+		if ($canReturn)
 		{
-			$redirect = '&view='.(string)$this->ref.'&layout=edit&id='.(int)$this->refid;
+			$redirect = base64_decode($return);
+
+			// Redirect to the return value.
+			$this->setRedirect(
+				JRoute::_(
+					$redirect, false
+				)
+			);
+		}
+		elseif ($this->refid && $this->ref)
+		{
+			$redirect = '&view=' . (string)$this->ref . '&layout=edit&id=' . (int)$this->refid;
 
 			// Redirect to the item screen.
 			$this->setRedirect(
@@ -302,9 +311,9 @@ class CostbenefitprojectionControllerIntervention extends JControllerForm
 				)
 			);
 		}
-		elseif ($this->ref && $saved)
+		elseif ($this->ref)
 		{
-			$redirect = '&view='.(string)$this->ref;
+			$redirect = '&view=' . (string)$this->ref;
 
 			// Redirect to the list screen.
 			$this->setRedirect(

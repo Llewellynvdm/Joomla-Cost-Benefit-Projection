@@ -2,9 +2,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 101 of this MVC
-	@build			29th June, 2016
-	@created		15th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		company.js
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -42,6 +42,7 @@ function vvvvvvv(department_vvvvvvv)
 	if (department_vvvvvvv == 2)
 	{
 		jQuery('#jform_causesrisks').closest('.control-group').show();
+		// add required attribute to causesrisks field
 		if (jform_vvvvvvvvvv_required)
 		{
 			updateFieldRequired('causesrisks',0);
@@ -50,10 +51,10 @@ function vvvvvvv(department_vvvvvvv)
 			jQuery('#jform_causesrisks').addClass('required');
 			jform_vvvvvvvvvv_required = false;
 		}
-
 		jQuery('#jform_percentfemale').closest('.control-group').show();
 		jQuery('#jform_percentmale').closest('.control-group').show();
 		jQuery('#jform_productivity_losses').closest('.control-group').show();
+		// add required attribute to productivity_losses field
 		if (jform_vvvvvvvvvw_required)
 		{
 			updateFieldRequired('productivity_losses',0);
@@ -62,8 +63,8 @@ function vvvvvvv(department_vvvvvvv)
 			jQuery('#jform_productivity_losses').addClass('required');
 			jform_vvvvvvvvvw_required = false;
 		}
-
 		jQuery('#jform_medical_turnovers_females').closest('.control-group').show();
+		// add required attribute to medical_turnovers_females field
 		if (jform_vvvvvvvvvx_required)
 		{
 			updateFieldRequired('medical_turnovers_females',0);
@@ -72,8 +73,8 @@ function vvvvvvv(department_vvvvvvv)
 			jQuery('#jform_medical_turnovers_females').addClass('required');
 			jform_vvvvvvvvvx_required = false;
 		}
-
 		jQuery('#jform_medical_turnovers_males').closest('.control-group').show();
+		// add required attribute to medical_turnovers_males field
 		if (jform_vvvvvvvvvy_required)
 		{
 			updateFieldRequired('medical_turnovers_males',0);
@@ -82,8 +83,8 @@ function vvvvvvv(department_vvvvvvv)
 			jQuery('#jform_medical_turnovers_males').addClass('required');
 			jform_vvvvvvvvvy_required = false;
 		}
-
 		jQuery('#jform_sick_leave_females').closest('.control-group').show();
+		// add required attribute to sick_leave_females field
 		if (jform_vvvvvvvvvz_required)
 		{
 			updateFieldRequired('sick_leave_females',0);
@@ -92,8 +93,8 @@ function vvvvvvv(department_vvvvvvv)
 			jQuery('#jform_sick_leave_females').addClass('required');
 			jform_vvvvvvvvvz_required = false;
 		}
-
 		jQuery('#jform_sick_leave_males').closest('.control-group').show();
+		// add required attribute to sick_leave_males field
 		if (jform_vvvvvvvvwa_required)
 		{
 			updateFieldRequired('sick_leave_males',0);
@@ -102,8 +103,8 @@ function vvvvvvv(department_vvvvvvv)
 			jQuery('#jform_sick_leave_males').addClass('required');
 			jform_vvvvvvvvwa_required = false;
 		}
-
 		jQuery('#jform_total_healthcare').closest('.control-group').show();
+		// add required attribute to total_healthcare field
 		if (jform_vvvvvvvvwb_required)
 		{
 			updateFieldRequired('total_healthcare',0);
@@ -112,12 +113,12 @@ function vvvvvvv(department_vvvvvvv)
 			jQuery('#jform_total_healthcare').addClass('required');
 			jform_vvvvvvvvwb_required = false;
 		}
-
 		jQuery('#jform_turnover_comment').closest('.control-group').show();
 	}
 	else
 	{
 		jQuery('#jform_causesrisks').closest('.control-group').hide();
+		// remove required attribute from causesrisks field
 		if (!jform_vvvvvvvvvv_required)
 		{
 			updateFieldRequired('causesrisks',1);
@@ -129,6 +130,7 @@ function vvvvvvv(department_vvvvvvv)
 		jQuery('#jform_percentfemale').closest('.control-group').hide();
 		jQuery('#jform_percentmale').closest('.control-group').hide();
 		jQuery('#jform_productivity_losses').closest('.control-group').hide();
+		// remove required attribute from productivity_losses field
 		if (!jform_vvvvvvvvvw_required)
 		{
 			updateFieldRequired('productivity_losses',1);
@@ -138,6 +140,7 @@ function vvvvvvv(department_vvvvvvv)
 			jform_vvvvvvvvvw_required = true;
 		}
 		jQuery('#jform_medical_turnovers_females').closest('.control-group').hide();
+		// remove required attribute from medical_turnovers_females field
 		if (!jform_vvvvvvvvvx_required)
 		{
 			updateFieldRequired('medical_turnovers_females',1);
@@ -147,6 +150,7 @@ function vvvvvvv(department_vvvvvvv)
 			jform_vvvvvvvvvx_required = true;
 		}
 		jQuery('#jform_medical_turnovers_males').closest('.control-group').hide();
+		// remove required attribute from medical_turnovers_males field
 		if (!jform_vvvvvvvvvy_required)
 		{
 			updateFieldRequired('medical_turnovers_males',1);
@@ -156,6 +160,7 @@ function vvvvvvv(department_vvvvvvv)
 			jform_vvvvvvvvvy_required = true;
 		}
 		jQuery('#jform_sick_leave_females').closest('.control-group').hide();
+		// remove required attribute from sick_leave_females field
 		if (!jform_vvvvvvvvvz_required)
 		{
 			updateFieldRequired('sick_leave_females',1);
@@ -165,6 +170,7 @@ function vvvvvvv(department_vvvvvvv)
 			jform_vvvvvvvvvz_required = true;
 		}
 		jQuery('#jform_sick_leave_males').closest('.control-group').hide();
+		// remove required attribute from sick_leave_males field
 		if (!jform_vvvvvvvvwa_required)
 		{
 			updateFieldRequired('sick_leave_males',1);
@@ -174,6 +180,7 @@ function vvvvvvv(department_vvvvvvv)
 			jform_vvvvvvvvwa_required = true;
 		}
 		jQuery('#jform_total_healthcare').closest('.control-group').hide();
+		// remove required attribute from total_healthcare field
 		if (!jform_vvvvvvvvwb_required)
 		{
 			updateFieldRequired('total_healthcare',1);

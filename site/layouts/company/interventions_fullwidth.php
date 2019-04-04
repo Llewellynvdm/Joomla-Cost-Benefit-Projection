@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.3
-	@build			17th May, 2018
+	@version		3.4.x
+	@build			4th April, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		interventions_fullwidth.php
@@ -18,16 +18,35 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // No direct access to this file
-
 defined('_JEXEC') or die('Restricted access');
 
 // set the defaults
-$items	= $displayData->vwdinterventions;
-$user	= JFactory::getUser();
-$id	= $displayData->item->id;
+$items = $displayData->vwdinterventions;
+$user = JFactory::getUser();
+$id = $displayData->item->id;
+// set the edit URL
 $edit = "index.php?option=com_costbenefitprojection&view=interventions&task=intervention.edit";
-$ref = ($id) ? "&ref=company&refid=".$id : "";
-$new = "index.php?option=com_costbenefitprojection&view=intervention&layout=edit".$ref;
+// set a return value
+$return = ($id) ? "index.php?option=com_costbenefitprojection&view=company&layout=edit&id=" . $id : "";
+// check for a return value
+$jinput = JFactory::getApplication()->input;
+if ($_return = $jinput->get('return', null, 'base64'))
+{
+	$return .= "&return=" . $_return;
+}
+// check if return value was set
+if (CostbenefitprojectionHelper::checkString($return))
+{
+	// set the referral values
+	$ref = ($id) ? "&ref=company&refid=" . $id . "&return=" . urlencode(base64_encode($return)) : "&return=" . urlencode(base64_encode($return));
+}
+else
+{
+	$ref = ($id) ? "&ref=company&refid=" . $id : "";
+}
+// set the create new URL
+$new = "index.php?option=com_costbenefitprojection&view=interventions&task=intervention.edit" . $ref;
+// load the action object
 $can = CostbenefitprojectionHelper::getActions('intervention');
 
 ?>
@@ -73,14 +92,14 @@ $can = CostbenefitprojectionHelper::getActions('intervention');
 		$canDo = CostbenefitprojectionHelper::getActions('intervention',$item,'interventions');
 	?>
 	<tr>
-		<td class="nowrap">
+		<td>
 			<?php if ($canDo->get('intervention.edit')): ?>
-				<a href="<?php echo $edit; ?>&id=<?php echo $item->id; ?>&ref=company&refid=<?php echo $id; ?>"><?php echo $displayData->escape($item->name); ?></a>
-					<?php if ($item->checked_out): ?>
-						<?php echo JHtml::_('jgrid.checkedout', $i, $userChkOut->name, $item->checked_out_time, 'interventions.', $canCheckin); ?>
-					<?php endif; ?>
+				<a href="<?php echo $edit; ?>&id=<?php echo $item->id; ?><?php echo $ref; ?>"><?php echo $displayData->escape($item->name); ?></a>
+				<?php if ($item->checked_out): ?>
+					<?php echo JHtml::_('jgrid.checkedout', $i, $userChkOut->name, $item->checked_out_time, 'interventions.', $canCheckin); ?>
+				<?php endif; ?>
 			<?php else: ?>
-				<div class="name"><?php echo $displayData->escape($item->name); ?></div>
+				<?php echo $displayData->escape($item->name); ?>
 			<?php endif; ?>
 		</td>
 		<td>

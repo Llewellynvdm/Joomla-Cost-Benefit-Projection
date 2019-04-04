@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.3
-	@build			17th May, 2018
+	@version		3.4.x
+	@build			4th April, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		interventions.php
@@ -39,9 +39,9 @@ class JFormFieldInterventions extends JFormFieldList
 	/**
 	 * Method to get a list of options for a list input.
 	 *
-	 * @return	array		An array of JHtml options.
+	 * @return	array    An array of JHtml options.
 	 */
-	public function getOptions()
+	protected function getOptions()
 	{
 		// get the input from url
 		$jinput = JFactory::getApplication()->input;

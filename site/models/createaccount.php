@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 22 of this MVC
-	@build			18th August, 2017
-	@created		28th November, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		createaccount.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -19,9 +19,6 @@
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
-
-// import the Joomla modellist library
-jimport('joomla.application.component.modellist');
 
 /**
  * Costbenefitprojection Model for Createaccount
@@ -103,7 +100,7 @@ class CostbenefitprojectionModelCreateaccount extends JModelList
 			// redirect away to the default view if no access allowed.
 			$app->redirect(JRoute::_('index.php?option=com_costbenefitprojection&view=cpanel'));
 			return false;
-		}  
+		}
 		// load parent items
 		$items = parent::getItems();
 
@@ -120,28 +117,30 @@ class CostbenefitprojectionModelCreateaccount extends JModelList
 			{
 				// Always create a slug for sef URL's
 				$item->slug = (isset($item->alias) && isset($item->id)) ? $item->id.':'.$item->alias : $item->id;
+				// Check if item has params, or pass whole item.
+				$params = (isset($item->params) && CostbenefitprojectionHelper::checkJson($item->params)) ? json_decode($item->params) : $item;
 				// Make sure the content prepare plugins fire on publicaddress
 				$_publicaddress = new stdClass();
 				$_publicaddress->text =& $item->publicaddress; // value must be in text
 				// Since all values are now in text (Joomla Limitation), we also add the field name (publicaddress) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.createaccount.publicaddress', &$_publicaddress, &$this->params, 0));
+				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.createaccount.publicaddress', &$_publicaddress, &$params, 0));
 				// Checking if publicaddress has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->publicaddress,$this->uikitComp);
 				// set idCountryService_providerB to the $item object.
 				$item->idCountryService_providerB = $this->getIdCountryService_providerCace_B($item->id);
 			}
-		} 
+		}
 
 		// return items
 		return $items;
-	} 
+	}
 
 	/**
-	* Method to get an array of Service_provider Objects.
-	*
-	* @return mixed  An array of Service_provider Objects on success, false on failure.
-	*
-	*/
+	 * Method to get an array of Service_provider Objects.
+	 *
+	 * @return mixed  An array of Service_provider Objects on success, false on failure.
+	 *
+	 */
 	public function getIdCountryService_providerCace_B($id)
 	{
 		// Get a db connection.
@@ -167,34 +166,18 @@ class CostbenefitprojectionModelCreateaccount extends JModelList
 		// check if there was data returned
 		if ($db->getNumRows())
 		{
-			// Load the JEvent Dispatcher
-			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
-			$items = $db->loadObjectList();
-
-			// Convert the parameter fields into objects.
-			foreach ($items as $nr => &$item)
-			{
-				// Make sure the content prepare plugins fire on publicaddress
-				$_publicaddress = new stdClass();
-				$_publicaddress->text =& $item->publicaddress; // value must be in text
-				// Since all values are now in text (Joomla Limitation), we also add the field name (publicaddress) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.createaccount.publicaddress', &$_publicaddress, &$this->params, 0));
-				// Checking if publicaddress has uikit components that must be loaded.
-				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->publicaddress,$this->uikitComp);
-			}
-			return $items;
+			return $db->loadObjectList();
 		}
 		return false;
 	}
 
 
 	/**
-	* Get the uikit needed components
-	*
-	* @return mixed  An array of objects on success.
-	*
-	*/
+	 * Get the uikit needed components
+	 *
+	 * @return mixed  An array of objects on success.
+	 *
+	 */
 	public function getUikitComp()
 	{
 		if (isset($this->uikitComp) && CostbenefitprojectionHelper::checkArray($this->uikitComp))
@@ -202,5 +185,5 @@ class CostbenefitprojectionModelCreateaccount extends JModelList
 			return $this->uikitComp;
 		}
 		return false;
-	}  
+	}
 }

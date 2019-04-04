@@ -106,6 +106,7 @@
 			type="countryuser"
 			name="user"
 			label="COM_COSTBENEFITPROJECTION_COUNTRY_USER_LABEL"
+			default=""
 			hint="COM_COSTBENEFITPROJECTION_COUNTRY_USER_HINT"
 		/>
 		<!-- Currency Field. Type: Currency. (custom) -->
@@ -116,6 +117,7 @@
 			description="COM_COSTBENEFITPROJECTION_COUNTRY_CURRENCY_DESCRIPTION"
 			class="list_class"
 			multiple="false"
+			default=""
 			required="true"
 		/>
 		<!-- Codethree Field. Type: Text. (joomla) -->
@@ -125,6 +127,7 @@
 			label="COM_COSTBENEFITPROJECTION_COUNTRY_CODETHREE_LABEL"
 			size="40"
 			maxlength="3"
+			default=""
 			description="COM_COSTBENEFITPROJECTION_COUNTRY_CODETHREE_DESCRIPTION"
 			class="text_area"
 			required="true"
@@ -139,6 +142,7 @@
 			label="COM_COSTBENEFITPROJECTION_COUNTRY_CODETWO_LABEL"
 			size="40"
 			maxlength="2"
+			default=""
 			description="COM_COSTBENEFITPROJECTION_COUNTRY_CODETWO_DESCRIPTION"
 			class="text_area"
 			required="true"
@@ -173,13 +177,14 @@
 			message="COM_COSTBENEFITPROJECTION_COUNTRY_PUBLICEMAIL_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_COUNTRY_PUBLICEMAIL_HINT"
 		/>
-		<!-- Publicnumber Field. Type: Tel. (joomla) -->
+		<!-- Publicnumber Field. Type: Text. (joomla) -->
 		<field
-			type="tel"
+			type="text"
 			name="publicnumber"
 			label="COM_COSTBENEFITPROJECTION_COUNTRY_PUBLICNUMBER_LABEL"
 			size="60"
 			maxlength="150"
+			default=""
 			description="COM_COSTBENEFITPROJECTION_COUNTRY_PUBLICNUMBER_DESCRIPTION"
 			class="text_area"
 			filter="STRING"
@@ -194,6 +199,7 @@
 			label="COM_COSTBENEFITPROJECTION_COUNTRY_PRODUCTIVITY_LOSSES_LABEL"
 			size="10"
 			maxlength="10"
+			default=""
 			description="COM_COSTBENEFITPROJECTION_COUNTRY_PRODUCTIVITY_LOSSES_DESCRIPTION"
 			class="text_area"
 			readonly="false"
@@ -224,6 +230,7 @@
 			name="maleyld"
 			label="COM_COSTBENEFITPROJECTION_COUNTRY_MALEYLD_LABEL"
 			description="COM_COSTBENEFITPROJECTION_COUNTRY_MALEYLD_DESCRIPTION"
+			default=""
 			id="maleyld"
 			class="malesyld"
 			select="COM_COSTBENEFITPROJECTION_COUNTRY_MALEYLD_SELECT"
@@ -238,7 +245,8 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD"
-						required="false">
+						required="false"
+						default="">
 						<!-- Option Set. -->
 						<option value="15-19">
 							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTEENNINETEEN</option>
@@ -268,6 +276,7 @@
 						label="COM_COSTBENEFITPROJECTION_COUNTRY_NUMBER_LABEL"
 						size="10"
 						maxlength="50"
+						default=""
 						class="text_area"
 						readonly="false"
 						disabled="false"
@@ -284,7 +293,8 @@
 						class="list_class"
 						multiple="false"
 						filter="INT"
-						required="false">
+						required="false"
+						default="">
 						<!-- Option Set. -->
 						<option value="">
 							COM_COSTBENEFITPROJECTION_COUNTRY_SELECT_A_YEAR</option>
@@ -337,6 +347,7 @@
 			name="maledeath"
 			label="COM_COSTBENEFITPROJECTION_COUNTRY_MALEDEATH_LABEL"
 			description="COM_COSTBENEFITPROJECTION_COUNTRY_MALEDEATH_DESCRIPTION"
+			default=""
 			id="maledeath"
 			class="malesdeath"
 			select="COM_COSTBENEFITPROJECTION_COUNTRY_MALEDEATH_SELECT"
@@ -351,7 +362,8 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD"
-						required="false">
+						required="false"
+						default="">
 						<!-- Option Set. -->
 						<option value="15-19">
 							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTEENNINETEEN</option>
@@ -381,6 +393,7 @@
 						label="COM_COSTBENEFITPROJECTION_COUNTRY_NUMBER_LABEL"
 						size="10"
 						maxlength="50"
+						default=""
 						class="text_area"
 						readonly="false"
 						disabled="false"
@@ -397,7 +410,8 @@
 						class="list_class"
 						multiple="false"
 						filter="INT"
-						required="false">
+						required="false"
+						default="">
 						<!-- Option Set. -->
 						<option value="">
 							COM_COSTBENEFITPROJECTION_COUNTRY_SELECT_A_YEAR</option>
@@ -441,6 +455,7 @@
 			name="percentfemale"
 			label="COM_COSTBENEFITPROJECTION_COUNTRY_PERCENTFEMALE_LABEL"
 			description="COM_COSTBENEFITPROJECTION_COUNTRY_PERCENTFEMALE_DESCRIPTION"
+			default=""
 			id="percentfemale"
 			class="percentfemales"
 			select="COM_COSTBENEFITPROJECTION_COUNTRY_PERCENTFEMALE_SELECT"
@@ -456,7 +471,8 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD"
-						required="false">
+						required="false"
+						default="">
 						<!-- Option Set. -->
 						<option value="15-19">
 							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTEENNINETEEN</option>
@@ -486,6 +502,7 @@
 						label="COM_COSTBENEFITPROJECTION_COUNTRY_PERCENT_LABEL"
 						size="10"
 						maxlength="50"
+						default=""
 						class="text_area"
 						readonly="false"
 						disabled="false"
@@ -524,6 +541,7 @@
 			label="COM_COSTBENEFITPROJECTION_COUNTRY_WORLDZONE_LABEL"
 			size="40"
 			maxlength="50"
+			default=""
 			description="COM_COSTBENEFITPROJECTION_COUNTRY_WORLDZONE_DESCRIPTION"
 			class="text_area"
 			required="false"
@@ -537,6 +555,7 @@
 			name="percentmale"
 			label="COM_COSTBENEFITPROJECTION_COUNTRY_PERCENTMALE_LABEL"
 			description="COM_COSTBENEFITPROJECTION_COUNTRY_PERCENTMALE_DESCRIPTION"
+			default=""
 			id="percentmale"
 			class="percentmales"
 			select="COM_COSTBENEFITPROJECTION_COUNTRY_PERCENTMALE_SELECT"
@@ -552,7 +571,8 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD"
-						required="false">
+						required="false"
+						default="">
 						<!-- Option Set. -->
 						<option value="15-19">
 							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTEENNINETEEN</option>
@@ -582,6 +602,7 @@
 						label="COM_COSTBENEFITPROJECTION_COUNTRY_PERCENT_LABEL"
 						size="10"
 						maxlength="50"
+						default=""
 						class="text_area"
 						readonly="false"
 						disabled="false"
@@ -600,6 +621,7 @@
 			label="COM_COSTBENEFITPROJECTION_COUNTRY_PRESENTEEISM_LABEL"
 			size="10"
 			maxlength="10"
+			default=""
 			description="COM_COSTBENEFITPROJECTION_COUNTRY_PRESENTEEISM_DESCRIPTION"
 			class="text_area"
 			readonly="false"
@@ -615,6 +637,7 @@
 			name="causesrisks"
 			label="COM_COSTBENEFITPROJECTION_COUNTRY_CAUSESRISKS_LABEL"
 			class="list_class"
+			default=""
 			required="true"
 		/>
 		<!-- Medical_turnovers Field. Type: Text. (joomla) -->
@@ -624,6 +647,7 @@
 			label="COM_COSTBENEFITPROJECTION_COUNTRY_MEDICAL_TURNOVERS_LABEL"
 			size="10"
 			maxlength="10"
+			default=""
 			description="COM_COSTBENEFITPROJECTION_COUNTRY_MEDICAL_TURNOVERS_DESCRIPTION"
 			class="text_area"
 			readonly="false"
@@ -639,6 +663,7 @@
 			name="femaledeath"
 			label="COM_COSTBENEFITPROJECTION_COUNTRY_FEMALEDEATH_LABEL"
 			description="COM_COSTBENEFITPROJECTION_COUNTRY_FEMALEDEATH_DESCRIPTION"
+			default=""
 			id="femaledeath"
 			class="femalesdeath"
 			select="COM_COSTBENEFITPROJECTION_COUNTRY_FEMALEDEATH_SELECT"
@@ -653,7 +678,8 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD"
-						required="false">
+						required="false"
+						default="">
 						<!-- Option Set. -->
 						<option value="15-19">
 							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTEENNINETEEN</option>
@@ -683,6 +709,7 @@
 						label="COM_COSTBENEFITPROJECTION_COUNTRY_NUMBER_LABEL"
 						size="10"
 						maxlength="50"
+						default=""
 						class="text_area"
 						readonly="false"
 						disabled="false"
@@ -699,7 +726,8 @@
 						class="list_class"
 						multiple="false"
 						filter="INT"
-						required="false">
+						required="false"
+						default="">
 						<!-- Option Set. -->
 						<option value="">
 							COM_COSTBENEFITPROJECTION_COUNTRY_SELECT_A_YEAR</option>
@@ -744,6 +772,7 @@
 			label="COM_COSTBENEFITPROJECTION_COUNTRY_SICK_LEAVE_LABEL"
 			size="10"
 			maxlength="10"
+			default=""
 			description="COM_COSTBENEFITPROJECTION_COUNTRY_SICK_LEAVE_DESCRIPTION"
 			class="text_area"
 			readonly="false"
@@ -759,6 +788,7 @@
 			name="femaleyld"
 			label="COM_COSTBENEFITPROJECTION_COUNTRY_FEMALEYLD_LABEL"
 			description="COM_COSTBENEFITPROJECTION_COUNTRY_FEMALEYLD_DESCRIPTION"
+			default=""
 			id="femaleyld"
 			class="femalesyld"
 			select="COM_COSTBENEFITPROJECTION_COUNTRY_FEMALEYLD_SELECT"
@@ -774,7 +804,8 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD"
-						required="false">
+						required="false"
+						default="">
 						<!-- Option Set. -->
 						<option value="15-19">
 							COM_COSTBENEFITPROJECTION_COUNTRY_FIFTEENNINETEEN</option>
@@ -804,6 +835,7 @@
 						label="COM_COSTBENEFITPROJECTION_COUNTRY_NUMBER_LABEL"
 						size="10"
 						maxlength="50"
+						default=""
 						class="text_area"
 						readonly="false"
 						disabled="false"
@@ -820,7 +852,8 @@
 						class="list_class"
 						multiple="false"
 						filter="INT"
-						required="false">
+						required="false"
+						default="">
 						<!-- Option Set. -->
 						<option value="">
 							COM_COSTBENEFITPROJECTION_COUNTRY_SELECT_A_YEAR</option>
@@ -865,6 +898,7 @@
 			label="COM_COSTBENEFITPROJECTION_COUNTRY_HEALTHCARE_LABEL"
 			size="10"
 			maxlength="10"
+			default=""
 			description="COM_COSTBENEFITPROJECTION_COUNTRY_HEALTHCARE_DESCRIPTION"
 			class="text_area"
 			readonly="false"

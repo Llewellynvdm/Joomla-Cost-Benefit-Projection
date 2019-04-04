@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.3
-	@build			17th May, 2018
+	@version		3.4.x
+	@build			4th April, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		company.php
@@ -68,9 +68,15 @@ class JFormFieldCompany extends JFormFieldList
 			$refJ = '';
 			if (!is_null($values['id']) && strlen($values['view']))
 			{
-				// only load referal if not new item.
+				// only load referral if not new item.
 				$ref = '&amp;ref=' . $values['view'] . '&amp;refid=' . $values['id'];
 				$refJ = '&ref=' . $values['view'] . '&refid=' . $values['id'];
+				// get the return value.
+				$_uri = (string) JUri::getInstance();
+				$_return = urlencode(base64_encode($_uri));
+				// load return value.
+				$ref .= '&amp;return=' . $_return;
+				$refJ .= '&return=' . $_return;
 			}
 			$user = JFactory::getUser();
 			// only add if user allowed to create company
@@ -140,9 +146,9 @@ class JFormFieldCompany extends JFormFieldList
 	/**
 	 * Method to get a list of options for a list input.
 	 *
-	 * @return	array		An array of JHtml options.
+	 * @return	array    An array of JHtml options.
 	 */
-	public function getOptions()
+	protected function getOptions()
 	{
 		// Get the user object.
 		$user = JFactory::getUser();

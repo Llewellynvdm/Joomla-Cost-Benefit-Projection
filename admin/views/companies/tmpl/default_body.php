@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 101 of this MVC
-	@build			29th June, 2016
-	@created		15th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_body.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -69,16 +69,16 @@ $edit = "index.php?option=com_costbenefitprojection&view=companies&task=company.
 		<?php endif; ?>
 		</td>
 		<td class="nowrap">
-			<?php if ($canDo->get('company.edit')): ?>
-				<div class="name">
+			<div class="name">
+				<?php if ($canDo->get('company.edit')): ?>
 					<a href="<?php echo $edit; ?>&id=<?php echo $item->id; ?>"><?php echo $this->escape($item->name); ?></a>
 					<?php if ($item->checked_out): ?>
 						<?php echo JHtml::_('jgrid.checkedout', $i, $userChkOut->name, $item->checked_out_time, 'companies.', $canCheckin); ?>
 					<?php endif; ?>
-				</div>
-			<?php else: ?>
-				<div class="name"><?php echo $this->escape($item->name); ?></div>
-			<?php endif; ?>
+				<?php else: ?>
+					<?php echo $this->escape($item->name); ?>
+				<?php endif; ?>
+			</div>
 			<div class="btn-group">
 			<?php if ($canDo->get('companyresults.access')): ?>
 				<a class="hasTooltip btn btn-mini" href="index.php?option=com_costbenefitprojection&view=companyresults&id=<?php echo $item->id; ?>" title="<?php echo JText::_('COM_COSTBENEFITPROJECTION_COMPANYRESULTS'); ?>" ><span class="icon-chart"></span></a>
@@ -87,34 +87,35 @@ $edit = "index.php?option=com_costbenefitprojection&view=companies&task=company.
 			<?php endif; ?>
 			</div>
 		</td>
-		<?php $user = JFactory::getUser($item->user); ?>
 		<td class="nowrap">
-			<?php if ($this->user->authorise('core.edit', 'com_users')): ?>
-				<a href="index.php?option=com_users&task=user.edit&id=<?php echo (int) $item->user ?>"><?php echo $user->name; ?></a>
-			<?php else: ?>
-				<?php echo $user->name; ?>
-			<?php endif; ?>
+			<div class="name">
+				<?php if ($this->user->authorise('core.edit', 'com_users')): ?>
+					<a href="index.php?option=com_users&task=user.edit&id=<?php echo (int) $item->user ?>"><?php echo JFactory::getUser((int)$item->user)->name; ?></a>
+				<?php else: ?>
+					<?php echo JFactory::getUser((int)$item->user)->name; ?>
+				<?php endif; ?>
+			</div>
 		</td>
 		<td class="hidden-phone">
 			<?php echo JText::_($item->department); ?>
 		</td>
 		<td class="nowrap">
-			<?php if ($this->user->authorise('country.edit', 'com_costbenefitprojection.country.' . (int)$item->country)): ?>
-				<div class="name">
-					<a href="index.php?option=com_costbenefitprojection&view=countries&task=country.edit&id=<?php echo $item->country; ?>&ref=companies"><?php echo $this->escape($item->country_name); ?></a>
-				</div>
-			<?php else: ?>
-				<div class="name"><?php echo $this->escape($item->country_name); ?></div>
-			<?php endif; ?>
+			<div class="name">
+				<?php if ($this->user->authorise('country.edit', 'com_costbenefitprojection.country.' . (int)$item->country)): ?>
+					<a href="index.php?option=com_costbenefitprojection&view=countries&task=country.edit&id=<?php echo $item->country; ?>&return=<?php echo $this->return_here; ?>"><?php echo $this->escape($item->country_name); ?></a>
+				<?php else: ?>
+					<?php echo $this->escape($item->country_name); ?>
+				<?php endif; ?>
+			</div>
 		</td>
 		<td class="nowrap">
-			<?php if ($this->user->authorise('service_provider.edit', 'com_costbenefitprojection.service_provider.' . (int)$item->service_provider)): ?>
-				<div class="name">
-					<a href="index.php?option=com_costbenefitprojection&view=service_providers&task=service_provider.edit&id=<?php echo $item->service_provider; ?>&ref=companies"><?php echo JFactory::getUser((int)$item->service_provider_user)->name; ?></a>
-				</div>
-			<?php else: ?>
-				<div class="name"><?php echo JFactory::getUser((int)$item->service_provider_user)->name; ?></div>
-			<?php endif; ?>
+			<div class="name">
+				<?php if ($this->user->authorise('service_provider.edit', 'com_costbenefitprojection.service_provider.' . (int)$item->service_provider)): ?>
+					<a href="index.php?option=com_costbenefitprojection&view=service_providers&task=service_provider.edit&id=<?php echo $item->service_provider; ?>&return=<?php echo $this->return_here; ?>"><?php echo JFactory::getUser((int)$item->service_provider_user)->name; ?></a>
+				<?php else: ?>
+					<?php echo JFactory::getUser((int)$item->service_provider_user)->name; ?>
+				<?php endif; ?>
+			</div>
 		</td>
 		<td class="hidden-phone">
 			<?php echo JText::_($item->per); ?>

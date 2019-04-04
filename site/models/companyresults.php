@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 38 of this MVC
-	@build			18th August, 2017
-	@created		27th September, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		companyresults.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -19,9 +19,6 @@
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
-
-// import Joomla modelitem library
-jimport('joomla.application.component.modelitem');
 
 /**
  * Costbenefitprojection Companyresults Model
@@ -135,11 +132,6 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 		{
 			try
 			{
-
-				// Get the whmcs encryption.
-				$whmcskey = CostbenefitprojectionHelper::getCryptKey('whmcs');
-				// Get the encryption object.
-				$whmcs = new FOFEncryptAes($whmcskey);
 				// Get a db connection.
 				$db = JFactory::getDbo();
 
@@ -178,66 +170,6 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 					$app->redirect(JRoute::_('index.php?option=com_costbenefitprojection&view=cpanel'));
 					return false;
 				}
-			// Load the JEvent Dispatcher
-			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
-				if (!empty($data->medical_turnovers_males) && $whmcskey && !is_numeric($data->medical_turnovers_males) && $data->medical_turnovers_males === base64_encode(base64_decode($data->medical_turnovers_males, true)))
-				{
-					// Decode medical_turnovers_males
-					$data->medical_turnovers_males = rtrim($whmcs->decryptString($data->medical_turnovers_males), "\0");
-				}
-				if (!empty($data->females) && $whmcskey && !is_numeric($data->females) && $data->females === base64_encode(base64_decode($data->females, true)))
-				{
-					// Decode females
-					$data->females = rtrim($whmcs->decryptString($data->females), "\0");
-				}
-				if (CostbenefitprojectionHelper::checkJson($data->causesrisks))
-				{
-					// Decode causesrisks
-					$data->causesrisks = json_decode($data->causesrisks, true);
-				}
-				if (!empty($data->sick_leave_males) && $whmcskey && !is_numeric($data->sick_leave_males) && $data->sick_leave_males === base64_encode(base64_decode($data->sick_leave_males, true)))
-				{
-					// Decode sick_leave_males
-					$data->sick_leave_males = rtrim($whmcs->decryptString($data->sick_leave_males), "\0");
-				}
-				if (!empty($data->medical_turnovers_females) && $whmcskey && !is_numeric($data->medical_turnovers_females) && $data->medical_turnovers_females === base64_encode(base64_decode($data->medical_turnovers_females, true)))
-				{
-					// Decode medical_turnovers_females
-					$data->medical_turnovers_females = rtrim($whmcs->decryptString($data->medical_turnovers_females), "\0");
-				}
-				if (!empty($data->sick_leave_females) && $whmcskey && !is_numeric($data->sick_leave_females) && $data->sick_leave_females === base64_encode(base64_decode($data->sick_leave_females, true)))
-				{
-					// Decode sick_leave_females
-					$data->sick_leave_females = rtrim($whmcs->decryptString($data->sick_leave_females), "\0");
-				}
-				if (!empty($data->total_salary) && $whmcskey && !is_numeric($data->total_salary) && $data->total_salary === base64_encode(base64_decode($data->total_salary, true)))
-				{
-					// Decode total_salary
-					$data->total_salary = rtrim($whmcs->decryptString($data->total_salary), "\0");
-				}
-				if (!empty($data->total_healthcare) && $whmcskey && !is_numeric($data->total_healthcare) && $data->total_healthcare === base64_encode(base64_decode($data->total_healthcare, true)))
-				{
-					// Decode total_healthcare
-					$data->total_healthcare = rtrim($whmcs->decryptString($data->total_healthcare), "\0");
-				}
-				if (!empty($data->males) && $whmcskey && !is_numeric($data->males) && $data->males === base64_encode(base64_decode($data->males, true)))
-				{
-					// Decode males
-					$data->males = rtrim($whmcs->decryptString($data->males), "\0");
-				}
-				if (CostbenefitprojectionHelper::checkJson($data->country_causesrisks))
-				{
-					// Decode country_causesrisks
-					$data->country_causesrisks = json_decode($data->country_causesrisks, true);
-				}
-				// Make sure the content prepare plugins fire on country_publicaddress
-				$_country_publicaddress = new stdClass();
-				$_country_publicaddress->text =& $data->country_publicaddress; // value must be in text
-				// Since all values are now in text (Joomla Limitation), we also add the field name (country_publicaddress) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.companyresults.country_publicaddress', &$_country_publicaddress, &$this->params, 0));
-				// Checking if country_publicaddress has uikit components that must be loaded.
-				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($data->country_publicaddress,$this->uikitComp);
 				// set the global causesrisks value.
 				$this->a_causesrisks = $data->causesrisks;
 				// set the global datayear value.
@@ -280,14 +212,14 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 		}
 
 		return $this->_item[$pk];
-	} 
+	}
 
 	/**
-	* Method to get an array of Health_data Objects.
-	*
-	* @return mixed  An array of Health_data Objects on success, false on failure.
-	*
-	*/
+	 * Method to get an array of Health_data Objects.
+	 *
+	 * @return mixed  An array of Health_data Objects on success, false on failure.
+	 *
+	 */
 	public function getCountryCountryHealth_dataEbbe_B($country)
 	{
 		// Get a db connection.
@@ -325,20 +257,17 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 		// check if there was data returned
 		if ($db->getNumRows())
 		{
-			// Load the JEvent Dispatcher
-			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
 			return $db->loadObjectList();
 		}
 		return false;
 	}
 
 	/**
-	* Method to get an array of Scaling_factor Objects.
-	*
-	* @return mixed  An array of Scaling_factor Objects on success, false on failure.
-	*
-	*/
+	 * Method to get an array of Scaling_factor Objects.
+	 *
+	 * @return mixed  An array of Scaling_factor Objects on success, false on failure.
+	 *
+	 */
 	public function getIdCompanyScaling_factorEbbe_C($id)
 	{
 		// Get a db connection.
@@ -364,33 +293,17 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 		// check if there was data returned
 		if ($db->getNumRows())
 		{
-			// Load the JEvent Dispatcher
-			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
-			$items = $db->loadObjectList();
-
-			// Convert the parameter fields into objects.
-			foreach ($items as $nr => &$item)
-			{
-				// Make sure the content prepare plugins fire on reference
-				$_reference = new stdClass();
-				$_reference->text =& $item->reference; // value must be in text
-				// Since all values are now in text (Joomla Limitation), we also add the field name (reference) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.companyresults.reference', &$_reference, &$this->params, 0));
-				// Checking if reference has uikit components that must be loaded.
-				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->reference,$this->uikitComp);
-			}
-			return $items;
+			return $db->loadObjectList();
 		}
 		return false;
 	}
 
 	/**
-	* Method to get an array of Intervention Objects.
-	*
-	* @return mixed  An array of Intervention Objects on success, false on failure.
-	*
-	*/
+	 * Method to get an array of Intervention Objects.
+	 *
+	 * @return mixed  An array of Intervention Objects on success, false on failure.
+	 *
+	 */
 	public function getIdCompanyInterventionEbbe_D($id)
 	{
 		// Get a db connection.
@@ -416,33 +329,17 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 		// check if there was data returned
 		if ($db->getNumRows())
 		{
-			// Load the JEvent Dispatcher
-			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
-			$items = $db->loadObjectList();
-
-			// Convert the parameter fields into objects.
-			foreach ($items as $nr => &$item)
-			{
-				// Make sure the content prepare plugins fire on reference
-				$_reference = new stdClass();
-				$_reference->text =& $item->reference; // value must be in text
-				// Since all values are now in text (Joomla Limitation), we also add the field name (reference) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.companyresults.reference', &$_reference, &$this->params, 0));
-				// Checking if reference has uikit components that must be loaded.
-				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->reference,$this->uikitComp);
-			}
-			return $items;
+			return $db->loadObjectList();
 		}
 		return false;
 	}
 
 	/**
-	* Method to get an array of Causerisk Objects.
-	*
-	* @return mixed  An array of Causerisk Objects on success, false on failure.
-	*
-	*/
+	 * Method to get an array of Causerisk Objects.
+	 *
+	 * @return mixed  An array of Causerisk Objects on success, false on failure.
+	 *
+	 */
 	public function getCausesrisksIdCauseriskEbbe_G($causesrisks)
 	{
 		// Get a db connection.
@@ -475,20 +372,17 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 		// check if there was data returned
 		if ($db->getNumRows())
 		{
-			// Load the JEvent Dispatcher
-			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
 			return $db->loadObjectList();
 		}
 		return false;
 	}
 
 	/**
-	* Method to get an array of Health_data Objects.
-	*
-	* @return mixed  An array of Health_data Objects on success, false on failure.
-	*
-	*/
+	 * Method to get an array of Health_data Objects.
+	 *
+	 * @return mixed  An array of Health_data Objects on success, false on failure.
+	 *
+	 */
 	public function getCountryCountryHealth_dataEbbe_BB($country)
 	{
 		// Get a db connection.
@@ -526,20 +420,17 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 		// check if there was data returned
 		if ($db->getNumRows())
 		{
-			// Load the JEvent Dispatcher
-			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
 			return $db->loadObjectList();
 		}
 		return false;
 	}
 
 	/**
-	* Method to get an array of Causerisk Objects.
-	*
-	* @return mixed  An array of Causerisk Objects on success, false on failure.
-	*
-	*/
+	 * Method to get an array of Causerisk Objects.
+	 *
+	 * @return mixed  An array of Causerisk Objects on success, false on failure.
+	 *
+	 */
 	public function getCausesrisksIdCauseriskEbbe_GG($causesrisks)
 	{
 		// Get a db connection.
@@ -572,33 +463,17 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 		// check if there was data returned
 		if ($db->getNumRows())
 		{
-			// Load the JEvent Dispatcher
-			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
-			$items = $db->loadObjectList();
-
-			// Convert the parameter fields into objects.
-			foreach ($items as $nr => &$item)
-			{
-				// Make sure the content prepare plugins fire on description
-				$_description = new stdClass();
-				$_description->text =& $item->description; // value must be in text
-				// Since all values are now in text (Joomla Limitation), we also add the field name (description) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.companyresults.description', &$_description, &$this->params, 0));
-				// Checking if description has uikit components that must be loaded.
-				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->description,$this->uikitComp);
-			}
-			return $items;
+			return $db->loadObjectList();
 		}
 		return false;
 	}
 
 	/**
-	* Method to get an array of Intervention Objects.
-	*
-	* @return mixed  An array of Intervention Objects on success, false on failure.
-	*
-	*/
+	 * Method to get an array of Intervention Objects.
+	 *
+	 * @return mixed  An array of Intervention Objects on success, false on failure.
+	 *
+	 */
 	public function getCountryCountryInterventionEbbe_DD($country)
 	{
 		// Get a db connection.
@@ -623,41 +498,18 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 		// check if there was data returned
 		if ($db->getNumRows())
 		{
-			// Load the JEvent Dispatcher
-			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
-			$items = $db->loadObjectList();
-
-			// Convert the parameter fields into objects.
-			foreach ($items as $nr => &$item)
-			{
-				// Make sure the content prepare plugins fire on description
-				$_description = new stdClass();
-				$_description->text =& $item->description; // value must be in text
-				// Since all values are now in text (Joomla Limitation), we also add the field name (description) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.companyresults.description', &$_description, &$this->params, 0));
-				// Make sure the content prepare plugins fire on reference
-				$_reference = new stdClass();
-				$_reference->text =& $item->reference; // value must be in text
-				// Since all values are now in text (Joomla Limitation), we also add the field name (reference) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.companyresults.reference', &$_reference, &$this->params, 0));
-				// Checking if description has uikit components that must be loaded.
-				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->description,$this->uikitComp);
-				// Checking if reference has uikit components that must be loaded.
-				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->reference,$this->uikitComp);
-			}
-			return $items;
+			return $db->loadObjectList();
 		}
 		return false;
 	}
 
 
 	/**
-	* Get the uikit needed components
-	*
-	* @return mixed  An array of objects on success.
-	*
-	*/
+	 * Get the uikit needed components
+	 *
+	 * @return mixed  An array of objects on success.
+	 *
+	 */
 	public function getUikitComp()
 	{
 		if (isset($this->uikitComp) && CostbenefitprojectionHelper::checkArray($this->uikitComp))
@@ -665,5 +517,5 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 			return $this->uikitComp;
 		}
 		return false;
-	}  
+	}
 }

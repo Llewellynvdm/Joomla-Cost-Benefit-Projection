@@ -103,7 +103,8 @@
 			class="list_class"
 			multiple="false"
 			filter="INT"
-			required="true">
+			required="true"
+			default="">
 			<!-- Option Set. -->
 			<option value="">
 				COM_COSTBENEFITPROJECTION_HEALTH_DATA_SELECT_A_YEAR</option>
@@ -155,6 +156,7 @@
 			name="femaleyld"
 			label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_FEMALEYLD_LABEL"
 			description="COM_COSTBENEFITPROJECTION_HEALTH_DATA_FEMALEYLD_DESCRIPTION"
+			default=""
 			id="femaleyld"
 			class="femalesyld"
 			select="COM_COSTBENEFITPROJECTION_HEALTH_DATA_FEMALEYLD_SELECT"
@@ -170,7 +172,8 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD"
-						required="false">
+						required="false"
+						default="">
 						<!-- Option Set. -->
 						<option value="15-19">
 							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTEENNINETEEN</option>
@@ -200,6 +203,7 @@
 						label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_NUMBER_LABEL"
 						size="10"
 						maxlength="50"
+						default=""
 						class="text_area"
 						readonly="false"
 						disabled="false"
@@ -217,6 +221,7 @@
 			name="femaledeath"
 			label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_FEMALEDEATH_LABEL"
 			description="COM_COSTBENEFITPROJECTION_HEALTH_DATA_FEMALEDEATH_DESCRIPTION"
+			default=""
 			id="femaledeath"
 			class="femalesdeath"
 			select="COM_COSTBENEFITPROJECTION_HEALTH_DATA_FEMALEDEATH_SELECT"
@@ -232,7 +237,8 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD"
-						required="false">
+						required="false"
+						default="">
 						<!-- Option Set. -->
 						<option value="15-19">
 							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTEENNINETEEN</option>
@@ -262,6 +268,7 @@
 						label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_NUMBER_LABEL"
 						size="10"
 						maxlength="50"
+						default=""
 						class="text_area"
 						readonly="false"
 						disabled="false"
@@ -279,6 +286,7 @@
 			name="maleyld"
 			label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_MALEYLD_LABEL"
 			description="COM_COSTBENEFITPROJECTION_HEALTH_DATA_MALEYLD_DESCRIPTION"
+			default=""
 			id="maleyld"
 			class="malesyld"
 			select="COM_COSTBENEFITPROJECTION_HEALTH_DATA_MALEYLD_SELECT"
@@ -294,7 +302,8 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD"
-						required="false">
+						required="false"
+						default="">
 						<!-- Option Set. -->
 						<option value="15-19">
 							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTEENNINETEEN</option>
@@ -324,6 +333,7 @@
 						label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_NUMBER_LABEL"
 						size="10"
 						maxlength="50"
+						default=""
 						class="text_area"
 						readonly="false"
 						disabled="false"
@@ -341,6 +351,7 @@
 			name="maledeath"
 			label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_MALEDEATH_LABEL"
 			description="COM_COSTBENEFITPROJECTION_HEALTH_DATA_MALEDEATH_DESCRIPTION"
+			default=""
 			id="maledeath"
 			class="malesdeath"
 			select="COM_COSTBENEFITPROJECTION_HEALTH_DATA_MALEDEATH_SELECT"
@@ -356,7 +367,8 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD"
-						required="false">
+						required="false"
+						default="">
 						<!-- Option Set. -->
 						<option value="15-19">
 							COM_COSTBENEFITPROJECTION_HEALTH_DATA_FIFTEENNINETEEN</option>
@@ -386,6 +398,7 @@
 						label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_NUMBER_LABEL"
 						size="10"
 						maxlength="50"
+						default=""
 						class="text_area"
 						readonly="false"
 						disabled="false"

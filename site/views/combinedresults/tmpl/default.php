@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 18 of this MVC
-	@build			18th August, 2017
-	@created		5th October, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -18,7 +18,7 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // No direct access to this file
-defined('_JEXEC') or die('Restricted access'); 
+defined('_JEXEC') or die('Restricted access');
 
 // set the active tabs based on interventions
 if (isset($this->results->interventions) && CostbenefitprojectionHelper::checkArray($this->results->interventions))
@@ -33,7 +33,7 @@ else
 }
 
 ?>
- 
+
 <div id="loading" style="height:300px; width:100%">
 	<h1 style="text-align:center;" ><?php echo JText::_('COM_COSTBENEFITPROJECTION_PLEASE_WAIT'); ?></h1>
     <div style="margin:0 auto; width:180px; height:24px; padding: 5px;">
@@ -248,4 +248,4 @@ function controlSwitch(){
 		jQuery(".unscaled").css( "display", "none" );
 	};
 }
-</script> 
+</script>

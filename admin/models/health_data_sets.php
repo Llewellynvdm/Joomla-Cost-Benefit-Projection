@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 110 of this MVC
-	@build			17th May, 2018
-	@created		15th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		health_data_sets.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -19,9 +19,6 @@
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
-
-// import the Joomla modellist library
-jimport('joomla.application.component.modellist');
 
 /**
  * Health_data_sets Model
@@ -98,7 +95,7 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 	 * @return  mixed  An array of data items on success, false on failure.
 	 */
 	public function getItems()
-	{ 
+	{
 		// check in items
 		$this->checkInNow();
 
@@ -108,11 +105,9 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 		// set values to display correctly.
 		if (CostbenefitprojectionHelper::checkArray($items))
 		{
-			// get user object.
-			$user = JFactory::getUser();
 			foreach ($items as $nr => &$item)
 			{
-				$access = ($user->authorise('health_data.access', 'com_costbenefitprojection.health_data.' . (int) $item->id) && $user->authorise('health_data.access', 'com_costbenefitprojection'));
+				$access = (JFactory::getUser()->authorise('health_data.access', 'com_costbenefitprojection.health_data.' . (int) $item->id) && JFactory::getUser()->authorise('health_data.access', 'com_costbenefitprojection'));
 				if (!$access)
 				{
 					unset($items[$nr]);
@@ -120,7 +115,7 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 				}
 
 			}
-		} 
+		}
 
 		// set selection value to a translatable value
 		if (CostbenefitprojectionHelper::checkArray($items))
@@ -131,17 +126,17 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 				$item->year = $this->selectionTranslation($item->year, 'year');
 			}
 		}
- 
+
         
 		// return items
 		return $items;
 	}
 
 	/**
-	* Method to convert selection values to translatable string.
-	*
-	* @return translatable string
-	*/
+	 * Method to convert selection values to translatable string.
+	 *
+	 * @return translatable string
+	 */
 	public function selectionTranslation($value,$name)
 	{
 		// Array of year language strings
@@ -287,10 +282,10 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 	}
 
 	/**
-	* Method to get list export data.
-	*
-	* @return mixed  An array of data items on success, false on failure.
-	*/
+	 * Method to get list export data.
+	 *
+	 * @return mixed  An array of data items on success, false on failure.
+	 */
 	public function getExportData($pks)
 	{
 		// setup the query
@@ -348,11 +343,9 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 				// set values to display correctly.
 				if (CostbenefitprojectionHelper::checkArray($items))
 				{
-					// get user object.
-					$user = JFactory::getUser();
 					foreach ($items as $nr => &$item)
 					{
-						$access = ($user->authorise('health_data.access', 'com_costbenefitprojection.health_data.' . (int) $item->id) && $user->authorise('health_data.access', 'com_costbenefitprojection'));
+						$access = (JFactory::getUser()->authorise('health_data.access', 'com_costbenefitprojection.health_data.' . (int) $item->id) && JFactory::getUser()->authorise('health_data.access', 'com_costbenefitprojection'));
 						if (!$access)
 						{
 							unset($items[$nr]);
@@ -402,7 +395,7 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 			return $headers;
 		}
 		return false;
-	} 
+	}
 	
 	/**
 	 * Method to get a store id based on model configuration state.
@@ -427,16 +420,16 @@ class CostbenefitprojectionModelHealth_data_sets extends JModelList
 	}
 
 	/**
-	* Build an SQL query to checkin all items left checked out longer then a set time.
-	*
-	* @return  a bool
-	*
-	*/
+	 * Build an SQL query to checkin all items left checked out longer then a set time.
+	 *
+	 * @return  a bool
+	 *
+	 */
 	protected function checkInNow()
 	{
 		// Get set check in time
 		$time = JComponentHelper::getParams('com_costbenefitprojection')->get('check_in');
-		
+
 		if ($time)
 		{
 

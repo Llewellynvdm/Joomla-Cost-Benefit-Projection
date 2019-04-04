@@ -100,7 +100,7 @@
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_DESC"
 			size="60"
-			default="https://www.swisstph.ch/en/staff/profile/people/patrick-hanlon/"
+			default="http://www.swisstph.ch/about-us/staff/detailview.html?tx_x4epersdb_pi1[showUid]=2267&amp;cHash=1b1c5db0808e04d3f1afe0f3a3f67998"
 		/>
 		<field name="useContributor1"
 			type="list"
@@ -132,28 +132,28 @@
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_DESC"
 			size="60"
-			default="GIZ EWP CBA"
+			default="Development Advisor"
 		/>
 		<field name="nameContributor2"
 			type="text"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_DESC"
 			size="60"
-			default="Swiss TPH"
+			default="Matthew Black"
 		/>
 		<field name="emailContributor2"
 			type="email"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_DESC"
 			size="60"
-			default=""
+			default="matthew.black@giz.de"
 		/>
 		<field name="linkContributor2"
 			type="url"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_DESC"
 			size="60"
-			default="https://www.swisstph.ch/en/projects/project-detail/project/cost-benefit-projection-tool-for-employee-health-programmes/"
+			default="http://www.giz.de"
 		/>
 		<field name="useContributor2"
 			type="list"
@@ -185,21 +185,21 @@
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_DESC"
 			size="60"
-			default="Development Advisor"
+			default="Associate Expert"
 		/>
 		<field name="nameContributor3"
 			type="text"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_DESC"
 			size="60"
-			default="Matthew Black"
+			default="Dr. Pascal Geldsetzer"
 		/>
 		<field name="emailContributor3"
 			type="email"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_DESC"
 			size="60"
-			default="matthew.black@giz.de"
+			default="pascal.geldsetzer@giz.de"
 		/>
 		<field name="linkContributor3"
 			type="url"
@@ -238,32 +238,32 @@
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_DESC"
 			size="60"
-			default="Associate Expert"
+			default=""
 		/>
 		<field name="nameContributor4"
 			type="text"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_DESC"
 			size="60"
-			default="Dr. Pascal Geldsetzer"
+			default=""
 		/>
 		<field name="emailContributor4"
 			type="email"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_DESC"
 			size="60"
-			default="pascal.geldsetzer@giz.de"
+			default=""
 		/>
 		<field name="linkContributor4"
 			type="url"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_DESC"
 			size="60"
-			default="http://www.giz.de"
+			default=""
 		/>
 		<field name="useContributor4"
 			type="list"
-			default="2"
+			default="0"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_DESC">
 			<option value="0">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_NONE</option>
@@ -272,7 +272,7 @@
 		</field>
 		<field name="showContributor4"
 			type="list"
-			default="1"
+			default="0"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_DESC">
 			<option value="0">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_NONE</option>
@@ -324,59 +324,6 @@
 			<option value="2">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_WWW</option>
 		</field>
 		<field name="showContributor5"
-			type="list"
-			default="0"
-			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_LABEL"
-			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_DESC">
-			<option value="0">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_NONE</option>
-			<option value="1">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_BACK</option>
-			<option value="2">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_FRONT</option>
-			<option value="3">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_ALL</option>
-		</field>
-		<field type="spacer" name="spacerContributor6" hr="true" />
-		<field name="contributor6"
-			type="spacer"
-			class="text"
-			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SIX"
-		/>
-		<field name="titleContributor6"
-			type="text"
-			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_LABEL"
-			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_TITLE_DESC"
-			size="60"
-			default=""
-		/>
-		<field name="nameContributor6"
-			type="text"
-			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_LABEL"
-			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_NAME_DESC"
-			size="60"
-			default=""
-		/>
-		<field name="emailContributor6"
-			type="email"
-			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_LABEL"
-			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_EMAIL_DESC"
-			size="60"
-			default=""
-		/>
-		<field name="linkContributor6"
-			type="url"
-			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_LABEL"
-			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_DESC"
-			size="60"
-			default=""
-		/>
-		<field name="useContributor6"
-			type="list"
-			default="0"
-			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_LABEL"
-			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_DESC">
-			<option value="0">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_NONE</option>
-			<option value="1">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_EMAIL</option>
-			<option value="2">COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_USE_WWW</option>
-		</field>
-		<field name="showContributor6"
 			type="list"
 			default="0"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_SHOW_LABEL"
@@ -488,7 +435,7 @@
 			default="#F7F7FA"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CHARTBACKGROUND_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CHARTBACKGROUND_DESC"
-		/>		
+		/>
 		<!-- Admin_mainwidth Field. Type: Text. -->
 		<field
 			type="text"
@@ -501,9 +448,9 @@
 			filter="INT"
 			message="Error! Please add area width here."
 			hint="COM_COSTBENEFITPROJECTION_CONFIG_MAINWIDTH_HINT"
-		/>		
+		/>
 		<!-- Spacer_chartadmin_hr_a Field. Type: Spacer. A None Database Field. -->
-		<field type="spacer" name="spacer_chartadmin_hr_a" hr="true" class="spacer_chartadmin_hr_a" />		
+		<field type="spacer" name="spacer_chartadmin_hr_a" hr="true" class="spacer_chartadmin_hr_a" />
 		<!-- Admin_chartareatop Field. Type: Text. -->
 		<field
 			type="text"
@@ -516,7 +463,7 @@
 			filter="INT"
 			message="Error! Please add top spacing here."
 			hint="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREATOP_HINT"
-		/>		
+		/>
 		<!-- Admin_chartarealeft Field. Type: Text. -->
 		<field
 			type="text"
@@ -529,7 +476,7 @@
 			filter="INT"
 			message="Error! Please add left spacing here."
 			hint="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREALEFT_HINT"
-		/>		
+		/>
 		<!-- Admin_chartareawidth Field. Type: Text. -->
 		<field
 			type="text"
@@ -542,9 +489,9 @@
 			filter="INT"
 			message="Error! Please add chart width here."
 			hint="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREAWIDTH_HINT"
-		/>		
+		/>
 		<!-- Spacer_chartadmin_hr_b Field. Type: Spacer. A None Database Field. -->
-		<field type="spacer" name="spacer_chartadmin_hr_b" hr="true" class="spacer_chartadmin_hr_b" />		
+		<field type="spacer" name="spacer_chartadmin_hr_b" hr="true" class="spacer_chartadmin_hr_b" />
 		<!-- Admin_legendtextstylefontcolor Field. Type: Color. -->
 		<field
 			type="color"
@@ -552,7 +499,7 @@
 			default="#63B1F2"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_LEGENDTEXTSTYLEFONTCOLOR_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_LEGENDTEXTSTYLEFONTCOLOR_DESC"
-		/>		
+		/>
 		<!-- Admin_legendtextstylefontsize Field. Type: Text. -->
 		<field
 			type="text"
@@ -565,9 +512,9 @@
 			filter="INT"
 			message="Error! Please add size of the legend here."
 			hint="COM_COSTBENEFITPROJECTION_CONFIG_LEGENDTEXTSTYLEFONTSIZE_HINT"
-		/>		
+		/>
 		<!-- Spacer_chartadmin_hr_c Field. Type: Spacer. A None Database Field. -->
-		<field type="spacer" name="spacer_chartadmin_hr_c" hr="true" class="spacer_chartadmin_hr_c" />		
+		<field type="spacer" name="spacer_chartadmin_hr_c" hr="true" class="spacer_chartadmin_hr_c" />
 		<!-- Admin_vaxistextstylefontcolor Field. Type: Color. -->
 		<field
 			type="color"
@@ -575,9 +522,9 @@
 			default="#63B1F2"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_VAXISTEXTSTYLEFONTCOLOR_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_VAXISTEXTSTYLEFONTCOLOR_DESC"
-		/>		
+		/>
 		<!-- Spacer_chartadmin_hr_d Field. Type: Spacer. A None Database Field. -->
-		<field type="spacer" name="spacer_chartadmin_hr_d" hr="true" class="spacer_chartadmin_hr_d" />		
+		<field type="spacer" name="spacer_chartadmin_hr_d" hr="true" class="spacer_chartadmin_hr_d" />
 		<!-- Admin_haxistextstylefontcolor Field. Type: Color. -->
 		<field
 			type="color"
@@ -585,7 +532,7 @@
 			default="#63B1F2"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_HAXISTEXTSTYLEFONTCOLOR_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_HAXISTEXTSTYLEFONTCOLOR_DESC"
-		/>		
+		/>
 		<!-- Admin_haxistitletextstylefontcolor Field. Type: Color. -->
 		<field
 			type="color"
@@ -604,7 +551,7 @@
 			default="#F7F7FA"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CHARTBACKGROUND_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CHARTBACKGROUND_DESC"
-		/>		
+		/>
 		<!-- Site_mainwidth Field. Type: Text. -->
 		<field
 			type="text"
@@ -617,9 +564,9 @@
 			filter="INT"
 			message="Error! Please add area width here."
 			hint="COM_COSTBENEFITPROJECTION_CONFIG_MAINWIDTH_HINT"
-		/>		
+		/>
 		<!-- Spacer_chartsite_hr_a Field. Type: Spacer. A None Database Field. -->
-		<field type="spacer" name="spacer_chartsite_hr_a" hr="true" class="spacer_chartsite_hr_a" />		
+		<field type="spacer" name="spacer_chartsite_hr_a" hr="true" class="spacer_chartsite_hr_a" />
 		<!-- Site_chartareatop Field. Type: Text. -->
 		<field
 			type="text"
@@ -632,7 +579,7 @@
 			filter="INT"
 			message="Error! Please add top spacing here."
 			hint="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREATOP_HINT"
-		/>		
+		/>
 		<!-- Site_chartarealeft Field. Type: Text. -->
 		<field
 			type="text"
@@ -645,7 +592,7 @@
 			filter="INT"
 			message="Error! Please add left spacing here."
 			hint="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREALEFT_HINT"
-		/>		
+		/>
 		<!-- Site_chartareawidth Field. Type: Text. -->
 		<field
 			type="text"
@@ -658,9 +605,9 @@
 			filter="INT"
 			message="Error! Please add chart width here."
 			hint="COM_COSTBENEFITPROJECTION_CONFIG_CHARTAREAWIDTH_HINT"
-		/>		
+		/>
 		<!-- Spacer_chartsite_hr_b Field. Type: Spacer. A None Database Field. -->
-		<field type="spacer" name="spacer_chartsite_hr_b" hr="true" class="spacer_chartsite_hr_b" />		
+		<field type="spacer" name="spacer_chartsite_hr_b" hr="true" class="spacer_chartsite_hr_b" />
 		<!-- Site_legendtextstylefontcolor Field. Type: Color. -->
 		<field
 			type="color"
@@ -668,7 +615,7 @@
 			default="#63B1F2"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_LEGENDTEXTSTYLEFONTCOLOR_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_LEGENDTEXTSTYLEFONTCOLOR_DESC"
-		/>		
+		/>
 		<!-- Site_legendtextstylefontsize Field. Type: Text. -->
 		<field
 			type="text"
@@ -681,9 +628,9 @@
 			filter="INT"
 			message="Error! Please add size of the legend here."
 			hint="COM_COSTBENEFITPROJECTION_CONFIG_LEGENDTEXTSTYLEFONTSIZE_HINT"
-		/>		
+		/>
 		<!-- Spacer_chartsite_hr_c Field. Type: Spacer. A None Database Field. -->
-		<field type="spacer" name="spacer_chartsite_hr_c" hr="true" class="spacer_chartsite_hr_c" />		
+		<field type="spacer" name="spacer_chartsite_hr_c" hr="true" class="spacer_chartsite_hr_c" />
 		<!-- Site_vaxistextstylefontcolor Field. Type: Color. -->
 		<field
 			type="color"
@@ -691,9 +638,9 @@
 			default="#63B1F2"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_VAXISTEXTSTYLEFONTCOLOR_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_VAXISTEXTSTYLEFONTCOLOR_DESC"
-		/>		
+		/>
 		<!-- Spacer_chartsite_hr_d Field. Type: Spacer. A None Database Field. -->
-		<field type="spacer" name="spacer_chartsite_hr_d" hr="true" class="spacer_chartsite_hr_d" />		
+		<field type="spacer" name="spacer_chartsite_hr_d" hr="true" class="spacer_chartsite_hr_d" />
 		<!-- Site_haxistextstylefontcolor Field. Type: Color. -->
 		<field
 			type="color"
@@ -701,7 +648,7 @@
 			default="#63B1F2"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_HAXISTEXTSTYLEFONTCOLOR_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_HAXISTEXTSTYLEFONTCOLOR_DESC"
-		/>		
+		/>
 		<!-- Site_haxistitletextstylefontcolor Field. Type: Color. -->
 		<field
 			type="color"
@@ -716,7 +663,7 @@
 		label="COM_COSTBENEFITPROJECTION_CONFIG_ENCRYPTION_LABEL"
 		description="COM_COSTBENEFITPROJECTION_CONFIG_ENCRYPTION_DESC">
 		<field type="note" name="whmcs_key_note" class="alert alert-info" label="COM_COSTBENEFITPROJECTION_CONFIG_WHMCS_KEY_NOTE_LABEL" description="COM_COSTBENEFITPROJECTION_CONFIG_WHMCS_KEY_NOTE_DESC"  />
-		<field name="advanced_key"
+		<field name="whmcs_key"
 			type="text"
 			label="COM_COSTBENEFITPROJECTION_CONFIG_WHMCS_KEY_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_WHMCS_KEY_DESC"
@@ -731,6 +678,7 @@
 			label="COM_COSTBENEFITPROJECTION_CONFIG_RESULTPATH_LABEL"
 			size="10"
 			maxlength="150"
+			default=""
 			description="COM_COSTBENEFITPROJECTION_CONFIG_RESULTPATH_DESCRIPTION"
 			class="text_area"
 			required="true"

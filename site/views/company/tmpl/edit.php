@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 101 of this MVC
-	@build			29th June, 2016
-	@created		15th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -27,10 +27,10 @@ JHtml::_('formbehavior.chosen', 'select');
 JHtml::_('behavior.keepalive');
 JHtml::_('behavior.tabstate');
 JHtml::_('behavior.calendar');
-$componentParams = JComponentHelper::getParams('com_costbenefitprojection');
+$componentParams = $this->params; // will be removed just use $this->params instead
 ?>
 <?php echo $this->toolbar->render(); ?>
-<form action="<?php echo JRoute::_('index.php?option=com_costbenefitprojection&layout=edit&id='.(int) $this->item->id.$this->referral); ?>" method="post" name="adminForm" id="adminForm" class="form-validate" enctype="multipart/form-data">
+<form action="<?php echo JRoute::_('index.php?option=com_costbenefitprojection&layout=edit&id='. (int) $this->item->id . $this->referral); ?>" method="post" name="adminForm" id="adminForm" class="form-validate" enctype="multipart/form-data">
 
 	<?php echo JLayoutHelper::render('company.details_above', $this); ?>
 <div class="form-horizontal">
@@ -97,6 +97,10 @@ $componentParams = JComponentHelper::getParams('com_costbenefitprojection');
 		</div>
 	<?php echo JHtml::_('bootstrap.endTab'); ?>
 	<?php endif; ?>
+
+	<?php $this->ignore_fieldsets = array('details','metadata','vdmmetadata','accesscontrol'); ?>
+	<?php $this->tab_name = 'companyTab'; ?>
+	<?php echo JLayoutHelper::render('joomla.edit.params', $this); ?>
 
 	<?php if ($this->canDo->get('company.delete') || $this->canDo->get('company.edit.created_by') || $this->canDo->get('company.edit.state') || $this->canDo->get('company.edit.created')) : ?>
 	<?php echo JHtml::_('bootstrap.addTab', 'companyTab', 'publishing', JText::_('COM_COSTBENEFITPROJECTION_COMPANY_PUBLISHING', true)); ?>

@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 110 of this MVC
-	@build			17th May, 2018
-	@created		15th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		health_data.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -21,9 +21,6 @@
 defined('_JEXEC') or die('Restricted access');
 
 use Joomla\Registry\Registry;
-
-// import Joomla modelform library
-jimport('joomla.application.component.modeladmin');
 
 /**
  * Costbenefitprojection Health_data Model
@@ -57,6 +54,9 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 	 */
 	public function getTable($type = 'health_data', $prefix = 'CostbenefitprojectionTable', $config = array())
 	{
+		// add table path for when model gets used from other component
+		$this->addTablePath(JPATH_ADMINISTRATOR . '/components/com_costbenefitprojection/tables');
+		// get instance of the table
 		return JTable::getInstance($type, $prefix, $config);
 	}
     
@@ -97,22 +97,25 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 		}
 
 		return $item;
-	} 
+	}
 
 	/**
 	 * Method to get the record form.
 	 *
 	 * @param   array    $data      Data for the form.
 	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
+	 * @param   array    $options   Optional array of options for the form creation.
 	 *
 	 * @return  mixed  A JForm object on success, false on failure
 	 *
 	 * @since   1.6
 	 */
-	public function getForm($data = array(), $loadData = true)
+	public function getForm($data = array(), $loadData = true, $options = array('control' => 'jform'))
 	{
+		// set load data option
+		$options['load_data'] = $loadData;
 		// Get the form.
-		$form = $this->loadForm('com_costbenefitprojection.health_data', 'health_data', array('control' => 'jform', 'load_data' => $loadData));
+		$form = $this->loadForm('com_costbenefitprojection.health_data', 'health_data', $options);
 
 		if (empty($form))
 		{
@@ -178,6 +181,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 			$form->setFieldAttribute('causerisk', 'disabled', 'true');
 			// Disable fields for display.
 			$form->setFieldAttribute('causerisk', 'readonly', 'true');
+			// If there is no value continue.
 			if (!$form->getValue('causerisk'))
 			{
 				// Disable fields while saving.
@@ -194,6 +198,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 			$form->setFieldAttribute('year', 'disabled', 'true');
 			// Disable fields for display.
 			$form->setFieldAttribute('year', 'readonly', 'true');
+			// If there is no value continue.
 			if (!$form->getValue('year'))
 			{
 				// Disable fields while saving.
@@ -210,6 +215,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 			$form->setFieldAttribute('country', 'disabled', 'true');
 			// Disable fields for display.
 			$form->setFieldAttribute('country', 'readonly', 'true');
+			// If there is no value continue.
 			if (!$form->getValue('country'))
 			{
 				// Disable fields while saving.
@@ -229,6 +235,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 			// Disable radio button for display.
 			$class = $form->getFieldAttribute('femaleyld', 'class', '');
 			$form->setFieldAttribute('femaleyld', 'class', $class.' disabled no-click');
+			// If there is no value continue.
 			if (!$form->getValue('femaleyld'))
 			{
 				// Disable fields while saving.
@@ -248,6 +255,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 			// Disable radio button for display.
 			$class = $form->getFieldAttribute('femaledeath', 'class', '');
 			$form->setFieldAttribute('femaledeath', 'class', $class.' disabled no-click');
+			// If there is no value continue.
 			if (!$form->getValue('femaledeath'))
 			{
 				// Disable fields while saving.
@@ -267,6 +275,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 			// Disable radio button for display.
 			$class = $form->getFieldAttribute('maleyld', 'class', '');
 			$form->setFieldAttribute('maleyld', 'class', $class.' disabled no-click');
+			// If there is no value continue.
 			if (!$form->getValue('maleyld'))
 			{
 				// Disable fields while saving.
@@ -286,6 +295,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 			// Disable radio button for display.
 			$class = $form->getFieldAttribute('maledeath', 'class', '');
 			$form->setFieldAttribute('maledeath', 'class', $class.' disabled no-click');
+			// If there is no value continue.
 			if (!$form->getValue('maledeath'))
 			{
 				// Disable fields while saving.
@@ -297,17 +307,20 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 		// Only load these values if no id is found
 		if (0 == $id)
 		{
-			// Set redirected field name
-			$redirectedField = $jinput->get('ref', null, 'STRING');
-			// Set redirected field value
-			$redirectedValue = $jinput->get('refid', 0, 'INT');
+			// Set redirected view name
+			$redirectedView = $jinput->get('ref', null, 'STRING');
+			// Set field name (or fall back to view name)
+			$redirectedField = $jinput->get('field', $redirectedView, 'STRING');
+			// Set redirected view id
+			$redirectedId = $jinput->get('refid', 0, 'INT');
+			// Set field id (or fall back to redirected view id)
+			$redirectedValue = $jinput->get('field_id', $redirectedId, 'INT');
 			if (0 != $redirectedValue && $redirectedField)
 			{
 				// Now set the local-redirected field default value
 				$form->setValue($redirectedField, null, $redirectedValue);
 			}
 		}
-
 		return $form;
 	}
 
@@ -358,7 +371,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 	protected function canEditState($record)
 	{
 		$user = JFactory::getUser();
-		$recordId	= (!empty($record->id)) ? $record->id : 0;
+		$recordId = (!empty($record->id)) ? $record->id : 0;
 
 		if ($recordId)
 		{
@@ -466,7 +479,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 		}
 
 		return $data;
-	} 
+	}
 
 	/**
 	 * Method to get the unique fields of this table.
@@ -624,7 +637,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 	 *
 	 * @return  mixed  An array of new IDs on success, boolean false on failure.
 	 *
-	 * @since	12.2
+	 * @since 12.2
 	 */
 	protected function batchCopy($values, $pks, $contexts)
 	{
@@ -753,7 +766,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 			$this->table->id = 0;
 
 			// TODO: Deal with ordering?
-			// $this->table->ordering	= 1;
+			// $this->table->ordering = 1;
 
 			// Check the row.
 			if (!$this->table->check())
@@ -787,7 +800,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 		$this->cleanCache();
 
 		return $newIds;
-	} 
+	}
 
 	/**
 	 * Batch move items to a new category
@@ -798,7 +811,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 	 *
 	 * @return  boolean  True if successful, false otherwise and internal error is set.
 	 *
-	 * @since	12.2
+	 * @since 12.2
 	 */
 	protected function batchMove($values, $pks, $contexts)
 	{
@@ -950,7 +963,7 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 			$metadata = new JRegistry;
 			$metadata->loadArray($data['metadata']);
 			$data['metadata'] = (string) $metadata;
-		} 
+		}
         
 		// Set the Params Items to data
 		if (isset($data['params']) && is_array($data['params']))
@@ -1006,13 +1019,13 @@ class CostbenefitprojectionModelHealth_data extends JModelAdmin
 	}
 
 	/**
-	* Method to change the title
-	*
-	* @param   string   $title   The title.
-	*
-	* @return	array  Contains the modified title and alias.
-	*
-	*/
+	 * Method to change the title
+	 *
+	 * @param   string   $title   The title.
+	 *
+	 * @return	array  Contains the modified title and alias.
+	 *
+	 */
 	protected function _generateNewTitle($title)
 	{
 

@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 18 of this MVC
-	@build			18th August, 2017
-	@created		5th October, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -19,9 +19,6 @@
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
-
-// import Joomla view library
-jimport('joomla.application.component.view');
 
 /**
  * Costbenefitprojection View class for the Combinedresults
@@ -85,7 +82,7 @@ class CostbenefitprojectionViewCombinedresults extends JViewLegacy
 		// Load the header checker class.
 		require_once( JPATH_COMPONENT_SITE.'/helpers/headercheck.php' );
 		// Initialize the header checker.
-		$HeaderCheck = new costbenefitprojectionHeaderCheck; 
+		$HeaderCheck = new costbenefitprojectionHeaderCheck;
 
 		// Load uikit options.
 		$uikit = $this->params->get('uikit_load');
@@ -130,14 +127,14 @@ class CostbenefitprojectionViewCombinedresults extends JViewLegacy
 					}
 				}
 			}
-		} 
+		}
 
 		// add the google chart builder class.
 		require_once JPATH_COMPONENT_ADMINISTRATOR.'/helpers/chartbuilder.php';
 		// load the google chart js.
 		$this->document->addScript(JURI::root(true) .'/media/com_costbenefitprojection/js/google.jsapi.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
 		$this->document->addScript('https://canvg.googlecode.com/svn/trunk/rgbcolor.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
-		$this->document->addScript('https://canvg.googlecode.com/svn/trunk/canvg.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript'); 
+		$this->document->addScript('https://canvg.googlecode.com/svn/trunk/canvg.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
 
 		// Add the CSS for Footable.
 		$this->document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable-v2/css/footable.core.min.css', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
@@ -157,7 +154,7 @@ class CostbenefitprojectionViewCombinedresults extends JViewLegacy
 		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable-v2/js/footable.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
 		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable-v2/js/footable.sort.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
 		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable-v2/js/footable.filter.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
-		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable-v2/js/footable.paginate.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');  
+		$this->document->addScript(JURI::root() .'media/com_costbenefitprojection/footable-v2/js/footable.paginate.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
 		// add custom css
 		$this->document->addStyleSheet(JURI::root(true) ."/administrator/components/com_costbenefitprojection/assets/css/dashboard.css");
 		// add custom js
@@ -172,7 +169,7 @@ class CostbenefitprojectionViewCombinedresults extends JViewLegacy
 		$this->Chart['hAxis']['textStyle'] = array('color' => $this->params->get('site_haxistextstylefontcolor'));
 		$this->Chart['hAxis']['titleTextStyle'] = array('color' => $this->params->get('site_haxistitletextstylefontcolor'));
 		// add the document default css file
-		$this->document->addStyleSheet(JURI::root(true) .'/components/com_costbenefitprojection/assets/css/combinedresults.css', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css'); 
+		$this->document->addStyleSheet(JURI::root(true) .'/components/com_costbenefitprojection/assets/css/combinedresults.css', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
 	}
 
 	/**

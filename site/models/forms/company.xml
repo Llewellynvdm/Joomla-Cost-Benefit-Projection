@@ -85,6 +85,21 @@
 			filter="unset"
 		/>
 		<!-- Dynamic Fields. -->
+		<!-- Email Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="email"
+			label="COM_COSTBENEFITPROJECTION_COMPANY_EMAIL_LABEL"
+			size="10"
+			maxlength="50"
+			description="COM_COSTBENEFITPROJECTION_COMPANY_EMAIL_DESCRIPTION"
+			class="text_area"
+			required="true"
+			filter="STRING"
+			validate="email"
+			message="COM_COSTBENEFITPROJECTION_COMPANY_EMAIL_MESSAGE"
+			hint="COM_COSTBENEFITPROJECTION_COMPANY_EMAIL_HINT"
+		/>
 		<!-- Name Field. Type: Text. (joomla) -->
 		<field
 			type="text"
@@ -101,27 +116,13 @@
 			message="COM_COSTBENEFITPROJECTION_COMPANY_NAME_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_COMPANY_NAME_HINT"
 		/>
-		<!-- Email Field. Type: Text. (joomla) -->
-		<field
-			type="text"
-			name="email"
-			label="COM_COSTBENEFITPROJECTION_COMPANY_EMAIL_LABEL"
-			size="10"
-			maxlength="50"
-			description="COM_COSTBENEFITPROJECTION_COMPANY_EMAIL_DESCRIPTION"
-			class="text_area"
-			required="true"
-			filter="STRING"
-			validate="email"
-			message="COM_COSTBENEFITPROJECTION_COMPANY_EMAIL_MESSAGE"
-			hint="COM_COSTBENEFITPROJECTION_COMPANY_EMAIL_HINT"
-		/>
 		<!-- User Field. Type: Memberuser. (custom) -->
 		<field
 			type="memberuser"
 			name="user"
 			label="COM_COSTBENEFITPROJECTION_COMPANY_USER_LABEL"
 			required="false"
+			default=""
 			hint="COM_COSTBENEFITPROJECTION_COMPANY_USER_HINT"
 		/>
 		<!-- Department Field. Type: Radio. (joomla) -->
@@ -175,163 +176,22 @@
 			<option value="0">
 				COM_COSTBENEFITPROJECTION_COMPANY_LOCKED</option>
 		</field>
-		<!-- Medical_turnovers_males Field. Type: Text. (joomla) -->
+		<!-- Males Field. Type: Text. (joomla) -->
 		<field
 			type="text"
-			name="medical_turnovers_males"
-			label="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_MALES_LABEL"
+			name="males"
+			label="COM_COSTBENEFITPROJECTION_COMPANY_MALES_LABEL"
 			size="20"
 			maxlength="50"
-			description="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_MALES_DESCRIPTION"
-			class="text_area"
-			readonly="false"
-			disabled="false"
-			required="true"
-			filter="FLOAT"
-			message="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_MALES_MESSAGE"
-			hint="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_MALES_HINT"
-		/>
-		<!-- Females Field. Type: Text. (joomla) -->
-		<field
-			type="text"
-			name="females"
-			label="COM_COSTBENEFITPROJECTION_COMPANY_FEMALES_LABEL"
-			size="20"
-			maxlength="50"
-			description="COM_COSTBENEFITPROJECTION_COMPANY_FEMALES_DESCRIPTION"
+			default=""
+			description="COM_COSTBENEFITPROJECTION_COMPANY_MALES_DESCRIPTION"
 			class="text_area"
 			readonly="false"
 			disabled="false"
 			required="true"
 			filter="INT"
-			message="COM_COSTBENEFITPROJECTION_COMPANY_FEMALES_MESSAGE"
-			hint="COM_COSTBENEFITPROJECTION_COMPANY_FEMALES_HINT"
-		/>
-		<!-- Causesrisks Field. Type: Causesriskscheck. (custom) -->
-		<field
-			type="causesriskscheck"
-			name="causesrisks"
-			label="COM_COSTBENEFITPROJECTION_COMPANY_CAUSESRISKS_LABEL"
-			class="list_class"
-			required="true"
-		/>
-		<!-- Percentfemale Field. Type: Repeatable. (joomla) -->
-		<field
-			type="repeatable"
-			name="percentfemale"
-			label="COM_COSTBENEFITPROJECTION_COMPANY_PERCENTFEMALE_LABEL"
-			description="COM_COSTBENEFITPROJECTION_COMPANY_PERCENTFEMALE_DESCRIPTION"
-			id="percentfemale"
-			class="percentfemales"
-			select="COM_COSTBENEFITPROJECTION_COMPANY_PERCENTFEMALE_SELECT"
-			icon="list"
-			maximum="10">
-			<fields name="percentfemale_fields" label="">
-				<fieldset hidden="true" name="percentfemale_modal" repeat="true">
-					<!-- Age Field. Type: List. (joomla) -->
-					<field
-						type="list"
-						name="age"
-						label="COM_COSTBENEFITPROJECTION_COMPANY_AGE_LABEL"
-						class="list_class"
-						multiple="false"
-						filter="CMD"
-						required="false">
-						<!-- Option Set. -->
-						<option value="15-19">
-							COM_COSTBENEFITPROJECTION_COMPANY_FIFTEENNINETEEN</option>
-						<option value="20-24">
-							COM_COSTBENEFITPROJECTION_COMPANY_TWENTYTWENTY_FOUR</option>
-						<option value="25-29">
-							COM_COSTBENEFITPROJECTION_COMPANY_TWENTY_FIVETWENTY_NINE</option>
-						<option value="30-34">
-							COM_COSTBENEFITPROJECTION_COMPANY_THIRTYTHIRTY_FOUR</option>
-						<option value="35-39">
-							COM_COSTBENEFITPROJECTION_COMPANY_THIRTY_FIVETHIRTY_NINE</option>
-						<option value="40-44">
-							COM_COSTBENEFITPROJECTION_COMPANY_FORTYFORTY_FOUR</option>
-						<option value="45-49">
-							COM_COSTBENEFITPROJECTION_COMPANY_FORTY_FIVEFORTY_NINE</option>
-						<option value="50-54">
-							COM_COSTBENEFITPROJECTION_COMPANY_FIFTYFIFTY_FOUR</option>
-						<option value="55-59">
-							COM_COSTBENEFITPROJECTION_COMPANY_FIFTY_FIVEFIFTY_NINE</option>
-						<option value="60-64">
-							COM_COSTBENEFITPROJECTION_COMPANY_SIXTYSIXTY_FOUR</option>
-					</field>
-					<!-- Percent Field. Type: Text. (joomla) -->
-					<field
-						type="text"
-						name="percent"
-						label="COM_COSTBENEFITPROJECTION_COMPANY_PERCENT_LABEL"
-						size="10"
-						maxlength="50"
-						class="text_area"
-						readonly="false"
-						disabled="false"
-						required="false"
-						filter="FLOAT"
-						message="COM_COSTBENEFITPROJECTION_COMPANY_PERCENT_MESSAGE"
-						hint="COM_COSTBENEFITPROJECTION_COMPANY_PERCENT_HINT"
-					/>
-				</fieldset>
-			</fields>
-		</field>
-		<!-- Age_groups_note Field. Type: Note. A None Database Field. (joomla) -->
-		<field type="note" name="age_groups_note" label="COM_COSTBENEFITPROJECTION_COMPANY_AGE_GROUPS_NOTE_LABEL" description="COM_COSTBENEFITPROJECTION_COMPANY_AGE_GROUPS_NOTE_DESCRIPTION" class="alert alert-info age_groups_note" />
-		<!-- Sick_leave_males Field. Type: Text. (joomla) -->
-		<field
-			type="text"
-			name="sick_leave_males"
-			label="COM_COSTBENEFITPROJECTION_COMPANY_SICK_LEAVE_MALES_LABEL"
-			size="20"
-			maxlength="50"
-			description="COM_COSTBENEFITPROJECTION_COMPANY_SICK_LEAVE_MALES_DESCRIPTION"
-			class="text_area"
-			readonly="false"
-			disabled="false"
-			required="true"
-			filter="INT"
-			message="COM_COSTBENEFITPROJECTION_COMPANY_SICK_LEAVE_MALES_MESSAGE"
-			hint="COM_COSTBENEFITPROJECTION_COMPANY_SICK_LEAVE_MALES_HINT"
-		/>
-		<!-- Datayear Field. Type: Datayear. (custom) -->
-		<field
-			type="datayear"
-			name="datayear"
-			label="COM_COSTBENEFITPROJECTION_COMPANY_DATAYEAR_LABEL"
-			description="COM_COSTBENEFITPROJECTION_COMPANY_DATAYEAR_DESCRIPTION"
-			class="list_class"
-			multiple="false"
-			default="0"
-		/>
-		<!-- Medical_turnovers_females Field. Type: Text. (joomla) -->
-		<field
-			type="text"
-			name="medical_turnovers_females"
-			label="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_FEMALES_LABEL"
-			size="20"
-			maxlength="50"
-			description="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_FEMALES_DESCRIPTION"
-			class="text_area"
-			readonly="false"
-			disabled="false"
-			required="true"
-			filter="FLOAT"
-			message="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_FEMALES_MESSAGE"
-			hint="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_FEMALES_HINT"
-		/>
-		<!-- Turnover_comment Field. Type: Textarea. (joomla) -->
-		<field
-			type="textarea"
-			name="turnover_comment"
-			label="COM_COSTBENEFITPROJECTION_COMPANY_TURNOVER_COMMENT_LABEL"
-			rows="8"
-			cols="5"
-			description="COM_COSTBENEFITPROJECTION_COMPANY_TURNOVER_COMMENT_DESCRIPTION"
-			class="text_area span12"
-			filter="HTML"
-			hint="COM_COSTBENEFITPROJECTION_COMPANY_TURNOVER_COMMENT_HINT"
+			message="COM_COSTBENEFITPROJECTION_COMPANY_MALES_MESSAGE"
+			hint="COM_COSTBENEFITPROJECTION_COMPANY_MALES_HINT"
 		/>
 		<!-- Working_days Field. Type: Integer. (joomla) -->
 		<field
@@ -346,6 +206,33 @@
 			last="365"
 			step="1"
 		/>
+		<!-- Datayear Field. Type: Datayear. (custom) -->
+		<field
+			type="datayear"
+			name="datayear"
+			label="COM_COSTBENEFITPROJECTION_COMPANY_DATAYEAR_LABEL"
+			description="COM_COSTBENEFITPROJECTION_COMPANY_DATAYEAR_DESCRIPTION"
+			class="list_class"
+			multiple="false"
+			default="0"
+		/>
+		<!-- Sick_leave_males Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="sick_leave_males"
+			label="COM_COSTBENEFITPROJECTION_COMPANY_SICK_LEAVE_MALES_LABEL"
+			size="20"
+			maxlength="50"
+			default=""
+			description="COM_COSTBENEFITPROJECTION_COMPANY_SICK_LEAVE_MALES_DESCRIPTION"
+			class="text_area"
+			readonly="false"
+			disabled="false"
+			required="true"
+			filter="INT"
+			message="COM_COSTBENEFITPROJECTION_COMPANY_SICK_LEAVE_MALES_MESSAGE"
+			hint="COM_COSTBENEFITPROJECTION_COMPANY_SICK_LEAVE_MALES_HINT"
+		/>
 		<!-- Sick_leave_females Field. Type: Text. (joomla) -->
 		<field
 			type="text"
@@ -353,6 +240,7 @@
 			label="COM_COSTBENEFITPROJECTION_COMPANY_SICK_LEAVE_FEMALES_LABEL"
 			size="20"
 			maxlength="50"
+			default=""
 			description="COM_COSTBENEFITPROJECTION_COMPANY_SICK_LEAVE_FEMALES_DESCRIPTION"
 			class="text_area"
 			readonly="false"
@@ -369,6 +257,7 @@
 			label="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_SALARY_LABEL"
 			size="20"
 			maxlength="50"
+			default=""
 			description="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_SALARY_DESCRIPTION"
 			class="text_area"
 			readonly="false"
@@ -378,19 +267,41 @@
 			message="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_SALARY_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_SALARY_HINT"
 		/>
-		<!-- Percentmale Field. Type: Repeatable. (joomla) -->
+		<!-- Turnover_comment Field. Type: Textarea. (joomla) -->
+		<field
+			type="textarea"
+			name="turnover_comment"
+			label="COM_COSTBENEFITPROJECTION_COMPANY_TURNOVER_COMMENT_LABEL"
+			rows="8"
+			cols="5"
+			description="COM_COSTBENEFITPROJECTION_COMPANY_TURNOVER_COMMENT_DESCRIPTION"
+			class="text_area span12"
+			filter="HTML"
+			hint="COM_COSTBENEFITPROJECTION_COMPANY_TURNOVER_COMMENT_HINT"
+		/>
+		<!-- Causesrisks Field. Type: Causesriskscheck. (custom) -->
+		<field
+			type="causesriskscheck"
+			name="causesrisks"
+			label="COM_COSTBENEFITPROJECTION_COMPANY_CAUSESRISKS_LABEL"
+			class="list_class"
+			default=""
+			required="true"
+		/>
+		<!-- Percentfemale Field. Type: Repeatable. (joomla) -->
 		<field
 			type="repeatable"
-			name="percentmale"
-			label="COM_COSTBENEFITPROJECTION_COMPANY_PERCENTMALE_LABEL"
-			description="COM_COSTBENEFITPROJECTION_COMPANY_PERCENTMALE_DESCRIPTION"
-			id="percentmale"
-			class="percentmales"
-			select="COM_COSTBENEFITPROJECTION_COMPANY_PERCENTMALE_SELECT"
+			name="percentfemale"
+			label="COM_COSTBENEFITPROJECTION_COMPANY_PERCENTFEMALE_LABEL"
+			description="COM_COSTBENEFITPROJECTION_COMPANY_PERCENTFEMALE_DESCRIPTION"
+			default=""
+			id="percentfemale"
+			class="percentfemales"
+			select="COM_COSTBENEFITPROJECTION_COMPANY_PERCENTFEMALE_SELECT"
 			icon="list"
 			maximum="10">
-			<fields name="percentmale_fields" label="">
-				<fieldset hidden="true" name="percentmale_modal" repeat="true">
+			<fields name="percentfemale_fields" label="">
+				<fieldset hidden="true" name="percentfemale_modal" repeat="true">
 					<!-- Age Field. Type: List. (joomla) -->
 					<field
 						type="list"
@@ -399,7 +310,8 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD"
-						required="false">
+						required="false"
+						default="">
 						<!-- Option Set. -->
 						<option value="15-19">
 							COM_COSTBENEFITPROJECTION_COMPANY_FIFTEENNINETEEN</option>
@@ -429,6 +341,7 @@
 						label="COM_COSTBENEFITPROJECTION_COMPANY_PERCENT_LABEL"
 						size="10"
 						maxlength="50"
+						default=""
 						class="text_area"
 						readonly="false"
 						disabled="false"
@@ -440,24 +353,12 @@
 				</fieldset>
 			</fields>
 		</field>
-		<!-- Total_healthcare Field. Type: Text. (joomla) -->
+		<!-- Not_required Field. Type: Hidden. (joomla) -->
 		<field
-			type="text"
-			name="total_healthcare"
-			label="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_HEALTHCARE_LABEL"
-			size="20"
-			maxlength="50"
-			description="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_HEALTHCARE_DESCRIPTION"
-			class="text_area"
-			readonly="false"
-			disabled="false"
-			required="true"
-			filter="integer"
-			message="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_HEALTHCARE_MESSAGE"
-			hint="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_HEALTHCARE_HINT"
+			type="hidden"
+			name="not_required"
+			default="[]"
 		/>
-		<!-- Cause_risk_selection_note Field. Type: Note. A None Database Field. (joomla) -->
-		<field type="note" name="cause_risk_selection_note" label="COM_COSTBENEFITPROJECTION_COMPANY_CAUSE_RISK_SELECTION_NOTE_LABEL" description="COM_COSTBENEFITPROJECTION_COMPANY_CAUSE_RISK_SELECTION_NOTE_DESCRIPTION" class="alert alert-info cause_risk_selection_note" />
 		<!-- Productivity_losses Field. Type: Text. (joomla) -->
 		<field
 			type="text"
@@ -465,6 +366,7 @@
 			label="COM_COSTBENEFITPROJECTION_COMPANY_PRODUCTIVITY_LOSSES_LABEL"
 			size="20"
 			maxlength="50"
+			default=""
 			description="COM_COSTBENEFITPROJECTION_COMPANY_PRODUCTIVITY_LOSSES_DESCRIPTION"
 			class="text_area"
 			readonly="false"
@@ -474,27 +376,142 @@
 			message="COM_COSTBENEFITPROJECTION_COMPANY_PRODUCTIVITY_LOSSES_MESSAGE"
 			hint="COM_COSTBENEFITPROJECTION_COMPANY_PRODUCTIVITY_LOSSES_HINT"
 		/>
-		<!-- Not_required Field. Type: Hidden. (joomla) -->
-		<field
-			type="hidden"
-			name="not_required"
-			default="[]"
-		/>
-		<!-- Males Field. Type: Text. (joomla) -->
+		<!-- Total_healthcare Field. Type: Text. (joomla) -->
 		<field
 			type="text"
-			name="males"
-			label="COM_COSTBENEFITPROJECTION_COMPANY_MALES_LABEL"
+			name="total_healthcare"
+			label="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_HEALTHCARE_LABEL"
 			size="20"
 			maxlength="50"
-			description="COM_COSTBENEFITPROJECTION_COMPANY_MALES_DESCRIPTION"
+			default=""
+			description="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_HEALTHCARE_DESCRIPTION"
+			class="text_area"
+			readonly="false"
+			disabled="false"
+			required="true"
+			filter="integer"
+			message="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_HEALTHCARE_MESSAGE"
+			hint="COM_COSTBENEFITPROJECTION_COMPANY_TOTAL_HEALTHCARE_HINT"
+		/>
+		<!-- Percentmale Field. Type: Repeatable. (joomla) -->
+		<field
+			type="repeatable"
+			name="percentmale"
+			label="COM_COSTBENEFITPROJECTION_COMPANY_PERCENTMALE_LABEL"
+			description="COM_COSTBENEFITPROJECTION_COMPANY_PERCENTMALE_DESCRIPTION"
+			default=""
+			id="percentmale"
+			class="percentmales"
+			select="COM_COSTBENEFITPROJECTION_COMPANY_PERCENTMALE_SELECT"
+			icon="list"
+			maximum="10">
+			<fields name="percentmale_fields" label="">
+				<fieldset hidden="true" name="percentmale_modal" repeat="true">
+					<!-- Age Field. Type: List. (joomla) -->
+					<field
+						type="list"
+						name="age"
+						label="COM_COSTBENEFITPROJECTION_COMPANY_AGE_LABEL"
+						class="list_class"
+						multiple="false"
+						filter="CMD"
+						required="false"
+						default="">
+						<!-- Option Set. -->
+						<option value="15-19">
+							COM_COSTBENEFITPROJECTION_COMPANY_FIFTEENNINETEEN</option>
+						<option value="20-24">
+							COM_COSTBENEFITPROJECTION_COMPANY_TWENTYTWENTY_FOUR</option>
+						<option value="25-29">
+							COM_COSTBENEFITPROJECTION_COMPANY_TWENTY_FIVETWENTY_NINE</option>
+						<option value="30-34">
+							COM_COSTBENEFITPROJECTION_COMPANY_THIRTYTHIRTY_FOUR</option>
+						<option value="35-39">
+							COM_COSTBENEFITPROJECTION_COMPANY_THIRTY_FIVETHIRTY_NINE</option>
+						<option value="40-44">
+							COM_COSTBENEFITPROJECTION_COMPANY_FORTYFORTY_FOUR</option>
+						<option value="45-49">
+							COM_COSTBENEFITPROJECTION_COMPANY_FORTY_FIVEFORTY_NINE</option>
+						<option value="50-54">
+							COM_COSTBENEFITPROJECTION_COMPANY_FIFTYFIFTY_FOUR</option>
+						<option value="55-59">
+							COM_COSTBENEFITPROJECTION_COMPANY_FIFTY_FIVEFIFTY_NINE</option>
+						<option value="60-64">
+							COM_COSTBENEFITPROJECTION_COMPANY_SIXTYSIXTY_FOUR</option>
+					</field>
+					<!-- Percent Field. Type: Text. (joomla) -->
+					<field
+						type="text"
+						name="percent"
+						label="COM_COSTBENEFITPROJECTION_COMPANY_PERCENT_LABEL"
+						size="10"
+						maxlength="50"
+						default=""
+						class="text_area"
+						readonly="false"
+						disabled="false"
+						required="false"
+						filter="FLOAT"
+						message="COM_COSTBENEFITPROJECTION_COMPANY_PERCENT_MESSAGE"
+						hint="COM_COSTBENEFITPROJECTION_COMPANY_PERCENT_HINT"
+					/>
+				</fieldset>
+			</fields>
+		</field>
+		<!-- Females Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="females"
+			label="COM_COSTBENEFITPROJECTION_COMPANY_FEMALES_LABEL"
+			size="20"
+			maxlength="50"
+			default=""
+			description="COM_COSTBENEFITPROJECTION_COMPANY_FEMALES_DESCRIPTION"
 			class="text_area"
 			readonly="false"
 			disabled="false"
 			required="true"
 			filter="INT"
-			message="COM_COSTBENEFITPROJECTION_COMPANY_MALES_MESSAGE"
-			hint="COM_COSTBENEFITPROJECTION_COMPANY_MALES_HINT"
+			message="COM_COSTBENEFITPROJECTION_COMPANY_FEMALES_MESSAGE"
+			hint="COM_COSTBENEFITPROJECTION_COMPANY_FEMALES_HINT"
+		/>
+		<!-- Age_groups_note Field. Type: Note. A None Database Field. (joomla) -->
+		<field type="note" name="age_groups_note" label="COM_COSTBENEFITPROJECTION_COMPANY_AGE_GROUPS_NOTE_LABEL" description="COM_COSTBENEFITPROJECTION_COMPANY_AGE_GROUPS_NOTE_DESCRIPTION" class="alert alert-info age_groups_note" />
+		<!-- Medical_turnovers_males Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="medical_turnovers_males"
+			label="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_MALES_LABEL"
+			size="20"
+			maxlength="50"
+			default=""
+			description="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_MALES_DESCRIPTION"
+			class="text_area"
+			readonly="false"
+			disabled="false"
+			required="true"
+			filter="FLOAT"
+			message="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_MALES_MESSAGE"
+			hint="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_MALES_HINT"
+		/>
+		<!-- Cause_risk_selection_note Field. Type: Note. A None Database Field. (joomla) -->
+		<field type="note" name="cause_risk_selection_note" label="COM_COSTBENEFITPROJECTION_COMPANY_CAUSE_RISK_SELECTION_NOTE_LABEL" description="COM_COSTBENEFITPROJECTION_COMPANY_CAUSE_RISK_SELECTION_NOTE_DESCRIPTION" class="alert alert-info cause_risk_selection_note" />
+		<!-- Medical_turnovers_females Field. Type: Text. (joomla) -->
+		<field
+			type="text"
+			name="medical_turnovers_females"
+			label="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_FEMALES_LABEL"
+			size="20"
+			maxlength="50"
+			default=""
+			description="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_FEMALES_DESCRIPTION"
+			class="text_area"
+			readonly="false"
+			disabled="false"
+			required="true"
+			filter="FLOAT"
+			message="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_FEMALES_MESSAGE"
+			hint="COM_COSTBENEFITPROJECTION_COMPANY_MEDICAL_TURNOVERS_FEMALES_HINT"
 		/>
 	</fieldset>
 	

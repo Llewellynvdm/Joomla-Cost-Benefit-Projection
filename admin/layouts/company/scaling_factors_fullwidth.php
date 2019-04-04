@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.3
-	@build			17th May, 2018
+	@version		3.4.x
+	@build			4th April, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		scaling_factors_fullwidth.php
@@ -18,14 +18,32 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // No direct access to this file
-
 defined('_JEXEC') or die('Restricted access');
 
 // set the defaults
-$items	= $displayData->vwcscaling_factors;
-$user	= JFactory::getUser();
-$id	= $displayData->item->id;
+$items = $displayData->vwcscaling_factors;
+$user = JFactory::getUser();
+$id = $displayData->item->id;
+// set the edit URL
 $edit = "index.php?option=com_costbenefitprojection&view=scaling_factors&task=scaling_factor.edit";
+// set a return value
+$return = ($id) ? "index.php?option=com_costbenefitprojection&view=company&layout=edit&id=" . $id : "";
+// check for a return value
+$jinput = JFactory::getApplication()->input;
+if ($_return = $jinput->get('return', null, 'base64'))
+{
+	$return .= "&return=" . $_return;
+}
+// check if return value was set
+if (CostbenefitprojectionHelper::checkString($return))
+{
+	// set the referral values
+	$ref = ($id) ? "&ref=company&refid=" . $id . "&return=" . urlencode(base64_encode($return)) : "&return=" . urlencode(base64_encode($return));
+}
+else
+{
+	$ref = ($id) ? "&ref=company&refid=" . $id : "";
+}
 
 ?>
 <div class="form-vertical">
@@ -73,14 +91,14 @@ $edit = "index.php?option=com_costbenefitprojection&view=scaling_factors&task=sc
 		$canDo = CostbenefitprojectionHelper::getActions('scaling_factor',$item,'scaling_factors');
 	?>
 	<tr>
-		<td class="nowrap">
+		<td>
 			<?php if ($canDo->get('scaling_factor.edit')): ?>
-				<a href="<?php echo $edit; ?>&id=<?php echo $item->id; ?>&ref=company&refid=<?php echo $id; ?>"><?php echo $displayData->escape($item->causerisk_name); ?></a>
-					<?php if ($item->checked_out): ?>
-						<?php echo JHtml::_('jgrid.checkedout', $i, $userChkOut->name, $item->checked_out_time, 'scaling_factors.', $canCheckin); ?>
-					<?php endif; ?>
+				<a href="<?php echo $edit; ?>&id=<?php echo $item->id; ?><?php echo $ref; ?>"><?php echo $displayData->escape($item->causerisk_name); ?></a>
+				<?php if ($item->checked_out): ?>
+					<?php echo JHtml::_('jgrid.checkedout', $i, $userChkOut->name, $item->checked_out_time, 'scaling_factors.', $canCheckin); ?>
+				<?php endif; ?>
 			<?php else: ?>
-				<div class="name"><?php echo $displayData->escape($item->causerisk_name); ?></div>
+				<?php echo $displayData->escape($item->causerisk_name); ?>
 			<?php endif; ?>
 		</td>
 		<td>

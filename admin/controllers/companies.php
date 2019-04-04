@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 101 of this MVC
-	@build			29th June, 2016
-	@created		15th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		companies.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -20,24 +20,33 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-// import Joomla controlleradmin library
-jimport('joomla.application.component.controlleradmin');
-
 /**
  * Companies Controller
  */
 class CostbenefitprojectionControllerCompanies extends JControllerAdmin
 {
-	protected $text_prefix = 'COM_COSTBENEFITPROJECTION_COMPANIES';
 	/**
-	 * Proxy for getModel.
-	 * @since	2.5
+	 * The prefix to use with controller messages.
+	 *
+	 * @var    string
+	 * @since  1.6
 	 */
-	public function getModel($name = 'Company', $prefix = 'CostbenefitprojectionModel', $config = array())
+	protected $text_prefix = 'COM_COSTBENEFITPROJECTION_COMPANIES';
+
+	/**
+	 * Method to get a model object, loading it if required.
+	 *
+	 * @param   string  $name    The model name. Optional.
+	 * @param   string  $prefix  The class prefix. Optional.
+	 * @param   array   $config  Configuration array for model. Optional.
+	 *
+	 * @return  JModelLegacy  The model.
+	 *
+	 * @since   1.6
+	 */
+	public function getModel($name = 'Company', $prefix = 'CostbenefitprojectionModel', $config = array('ignore_request' => true))
 	{
-		$model = parent::getModel($name, $prefix, array('ignore_request' => true));
-		
-		return $model;
+		return parent::getModel($name, $prefix, $config);
 	}
 
 	public function exportData()
@@ -101,7 +110,7 @@ class CostbenefitprojectionControllerCompanies extends JControllerAdmin
 		$message = JText::_('COM_COSTBENEFITPROJECTION_IMPORT_FAILED');
 		$this->setRedirect(JRoute::_('index.php?option=com_costbenefitprojection&view=companies', false), $message, 'error');
 		return;
-	} 
+	}
 
 	public function redirectToCombinedresults()
 	{
@@ -125,5 +134,5 @@ class CostbenefitprojectionControllerCompanies extends JControllerAdmin
 		$message = JText::_('COM_COSTBENEFITPROJECTION_ACCESS_TO_COMBINEDRESULTS_FAILED');
 		$this->setRedirect(JRoute::_('index.php?option=com_costbenefitprojection&view=companies', false), $message, 'error');
 		return;
-	} 
+	}
 }

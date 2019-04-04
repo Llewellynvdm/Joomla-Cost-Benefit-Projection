@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 101 of this MVC
-	@build			29th June, 2016
-	@created		15th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		company.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -21,9 +21,6 @@
 defined('_JEXEC') or die('Restricted access');
 
 use Joomla\Registry\Registry;
-
-// import Joomla modelform library
-jimport('joomla.application.component.modeladmin');
 
 /**
  * Costbenefitprojection Company Model
@@ -57,6 +54,9 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	 */
 	public function getTable($type = 'company', $prefix = 'CostbenefitprojectionTable', $config = array())
 	{
+		// add table path for when model gets used from other component
+		$this->addTablePath(JPATH_ADMINISTRATOR . '/components/com_costbenefitprojection/tables');
+		// get instance of the table
 		return JTable::getInstance($type, $prefix, $config);
 	}
     
@@ -94,28 +94,16 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			// Get the encryption object.
 			$whmcs = new FOFEncryptAes($whmcskey);
 
-			if (!empty($item->medical_turnovers_males) && $whmcskey && !is_numeric($item->medical_turnovers_males) && $item->medical_turnovers_males === base64_encode(base64_decode($item->medical_turnovers_males, true)))
+			if (!empty($item->males) && $whmcskey && !is_numeric($item->males) && $item->males === base64_encode(base64_decode($item->males, true)))
 			{
-				// whmcs decrypt data medical_turnovers_males.
-				$item->medical_turnovers_males = rtrim($whmcs->decryptString($item->medical_turnovers_males), "\0");
-			}
-
-			if (!empty($item->females) && $whmcskey && !is_numeric($item->females) && $item->females === base64_encode(base64_decode($item->females, true)))
-			{
-				// whmcs decrypt data females.
-				$item->females = rtrim($whmcs->decryptString($item->females), "\0");
+				// whmcs decrypt data males.
+				$item->males = rtrim($whmcs->decryptString($item->males), "\0");
 			}
 
 			if (!empty($item->sick_leave_males) && $whmcskey && !is_numeric($item->sick_leave_males) && $item->sick_leave_males === base64_encode(base64_decode($item->sick_leave_males, true)))
 			{
 				// whmcs decrypt data sick_leave_males.
 				$item->sick_leave_males = rtrim($whmcs->decryptString($item->sick_leave_males), "\0");
-			}
-
-			if (!empty($item->medical_turnovers_females) && $whmcskey && !is_numeric($item->medical_turnovers_females) && $item->medical_turnovers_females === base64_encode(base64_decode($item->medical_turnovers_females, true)))
-			{
-				// whmcs decrypt data medical_turnovers_females.
-				$item->medical_turnovers_females = rtrim($whmcs->decryptString($item->medical_turnovers_females), "\0");
 			}
 
 			if (!empty($item->sick_leave_females) && $whmcskey && !is_numeric($item->sick_leave_females) && $item->sick_leave_females === base64_encode(base64_decode($item->sick_leave_females, true)))
@@ -136,10 +124,22 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				$item->total_healthcare = rtrim($whmcs->decryptString($item->total_healthcare), "\0");
 			}
 
-			if (!empty($item->males) && $whmcskey && !is_numeric($item->males) && $item->males === base64_encode(base64_decode($item->males, true)))
+			if (!empty($item->females) && $whmcskey && !is_numeric($item->females) && $item->females === base64_encode(base64_decode($item->females, true)))
 			{
-				// whmcs decrypt data males.
-				$item->males = rtrim($whmcs->decryptString($item->males), "\0");
+				// whmcs decrypt data females.
+				$item->females = rtrim($whmcs->decryptString($item->females), "\0");
+			}
+
+			if (!empty($item->medical_turnovers_males) && $whmcskey && !is_numeric($item->medical_turnovers_males) && $item->medical_turnovers_males === base64_encode(base64_decode($item->medical_turnovers_males, true)))
+			{
+				// whmcs decrypt data medical_turnovers_males.
+				$item->medical_turnovers_males = rtrim($whmcs->decryptString($item->medical_turnovers_males), "\0");
+			}
+
+			if (!empty($item->medical_turnovers_females) && $whmcskey && !is_numeric($item->medical_turnovers_females) && $item->medical_turnovers_females === base64_encode(base64_decode($item->medical_turnovers_females, true)))
+			{
+				// whmcs decrypt data medical_turnovers_females.
+				$item->medical_turnovers_females = rtrim($whmcs->decryptString($item->medical_turnovers_females), "\0");
 			}
 
 			if (!empty($item->causesrisks))
@@ -161,10 +161,10 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	}
 
 	/**
-	* Method to get list data.
-	*
-	* @return mixed  An array of data items on success, false on failure.
-	*/
+	 * Method to get list data.
+	 *
+	 * @return mixed  An array of data items on success, false on failure.
+	 */
 	public function getVwcscaling_factors()
 	{
 		// Get the user object.
@@ -233,11 +233,9 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			// set values to display correctly.
 			if (CostbenefitprojectionHelper::checkArray($items))
 			{
-				// get user object.
-				$user = JFactory::getUser();
 				foreach ($items as $nr => &$item)
 				{
-					$access = ($user->authorise('scaling_factor.access', 'com_costbenefitprojection.scaling_factor.' . (int) $item->id) && $user->authorise('scaling_factor.access', 'com_costbenefitprojection'));
+					$access = (JFactory::getUser()->authorise('scaling_factor.access', 'com_costbenefitprojection.scaling_factor.' . (int) $item->id) && JFactory::getUser()->authorise('scaling_factor.access', 'com_costbenefitprojection'));
 					if (!$access)
 					{
 						unset($items[$nr]);
@@ -252,10 +250,10 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	}
 
 	/**
-	* Method to get list data.
-	*
-	* @return mixed  An array of data items on success, false on failure.
-	*/
+	 * Method to get list data.
+	 *
+	 * @return mixed  An array of data items on success, false on failure.
+	 */
 	public function getVwdinterventions()
 	{
 		// Get the user object.
@@ -320,11 +318,9 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			// set values to display correctly.
 			if (CostbenefitprojectionHelper::checkArray($items))
 			{
-				// get user object.
-				$user = JFactory::getUser();
 				foreach ($items as $nr => &$item)
 				{
-					$access = ($user->authorise('intervention.access', 'com_costbenefitprojection.intervention.' . (int) $item->id) && $user->authorise('intervention.access', 'com_costbenefitprojection'));
+					$access = (JFactory::getUser()->authorise('intervention.access', 'com_costbenefitprojection.intervention.' . (int) $item->id) && JFactory::getUser()->authorise('intervention.access', 'com_costbenefitprojection'));
 					if (!$access)
 					{
 						unset($items[$nr]);
@@ -363,10 +359,10 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	}
 
 	/**
-	* Method to convert selection values to translatable string.
-	*
-	* @return translatable string
-	*/
+	 * Method to convert selection values to translatable string.
+	 *
+	 * @return translatable string
+	 */
 	public function selectionTranslationVwdinterventions($value,$name)
 	{
 		// Array of type language strings
@@ -383,22 +379,25 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			}
 		}
 		return $value;
-	} 
+	}
 
 	/**
 	 * Method to get the record form.
 	 *
 	 * @param   array    $data      Data for the form.
 	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
+	 * @param   array    $options   Optional array of options for the form creation.
 	 *
 	 * @return  mixed  A JForm object on success, false on failure
 	 *
 	 * @since   1.6
 	 */
-	public function getForm($data = array(), $loadData = true)
+	public function getForm($data = array(), $loadData = true, $options = array('control' => 'jform'))
 	{
+		// set load data option
+		$options['load_data'] = $loadData;
 		// Get the form.
-		$form = $this->loadForm('com_costbenefitprojection.company', 'company', array('control' => 'jform', 'load_data' => $loadData));
+		$form = $this->loadForm('com_costbenefitprojection.company', 'company', $options);
 
 		if (empty($form))
 		{
@@ -466,6 +465,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			$form->setFieldAttribute('email', 'disabled', 'true');
 			// Disable fields for display.
 			$form->setFieldAttribute('email', 'readonly', 'true');
+			// If there is no value continue.
 			if (!$form->getValue('email'))
 			{
 				// Disable fields while saving.
@@ -482,6 +482,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			$form->setFieldAttribute('user', 'disabled', 'true');
 			// Disable fields for display.
 			$form->setFieldAttribute('user', 'readonly', 'true');
+			// If there is no value continue.
 			if (!$form->getValue('user'))
 			{
 				// Disable fields while saving.
@@ -501,6 +502,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			// Disable radio button for display.
 			$class = $form->getFieldAttribute('department', 'class', '');
 			$form->setFieldAttribute('department', 'class', $class.' disabled no-click');
+			// If there is no value continue.
 			if (!$form->getValue('department'))
 			{
 				// Disable fields while saving.
@@ -517,6 +519,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			$form->setFieldAttribute('country', 'disabled', 'true');
 			// Disable fields for display.
 			$form->setFieldAttribute('country', 'readonly', 'true');
+			// If there is no value continue.
 			if (!$form->getValue('country'))
 			{
 				// Disable fields while saving.
@@ -533,6 +536,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			$form->setFieldAttribute('service_provider', 'disabled', 'true');
 			// Disable fields for display.
 			$form->setFieldAttribute('service_provider', 'readonly', 'true');
+			// If there is no value continue.
 			if (!$form->getValue('service_provider'))
 			{
 				// Disable fields while saving.
@@ -552,12 +556,30 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			// Disable radio button for display.
 			$class = $form->getFieldAttribute('per', 'class', '');
 			$form->setFieldAttribute('per', 'class', $class.' disabled no-click');
+			// If there is no value continue.
 			if (!$form->getValue('per'))
 			{
 				// Disable fields while saving.
 				$form->setFieldAttribute('per', 'filter', 'unset');
 				// Disable fields while saving.
 				$form->setFieldAttribute('per', 'required', 'false');
+			}
+		}
+		// Modify the form based on Edit Datayear access controls.
+		if ($id != 0 && (!$user->authorise('company.edit.datayear', 'com_costbenefitprojection.company.' . (int) $id))
+			|| ($id == 0 && !$user->authorise('company.edit.datayear', 'com_costbenefitprojection')))
+		{
+			// Disable fields for display.
+			$form->setFieldAttribute('datayear', 'disabled', 'true');
+			// Disable fields for display.
+			$form->setFieldAttribute('datayear', 'readonly', 'true');
+			// If there is no value continue.
+			if (!$form->getValue('datayear'))
+			{
+				// Disable fields while saving.
+				$form->setFieldAttribute('datayear', 'filter', 'unset');
+				// Disable fields while saving.
+				$form->setFieldAttribute('datayear', 'required', 'false');
 			}
 		}
 		// Modify the form based on Edit Causesrisks access controls.
@@ -568,6 +590,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			$form->setFieldAttribute('causesrisks', 'disabled', 'true');
 			// Disable fields for display.
 			$form->setFieldAttribute('causesrisks', 'readonly', 'true');
+			// If there is no value continue.
 			if (!$form->getValue('causesrisks'))
 			{
 				// Disable fields while saving.
@@ -587,28 +610,13 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			// Disable radio button for display.
 			$class = $form->getFieldAttribute('percentfemale', 'class', '');
 			$form->setFieldAttribute('percentfemale', 'class', $class.' disabled no-click');
+			// If there is no value continue.
 			if (!$form->getValue('percentfemale'))
 			{
 				// Disable fields while saving.
 				$form->setFieldAttribute('percentfemale', 'filter', 'unset');
 				// Disable fields while saving.
 				$form->setFieldAttribute('percentfemale', 'required', 'false');
-			}
-		}
-		// Modify the form based on Edit Datayear access controls.
-		if ($id != 0 && (!$user->authorise('company.edit.datayear', 'com_costbenefitprojection.company.' . (int) $id))
-			|| ($id == 0 && !$user->authorise('company.edit.datayear', 'com_costbenefitprojection')))
-		{
-			// Disable fields for display.
-			$form->setFieldAttribute('datayear', 'disabled', 'true');
-			// Disable fields for display.
-			$form->setFieldAttribute('datayear', 'readonly', 'true');
-			if (!$form->getValue('datayear'))
-			{
-				// Disable fields while saving.
-				$form->setFieldAttribute('datayear', 'filter', 'unset');
-				// Disable fields while saving.
-				$form->setFieldAttribute('datayear', 'required', 'false');
 			}
 		}
 		// Modify the form based on Edit Percentmale access controls.
@@ -622,6 +630,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			// Disable radio button for display.
 			$class = $form->getFieldAttribute('percentmale', 'class', '');
 			$form->setFieldAttribute('percentmale', 'class', $class.' disabled no-click');
+			// If there is no value continue.
 			if (!$form->getValue('percentmale'))
 			{
 				// Disable fields while saving.
@@ -633,17 +642,20 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 		// Only load these values if no id is found
 		if (0 == $id)
 		{
-			// Set redirected field name
-			$redirectedField = $jinput->get('ref', null, 'STRING');
-			// Set redirected field value
-			$redirectedValue = $jinput->get('refid', 0, 'INT');
+			// Set redirected view name
+			$redirectedView = $jinput->get('ref', null, 'STRING');
+			// Set field name (or fall back to view name)
+			$redirectedField = $jinput->get('field', $redirectedView, 'STRING');
+			// Set redirected view id
+			$redirectedId = $jinput->get('refid', 0, 'INT');
+			// Set field id (or fall back to redirected view id)
+			$redirectedValue = $jinput->get('field_id', $redirectedId, 'INT');
 			if (0 != $redirectedValue && $redirectedField)
 			{
 				// Now set the local-redirected field default value
 				$form->setValue($redirectedField, null, $redirectedValue);
 			}
 		}
-
 		return $form;
 	}
 
@@ -694,7 +706,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	protected function canEditState($record)
 	{
 		$user = JFactory::getUser();
-		$recordId	= (!empty($record->id)) ? $record->id : 0;
+		$recordId = (!empty($record->id)) ? $record->id : 0;
 
 		if ($recordId)
 		{
@@ -805,18 +817,18 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	}
 
 	/**
-	* Method to validate the form data.
-	*
-	* @param   JForm   $form   The form to validate against.
-	* @param   array   $data   The data to validate.
-	* @param   string  $group  The name of the field group to validate.
-	*
-	* @return  mixed  Array of filtered data if valid, false otherwise.
-	*
-	* @see     JFormRule
-	* @see     JFilterInput
-	* @since   12.2
-	*/
+	 * Method to validate the form data.
+	 *
+	 * @param   JForm   $form   The form to validate against.
+	 * @param   array   $data   The data to validate.
+	 * @param   string  $group  The name of the field group to validate.
+	 *
+	 * @return  mixed  Array of filtered data if valid, false otherwise.
+	 *
+	 * @see     JFormRule
+	 * @see     JFilterInput
+	 * @since   12.2
+	 */
 	public function validate($form, $data, $group = null)
 	{
 		// check if the not_required field is set
@@ -838,7 +850,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			}
 		}
 		return parent::validate($form, $data, $group);
-	} 
+	}
 
 	/**
 	 * Method to get the unique fields of this table.
@@ -996,7 +1008,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	 *
 	 * @return  mixed  An array of new IDs on success, boolean false on failure.
 	 *
-	 * @since	12.2
+	 * @since 12.2
 	 */
 	protected function batchCopy($values, $pks, $contexts)
 	{
@@ -1031,14 +1043,12 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				if (empty($pks))
 				{
 					$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_EDIT'));
-	
 					return false;
 				}
 			}
 			else
 			{
 				$this->setError(JText::_('JLIB_APPLICATION_ERROR_BATCH_CANNOT_EDIT'));
-				
 				return false;
 			}
 		}
@@ -1123,7 +1133,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			$this->table->id = 0;
 
 			// TODO: Deal with ordering?
-			// $this->table->ordering	= 1;
+			// $this->table->ordering = 1;
 
 			// Check the row.
 			if (!$this->table->check())
@@ -1157,7 +1167,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 		$this->cleanCache();
 
 		return $newIds;
-	} 
+	}
 
 	/**
 	 * Batch move items to a new category
@@ -1168,7 +1178,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	 *
 	 * @return  boolean  True if successful, false otherwise and internal error is set.
 	 *
-	 * @since	12.2
+	 * @since 12.2
 	 */
 	protected function batchMove($values, $pks, $contexts)
 	{
@@ -1204,14 +1214,12 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 				if (empty($pks))
 				{
 					$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', 0));
-	
 					return false;
 				}
 			}
 			else
 			{
 				$this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_BATCH_MOVE_ROW_NOT_FOUND', 0));
-				
 				return false;
 			}
 		}
@@ -1324,7 +1332,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 		if (!isset($data['causesrisks']))
 		{
 			$data['causesrisks'] = '';
-		} 
+		}
 
 		// Set the causesrisks string to JSON string.
 		if (isset($data['causesrisks']))
@@ -1337,28 +1345,16 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 		// Get the encryption object
 		$whmcs = new FOFEncryptAes($whmcskey);
 
-		// Encrypt data medical_turnovers_males.
-		if (isset($data['medical_turnovers_males']) && $whmcskey)
+		// Encrypt data males.
+		if (isset($data['males']) && $whmcskey)
 		{
-			$data['medical_turnovers_males'] = $whmcs->encryptString($data['medical_turnovers_males']);
-		}
-
-		// Encrypt data females.
-		if (isset($data['females']) && $whmcskey)
-		{
-			$data['females'] = $whmcs->encryptString($data['females']);
+			$data['males'] = $whmcs->encryptString($data['males']);
 		}
 
 		// Encrypt data sick_leave_males.
 		if (isset($data['sick_leave_males']) && $whmcskey)
 		{
 			$data['sick_leave_males'] = $whmcs->encryptString($data['sick_leave_males']);
-		}
-
-		// Encrypt data medical_turnovers_females.
-		if (isset($data['medical_turnovers_females']) && $whmcskey)
-		{
-			$data['medical_turnovers_females'] = $whmcs->encryptString($data['medical_turnovers_females']);
 		}
 
 		// Encrypt data sick_leave_females.
@@ -1379,10 +1375,22 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 			$data['total_healthcare'] = $whmcs->encryptString($data['total_healthcare']);
 		}
 
-		// Encrypt data males.
-		if (isset($data['males']) && $whmcskey)
+		// Encrypt data females.
+		if (isset($data['females']) && $whmcskey)
 		{
-			$data['males'] = $whmcs->encryptString($data['males']);
+			$data['females'] = $whmcs->encryptString($data['females']);
+		}
+
+		// Encrypt data medical_turnovers_males.
+		if (isset($data['medical_turnovers_males']) && $whmcskey)
+		{
+			$data['medical_turnovers_males'] = $whmcs->encryptString($data['medical_turnovers_males']);
+		}
+
+		// Encrypt data medical_turnovers_females.
+		if (isset($data['medical_turnovers_females']) && $whmcskey)
+		{
+			$data['medical_turnovers_females'] = $whmcs->encryptString($data['medical_turnovers_females']);
 		}
 
 		// make sure new company does not get locked
@@ -1446,13 +1454,13 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	}
 
 	/**
-	* Method to change the title
-	*
-	* @param   string   $title   The title.
-	*
-	* @return	array  Contains the modified title and alias.
-	*
-	*/
+	 * Method to change the title
+	 *
+	 * @param   string   $title   The title.
+	 *
+	 * @return	array  Contains the modified title and alias.
+	 *
+	 */
 	protected function _generateNewTitle($title)
 	{
 

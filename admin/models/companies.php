@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 101 of this MVC
-	@build			29th June, 2016
-	@created		15th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		companies.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -19,9 +19,6 @@
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
-
-// import the Joomla modellist library
-jimport('joomla.application.component.modellist');
 
 /**
  * Companies Model
@@ -110,7 +107,7 @@ class CostbenefitprojectionModelCompanies extends JModelList
 	 * @return  mixed  An array of data items on success, false on failure.
 	 */
 	public function getItems()
-	{ 
+	{
 		// check in items
 		$this->checkInNow();
 
@@ -120,11 +117,9 @@ class CostbenefitprojectionModelCompanies extends JModelList
 		// set values to display correctly.
 		if (CostbenefitprojectionHelper::checkArray($items))
 		{
-			// get user object.
-			$user = JFactory::getUser();
 			foreach ($items as $nr => &$item)
 			{
-				$access = ($user->authorise('company.access', 'com_costbenefitprojection.company.' . (int) $item->id) && $user->authorise('company.access', 'com_costbenefitprojection'));
+				$access = (JFactory::getUser()->authorise('company.access', 'com_costbenefitprojection.company.' . (int) $item->id) && JFactory::getUser()->authorise('company.access', 'com_costbenefitprojection'));
 				if (!$access)
 				{
 					unset($items[$nr]);
@@ -132,7 +127,7 @@ class CostbenefitprojectionModelCompanies extends JModelList
 				}
 
 			}
-		} 
+		}
 
 		// set selection value to a translatable value
 		if (CostbenefitprojectionHelper::checkArray($items))
@@ -145,17 +140,17 @@ class CostbenefitprojectionModelCompanies extends JModelList
 				$item->per = $this->selectionTranslation($item->per, 'per');
 			}
 		}
- 
+
         
 		// return items
 		return $items;
 	}
 
 	/**
-	* Method to convert selection values to translatable string.
-	*
-	* @return translatable string
-	*/
+	 * Method to convert selection values to translatable string.
+	 *
+	 * @return translatable string
+	 */
 	public function selectionTranslation($value,$name)
 	{
 		// Array of department language strings
@@ -271,7 +266,7 @@ class CostbenefitprojectionModelCompanies extends JModelList
 			else
 			{
 				$search = $db->quote('%' . $db->escape($search) . '%');
-				$query->where('(a.name LIKE '.$search.' OR a.email LIKE '.$search.' OR a.user LIKE '.$search.' OR g.name LIKE '.$search.' OR a.department LIKE '.$search.' OR a.country LIKE '.$search.' OR h.name LIKE '.$search.' OR a.service_provider LIKE '.$search.' OR i.user LIKE '.$search.' OR a.per LIKE '.$search.')');
+				$query->where('(a.email LIKE '.$search.' OR a.name LIKE '.$search.' OR a.user LIKE '.$search.' OR g.name LIKE '.$search.' OR a.department LIKE '.$search.' OR a.country LIKE '.$search.' OR h.name LIKE '.$search.' OR a.service_provider LIKE '.$search.' OR i.user LIKE '.$search.' OR a.per LIKE '.$search.')');
 			}
 		}
 
@@ -308,10 +303,10 @@ class CostbenefitprojectionModelCompanies extends JModelList
 	}
 
 	/**
-	* Method to get list export data.
-	*
-	* @return mixed  An array of data items on success, false on failure.
-	*/
+	 * Method to get list export data.
+	 *
+	 * @return mixed  An array of data items on success, false on failure.
+	 */
 	public function getExportData($pks)
 	{
 		// setup the query
@@ -373,36 +368,24 @@ class CostbenefitprojectionModelCompanies extends JModelList
 				// set values to display correctly.
 				if (CostbenefitprojectionHelper::checkArray($items))
 				{
-					// get user object.
-					$user = JFactory::getUser();
 					foreach ($items as $nr => &$item)
 					{
-						$access = ($user->authorise('company.access', 'com_costbenefitprojection.company.' . (int) $item->id) && $user->authorise('company.access', 'com_costbenefitprojection'));
+						$access = (JFactory::getUser()->authorise('company.access', 'com_costbenefitprojection.company.' . (int) $item->id) && JFactory::getUser()->authorise('company.access', 'com_costbenefitprojection'));
 						if (!$access)
 						{
 							unset($items[$nr]);
 							continue;
 						}
 
-						if ($whmcskey && !is_numeric($item->medical_turnovers_males) && $item->medical_turnovers_males === base64_encode(base64_decode($item->medical_turnovers_males, true)))
+						if ($whmcskey && !is_numeric($item->males) && $item->males === base64_encode(base64_decode($item->males, true)))
 						{
-							// decrypt medical_turnovers_males
-							$item->medical_turnovers_males = $whmcs->decryptString($item->medical_turnovers_males);
-						}
-						if ($whmcskey && !is_numeric($item->females) && $item->females === base64_encode(base64_decode($item->females, true)))
-						{
-							// decrypt females
-							$item->females = $whmcs->decryptString($item->females);
+							// decrypt males
+							$item->males = $whmcs->decryptString($item->males);
 						}
 						if ($whmcskey && !is_numeric($item->sick_leave_males) && $item->sick_leave_males === base64_encode(base64_decode($item->sick_leave_males, true)))
 						{
 							// decrypt sick_leave_males
 							$item->sick_leave_males = $whmcs->decryptString($item->sick_leave_males);
-						}
-						if ($whmcskey && !is_numeric($item->medical_turnovers_females) && $item->medical_turnovers_females === base64_encode(base64_decode($item->medical_turnovers_females, true)))
-						{
-							// decrypt medical_turnovers_females
-							$item->medical_turnovers_females = $whmcs->decryptString($item->medical_turnovers_females);
 						}
 						if ($whmcskey && !is_numeric($item->sick_leave_females) && $item->sick_leave_females === base64_encode(base64_decode($item->sick_leave_females, true)))
 						{
@@ -419,10 +402,20 @@ class CostbenefitprojectionModelCompanies extends JModelList
 							// decrypt total_healthcare
 							$item->total_healthcare = $whmcs->decryptString($item->total_healthcare);
 						}
-						if ($whmcskey && !is_numeric($item->males) && $item->males === base64_encode(base64_decode($item->males, true)))
+						if ($whmcskey && !is_numeric($item->females) && $item->females === base64_encode(base64_decode($item->females, true)))
 						{
-							// decrypt males
-							$item->males = $whmcs->decryptString($item->males);
+							// decrypt females
+							$item->females = $whmcs->decryptString($item->females);
+						}
+						if ($whmcskey && !is_numeric($item->medical_turnovers_males) && $item->medical_turnovers_males === base64_encode(base64_decode($item->medical_turnovers_males, true)))
+						{
+							// decrypt medical_turnovers_males
+							$item->medical_turnovers_males = $whmcs->decryptString($item->medical_turnovers_males);
+						}
+						if ($whmcskey && !is_numeric($item->medical_turnovers_females) && $item->medical_turnovers_females === base64_encode(base64_decode($item->medical_turnovers_females, true)))
+						{
+							// decrypt medical_turnovers_females
+							$item->medical_turnovers_females = $whmcs->decryptString($item->medical_turnovers_females);
 						}
 						// unset the values we don't want exported.
 						unset($item->asset_id);
@@ -467,7 +460,7 @@ class CostbenefitprojectionModelCompanies extends JModelList
 			return $headers;
 		}
 		return false;
-	} 
+	}
 	
 	/**
 	 * Method to get a store id based on model configuration state.
@@ -495,16 +488,16 @@ class CostbenefitprojectionModelCompanies extends JModelList
 	}
 
 	/**
-	* Build an SQL query to checkin all items left checked out longer then a set time.
-	*
-	* @return  a bool
-	*
-	*/
+	 * Build an SQL query to checkin all items left checked out longer then a set time.
+	 *
+	 * @return  a bool
+	 *
+	 */
 	protected function checkInNow()
 	{
 		// Get set check in time
 		$time = JComponentHelper::getParams('com_costbenefitprojection')->get('check_in');
-		
+
 		if ($time)
 		{
 

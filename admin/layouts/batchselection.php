@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.3
-	@build			17th May, 2018
+	@version		3.4.x
+	@build			4th April, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		batchselection.php
@@ -21,8 +21,8 @@
 defined('JPATH_BASE') or die;
 
 JHtmlBehavior::core();
-$divWrapper 	= range(1,120,2);
-$counter 		= 0;
+$divWrapper = range(1,120,2);
+$counter = 0;
 ?>
 <?php if ($displayData->ListSelection) : ?>
 <div class="row-fluid">

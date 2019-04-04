@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 110 of this MVC
-	@build			17th May, 2018
-	@created		15th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_body.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -69,28 +69,28 @@ $edit = "index.php?option=com_costbenefitprojection&view=health_data_sets&task=h
 		<?php endif; ?>
 		</td>
 		<td class="nowrap">
-			<?php if ($canDo->get('health_data.edit')): ?>
-				<div class="name">
+			<div class="name">
+				<?php if ($canDo->get('health_data.edit')): ?>
 					<a href="<?php echo $edit; ?>&id=<?php echo $item->id; ?>"><?php echo $this->escape($item->causerisk_name); ?></a>
 					<?php if ($item->checked_out): ?>
 						<?php echo JHtml::_('jgrid.checkedout', $i, $userChkOut->name, $item->checked_out_time, 'health_data_sets.', $canCheckin); ?>
 					<?php endif; ?>
-				</div>
-			<?php else: ?>
-				<div class="name"><?php echo $this->escape($item->causerisk_name); ?></div>
-			<?php endif; ?>
+				<?php else: ?>
+					<?php echo $this->escape($item->causerisk_name); ?>
+				<?php endif; ?>
+			</div>
 		</td>
 		<td class="hidden-phone">
 			<?php echo JText::_($item->year); ?>
 		</td>
 		<td class="nowrap">
-			<?php if ($this->user->authorise('country.edit', 'com_costbenefitprojection.country.' . (int)$item->country)): ?>
-				<div class="name">
-					<a href="index.php?option=com_costbenefitprojection&view=countries&task=country.edit&id=<?php echo $item->country; ?>&ref=health_data_sets"><?php echo $this->escape($item->country_name); ?></a>
-				</div>
-			<?php else: ?>
-				<div class="name"><?php echo $this->escape($item->country_name); ?></div>
-			<?php endif; ?>
+			<div class="name">
+				<?php if ($this->user->authorise('country.edit', 'com_costbenefitprojection.country.' . (int)$item->country)): ?>
+					<a href="index.php?option=com_costbenefitprojection&view=countries&task=country.edit&id=<?php echo $item->country; ?>&return=<?php echo $this->return_here; ?>"><?php echo $this->escape($item->country_name); ?></a>
+				<?php else: ?>
+					<?php echo $this->escape($item->country_name); ?>
+				<?php endif; ?>
+			</div>
 		</td>
 		<td class="center">
 		<?php if ($canDo->get('health_data.edit.state')) : ?>

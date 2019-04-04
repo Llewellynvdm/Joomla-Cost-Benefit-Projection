@@ -2,9 +2,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 20 of this MVC
-	@build			13th April, 2018
-	@created		13th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		submitbutton.js
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -21,19 +21,9 @@ Joomla.submitbutton = function(task)
 	if (task == ''){
 		return false;
 	} else { 
-		var isValid=true;
 		var action = task.split('.');
-		if (action[1] != 'cancel' && action[1] != 'close'){
-			var forms = $$('form.form-validate');
-			for (var i=0;i<forms.length;i++){
-				if (!document.formvalidator.isValid(forms[i])){
-					isValid = false;
-					break;
-				}
-			}
-		}
-		if (isValid){
-			Joomla.submitform(task);
+		if (action[1] == 'cancel' || action[1] == 'close' || document.formvalidator.isValid(document.getElementById("adminForm"))){
+			Joomla.submitform(task, document.getElementById("adminForm"));
 			return true;
 		} else {
 			alert(Joomla.JText._('help_document, some values are not acceptable.','Some values are unacceptable'));

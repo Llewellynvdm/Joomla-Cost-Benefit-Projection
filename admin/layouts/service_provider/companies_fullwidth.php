@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.3
-	@build			17th May, 2018
+	@version		3.4.x
+	@build			4th April, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		companies_fullwidth.php
@@ -18,16 +18,35 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // No direct access to this file
-
 defined('_JEXEC') or die('Restricted access');
 
 // set the defaults
-$items	= $displayData->vwecompanies;
-$user	= JFactory::getUser();
-$id	= $displayData->item->id;
+$items = $displayData->vwecompanies;
+$user = JFactory::getUser();
+$id = $displayData->item->id;
+// set the edit URL
 $edit = "index.php?option=com_costbenefitprojection&view=companies&task=company.edit";
-$ref = ($id) ? "&ref=service_provider&refid=".$id : "";
-$new = "index.php?option=com_costbenefitprojection&view=company&layout=edit".$ref;
+// set a return value
+$return = ($id) ? "index.php?option=com_costbenefitprojection&view=service_provider&layout=edit&id=" . $id : "";
+// check for a return value
+$jinput = JFactory::getApplication()->input;
+if ($_return = $jinput->get('return', null, 'base64'))
+{
+	$return .= "&return=" . $_return;
+}
+// check if return value was set
+if (CostbenefitprojectionHelper::checkString($return))
+{
+	// set the referral values
+	$ref = ($id) ? "&ref=service_provider&refid=" . $id . "&return=" . urlencode(base64_encode($return)) : "&return=" . urlencode(base64_encode($return));
+}
+else
+{
+	$ref = ($id) ? "&ref=service_provider&refid=" . $id : "";
+}
+// set the create new URL
+$new = "index.php?option=com_costbenefitprojection&view=companies&task=company.edit" . $ref;
+// load the action object
 $can = CostbenefitprojectionHelper::getActions('company');
 
 ?>
@@ -73,39 +92,38 @@ $can = CostbenefitprojectionHelper::getActions('company');
 		$canDo = CostbenefitprojectionHelper::getActions('company',$item,'companies');
 	?>
 	<tr>
-		<td class="nowrap">
+		<td>
 			<?php if ($canDo->get('company.edit')): ?>
-				<a href="<?php echo $edit; ?>&id=<?php echo $item->id; ?>&ref=service_provider&refid=<?php echo $id; ?>"><?php echo $displayData->escape($item->name); ?></a>
-					<?php if ($item->checked_out): ?>
-						<?php echo JHtml::_('jgrid.checkedout', $i, $userChkOut->name, $item->checked_out_time, 'companies.', $canCheckin); ?>
-					<?php endif; ?>
+				<a href="<?php echo $edit; ?>&id=<?php echo $item->id; ?><?php echo $ref; ?>"><?php echo $displayData->escape($item->name); ?></a>
+				<?php if ($item->checked_out): ?>
+					<?php echo JHtml::_('jgrid.checkedout', $i, $userChkOut->name, $item->checked_out_time, 'companies.', $canCheckin); ?>
+				<?php endif; ?>
 			<?php else: ?>
-				<div class="name"><?php echo $displayData->escape($item->name); ?></div>
+				<?php echo $displayData->escape($item->name); ?>
 			<?php endif; ?>
 			<div class="btn-group">
 			<?php if ($canDo->get('companyresults.access')): ?>
-				<a class="hasTooltip btn btn-mini" href="index.php?option=com_costbenefitprojection&view=companyresults&id=<?php echo $item->id; ?>&ref=service_provider&refid=<?php echo $id; ?>" title="<?php echo JText::_('COM_COSTBENEFITPROJECTION_COMPANYRESULTS'); ?>" ><span class="icon-chart"></span></a>
+				<a class="hasTooltip btn btn-mini" href="index.php?option=com_costbenefitprojection&view=companyresults&id=<?php echo $item->id; ?><?php echo $ref; ?>" title="<?php echo JText::_('COM_COSTBENEFITPROJECTION_COMPANYRESULTS'); ?>" ><span class="icon-chart"></span></a>
 			<?php else: ?>
 				<a class="hasTooltip btn btn-mini disabled" href="#" title="<?php echo JText::_('COM_COSTBENEFITPROJECTION_COMPANYRESULTS'); ?>"><span class="icon-chart"></span></a>
 			<?php endif; ?>
 			</div>
 		</td>
-		<?php $_user = JFactory::getUser($item->user); ?>
-		<td class="nowrap">
+		<td>
 			<?php if ($user->authorise('core.edit', 'com_users')): ?>
-				<a href="index.php?option=com_users&task=user.edit&id=<?php echo (int) $item->user ?>"><?php echo $_user->name; ?></a>
+				<a href="index.php?option=com_users&task=user.edit&id=<?php echo (int) $item->user ?>"><?php echo JFactory::getUser((int)$item->user)->name; ?></a>
 			<?php else: ?>
-				<?php echo $_user->name; ?>
+				<?php echo JFactory::getUser((int)$item->user)->name; ?>
 			<?php endif; ?>
 		</td>
 		<td>
 			<?php echo JText::_($item->department); ?>
 		</td>
-		<td class="nowrap">
+		<td>
 			<?php if ($user->authorise('country.edit', 'com_costbenefitprojection.country.' . (int)$item->country)): ?>
-				<a href="index.php?option=com_costbenefitprojection&view=countries&task=country.edit&id=<?php echo $item->country; ?>&ref=service_provider&refid=<?php echo $id; ?>"><?php echo $displayData->escape($item->country_name); ?></a>
+				<a href="index.php?option=com_costbenefitprojection&view=countries&task=country.edit&id=<?php echo $item->country; ?><?php echo $ref; ?>"><?php echo $displayData->escape($item->country_name); ?></a>
 			<?php else: ?>
-				<div class="name"><?php echo $displayData->escape($item->country_name); ?></div>
+				<?php echo $displayData->escape($item->country_name); ?>
 			<?php endif; ?>
 		</td>
 		<td>

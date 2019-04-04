@@ -223,6 +223,7 @@
 			label="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_REFERENCE_LABEL"
 			rows="10"
 			cols="5"
+			default=""
 			description="COM_COSTBENEFITPROJECTION_SCALING_FACTOR_REFERENCE_DESCRIPTION"
 			class="text_area span12"
 			filter="HTML"

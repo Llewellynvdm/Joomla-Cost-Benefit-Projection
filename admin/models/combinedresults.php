@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 22 of this MVC
-	@build			14th October, 2017
-	@created		3rd October, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		combinedresults.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -19,9 +19,6 @@
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
-
-// import the Joomla modellist library
-jimport('joomla.application.component.modellist');
 
 /**
  * Costbenefitprojection Model for Combinedresults
@@ -147,7 +144,7 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 			// redirect away if not a correct (TODO for now we go to default view)
 			$app->redirect('index.php?option=com_costbenefitprojection');
 			return false;
-		} 
+		}
 		// load parent items
 		$items = parent::getItems();
 
@@ -169,61 +166,73 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 			{
 				// Always create a slug for sef URL's
 				$item->slug = (isset($item->alias) && isset($item->id)) ? $item->id.':'.$item->alias : $item->id;
-				if (!empty($item->medical_turnovers_males) && $whmcskey && !is_numeric($item->medical_turnovers_males) && $item->medical_turnovers_males === base64_encode(base64_decode($item->medical_turnovers_males, true)))
-				{
-					// Decode medical_turnovers_males
-					$item->medical_turnovers_males = rtrim($whmcs->decryptString($item->medical_turnovers_males), "\0");
-				}
-				if (!empty($item->females) && $whmcskey && !is_numeric($item->females) && $item->females === base64_encode(base64_decode($item->females, true)))
-				{
-					// Decode females
-					$item->females = rtrim($whmcs->decryptString($item->females), "\0");
-				}
-				if (CostbenefitprojectionHelper::checkJson($item->causesrisks))
-				{
-					// Decode causesrisks
-					$item->causesrisks = json_decode($item->causesrisks, true);
-				}
-				if (!empty($item->sick_leave_males) && $whmcskey && !is_numeric($item->sick_leave_males) && $item->sick_leave_males === base64_encode(base64_decode($item->sick_leave_males, true)))
-				{
-					// Decode sick_leave_males
-					$item->sick_leave_males = rtrim($whmcs->decryptString($item->sick_leave_males), "\0");
-				}
-				if (!empty($item->medical_turnovers_females) && $whmcskey && !is_numeric($item->medical_turnovers_females) && $item->medical_turnovers_females === base64_encode(base64_decode($item->medical_turnovers_females, true)))
-				{
-					// Decode medical_turnovers_females
-					$item->medical_turnovers_females = rtrim($whmcs->decryptString($item->medical_turnovers_females), "\0");
-				}
-				if (!empty($item->sick_leave_females) && $whmcskey && !is_numeric($item->sick_leave_females) && $item->sick_leave_females === base64_encode(base64_decode($item->sick_leave_females, true)))
-				{
-					// Decode sick_leave_females
-					$item->sick_leave_females = rtrim($whmcs->decryptString($item->sick_leave_females), "\0");
-				}
-				if (!empty($item->total_salary) && $whmcskey && !is_numeric($item->total_salary) && $item->total_salary === base64_encode(base64_decode($item->total_salary, true)))
-				{
-					// Decode total_salary
-					$item->total_salary = rtrim($whmcs->decryptString($item->total_salary), "\0");
-				}
-				if (!empty($item->total_healthcare) && $whmcskey && !is_numeric($item->total_healthcare) && $item->total_healthcare === base64_encode(base64_decode($item->total_healthcare, true)))
-				{
-					// Decode total_healthcare
-					$item->total_healthcare = rtrim($whmcs->decryptString($item->total_healthcare), "\0");
-				}
+				// Check if we can decode males
 				if (!empty($item->males) && $whmcskey && !is_numeric($item->males) && $item->males === base64_encode(base64_decode($item->males, true)))
 				{
 					// Decode males
 					$item->males = rtrim($whmcs->decryptString($item->males), "\0");
 				}
+				// Check if we can decode sick_leave_males
+				if (!empty($item->sick_leave_males) && $whmcskey && !is_numeric($item->sick_leave_males) && $item->sick_leave_males === base64_encode(base64_decode($item->sick_leave_males, true)))
+				{
+					// Decode sick_leave_males
+					$item->sick_leave_males = rtrim($whmcs->decryptString($item->sick_leave_males), "\0");
+				}
+				// Check if we can decode sick_leave_females
+				if (!empty($item->sick_leave_females) && $whmcskey && !is_numeric($item->sick_leave_females) && $item->sick_leave_females === base64_encode(base64_decode($item->sick_leave_females, true)))
+				{
+					// Decode sick_leave_females
+					$item->sick_leave_females = rtrim($whmcs->decryptString($item->sick_leave_females), "\0");
+				}
+				// Check if we can decode total_salary
+				if (!empty($item->total_salary) && $whmcskey && !is_numeric($item->total_salary) && $item->total_salary === base64_encode(base64_decode($item->total_salary, true)))
+				{
+					// Decode total_salary
+					$item->total_salary = rtrim($whmcs->decryptString($item->total_salary), "\0");
+				}
+				// Check if we can decode causesrisks
+				if (CostbenefitprojectionHelper::checkJson($item->causesrisks))
+				{
+					// Decode causesrisks
+					$item->causesrisks = json_decode($item->causesrisks, true);
+				}
+				// Check if we can decode total_healthcare
+				if (!empty($item->total_healthcare) && $whmcskey && !is_numeric($item->total_healthcare) && $item->total_healthcare === base64_encode(base64_decode($item->total_healthcare, true)))
+				{
+					// Decode total_healthcare
+					$item->total_healthcare = rtrim($whmcs->decryptString($item->total_healthcare), "\0");
+				}
+				// Check if we can decode females
+				if (!empty($item->females) && $whmcskey && !is_numeric($item->females) && $item->females === base64_encode(base64_decode($item->females, true)))
+				{
+					// Decode females
+					$item->females = rtrim($whmcs->decryptString($item->females), "\0");
+				}
+				// Check if we can decode medical_turnovers_males
+				if (!empty($item->medical_turnovers_males) && $whmcskey && !is_numeric($item->medical_turnovers_males) && $item->medical_turnovers_males === base64_encode(base64_decode($item->medical_turnovers_males, true)))
+				{
+					// Decode medical_turnovers_males
+					$item->medical_turnovers_males = rtrim($whmcs->decryptString($item->medical_turnovers_males), "\0");
+				}
+				// Check if we can decode medical_turnovers_females
+				if (!empty($item->medical_turnovers_females) && $whmcskey && !is_numeric($item->medical_turnovers_females) && $item->medical_turnovers_females === base64_encode(base64_decode($item->medical_turnovers_females, true)))
+				{
+					// Decode medical_turnovers_females
+					$item->medical_turnovers_females = rtrim($whmcs->decryptString($item->medical_turnovers_females), "\0");
+				}
+				// Check if we can decode country_causesrisks
 				if (CostbenefitprojectionHelper::checkJson($item->country_causesrisks))
 				{
 					// Decode country_causesrisks
 					$item->country_causesrisks = json_decode($item->country_causesrisks, true);
 				}
+				// Check if item has params, or pass whole item.
+				$params = (isset($item->params) && CostbenefitprojectionHelper::checkJson($item->params)) ? json_decode($item->params) : $item;
 				// Make sure the content prepare plugins fire on country_publicaddress
 				$_country_publicaddress = new stdClass();
 				$_country_publicaddress->text =& $item->country_publicaddress; // value must be in text
 				// Since all values are now in text (Joomla Limitation), we also add the field name (country_publicaddress) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.combinedresults.country_publicaddress', &$_country_publicaddress, &$this->params, 0));
+				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.combinedresults.country_publicaddress', &$_country_publicaddress, &$params, 0));
 				// Checking if country_publicaddress has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->country_publicaddress,$this->uikitComp);
 				// set the global causesrisks value.
@@ -249,18 +258,18 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 				// set countryCountryInterventionDD to the $item object.
 				$item->countryCountryInterventionDD = $this->getCountryCountryInterventionBcbb_DD($item->country);
 			}
-		} 
+		}
 
 		// return items
 		return $items;
 	}
 
 	/**
-	* Method to get an array of Health_data Objects.
-	*
-	* @return mixed  An array of Health_data Objects on success, false on failure.
-	*
-	*/
+	 * Method to get an array of Health_data Objects.
+	 *
+	 * @return mixed  An array of Health_data Objects on success, false on failure.
+	 *
+	 */
 	public function getCountryCountryHealth_dataBcbb_B($country)
 	{
 		// Get a db connection.
@@ -307,11 +316,11 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 	}
 
 	/**
-	* Method to get an array of Scaling_factor Objects.
-	*
-	* @return mixed  An array of Scaling_factor Objects on success, false on failure.
-	*
-	*/
+	 * Method to get an array of Scaling_factor Objects.
+	 *
+	 * @return mixed  An array of Scaling_factor Objects on success, false on failure.
+	 *
+	 */
 	public function getIdCompanyScaling_factorBcbb_C($id)
 	{
 		// Get a db connection.
@@ -346,11 +355,13 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 			// Convert the parameter fields into objects.
 			foreach ($items as $nr => &$item)
 			{
+				// Check if item has params, or pass whole item.
+				$params = (isset($item->params) && CostbenefitprojectionHelper::checkJson($item->params)) ? json_decode($item->params) : $item;
 				// Make sure the content prepare plugins fire on reference
 				$_reference = new stdClass();
 				$_reference->text =& $item->reference; // value must be in text
 				// Since all values are now in text (Joomla Limitation), we also add the field name (reference) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.combinedresults.reference', &$_reference, &$this->params, 0));
+				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.combinedresults.reference', &$_reference, &$params, 0));
 				// Checking if reference has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->reference,$this->uikitComp);
 			}
@@ -360,11 +371,11 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 	}
 
 	/**
-	* Method to get an array of Intervention Objects.
-	*
-	* @return mixed  An array of Intervention Objects on success, false on failure.
-	*
-	*/
+	 * Method to get an array of Intervention Objects.
+	 *
+	 * @return mixed  An array of Intervention Objects on success, false on failure.
+	 *
+	 */
 	public function getIdCompanyInterventionBcbb_D($id)
 	{
 		// Get a db connection.
@@ -398,13 +409,21 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 			// Convert the parameter fields into objects.
 			foreach ($items as $nr => &$item)
 			{
-				// Make sure the content prepare plugins fire on reference
-				$_reference = new stdClass();
-				$_reference->text =& $item->reference; // value must be in text
-				// Since all values are now in text (Joomla Limitation), we also add the field name (reference) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.combinedresults.reference', &$_reference, &$this->params, 0));
-				// Checking if reference has uikit components that must be loaded.
-				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->reference,$this->uikitComp);
+				// Check if we can decode interventions
+				if (CostbenefitprojectionHelper::checkJson($item->interventions))
+				{
+					// Decode interventions
+					$item->interventions = json_decode($item->interventions, true);
+				}
+				// Check if item has params, or pass whole item.
+				$params = (isset($item->params) && CostbenefitprojectionHelper::checkJson($item->params)) ? json_decode($item->params) : $item;
+				// Make sure the content prepare plugins fire on description
+				$_description = new stdClass();
+				$_description->text =& $item->description; // value must be in text
+				// Since all values are now in text (Joomla Limitation), we also add the field name (description) to context
+				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.combinedresults.description', &$_description, &$params, 0));
+				// Checking if description has uikit components that must be loaded.
+				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->description,$this->uikitComp);
 			}
 			return $items;
 		}
@@ -412,11 +431,11 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 	}
 
 	/**
-	* Method to get an array of Causerisk Objects.
-	*
-	* @return mixed  An array of Causerisk Objects on success, false on failure.
-	*
-	*/
+	 * Method to get an array of Causerisk Objects.
+	 *
+	 * @return mixed  An array of Causerisk Objects on success, false on failure.
+	 *
+	 */
 	public function getCausesrisksIdCauseriskBcbb_G($causesrisks)
 	{
 		// Get a db connection.
@@ -458,11 +477,11 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 	}
 
 	/**
-	* Method to get an array of Health_data Objects.
-	*
-	* @return mixed  An array of Health_data Objects on success, false on failure.
-	*
-	*/
+	 * Method to get an array of Health_data Objects.
+	 *
+	 * @return mixed  An array of Health_data Objects on success, false on failure.
+	 *
+	 */
 	public function getCountryCountryHealth_dataBcbb_BB($country)
 	{
 		// Get a db connection.
@@ -509,11 +528,11 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 	}
 
 	/**
-	* Method to get an array of Causerisk Objects.
-	*
-	* @return mixed  An array of Causerisk Objects on success, false on failure.
-	*
-	*/
+	 * Method to get an array of Causerisk Objects.
+	 *
+	 * @return mixed  An array of Causerisk Objects on success, false on failure.
+	 *
+	 */
 	public function getCausesrisksIdCauseriskBcbb_GG($causesrisks)
 	{
 		// Get a db connection.
@@ -549,30 +568,17 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
 			$this->_dispatcher = JEventDispatcher::getInstance();
-			$items = $db->loadObjectList();
-
-			// Convert the parameter fields into objects.
-			foreach ($items as $nr => &$item)
-			{
-				// Make sure the content prepare plugins fire on description
-				$_description = new stdClass();
-				$_description->text =& $item->description; // value must be in text
-				// Since all values are now in text (Joomla Limitation), we also add the field name (description) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.combinedresults.description', &$_description, &$this->params, 0));
-				// Checking if description has uikit components that must be loaded.
-				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->description,$this->uikitComp);
-			}
-			return $items;
+			return $db->loadObjectList();
 		}
 		return false;
 	}
 
 	/**
-	* Method to get an array of Intervention Objects.
-	*
-	* @return mixed  An array of Intervention Objects on success, false on failure.
-	*
-	*/
+	 * Method to get an array of Intervention Objects.
+	 *
+	 * @return mixed  An array of Intervention Objects on success, false on failure.
+	 *
+	 */
 	public function getCountryCountryInterventionBcbb_DD($country)
 	{
 		// Get a db connection.
@@ -601,43 +607,18 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
 			$this->_dispatcher = JEventDispatcher::getInstance();
-			$items = $db->loadObjectList();
-
-			// Convert the parameter fields into objects.
-			foreach ($items as $nr => &$item)
-			{
-				if (CostbenefitprojectionHelper::checkJson($item->interventions))
-				{
-					// Decode interventions
-					$item->interventions = json_decode($item->interventions, true);
-				}
-				// Make sure the content prepare plugins fire on description
-				$_description = new stdClass();
-				$_description->text =& $item->description; // value must be in text
-				// Since all values are now in text (Joomla Limitation), we also add the field name (description) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.combinedresults.description', &$_description, &$this->params, 0));
-				// Make sure the content prepare plugins fire on reference
-				$_reference = new stdClass();
-				$_reference->text =& $item->reference; // value must be in text
-				// Since all values are now in text (Joomla Limitation), we also add the field name (reference) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.combinedresults.reference', &$_reference, &$this->params, 0));
-				// Checking if description has uikit components that must be loaded.
-				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->description,$this->uikitComp);
-				// Checking if reference has uikit components that must be loaded.
-				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->reference,$this->uikitComp);
-			}
-			return $items;
+			return $db->loadObjectList();
 		}
 		return false;
 	}
 
 
 	/**
-	* Get the uikit needed components
-	*
-	* @return mixed  An array of objects on success.
-	*
-	*/
+	 * Get the uikit needed components
+	 *
+	 * @return mixed  An array of objects on success.
+	 *
+	 */
 	public function getUikitComp()
 	{
 		if (isset($this->uikitComp) && CostbenefitprojectionHelper::checkArray($this->uikitComp))
@@ -645,7 +626,7 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 			return $this->uikitComp;
 		}
 		return false;
-	}  
+	}
 
 // none
 }

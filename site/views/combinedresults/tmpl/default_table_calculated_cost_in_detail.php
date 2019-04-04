@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 18 of this MVC
-	@build			18th August, 2017
-	@created		5th October, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_table_calculated_cost_in_detail.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -18,7 +18,7 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // No direct access to this file
-defined('_JEXEC') or die('Restricted access'); 
+defined('_JEXEC') or die('Restricted access');
 
 $scaled = array('unscaled','scaled');
 

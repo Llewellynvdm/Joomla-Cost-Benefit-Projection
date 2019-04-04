@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 22 of this MVC
-	@build			18th August, 2017
-	@created		28th November, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -19,9 +19,6 @@
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
-
-// import Joomla view library
-jimport('joomla.application.component.view');
 jimport('joomla.application.module.helper');
 
 /**
@@ -106,7 +103,7 @@ class CostbenefitprojectionViewCreateaccount extends JViewLegacy
 		// Load the header checker class.
 		require_once( JPATH_COMPONENT_SITE.'/helpers/headercheck.php' );
 		// Initialize the header checker.
-		$HeaderCheck = new costbenefitprojectionHeaderCheck; 
+		$HeaderCheck = new costbenefitprojectionHeaderCheck;
 
 		// Load uikit options.
 		$uikit = $this->params->get('uikit_load');
@@ -174,9 +171,9 @@ class CostbenefitprojectionViewCreateaccount extends JViewLegacy
 					}
 				}
 			}
-		}    
+		}
 		// add the document default css file
-		$this->document->addStyleSheet(JURI::root(true) .'/components/com_costbenefitprojection/assets/css/createaccount.css', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css'); 
+		$this->document->addStyleSheet(JURI::root(true) .'/components/com_costbenefitprojection/assets/css/createaccount.css', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
 	}
 
 	/**

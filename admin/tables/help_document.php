@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 20 of this MVC
-	@build			13th April, 2018
-	@created		13th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		help_document.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -21,9 +21,6 @@
 defined('_JEXEC') or die('Restricted access');
 
 use Joomla\Registry\Registry;
-
-// import Joomla table library
-jimport('joomla.database.table');
 
 /**
  * Help_documents Table class
@@ -48,7 +45,7 @@ class CostbenefitprojectionTableHelp_document extends JTable
 		parent::__construct('#__costbenefitprojection_help_document', 'id', $db);
 
 		// Adding History Options
-		JTableObserverContenthistory::createObserver($this, array('typeAlias' => 'com_costbenefitprojection.help_document')); 
+		JTableObserverContenthistory::createObserver($this, array('typeAlias' => 'com_costbenefitprojection.help_document'));
 	}	
  
 	public function bind($array, $ignore = '')
@@ -231,7 +228,7 @@ class CostbenefitprojectionTableHelp_document extends JTable
 		{
 			// asset alread set so use saved rules
 			$assetId = (int) $db->loadResult();
-			return JAccess::getAssetRules($assetId);
+			return JAccess::getAssetRules($assetId); // (TODO) instead of keeping inherited Allowed it becomes Allowed.
 		}
 		// try again
 		elseif ($try)
@@ -320,11 +317,11 @@ class CostbenefitprojectionTableHelp_document extends JTable
 	}
 
 	/**
-	* Generate a valid alias from title / date.
-	* Remains public to be able to check for duplicated alias before saving
-	*
-	* @return  string
-	*/
+	 * Generate a valid alias from title / date.
+	 * Remains public to be able to check for duplicated alias before saving
+	 *
+	 * @return  string
+	 */
 	public function generateAlias()
 	{
 		if (empty($this->alias))

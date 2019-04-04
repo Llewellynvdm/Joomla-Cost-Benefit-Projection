@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.3
-	@build			17th May, 2018
+	@version		3.4.x
+	@build			4th April, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		sumcombine.php
@@ -103,7 +103,7 @@ class SumCombine
 			if (CostbenefitprojectionHelper::checkArray($namesnot))
 			{
 				$companiesNamesNot = '<b>'.implode(', ',$namesnot).'</b>';
-				JError::raiseWarning(500, JText::_('Currency mismatch! These were excluded from results: ').$companiesNamesNot);
+				JError::raiseWarning(500, JText::_('COM_COSTBENEFITPROJECTION_CURRENCY_MISMATCH_THESE_WERE_EXCLUDED_FROM_RESULTS').$companiesNamesNot);
 			}
 			if (CostbenefitprojectionHelper::checkArray($names))
 			{

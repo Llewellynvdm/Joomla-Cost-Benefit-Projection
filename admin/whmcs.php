@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.3
-	@build			17th May, 2018
+	@version		3.4.x
+	@build			4th April, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		whmcs.php
@@ -23,12 +23,11 @@ defined('_JEXEC') or die('Restricted access');
 /**
 * WHMCS Class 
 **/
-
 class WHMCS
 {
 	public $_key = false;
 	public $_is = false;
-	
+
 	public function __construct($Vk5smi0wjnjb)
 	{
 		// get the session
@@ -48,7 +47,7 @@ class WHMCS
 			$this->_is = true;
 		}
 	}
-	
+
 	private function get($Vk5smi0wjnjb,$V2uekt2wcgwk)
 	{
 		$Viioj50xuqu2 = unserialize(base64_decode('YTozOntzOjY6Imthc2llciI7czoyNToiaHR0cDovL3d3dy52ZG0uaW8vYWNjZXNzLyI7czo2OiJnZWhlaW0iO3M6MzI6IkRuUjQrdWJxUG9tPXdOZWtYY29lUXo7M0B0WHE5N11zIjtzOjY6Im9udGhvdSI7aToxO30='));

@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 35 of this MVC
-	@build			22nd March, 2016
-	@created		25th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -20,9 +20,6 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-// import Joomla view library
-jimport('joomla.application.component.view');
-
 /**
  * Service_provider View class
  */
@@ -34,27 +31,37 @@ class CostbenefitprojectionViewService_provider extends JViewLegacy
 	 */
 	public function display($tpl = null)
 	{
+		// set params
+		$this->params = JComponentHelper::getParams('com_costbenefitprojection');
 		// Assign the variables
 		$this->form = $this->get('Form');
 		$this->item = $this->get('Item');
 		$this->script = $this->get('Script');
 		$this->state = $this->get('State');
 		// get action permissions
-		$this->canDo = CostbenefitprojectionHelper::getActions('service_provider',$this->item);
+		$this->canDo = CostbenefitprojectionHelper::getActions('service_provider', $this->item);
 		// get input
 		$jinput = JFactory::getApplication()->input;
 		$this->ref = $jinput->get('ref', 0, 'word');
 		$this->refid = $jinput->get('refid', 0, 'int');
+		$return = $jinput->get('return', null, 'base64');
+		// set the referral string
 		$this->referral = '';
-		if ($this->refid)
+		if ($this->refid && $this->ref)
 		{
-			// return to the item that refered to this item
-			$this->referral = '&ref='.(string)$this->ref.'&refid='.(int)$this->refid;
+			// return to the item that referred to this item
+			$this->referral = '&ref=' . (string)$this->ref . '&refid=' . (int)$this->refid;
 		}
 		elseif($this->ref)
 		{
-			// return to the list view that refered to this item
-			$this->referral = '&ref='.(string)$this->ref;
+			// return to the list view that referred to this item
+			$this->referral = '&ref=' . (string)$this->ref;
+		}
+		// check return value
+		if (!is_null($return))
+		{
+			// add the return value
+			$this->referral .= '&return=' . (string)$return;
 		}
 
 		// Get Linked view data
@@ -89,7 +96,7 @@ class CostbenefitprojectionViewService_provider extends JViewLegacy
 
 		JToolbarHelper::title( JText::_($isNew ? 'COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_NEW' : 'COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_EDIT'), 'pencil-2 article-add');
 		// Built the actions for new and existing records.
-		if ($this->refid || $this->ref)
+		if (CostbenefitprojectionHelper::checkString($this->referral))
 		{
 			if ($this->canDo->get('service_provider.create') && $isNew)
 			{
@@ -191,7 +198,7 @@ class CostbenefitprojectionViewService_provider extends JViewLegacy
 			$this->document = JFactory::getDocument();
 		}
 		$this->document->setTitle(JText::_($isNew ? 'COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_NEW' : 'COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_EDIT'));
-		$this->document->addStyleSheet(JURI::root() . "administrator/components/com_costbenefitprojection/assets/css/service_provider.css", (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css'); 
+		$this->document->addStyleSheet(JURI::root() . "administrator/components/com_costbenefitprojection/assets/css/service_provider.css", (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
 
 		// Add the CSS for Footable.
 		$this->document->addStyleSheet(JURI::root() .'media/com_costbenefitprojection/footable-v2/css/footable.core.min.css', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');

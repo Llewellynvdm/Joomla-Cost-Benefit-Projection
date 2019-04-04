@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 21 of this MVC
-	@build			16th August, 2016
-	@created		8th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		scaling_factors.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -19,9 +19,6 @@
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
-
-// import the Joomla modellist library
-jimport('joomla.application.component.modellist');
 
 /**
  * Scaling_factors Model
@@ -118,7 +115,7 @@ class CostbenefitprojectionModelScaling_factors extends JModelList
 	 * @return  mixed  An array of data items on success, false on failure.
 	 */
 	public function getItems()
-	{ 
+	{
 		// check in items
 		$this->checkInNow();
 
@@ -128,11 +125,9 @@ class CostbenefitprojectionModelScaling_factors extends JModelList
 		// set values to display correctly.
 		if (CostbenefitprojectionHelper::checkArray($items))
 		{
-			// get user object.
-			$user = JFactory::getUser();
 			foreach ($items as $nr => &$item)
 			{
-				$access = ($user->authorise('scaling_factor.access', 'com_costbenefitprojection.scaling_factor.' . (int) $item->id) && $user->authorise('scaling_factor.access', 'com_costbenefitprojection'));
+				$access = (JFactory::getUser()->authorise('scaling_factor.access', 'com_costbenefitprojection.scaling_factor.' . (int) $item->id) && JFactory::getUser()->authorise('scaling_factor.access', 'com_costbenefitprojection'));
 				if (!$access)
 				{
 					unset($items[$nr]);
@@ -140,7 +135,7 @@ class CostbenefitprojectionModelScaling_factors extends JModelList
 				}
 
 			}
-		}  
+		}
         
 		// return items
 		return $items;
@@ -238,10 +233,10 @@ class CostbenefitprojectionModelScaling_factors extends JModelList
 	}
 
 	/**
-	* Method to get list export data.
-	*
-	* @return mixed  An array of data items on success, false on failure.
-	*/
+	 * Method to get list export data.
+	 *
+	 * @return mixed  An array of data items on success, false on failure.
+	 */
 	public function getExportData($pks)
 	{
 		// setup the query
@@ -292,11 +287,9 @@ class CostbenefitprojectionModelScaling_factors extends JModelList
 				// set values to display correctly.
 				if (CostbenefitprojectionHelper::checkArray($items))
 				{
-					// get user object.
-					$user = JFactory::getUser();
 					foreach ($items as $nr => &$item)
 					{
-						$access = ($user->authorise('scaling_factor.access', 'com_costbenefitprojection.scaling_factor.' . (int) $item->id) && $user->authorise('scaling_factor.access', 'com_costbenefitprojection'));
+						$access = (JFactory::getUser()->authorise('scaling_factor.access', 'com_costbenefitprojection.scaling_factor.' . (int) $item->id) && JFactory::getUser()->authorise('scaling_factor.access', 'com_costbenefitprojection'));
 						if (!$access)
 						{
 							unset($items[$nr]);
@@ -346,7 +339,7 @@ class CostbenefitprojectionModelScaling_factors extends JModelList
 			return $headers;
 		}
 		return false;
-	} 
+	}
 	
 	/**
 	 * Method to get a store id based on model configuration state.
@@ -376,16 +369,16 @@ class CostbenefitprojectionModelScaling_factors extends JModelList
 	}
 
 	/**
-	* Build an SQL query to checkin all items left checked out longer then a set time.
-	*
-	* @return  a bool
-	*
-	*/
+	 * Build an SQL query to checkin all items left checked out longer then a set time.
+	 *
+	 * @return  a bool
+	 *
+	 */
 	protected function checkInNow()
 	{
 		// Get set check in time
 		$time = JComponentHelper::getParams('com_costbenefitprojection')->get('check_in');
-		
+
 		if ($time)
 		{
 

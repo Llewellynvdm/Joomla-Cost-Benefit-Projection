@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 21 of this MVC
-	@build			16th August, 2016
-	@created		8th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -20,9 +20,6 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-// import Joomla view library
-jimport('joomla.application.component.view');
-
 /**
  * Scaling_factor View class
  */
@@ -34,27 +31,37 @@ class CostbenefitprojectionViewScaling_factor extends JViewLegacy
 	 */
 	public function display($tpl = null)
 	{
+		// set params
+		$this->params = JComponentHelper::getParams('com_costbenefitprojection');
 		// Assign the variables
-		$this->form 		= $this->get('Form');
-		$this->item 		= $this->get('Item');
-		$this->script 		= $this->get('Script');
-		$this->state		= $this->get('State');
+		$this->form = $this->get('Form');
+		$this->item = $this->get('Item');
+		$this->script = $this->get('Script');
+		$this->state = $this->get('State');
 		// get action permissions
-		$this->canDo		= CostbenefitprojectionHelper::getActions('scaling_factor',$this->item);
+		$this->canDo = CostbenefitprojectionHelper::getActions('scaling_factor', $this->item);
 		// get input
 		$jinput = JFactory::getApplication()->input;
-		$this->ref 		= $jinput->get('ref', 0, 'word');
-		$this->refid            = $jinput->get('refid', 0, 'int');
-		$this->referral         = '';
-		if ($this->refid)
+		$this->ref = $jinput->get('ref', 0, 'word');
+		$this->refid = $jinput->get('refid', 0, 'int');
+		$return = $jinput->get('return', null, 'base64');
+		// set the referral string
+		$this->referral = '';
+		if ($this->refid && $this->ref)
 		{
-				// return to the item that refered to this item
-				$this->referral = '&ref='.(string)$this->ref.'&refid='.(int)$this->refid;
+			// return to the item that referred to this item
+			$this->referral = '&ref=' . (string)$this->ref . '&refid=' . (int)$this->refid;
 		}
 		elseif($this->ref)
 		{
-				// return to the list view that refered to this item
-				$this->referral = '&ref='.(string)$this->ref;
+			// return to the list view that referred to this item
+			$this->referral = '&ref=' . (string)$this->ref;
+		}
+		// check return value
+		if (!is_null($return))
+		{
+			// add the return value
+			$this->referral .= '&return=' . (string)$return;
 		}
 
 		// Set the toolbar
@@ -88,7 +95,7 @@ class CostbenefitprojectionViewScaling_factor extends JViewLegacy
 
 		JToolbarHelper::title( JText::_($isNew ? 'COM_COSTBENEFITPROJECTION_SCALING_FACTOR_NEW' : 'COM_COSTBENEFITPROJECTION_SCALING_FACTOR_EDIT'), 'pencil-2 article-add');
 		// Built the actions for new and existing records.
-		if ($this->refid || $this->ref)
+		if (CostbenefitprojectionHelper::checkString($this->referral))
 		{
 			if ($this->canDo->get('scaling_factor.create') && $isNew)
 			{
@@ -172,7 +179,7 @@ class CostbenefitprojectionViewScaling_factor extends JViewLegacy
 	{
 		if(strlen($var) > 30)
 		{
-    		// use the helper htmlEscape method instead and shorten the string
+    			// use the helper htmlEscape method instead and shorten the string
 			return CostbenefitprojectionHelper::htmlEscape($var, $this->_charset, true, 30);
 		}
 		// use the helper htmlEscape method instead.
@@ -192,13 +199,20 @@ class CostbenefitprojectionViewScaling_factor extends JViewLegacy
 			$this->document = JFactory::getDocument();
 		}
 		$this->document->setTitle(JText::_($isNew ? 'COM_COSTBENEFITPROJECTION_SCALING_FACTOR_NEW' : 'COM_COSTBENEFITPROJECTION_SCALING_FACTOR_EDIT'));
-		// we need this to fix the form display
-		$this->document->addStyleSheet(JURI::root()."administrator/templates/isis/css/template.css", (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
-		$this->document->addScript(JURI::root()."administrator/templates/isis/js/template.js", (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
+		// only add the ISIS template css & js if needed (default is 1 = true)
+		// you can override this in the global component options
+		// just add a (radio yes/no field) with a name called add_isis_template
+		// to your components config area
+		if ($this->params->get('add_isis_template', 1))
+		{
+			// we need this to fix the form display (TODO)
+			$this->document->addStyleSheet(JURI::root() . "administrator/templates/isis/css/template.css", (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
+			$this->document->addScript(JURI::root() . "administrator/templates/isis/js/template.js", (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
+		}
 		// the default style of this view
-		$this->document->addStyleSheet(JURI::root()."components/com_costbenefitprojection/assets/css/scaling_factor.css", (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css'); 
+		$this->document->addStyleSheet(JURI::root()."components/com_costbenefitprojection/assets/css/scaling_factor.css", (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
 		// default javascript of this view
-		$this->document->addScript(JURI::root().$this->script, (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
+		$this->document->addScript(JURI::root(). $this->script, (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
 		$this->document->addScript(JURI::root(). "components/com_costbenefitprojection/views/scaling_factor/submitbutton.js", (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript'); 
 		JText::script('view not acceptable. Error');
 	}

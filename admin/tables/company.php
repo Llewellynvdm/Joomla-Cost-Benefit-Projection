@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 101 of this MVC
-	@build			29th June, 2016
-	@created		15th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		company.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -21,9 +21,6 @@
 defined('_JEXEC') or die('Restricted access');
 
 use Joomla\Registry\Registry;
-
-// import Joomla table library
-jimport('joomla.database.table');
 
 /**
  * Companies Table class
@@ -48,7 +45,7 @@ class CostbenefitprojectionTableCompany extends JTable
 		parent::__construct('#__costbenefitprojection_company', 'id', $db);
 
 		// Adding History Options
-		JTableObserverContenthistory::createObserver($this, array('typeAlias' => 'com_costbenefitprojection.company')); 
+		JTableObserverContenthistory::createObserver($this, array('typeAlias' => 'com_costbenefitprojection.company'));
 	}	
  
 	public function bind($array, $ignore = '')
@@ -231,7 +228,7 @@ class CostbenefitprojectionTableCompany extends JTable
 		{
 			// asset alread set so use saved rules
 			$assetId = (int) $db->loadResult();
-			return JAccess::getAssetRules($assetId);
+			return JAccess::getAssetRules($assetId); // (TODO) instead of keeping inherited Allowed it becomes Allowed.
 		}
 		// try again
 		elseif ($try)
@@ -320,10 +317,10 @@ class CostbenefitprojectionTableCompany extends JTable
 	}
 
 	/**
-	* This view does not actually have an alias
-	*
-	* @return  bool
-	*/
+	 * This view does not actually have an alias
+	 *
+	 * @return  bool
+	 */
 	public function generateAlias()
 	{
 		return false;

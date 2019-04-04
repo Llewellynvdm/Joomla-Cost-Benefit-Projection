@@ -2,9 +2,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 20 of this MVC
-	@build			13th April, 2018
-	@created		13th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		help_document.js
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -53,6 +53,7 @@ function vvvvvwb(location_vvvvvwb)
 	if (location_vvvvvwb == 1)
 	{
 		jQuery('#jform_admin_view').closest('.control-group').show();
+		// add required attribute to admin_view field
 		if (jform_vvvvvwbvwl_required)
 		{
 			updateFieldRequired('admin_view',0);
@@ -61,11 +62,11 @@ function vvvvvwb(location_vvvvvwb)
 			jQuery('#jform_admin_view').addClass('required');
 			jform_vvvvvwbvwl_required = false;
 		}
-
 	}
 	else
 	{
 		jQuery('#jform_admin_view').closest('.control-group').hide();
+		// remove required attribute from admin_view field
 		if (!jform_vvvvvwbvwl_required)
 		{
 			updateFieldRequired('admin_view',1);
@@ -84,6 +85,7 @@ function vvvvvwc(location_vvvvvwc)
 	if (location_vvvvvwc == 2)
 	{
 		jQuery('#jform_site_view').closest('.control-group').show();
+		// add required attribute to site_view field
 		if (jform_vvvvvwcvwm_required)
 		{
 			updateFieldRequired('site_view',0);
@@ -92,11 +94,11 @@ function vvvvvwc(location_vvvvvwc)
 			jQuery('#jform_site_view').addClass('required');
 			jform_vvvvvwcvwm_required = false;
 		}
-
 	}
 	else
 	{
 		jQuery('#jform_site_view').closest('.control-group').hide();
+		// remove required attribute from site_view field
 		if (!jform_vvvvvwcvwm_required)
 		{
 			updateFieldRequired('site_view',1);
@@ -128,6 +130,7 @@ function vvvvvwd(type_vvvvvwd)
 	if (type)
 	{
 		jQuery('#jform_url').closest('.control-group').show();
+		// add required attribute to url field
 		if (jform_vvvvvwdvwn_required)
 		{
 			updateFieldRequired('url',0);
@@ -136,11 +139,11 @@ function vvvvvwd(type_vvvvvwd)
 			jQuery('#jform_url').addClass('required');
 			jform_vvvvvwdvwn_required = false;
 		}
-
 	}
 	else
 	{
 		jQuery('#jform_url').closest('.control-group').hide();
+		// remove required attribute from url field
 		if (!jform_vvvvvwdvwn_required)
 		{
 			updateFieldRequired('url',1);
@@ -183,6 +186,7 @@ function vvvvvwe(type_vvvvvwe)
 	if (type)
 	{
 		jQuery('#jform_article').closest('.control-group').show();
+		// add required attribute to article field
 		if (jform_vvvvvwevwo_required)
 		{
 			updateFieldRequired('article',0);
@@ -191,11 +195,11 @@ function vvvvvwe(type_vvvvvwe)
 			jQuery('#jform_article').addClass('required');
 			jform_vvvvvwevwo_required = false;
 		}
-
 	}
 	else
 	{
 		jQuery('#jform_article').closest('.control-group').hide();
+		// remove required attribute from article field
 		if (!jform_vvvvvwevwo_required)
 		{
 			updateFieldRequired('article',1);
@@ -238,6 +242,7 @@ function vvvvvwf(type_vvvvvwf)
 	if (type)
 	{
 		jQuery('#jform_content-lbl').closest('.control-group').show();
+		// add required attribute to content field
 		if (jform_vvvvvwfvwp_required)
 		{
 			updateFieldRequired('content',0);
@@ -246,11 +251,11 @@ function vvvvvwf(type_vvvvvwf)
 			jQuery('#jform_content').addClass('required');
 			jform_vvvvvwfvwp_required = false;
 		}
-
 	}
 	else
 	{
 		jQuery('#jform_content-lbl').closest('.control-group').hide();
+		// remove required attribute from content field
 		if (!jform_vvvvvwfvwp_required)
 		{
 			updateFieldRequired('content',1);
@@ -280,6 +285,7 @@ function vvvvvwg(target_vvvvvwg)
 	if (target_vvvvvwg == 1)
 	{
 		jQuery('#jform_groups').closest('.control-group').show();
+		// add required attribute to groups field
 		if (jform_vvvvvwgvwq_required)
 		{
 			updateFieldRequired('groups',0);
@@ -288,11 +294,11 @@ function vvvvvwg(target_vvvvvwg)
 			jQuery('#jform_groups').addClass('required');
 			jform_vvvvvwgvwq_required = false;
 		}
-
 	}
 	else
 	{
 		jQuery('#jform_groups').closest('.control-group').hide();
+		// remove required attribute from groups field
 		if (!jform_vvvvvwgvwq_required)
 		{
 			updateFieldRequired('groups',1);

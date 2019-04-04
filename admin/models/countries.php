@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 54 of this MVC
-	@build			17th May, 2018
-	@created		25th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		countries.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -19,9 +19,6 @@
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
-
-// import the Joomla modellist library
-jimport('joomla.application.component.modellist');
 
 /**
  * Countries Model
@@ -110,7 +107,7 @@ class CostbenefitprojectionModelCountries extends JModelList
 	 * @return  mixed  An array of data items on success, false on failure.
 	 */
 	public function getItems()
-	{ 
+	{
 		// check in items
 		$this->checkInNow();
 
@@ -120,11 +117,9 @@ class CostbenefitprojectionModelCountries extends JModelList
 		// set values to display correctly.
 		if (CostbenefitprojectionHelper::checkArray($items))
 		{
-			// get user object.
-			$user = JFactory::getUser();
 			foreach ($items as $nr => &$item)
 			{
-				$access = ($user->authorise('country.access', 'com_costbenefitprojection.country.' . (int) $item->id) && $user->authorise('country.access', 'com_costbenefitprojection'));
+				$access = (JFactory::getUser()->authorise('country.access', 'com_costbenefitprojection.country.' . (int) $item->id) && JFactory::getUser()->authorise('country.access', 'com_costbenefitprojection'));
 				if (!$access)
 				{
 					unset($items[$nr]);
@@ -132,7 +127,7 @@ class CostbenefitprojectionModelCountries extends JModelList
 				}
 
 			}
-		}  
+		}
         
 		// return items
 		return $items;
@@ -239,10 +234,10 @@ class CostbenefitprojectionModelCountries extends JModelList
 	}
 
 	/**
-	* Method to get list export data.
-	*
-	* @return mixed  An array of data items on success, false on failure.
-	*/
+	 * Method to get list export data.
+	 *
+	 * @return mixed  An array of data items on success, false on failure.
+	 */
 	public function getExportData($pks)
 	{
 		// setup the query
@@ -298,11 +293,9 @@ class CostbenefitprojectionModelCountries extends JModelList
 				// set values to display correctly.
 				if (CostbenefitprojectionHelper::checkArray($items))
 				{
-					// get user object.
-					$user = JFactory::getUser();
 					foreach ($items as $nr => &$item)
 					{
-						$access = ($user->authorise('country.access', 'com_costbenefitprojection.country.' . (int) $item->id) && $user->authorise('country.access', 'com_costbenefitprojection'));
+						$access = (JFactory::getUser()->authorise('country.access', 'com_costbenefitprojection.country.' . (int) $item->id) && JFactory::getUser()->authorise('country.access', 'com_costbenefitprojection'));
 						if (!$access)
 						{
 							unset($items[$nr]);
@@ -352,7 +345,7 @@ class CostbenefitprojectionModelCountries extends JModelList
 			return $headers;
 		}
 		return false;
-	} 
+	}
 	
 	/**
 	 * Method to get a store id based on model configuration state.
@@ -380,16 +373,16 @@ class CostbenefitprojectionModelCountries extends JModelList
 	}
 
 	/**
-	* Build an SQL query to checkin all items left checked out longer then a set time.
-	*
-	* @return  a bool
-	*
-	*/
+	 * Build an SQL query to checkin all items left checked out longer then a set time.
+	 *
+	 * @return  a bool
+	 *
+	 */
 	protected function checkInNow()
 	{
 		// Get set check in time
 		$time = JComponentHelper::getParams('com_costbenefitprojection')->get('check_in');
-		
+
 		if ($time)
 		{
 

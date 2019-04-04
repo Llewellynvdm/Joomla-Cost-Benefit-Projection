@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 110 of this MVC
-	@build			11th August, 2016
-	@created		26th September, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -18,7 +18,7 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // No direct access to this file
-defined('_JEXEC') or die('Restricted access'); 
+defined('_JEXEC') or die('Restricted access');
 
 // get user type 
 $useris =  CostbenefitprojectionHelper::userIs($this->user->id);
@@ -212,7 +212,7 @@ function setIntervention($item)
 $information_url = $this->params->get('information_url', null);
 
 ?>
-<div class="uk-clearfix"><div class="uk-float-right"><?php echo $this->toolbar->render(); ?></div></div> 
+<div class="uk-clearfix"><div class="uk-float-right"><?php echo $this->toolbar->render(); ?></div></div>
 <div id="loading" style="height:300px; width:100%">
 	<h1 style="text-align:center;" ><?php echo JText::_('COM_COSTBENEFITPROJECTION_PLEASE_WAIT'); ?></h1>
     <div style="margin:0 auto; width:180px; height:24px; padding: 5px;">
@@ -431,4 +431,4 @@ function combine()
 	return false;
 }
 <?php endif; ?>
-</script> 
+</script>

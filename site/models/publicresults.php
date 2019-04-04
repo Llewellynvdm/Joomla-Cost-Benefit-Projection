@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 10 of this MVC
-	@build			18th August, 2017
-	@created		16th December, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		publicresults.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -19,9 +19,6 @@
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
-
-// import Joomla modelitem library
-jimport('joomla.application.component.modelitem');
 
 /**
  * Costbenefitprojection Publicresults Model
@@ -154,16 +151,25 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
 			$this->_dispatcher = JEventDispatcher::getInstance();
+				// Check if we can decode causesrisks
+				if (CostbenefitprojectionHelper::checkJson($data->causesrisks))
+				{
+					// Decode causesrisks
+					$data->causesrisks = json_decode($data->causesrisks, true);
+				}
+				// Check if we can decode country_causesrisks
 				if (CostbenefitprojectionHelper::checkJson($data->country_causesrisks))
 				{
 					// Decode country_causesrisks
 					$data->country_causesrisks = json_decode($data->country_causesrisks, true);
 				}
+				// Check if item has params, or pass whole item.
+				$params = (isset($data->params) && CostbenefitprojectionHelper::checkJson($data->params)) ? json_decode($data->params) : $data;
 				// Make sure the content prepare plugins fire on country_publicaddress
 				$_country_publicaddress = new stdClass();
 				$_country_publicaddress->text =& $data->country_publicaddress; // value must be in text
 				// Since all values are now in text (Joomla Limitation), we also add the field name (country_publicaddress) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.publicresults.country_publicaddress', &$_country_publicaddress, &$this->params, 0));
+				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.publicresults.country_publicaddress', &$_country_publicaddress, &$params, 0));
 				// Checking if country_publicaddress has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($data->country_publicaddress,$this->uikitComp);
 				// set the global causesrisks value.
@@ -217,14 +223,14 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 		$this->_item[$pk]->total_salary = $this->input->get('salary', 0, 'INT');
 
 		return $this->_item[$pk];
-	} 
+	}
 
 	/**
-	* Method to get an array of Health_data Objects.
-	*
-	* @return mixed  An array of Health_data Objects on success, false on failure.
-	*
-	*/
+	 * Method to get an array of Health_data Objects.
+	 *
+	 * @return mixed  An array of Health_data Objects on success, false on failure.
+	 *
+	 */
 	public function getIdCountryHealth_dataDadd_B($id)
 	{
 		// Get a db connection.
@@ -271,11 +277,11 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 	}
 
 	/**
-	* Method to get an array of Causerisk Objects.
-	*
-	* @return mixed  An array of Causerisk Objects on success, false on failure.
-	*
-	*/
+	 * Method to get an array of Causerisk Objects.
+	 *
+	 * @return mixed  An array of Causerisk Objects on success, false on failure.
+	 *
+	 */
 	public function getCausesrisksIdCauseriskDadd_G($causesrisks)
 	{
 		// Get a db connection.
@@ -311,17 +317,32 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
 			$this->_dispatcher = JEventDispatcher::getInstance();
-			return $db->loadObjectList();
+			$items = $db->loadObjectList();
+
+			// Convert the parameter fields into objects.
+			foreach ($items as $nr => &$item)
+			{
+				// Check if item has params, or pass whole item.
+				$params = (isset($item->params) && CostbenefitprojectionHelper::checkJson($item->params)) ? json_decode($item->params) : $item;
+				// Make sure the content prepare plugins fire on description
+				$_description = new stdClass();
+				$_description->text =& $item->description; // value must be in text
+				// Since all values are now in text (Joomla Limitation), we also add the field name (description) to context
+				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.publicresults.description', &$_description, &$params, 0));
+				// Checking if description has uikit components that must be loaded.
+				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->description,$this->uikitComp);
+			}
+			return $items;
 		}
 		return false;
 	}
 
 	/**
-	* Method to get an array of Health_data Objects.
-	*
-	* @return mixed  An array of Health_data Objects on success, false on failure.
-	*
-	*/
+	 * Method to get an array of Health_data Objects.
+	 *
+	 * @return mixed  An array of Health_data Objects on success, false on failure.
+	 *
+	 */
 	public function getIdCountryHealth_dataDadd_BB($id)
 	{
 		// Get a db connection.
@@ -368,11 +389,11 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 	}
 
 	/**
-	* Method to get an array of Causerisk Objects.
-	*
-	* @return mixed  An array of Causerisk Objects on success, false on failure.
-	*
-	*/
+	 * Method to get an array of Causerisk Objects.
+	 *
+	 * @return mixed  An array of Causerisk Objects on success, false on failure.
+	 *
+	 */
 	public function getCausesrisksIdCauseriskDadd_GG($causesrisks)
 	{
 		// Get a db connection.
@@ -408,30 +429,17 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
 			$this->_dispatcher = JEventDispatcher::getInstance();
-			$items = $db->loadObjectList();
-
-			// Convert the parameter fields into objects.
-			foreach ($items as $nr => &$item)
-			{
-				// Make sure the content prepare plugins fire on description
-				$_description = new stdClass();
-				$_description->text =& $item->description; // value must be in text
-				// Since all values are now in text (Joomla Limitation), we also add the field name (description) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.publicresults.description', &$_description, &$this->params, 0));
-				// Checking if description has uikit components that must be loaded.
-				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->description,$this->uikitComp);
-			}
-			return $items;
+			return $db->loadObjectList();
 		}
 		return false;
 	}
 
 	/**
-	* Method to get an array of Intervention Objects.
-	*
-	* @return mixed  An array of Intervention Objects on success, false on failure.
-	*
-	*/
+	 * Method to get an array of Intervention Objects.
+	 *
+	 * @return mixed  An array of Intervention Objects on success, false on failure.
+	 *
+	 */
 	public function getIdCountryInterventionDadd_DD($id)
 	{
 		// Get a db connection.
@@ -462,23 +470,19 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 			// Convert the parameter fields into objects.
 			foreach ($items as $nr => &$item)
 			{
+				// Check if we can decode interventions
 				if (CostbenefitprojectionHelper::checkJson($item->interventions))
 				{
 					// Decode interventions
 					$item->interventions = json_decode($item->interventions, true);
 				}
-				// Make sure the content prepare plugins fire on description
-				$_description = new stdClass();
-				$_description->text =& $item->description; // value must be in text
-				// Since all values are now in text (Joomla Limitation), we also add the field name (description) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.publicresults.description', &$_description, &$this->params, 0));
+				// Check if item has params, or pass whole item.
+				$params = (isset($item->params) && CostbenefitprojectionHelper::checkJson($item->params)) ? json_decode($item->params) : $item;
 				// Make sure the content prepare plugins fire on reference
 				$_reference = new stdClass();
 				$_reference->text =& $item->reference; // value must be in text
 				// Since all values are now in text (Joomla Limitation), we also add the field name (reference) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.publicresults.reference', &$_reference, &$this->params, 0));
-				// Checking if description has uikit components that must be loaded.
-				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->description,$this->uikitComp);
+				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.publicresults.reference', &$_reference, &$params, 0));
 				// Checking if reference has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->reference,$this->uikitComp);
 			}
@@ -489,23 +493,23 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 
 
 	/**
-	* Custom Method
-	*
-	* @return mixed  An array of objects on success, false on failure.
-	*
-	*/
+	 * Custom Method
+	 *
+	 * @return mixed  An array of objects on success, false on failure.
+	 *
+	 */
 	public function getCountries()
 	{
 
 		if (!isset($this->initSet) || !$this->initSet)
 		{
-			$this->user		= JFactory::getUser();
-			$this->userId		= $this->user->get('id');
-			$this->guest		= $this->user->get('guest');
-			$this->groups		= $this->user->get('groups');
-			$this->authorisedGroups	= $this->user->getAuthorisedGroups();
-			$this->levels		= $this->user->getAuthorisedViewLevels();
-			$this->initSet		= true;
+			$this->user = JFactory::getUser();
+			$this->userId = $this->user->get('id');
+			$this->guest = $this->user->get('guest');
+			$this->groups = $this->user->get('groups');
+			$this->authorisedGroups = $this->user->getAuthorisedGroups();
+			$this->levels = $this->user->getAuthorisedViewLevels();
+			$this->initSet = true;
 		}
 
 		// Get the global params
@@ -551,13 +555,12 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 		return $items;
 	}
 
-
 	/**
-	* Get the uikit needed components
-	*
-	* @return mixed  An array of objects on success.
-	*
-	*/
+	 * Get the uikit needed components
+	 *
+	 * @return mixed  An array of objects on success.
+	 *
+	 */
 	public function getUikitComp()
 	{
 		if (isset($this->uikitComp) && CostbenefitprojectionHelper::checkArray($this->uikitComp))
@@ -565,5 +568,5 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 			return $this->uikitComp;
 		}
 		return false;
-	}  
+	}
 }

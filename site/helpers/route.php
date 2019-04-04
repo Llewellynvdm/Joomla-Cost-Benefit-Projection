@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.3
-	@build			17th May, 2018
+	@version		3.4.x
+	@build			4th April, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		route.php
@@ -20,10 +20,6 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-// Component Helper
-jimport('joomla.application.component.helper');
-jimport('joomla.application.categories');
-
 /**
  * Costbenefitprojection Route Helper
  **/
@@ -32,8 +28,8 @@ abstract class CostbenefitprojectionHelperRoute
 	protected static $lookup;
 
 	/**
-	* @param int The route of the Cpanel
-	*/
+	 * @param int The route of the Cpanel
+	 */
 	public static function getCpanelRoute($id = 0, $catid = 0)
 	{
 		if ($id > 0)
@@ -48,8 +44,10 @@ abstract class CostbenefitprojectionHelperRoute
 		else
 		{
 			// Initialize the needel array.
-			$needles = array();
-			//Create the link but don't add the id.
+			$needles = array(
+				'cpanel'  => array()
+			);
+			// Create the link but don't add the id.
 			$link = 'index.php?option=com_costbenefitprojection&view=cpanel';
 		}
 		if ($catid > 1)
@@ -73,8 +71,8 @@ abstract class CostbenefitprojectionHelperRoute
 	}
 
 	/**
-	* @param int The route of the Publicresults
-	*/
+	 * @param int The route of the Publicresults
+	 */
 	public static function getPublicresultsRoute($id = 0, $catid = 0)
 	{
 		if ($id > 0)
@@ -89,8 +87,10 @@ abstract class CostbenefitprojectionHelperRoute
 		else
 		{
 			// Initialize the needel array.
-			$needles = array();
-			//Create the link but don't add the id.
+			$needles = array(
+				'publicresults'  => array()
+			);
+			// Create the link but don't add the id.
 			$link = 'index.php?option=com_costbenefitprojection&view=publicresults';
 		}
 		if ($catid > 1)
@@ -114,8 +114,8 @@ abstract class CostbenefitprojectionHelperRoute
 	}
 
 	/**
-	* @param int The route of the Createaccount
-	*/
+	 * @param int The route of the Createaccount
+	 */
 	public static function getCreateaccountRoute($id = 0, $catid = 0)
 	{
 		if ($id > 0)
@@ -130,8 +130,10 @@ abstract class CostbenefitprojectionHelperRoute
 		else
 		{
 			// Initialize the needel array.
-			$needles = array();
-			//Create the link but don't add the id.
+			$needles = array(
+				'createaccount'  => array()
+			);
+			// Create the link but don't add the id.
 			$link = 'index.php?option=com_costbenefitprojection&view=createaccount';
 		}
 		if ($catid > 1)
@@ -155,8 +157,8 @@ abstract class CostbenefitprojectionHelperRoute
 	}
 
 	/**
-	* @param int The route of the Companyresults
-	*/
+	 * @param int The route of the Companyresults
+	 */
 	public static function getCompanyresultsRoute($id = 0, $catid = 0)
 	{
 		if ($id > 0)
@@ -171,8 +173,10 @@ abstract class CostbenefitprojectionHelperRoute
 		else
 		{
 			// Initialize the needel array.
-			$needles = array();
-			//Create the link but don't add the id.
+			$needles = array(
+				'companyresults'  => array()
+			);
+			// Create the link but don't add the id.
 			$link = 'index.php?option=com_costbenefitprojection&view=companyresults';
 		}
 		if ($catid > 1)
@@ -196,8 +200,8 @@ abstract class CostbenefitprojectionHelperRoute
 	}
 
 	/**
-	* @param int The route of the Combinedresults
-	*/
+	 * @param int The route of the Combinedresults
+	 */
 	public static function getCombinedresultsRoute($id = 0, $catid = 0)
 	{
 		if ($id > 0)
@@ -212,8 +216,10 @@ abstract class CostbenefitprojectionHelperRoute
 		else
 		{
 			// Initialize the needel array.
-			$needles = array();
-			//Create the link but don't add the id.
+			$needles = array(
+				'combinedresults'  => array()
+			);
+			// Create the link but don't add the id.
 			$link = 'index.php?option=com_costbenefitprojection&view=combinedresults';
 		}
 		if ($catid > 1)
@@ -320,8 +326,8 @@ abstract class CostbenefitprojectionHelperRoute
 			}
 		}
 		return $link;
-	}	
-	
+	}
+
 	protected static function _findItem($needles = null,$type = null)
 	{
 		$app      = JFactory::getApplication();
@@ -369,6 +375,10 @@ abstract class CostbenefitprojectionHelperRoute
 							self::$lookup[$language][$view][$item->query['id']] = $item->id;
 						}
 					}
+					else
+					{
+						self::$lookup[$language][$view][0] = $item->id;
+					}
 				}
 			}
 		}
@@ -379,17 +389,24 @@ abstract class CostbenefitprojectionHelperRoute
 			{
 				if (isset(self::$lookup[$language][$view]))
 				{
-					foreach ($ids as $id)
+					if (CostbenefitprojectionHelper::checkArray($ids))
 					{
-						if (isset(self::$lookup[$language][$view][(int) $id]))
+						foreach ($ids as $id)
 						{
-							return self::$lookup[$language][$view][(int) $id];
+							if (isset(self::$lookup[$language][$view][(int) $id]))
+							{
+								return self::$lookup[$language][$view][(int) $id];
+							}
 						}
+					}
+					elseif (isset(self::$lookup[$language][$view][0]))
+					{
+						return self::$lookup[$language][$view][0];
 					}
 				}
 			}
 		}
-		
+
 		if ($type)
 		{
 			// Check if the global menu item has been set.

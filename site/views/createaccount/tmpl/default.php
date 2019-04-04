@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 22 of this MVC
-	@build			18th August, 2017
-	@created		28th November, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -18,7 +18,7 @@
 /------------------------------------------------------------------------------------------------------*/
 
 // No direct access to this file
-defined('_JEXEC') or die('Restricted access'); 
+defined('_JEXEC') or die('Restricted access');
 
 // reset all default arrays
 $countryList = array();
@@ -66,7 +66,7 @@ if ($this->items)
 }
 
 ?>
-<?php echo $this->toolbar->render(); ?> 
+<?php echo $this->toolbar->render(); ?>
 <?php echo $this->loadTemplate('cbpmenumodule'); ?>
 <?php if ($this->items): ?>
 <div class="uk-alert uk-alert-success" data-uk-alert>
@@ -100,4 +100,4 @@ if ($this->items)
 
 	</div>
 </div>
-<?php endif; ?> 
+<?php endif; ?>

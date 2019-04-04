@@ -2,9 +2,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 71 of this MVC
-	@build			12th November, 2016
-	@created		8th July, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		intervention.js
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -40,6 +40,7 @@ function vvvvvvy(type_vvvvvvy)
 	if (type_vvvvvvy == 2)
 	{
 		jQuery('#jform_interventions').closest('.control-group').show();
+		// add required attribute to interventions field
 		if (jform_vvvvvvyvwj_required)
 		{
 			updateFieldRequired('interventions',0);
@@ -48,11 +49,11 @@ function vvvvvvy(type_vvvvvvy)
 			jQuery('#jform_interventions').addClass('required');
 			jform_vvvvvvyvwj_required = false;
 		}
-
 	}
 	else
 	{
 		jQuery('#jform_interventions').closest('.control-group').hide();
+		// remove required attribute from interventions field
 		if (!jform_vvvvvvyvwj_required)
 		{
 			updateFieldRequired('interventions',1);
@@ -98,6 +99,7 @@ function vvvvvwa(company_vvvvvwa)
 	if (company)
 	{
 		jQuery('#jform_country').closest('.control-group').show();
+		// add required attribute to country field
 		if (jform_vvvvvwavwk_required)
 		{
 			updateFieldRequired('country',0);
@@ -106,11 +108,11 @@ function vvvvvwa(company_vvvvvwa)
 			jQuery('#jform_country').addClass('required');
 			jform_vvvvvwavwk_required = false;
 		}
-
 	}
 	else
 	{
 		jQuery('#jform_country').closest('.control-group').hide();
+		// remove required attribute from country field
 		if (!jform_vvvvvwavwk_required)
 		{
 			updateFieldRequired('country',1);

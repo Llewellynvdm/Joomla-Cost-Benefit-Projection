@@ -3,9 +3,9 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		@update number 10 of this MVC
-	@build			18th August, 2017
-	@created		16th December, 2015
+	@version		3.4.x
+	@build			4th April, 2019
+	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
 	@author			Llewellyn van der Merwe <http://www.vdm.io>	
@@ -19,9 +19,6 @@
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
-
-// import Joomla view library
-jimport('joomla.application.component.view');
 jimport('joomla.application.module.helper');
 
 /**
@@ -80,7 +77,7 @@ class CostbenefitprojectionViewPublicresults extends JViewLegacy
 		// Load the header checker class.
 		require_once( JPATH_COMPONENT_SITE.'/helpers/headercheck.php' );
 		// Initialize the header checker.
-		$HeaderCheck = new costbenefitprojectionHeaderCheck; 
+		$HeaderCheck = new costbenefitprojectionHeaderCheck;
 
 		// Load uikit options.
 		$uikit = $this->params->get('uikit_load');
@@ -147,14 +144,14 @@ class CostbenefitprojectionViewPublicresults extends JViewLegacy
 					}
 				}
 			}
-		} 
+		}
 
 		// add the google chart builder class.
 		require_once JPATH_COMPONENT_ADMINISTRATOR.'/helpers/chartbuilder.php';
 		// load the google chart js.
 		$this->document->addScript(JURI::root(true) .'/media/com_costbenefitprojection/js/google.jsapi.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
 		$this->document->addScript('https://canvg.googlecode.com/svn/trunk/rgbcolor.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
-		$this->document->addScript('https://canvg.googlecode.com/svn/trunk/canvg.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');   
+		$this->document->addScript('https://canvg.googlecode.com/svn/trunk/canvg.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript');
 		// add custom css
 		$this->document->addStyleSheet(JURI::root(true) ."/administrator/components/com_costbenefitprojection/assets/css/dashboard.css");
 		// add custom js
@@ -180,7 +177,7 @@ class CostbenefitprojectionViewPublicresults extends JViewLegacy
 			$session->set( 'CT_SubMenuNotice', $this->menuNotice);
 		} 
 		// add the document default css file
-		$this->document->addStyleSheet(JURI::root(true) .'/components/com_costbenefitprojection/assets/css/publicresults.css', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css'); 
+		$this->document->addStyleSheet(JURI::root(true) .'/components/com_costbenefitprojection/assets/css/publicresults.css', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
 	}
 
 	/**
