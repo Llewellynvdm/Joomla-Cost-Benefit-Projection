@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			4th April, 2019
+	@build			12th June, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -196,7 +196,15 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 
 		// Set Company Name Selection
 		$this->companyNameOptions = JFormHelper::loadFieldType('Company')->options;
-		if ($this->companyNameOptions)
+		// We do some sanitation for Company Name filter
+		if (CostbenefitprojectionHelper::checkArray($this->companyNameOptions) &&
+			isset($this->companyNameOptions[0]->value) &&
+			!CostbenefitprojectionHelper::checkString($this->companyNameOptions[0]->value))
+		{
+			unset($this->companyNameOptions[0]);
+		}
+		// Only load Company Name filter if it has values
+		if (CostbenefitprojectionHelper::checkArray($this->companyNameOptions))
 		{
 			// Company Name Filter
 			JHtmlSidebar::addFilter(
@@ -218,7 +226,15 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 
 		// Set Type Selection
 		$this->typeOptions = $this->getTheTypeSelections();
-		if ($this->typeOptions)
+		// We do some sanitation for Type filter
+		if (CostbenefitprojectionHelper::checkArray($this->typeOptions) &&
+			isset($this->typeOptions[0]->value) &&
+			!CostbenefitprojectionHelper::checkString($this->typeOptions[0]->value))
+		{
+			unset($this->typeOptions[0]);
+		}
+		// Only load Type filter if it has values
+		if (CostbenefitprojectionHelper::checkArray($this->typeOptions))
 		{
 			// Type Filter
 			JHtmlSidebar::addFilter(
@@ -240,7 +256,15 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 
 		// Set Coverage Selection
 		$this->coverageOptions = $this->getTheCoverageSelections();
-		if ($this->coverageOptions)
+		// We do some sanitation for Coverage filter
+		if (CostbenefitprojectionHelper::checkArray($this->coverageOptions) &&
+			isset($this->coverageOptions[0]->value) &&
+			!CostbenefitprojectionHelper::checkString($this->coverageOptions[0]->value))
+		{
+			unset($this->coverageOptions[0]);
+		}
+		// Only load Coverage filter if it has values
+		if (CostbenefitprojectionHelper::checkArray($this->coverageOptions))
 		{
 			// Coverage Filter
 			JHtmlSidebar::addFilter(
@@ -262,7 +286,15 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 
 		// Set Duration Selection
 		$this->durationOptions = $this->getTheDurationSelections();
-		if ($this->durationOptions)
+		// We do some sanitation for Duration filter
+		if (CostbenefitprojectionHelper::checkArray($this->durationOptions) &&
+			isset($this->durationOptions[0]->value) &&
+			!CostbenefitprojectionHelper::checkString($this->durationOptions[0]->value))
+		{
+			unset($this->durationOptions[0]);
+		}
+		// Only load Duration filter if it has values
+		if (CostbenefitprojectionHelper::checkArray($this->durationOptions))
 		{
 			// Duration Filter
 			JHtmlSidebar::addFilter(

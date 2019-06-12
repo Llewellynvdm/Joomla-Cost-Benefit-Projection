@@ -182,7 +182,6 @@
 						class="list_class causewidth"
 						multiple="false"
 						default="0"
-						required="false"
 						button="false"
 					/>
 					<!-- Cpe Field. Type: Text. (joomla) -->
@@ -195,7 +194,6 @@
 						default=""
 						description="COM_COSTBENEFITPROJECTION_INTERVENTION_CPE_DESCRIPTION"
 						class="text_area"
-						required="false"
 						filter="INT"
 					/>
 					<!-- Mbr Field. Type: Text. (joomla) -->
@@ -208,7 +206,6 @@
 						default=""
 						description="COM_COSTBENEFITPROJECTION_INTERVENTION_MBR_DESCRIPTION"
 						class="text_area"
-						required="false"
 						filter="INT"
 					/>
 					<!-- Mtr Field. Type: Text. (joomla) -->
@@ -221,7 +218,6 @@
 						default=""
 						description="COM_COSTBENEFITPROJECTION_INTERVENTION_MTR_DESCRIPTION"
 						class="text_area"
-						required="false"
 						filter="INT"
 					/>
 				</fieldset>

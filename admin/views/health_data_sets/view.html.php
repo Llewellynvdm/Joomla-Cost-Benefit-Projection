@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			4th April, 2019
+	@build			12th June, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -196,7 +196,15 @@ class CostbenefitprojectionViewHealth_data_sets extends JViewLegacy
 
 		// Set Causerisk Name Selection
 		$this->causeriskNameOptions = JFormHelper::loadFieldType('Causesrisks')->options;
-		if ($this->causeriskNameOptions)
+		// We do some sanitation for Causerisk Name filter
+		if (CostbenefitprojectionHelper::checkArray($this->causeriskNameOptions) &&
+			isset($this->causeriskNameOptions[0]->value) &&
+			!CostbenefitprojectionHelper::checkString($this->causeriskNameOptions[0]->value))
+		{
+			unset($this->causeriskNameOptions[0]);
+		}
+		// Only load Causerisk Name filter if it has values
+		if (CostbenefitprojectionHelper::checkArray($this->causeriskNameOptions))
 		{
 			// Causerisk Name Filter
 			JHtmlSidebar::addFilter(
@@ -218,7 +226,15 @@ class CostbenefitprojectionViewHealth_data_sets extends JViewLegacy
 
 		// Set Year Selection
 		$this->yearOptions = $this->getTheYearSelections();
-		if ($this->yearOptions)
+		// We do some sanitation for Year filter
+		if (CostbenefitprojectionHelper::checkArray($this->yearOptions) &&
+			isset($this->yearOptions[0]->value) &&
+			!CostbenefitprojectionHelper::checkString($this->yearOptions[0]->value))
+		{
+			unset($this->yearOptions[0]);
+		}
+		// Only load Year filter if it has values
+		if (CostbenefitprojectionHelper::checkArray($this->yearOptions))
 		{
 			// Year Filter
 			JHtmlSidebar::addFilter(
@@ -240,7 +256,15 @@ class CostbenefitprojectionViewHealth_data_sets extends JViewLegacy
 
 		// Set Country Name Selection
 		$this->countryNameOptions = JFormHelper::loadFieldType('Countries')->options;
-		if ($this->countryNameOptions)
+		// We do some sanitation for Country Name filter
+		if (CostbenefitprojectionHelper::checkArray($this->countryNameOptions) &&
+			isset($this->countryNameOptions[0]->value) &&
+			!CostbenefitprojectionHelper::checkString($this->countryNameOptions[0]->value))
+		{
+			unset($this->countryNameOptions[0]);
+		}
+		// Only load Country Name filter if it has values
+		if (CostbenefitprojectionHelper::checkArray($this->countryNameOptions))
 		{
 			// Country Name Filter
 			JHtmlSidebar::addFilter(

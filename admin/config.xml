@@ -100,7 +100,7 @@
 			label="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_LABEL"
 			description="COM_COSTBENEFITPROJECTION_CONFIG_CONTRIBUTOR_LINK_DESC"
 			size="60"
-			default="http://www.swisstph.ch/about-us/staff/detailview.html?tx_x4epersdb_pi1[showUid]=2267&amp;cHash=1b1c5db0808e04d3f1afe0f3a3f67998"
+			default="https://www.swisstph.ch/en/staff/profile/people/patrick-hanlon/"
 		/>
 		<field name="useContributor1"
 			type="list"

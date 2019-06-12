@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			4th April, 2019
+	@build			12th June, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -196,7 +196,15 @@ class CostbenefitprojectionViewService_providers extends JViewLegacy
 
 		// Set Country Name Selection
 		$this->countryNameOptions = JFormHelper::loadFieldType('Countries')->options;
-		if ($this->countryNameOptions)
+		// We do some sanitation for Country Name filter
+		if (CostbenefitprojectionHelper::checkArray($this->countryNameOptions) &&
+			isset($this->countryNameOptions[0]->value) &&
+			!CostbenefitprojectionHelper::checkString($this->countryNameOptions[0]->value))
+		{
+			unset($this->countryNameOptions[0]);
+		}
+		// Only load Country Name filter if it has values
+		if (CostbenefitprojectionHelper::checkArray($this->countryNameOptions))
 		{
 			// Country Name Filter
 			JHtmlSidebar::addFilter(

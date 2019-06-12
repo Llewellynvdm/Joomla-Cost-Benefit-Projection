@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			4th April, 2019
+	@build			12th June, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		combinedresults.php
@@ -64,6 +64,24 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 		// Create a new query object.
 		$query = $db->getQuery(true);
 
+		// Get from #__costbenefitprojection_company as a
+		$query->select($db->quoteName(
+			array('a.id','a.name','a.user','a.department','a.per','a.country','a.service_provider','a.datayear','a.working_days','a.total_salary','a.total_healthcare','a.productivity_losses','a.males','a.females','a.medical_turnovers_males','a.medical_turnovers_females','a.sick_leave_males','a.sick_leave_females','a.percentmale','a.percentfemale','a.causesrisks','a.published','a.access'),
+			array('id','name','user','department','per','country','service_provider','datayear','working_days','total_salary','total_healthcare','productivity_losses','males','females','medical_turnovers_males','medical_turnovers_females','sick_leave_males','sick_leave_females','percentmale','percentfemale','causesrisks','published','access')));
+		$query->from($db->quoteName('#__costbenefitprojection_company', 'a'));
+
+		// Get from #__costbenefitprojection_country as e
+		$query->select($db->quoteName(
+			array('e.id','e.name','e.alias','e.user','e.currency','e.datayear','e.worldzone','e.codethree','e.codetwo','e.working_days','e.presenteeism','e.medical_turnovers','e.sick_leave','e.healthcare','e.productivity_losses','e.publicname','e.publicemail','e.publicnumber','e.publicaddress','e.percentmale','e.percentfemale','e.causesrisks','e.maledeath','e.femaledeath','e.maleyld','e.femaleyld','e.access'),
+			array('country_id','country_name','country_alias','country_user','country_currency','country_datayear','country_worldzone','country_codethree','country_codetwo','country_working_days','country_presenteeism','country_medical_turnovers','country_sick_leave','country_healthcare','country_productivity_losses','country_publicname','country_publicemail','country_publicnumber','country_publicaddress','country_percentmale','country_percentfemale','country_causesrisks','country_maledeath','country_femaledeath','country_maleyld','country_femaleyld','country_access')));
+		$query->join('LEFT', ($db->quoteName('#__costbenefitprojection_country', 'e')) . ' ON (' . $db->quoteName('a.country') . ' = ' . $db->quoteName('e.id') . ')');
+
+		// Get from #__costbenefitprojection_currency as f
+		$query->select($db->quoteName(
+			array('f.id','f.name','f.alias','f.codethree','f.numericcode','f.symbol','f.thousands','f.decimalplace','f.decimalsymbol','f.positivestyle','f.negativestyle','f.published','f.access','f.ordering'),
+			array('currency_id','currency_name','currency_alias','currency_codethree','currency_numericcode','currency_symbol','currency_thousands','currency_decimalplace','currency_decimalsymbol','currency_positivestyle','currency_negativestyle','currency_published','currency_access','currency_ordering')));
+		$query->join('LEFT', ($db->quoteName('#__costbenefitprojection_currency', 'f')) . ' ON (' . $db->quoteName('e.currency') . ' = ' . $db->quoteName('f.codethree') . ')');
+
 		// Filtering.
 
 		$ids = (array) array_map('intval',explode('_', $this->input->get('cid', null, 'CMD')));
@@ -95,24 +113,6 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 				JFactory::getApplication()->redirect('index.php?option=com_costbenefitprojection&view=cpanel');
 			}
 		}
-
-		// Get from #__costbenefitprojection_company as a
-		$query->select($db->quoteName(
-			array('a.id','a.name','a.user','a.department','a.per','a.country','a.service_provider','a.datayear','a.working_days','a.total_salary','a.total_healthcare','a.productivity_losses','a.males','a.females','a.medical_turnovers_males','a.medical_turnovers_females','a.sick_leave_males','a.sick_leave_females','a.percentmale','a.percentfemale','a.causesrisks','a.published','a.access'),
-			array('id','name','user','department','per','country','service_provider','datayear','working_days','total_salary','total_healthcare','productivity_losses','males','females','medical_turnovers_males','medical_turnovers_females','sick_leave_males','sick_leave_females','percentmale','percentfemale','causesrisks','published','access')));
-		$query->from($db->quoteName('#__costbenefitprojection_company', 'a'));
-
-		// Get from #__costbenefitprojection_country as e
-		$query->select($db->quoteName(
-			array('e.id','e.name','e.alias','e.user','e.currency','e.datayear','e.worldzone','e.codethree','e.codetwo','e.working_days','e.presenteeism','e.medical_turnovers','e.sick_leave','e.healthcare','e.productivity_losses','e.publicname','e.publicemail','e.publicnumber','e.publicaddress','e.percentmale','e.percentfemale','e.causesrisks','e.maledeath','e.femaledeath','e.maleyld','e.femaleyld','e.access'),
-			array('country_id','country_name','country_alias','country_user','country_currency','country_datayear','country_worldzone','country_codethree','country_codetwo','country_working_days','country_presenteeism','country_medical_turnovers','country_sick_leave','country_healthcare','country_productivity_losses','country_publicname','country_publicemail','country_publicnumber','country_publicaddress','country_percentmale','country_percentfemale','country_causesrisks','country_maledeath','country_femaledeath','country_maleyld','country_femaleyld','country_access')));
-		$query->join('LEFT', ($db->quoteName('#__costbenefitprojection_country', 'e')) . ' ON (' . $db->quoteName('a.country') . ' = ' . $db->quoteName('e.id') . ')');
-
-		// Get from #__costbenefitprojection_currency as f
-		$query->select($db->quoteName(
-			array('f.id','f.name','f.alias','f.codethree','f.numericcode','f.symbol','f.thousands','f.decimalplace','f.decimalsymbol','f.positivestyle','f.negativestyle','f.published','f.access','f.ordering'),
-			array('currency_id','currency_name','currency_alias','currency_codethree','currency_numericcode','currency_symbol','currency_thousands','currency_decimalplace','currency_decimalsymbol','currency_positivestyle','currency_negativestyle','currency_published','currency_access','currency_ordering')));
-		$query->join('LEFT', ($db->quoteName('#__costbenefitprojection_currency', 'f')) . ' ON (' . $db->quoteName('e.currency') . ' = ' . $db->quoteName('f.codethree') . ')');
 		// Check if $ids is an array with values.
 		$array = $ids;
 		if (isset($array) && CostbenefitprojectionHelper::checkArray($array))

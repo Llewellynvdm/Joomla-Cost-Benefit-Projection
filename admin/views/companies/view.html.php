@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			4th April, 2019
+	@build			12th June, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -200,7 +200,15 @@ class CostbenefitprojectionViewCompanies extends JViewLegacy
 
 		// Set Department Selection
 		$this->departmentOptions = $this->getTheDepartmentSelections();
-		if ($this->departmentOptions)
+		// We do some sanitation for Department filter
+		if (CostbenefitprojectionHelper::checkArray($this->departmentOptions) &&
+			isset($this->departmentOptions[0]->value) &&
+			!CostbenefitprojectionHelper::checkString($this->departmentOptions[0]->value))
+		{
+			unset($this->departmentOptions[0]);
+		}
+		// Only load Department filter if it has values
+		if (CostbenefitprojectionHelper::checkArray($this->departmentOptions))
 		{
 			// Department Filter
 			JHtmlSidebar::addFilter(
@@ -222,7 +230,15 @@ class CostbenefitprojectionViewCompanies extends JViewLegacy
 
 		// Set Country Name Selection
 		$this->countryNameOptions = JFormHelper::loadFieldType('Countries')->options;
-		if ($this->countryNameOptions)
+		// We do some sanitation for Country Name filter
+		if (CostbenefitprojectionHelper::checkArray($this->countryNameOptions) &&
+			isset($this->countryNameOptions[0]->value) &&
+			!CostbenefitprojectionHelper::checkString($this->countryNameOptions[0]->value))
+		{
+			unset($this->countryNameOptions[0]);
+		}
+		// Only load Country Name filter if it has values
+		if (CostbenefitprojectionHelper::checkArray($this->countryNameOptions))
 		{
 			// Country Name Filter
 			JHtmlSidebar::addFilter(
@@ -244,7 +260,15 @@ class CostbenefitprojectionViewCompanies extends JViewLegacy
 
 		// Set Service Provider User Selection
 		$this->service_providerUserOptions = JFormHelper::loadFieldType('Serviceprovider')->options;
-		if ($this->service_providerUserOptions)
+		// We do some sanitation for Service Provider User filter
+		if (CostbenefitprojectionHelper::checkArray($this->service_providerUserOptions) &&
+			isset($this->service_providerUserOptions[0]->value) &&
+			!CostbenefitprojectionHelper::checkString($this->service_providerUserOptions[0]->value))
+		{
+			unset($this->service_providerUserOptions[0]);
+		}
+		// Only load Service Provider User filter if it has values
+		if (CostbenefitprojectionHelper::checkArray($this->service_providerUserOptions))
 		{
 			// Service Provider User Filter
 			JHtmlSidebar::addFilter(
@@ -266,7 +290,15 @@ class CostbenefitprojectionViewCompanies extends JViewLegacy
 
 		// Set Per Selection
 		$this->perOptions = $this->getThePerSelections();
-		if ($this->perOptions)
+		// We do some sanitation for Per filter
+		if (CostbenefitprojectionHelper::checkArray($this->perOptions) &&
+			isset($this->perOptions[0]->value) &&
+			!CostbenefitprojectionHelper::checkString($this->perOptions[0]->value))
+		{
+			unset($this->perOptions[0]);
+		}
+		// Only load Per filter if it has values
+		if (CostbenefitprojectionHelper::checkArray($this->perOptions))
 		{
 			// Per Filter
 			JHtmlSidebar::addFilter(

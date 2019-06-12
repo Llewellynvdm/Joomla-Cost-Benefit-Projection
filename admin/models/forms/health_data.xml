@@ -172,7 +172,6 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD"
-						required="false"
 						default="">
 						<!-- Option Set. -->
 						<option value="15-19">
@@ -237,7 +236,6 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD"
-						required="false"
 						default="">
 						<!-- Option Set. -->
 						<option value="15-19">
@@ -302,7 +300,6 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD"
-						required="false"
 						default="">
 						<!-- Option Set. -->
 						<option value="15-19">
@@ -367,7 +364,6 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD"
-						required="false"
 						default="">
 						<!-- Option Set. -->
 						<option value="15-19">

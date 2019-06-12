@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			4th April, 2019
+	@build			12th June, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -196,7 +196,15 @@ class CostbenefitprojectionViewCountries extends JViewLegacy
 
 		// Set Currency Name Selection
 		$this->currencyNameOptions = JFormHelper::loadFieldType('Currency')->options;
-		if ($this->currencyNameOptions)
+		// We do some sanitation for Currency Name filter
+		if (CostbenefitprojectionHelper::checkArray($this->currencyNameOptions) &&
+			isset($this->currencyNameOptions[0]->value) &&
+			!CostbenefitprojectionHelper::checkString($this->currencyNameOptions[0]->value))
+		{
+			unset($this->currencyNameOptions[0]);
+		}
+		// Only load Currency Name filter if it has values
+		if (CostbenefitprojectionHelper::checkArray($this->currencyNameOptions))
 		{
 			// Currency Name Filter
 			JHtmlSidebar::addFilter(

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			4th April, 2019
+	@build			12th June, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -196,7 +196,15 @@ class CostbenefitprojectionViewScaling_factors extends JViewLegacy
 
 		// Set Causerisk Name Selection
 		$this->causeriskNameOptions = JFormHelper::loadFieldType('Causesrisks')->options;
-		if ($this->causeriskNameOptions)
+		// We do some sanitation for Causerisk Name filter
+		if (CostbenefitprojectionHelper::checkArray($this->causeriskNameOptions) &&
+			isset($this->causeriskNameOptions[0]->value) &&
+			!CostbenefitprojectionHelper::checkString($this->causeriskNameOptions[0]->value))
+		{
+			unset($this->causeriskNameOptions[0]);
+		}
+		// Only load Causerisk Name filter if it has values
+		if (CostbenefitprojectionHelper::checkArray($this->causeriskNameOptions))
 		{
 			// Causerisk Name Filter
 			JHtmlSidebar::addFilter(
@@ -218,7 +226,15 @@ class CostbenefitprojectionViewScaling_factors extends JViewLegacy
 
 		// Set Company Name Selection
 		$this->companyNameOptions = JFormHelper::loadFieldType('Company')->options;
-		if ($this->companyNameOptions)
+		// We do some sanitation for Company Name filter
+		if (CostbenefitprojectionHelper::checkArray($this->companyNameOptions) &&
+			isset($this->companyNameOptions[0]->value) &&
+			!CostbenefitprojectionHelper::checkString($this->companyNameOptions[0]->value))
+		{
+			unset($this->companyNameOptions[0]);
+		}
+		// Only load Company Name filter if it has values
+		if (CostbenefitprojectionHelper::checkArray($this->companyNameOptions))
 		{
 			// Company Name Filter
 			JHtmlSidebar::addFilter(

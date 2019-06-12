@@ -245,7 +245,6 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD"
-						required="false"
 						default="">
 						<!-- Option Set. -->
 						<option value="15-19">
@@ -293,7 +292,7 @@
 						class="list_class"
 						multiple="false"
 						filter="INT"
-						required="false"
+						required="true"
 						default="">
 						<!-- Option Set. -->
 						<option value="">
@@ -362,7 +361,6 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD"
-						required="false"
 						default="">
 						<!-- Option Set. -->
 						<option value="15-19">
@@ -410,7 +408,7 @@
 						class="list_class"
 						multiple="false"
 						filter="INT"
-						required="false"
+						required="true"
 						default="">
 						<!-- Option Set. -->
 						<option value="">
@@ -471,7 +469,6 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD"
-						required="false"
 						default="">
 						<!-- Option Set. -->
 						<option value="15-19">
@@ -506,7 +503,7 @@
 						class="text_area"
 						readonly="false"
 						disabled="false"
-						required="false"
+						required="true"
 						filter="FLOAT"
 						message="COM_COSTBENEFITPROJECTION_COUNTRY_PERCENT_MESSAGE"
 						hint="COM_COSTBENEFITPROJECTION_COUNTRY_PERCENT_HINT"
@@ -571,7 +568,6 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD"
-						required="false"
 						default="">
 						<!-- Option Set. -->
 						<option value="15-19">
@@ -606,7 +602,7 @@
 						class="text_area"
 						readonly="false"
 						disabled="false"
-						required="false"
+						required="true"
 						filter="FLOAT"
 						message="COM_COSTBENEFITPROJECTION_COUNTRY_PERCENT_MESSAGE"
 						hint="COM_COSTBENEFITPROJECTION_COUNTRY_PERCENT_HINT"
@@ -678,7 +674,6 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD"
-						required="false"
 						default="">
 						<!-- Option Set. -->
 						<option value="15-19">
@@ -726,7 +721,7 @@
 						class="list_class"
 						multiple="false"
 						filter="INT"
-						required="false"
+						required="true"
 						default="">
 						<!-- Option Set. -->
 						<option value="">
@@ -804,7 +799,6 @@
 						class="list_class"
 						multiple="false"
 						filter="CMD"
-						required="false"
 						default="">
 						<!-- Option Set. -->
 						<option value="15-19">
@@ -852,7 +846,7 @@
 						class="list_class"
 						multiple="false"
 						filter="INT"
-						required="false"
+						required="true"
 						default="">
 						<!-- Option Set. -->
 						<option value="">

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			4th April, 2019
+	@build			12th June, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -196,7 +196,15 @@ class CostbenefitprojectionViewHelp_documents extends JViewLegacy
 
 		// Set Type Selection
 		$this->typeOptions = $this->getTheTypeSelections();
-		if ($this->typeOptions)
+		// We do some sanitation for Type filter
+		if (CostbenefitprojectionHelper::checkArray($this->typeOptions) &&
+			isset($this->typeOptions[0]->value) &&
+			!CostbenefitprojectionHelper::checkString($this->typeOptions[0]->value))
+		{
+			unset($this->typeOptions[0]);
+		}
+		// Only load Type filter if it has values
+		if (CostbenefitprojectionHelper::checkArray($this->typeOptions))
 		{
 			// Type Filter
 			JHtmlSidebar::addFilter(
@@ -218,7 +226,15 @@ class CostbenefitprojectionViewHelp_documents extends JViewLegacy
 
 		// Set Location Selection
 		$this->locationOptions = $this->getTheLocationSelections();
-		if ($this->locationOptions)
+		// We do some sanitation for Location filter
+		if (CostbenefitprojectionHelper::checkArray($this->locationOptions) &&
+			isset($this->locationOptions[0]->value) &&
+			!CostbenefitprojectionHelper::checkString($this->locationOptions[0]->value))
+		{
+			unset($this->locationOptions[0]);
+		}
+		// Only load Location filter if it has values
+		if (CostbenefitprojectionHelper::checkArray($this->locationOptions))
 		{
 			// Location Filter
 			JHtmlSidebar::addFilter(
@@ -240,7 +256,15 @@ class CostbenefitprojectionViewHelp_documents extends JViewLegacy
 
 		// Set Admin View Selection
 		$this->admin_viewOptions = JFormHelper::loadFieldType('Adminviewfolderlist')->options;
-		if ($this->admin_viewOptions)
+		// We do some sanitation for Admin View filter
+		if (CostbenefitprojectionHelper::checkArray($this->admin_viewOptions) &&
+			isset($this->admin_viewOptions[0]->value) &&
+			!CostbenefitprojectionHelper::checkString($this->admin_viewOptions[0]->value))
+		{
+			unset($this->admin_viewOptions[0]);
+		}
+		// Only load Admin View filter if it has values
+		if (CostbenefitprojectionHelper::checkArray($this->admin_viewOptions))
 		{
 			// Admin View Filter
 			JHtmlSidebar::addFilter(
@@ -262,7 +286,15 @@ class CostbenefitprojectionViewHelp_documents extends JViewLegacy
 
 		// Set Site View Selection
 		$this->site_viewOptions = JFormHelper::loadFieldType('Siteviewfolderlist')->options;
-		if ($this->site_viewOptions)
+		// We do some sanitation for Site View filter
+		if (CostbenefitprojectionHelper::checkArray($this->site_viewOptions) &&
+			isset($this->site_viewOptions[0]->value) &&
+			!CostbenefitprojectionHelper::checkString($this->site_viewOptions[0]->value))
+		{
+			unset($this->site_viewOptions[0]);
+		}
+		// Only load Site View filter if it has values
+		if (CostbenefitprojectionHelper::checkArray($this->site_viewOptions))
 		{
 			// Site View Filter
 			JHtmlSidebar::addFilter(

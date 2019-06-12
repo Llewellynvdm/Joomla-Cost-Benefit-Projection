@@ -22,11 +22,11 @@ max_input_vars = 5000
 + *Author*: [Llewellyn van der Merwe](mailto:joomla@vdm.io)
 + *Name*: [Cost Benefit Projection](https://www.staffhealthcbp.com/)
 + *First Build*: 15th June, 2012
-+ *Last Build*: 4th April, 2019
++ *Last Build*: 12th June, 2019
 + *Version*: 3.4.x
 + *Copyright*: Copyright (C) 2015. All Rights Reserved
 + *License*: GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html
-+ *Line count*: **82804**
++ *Line count*: **82923**
 + *File count*: **585**
 + *Folder count*: **103**
 
