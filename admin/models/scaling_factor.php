@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			12th June, 2019
+	@build			14th August, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		scaling_factor.php
@@ -26,13 +26,40 @@ use Joomla\Registry\Registry;
  * Costbenefitprojection Scaling_factor Model
  */
 class CostbenefitprojectionModelScaling_factor extends JModelAdmin
-{    
+{
+	/**
+	 * The tab layout fields array.
+	 *
+	 * @var      array
+	 */
+	protected $tabLayoutFields = array(
+		'details' => array(
+			'left' => array(
+				'causerisk',
+				'reference'
+			),
+			'right' => array(
+				'yld_scaling_factor_males',
+				'yld_scaling_factor_females',
+				'mortality_scaling_factor_males',
+				'mortality_scaling_factor_females',
+				'presenteeism_scaling_factor_males',
+				'presenteeism_scaling_factor_females',
+				'health_scaling_factor'
+			),
+			'above' => array(
+				'company',
+				'country'
+			)
+		)
+	);
+
 	/**
 	 * @var        string    The prefix to use with controller messages.
 	 * @since   1.6
 	 */
 	protected $text_prefix = 'COM_COSTBENEFITPROJECTION';
-    
+
 	/**
 	 * The type alias for this content type.
 	 *

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			12th June, 2019
+	@build			14th August, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		currency.php
@@ -26,13 +26,39 @@ use Joomla\Registry\Registry;
  * Costbenefitprojection Currency Model
  */
 class CostbenefitprojectionModelCurrency extends JModelAdmin
-{    
+{
+	/**
+	 * The tab layout fields array.
+	 *
+	 * @var      array
+	 */
+	protected $tabLayoutFields = array(
+		'details' => array(
+			'left' => array(
+				'codethree',
+				'numericcode',
+				'symbol',
+				'thousands'
+			),
+			'right' => array(
+				'decimalplace',
+				'decimalsymbol',
+				'positivestyle',
+				'negativestyle'
+			),
+			'above' => array(
+				'name',
+				'alias'
+			)
+		)
+	);
+
 	/**
 	 * @var        string    The prefix to use with controller messages.
 	 * @since   1.6
 	 */
 	protected $text_prefix = 'COM_COSTBENEFITPROJECTION';
-    
+
 	/**
 	 * The type alias for this content type.
 	 *

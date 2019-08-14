@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			12th June, 2019
+	@build			14th August, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		service_provider.php
@@ -26,13 +26,37 @@ use Joomla\Registry\Registry;
  * Costbenefitprojection Service_provider Model
  */
 class CostbenefitprojectionModelService_provider extends JModelAdmin
-{    
+{
+	/**
+	 * The tab layout fields array.
+	 *
+	 * @var      array
+	 */
+	protected $tabLayoutFields = array(
+		'details' => array(
+			'left' => array(
+				'public_details_note',
+				'publicname',
+				'publicemail',
+				'publicnumber',
+				'publicaddress'
+			),
+			'right' => array(
+				'testcompanies'
+			),
+			'above' => array(
+				'user',
+				'country'
+			)
+		)
+	);
+
 	/**
 	 * @var        string    The prefix to use with controller messages.
 	 * @since   1.6
 	 */
 	protected $text_prefix = 'COM_COSTBENEFITPROJECTION';
-    
+
 	/**
 	 * The type alias for this content type.
 	 *

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			12th June, 2019
+	@build			14th August, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		country.php
@@ -26,13 +26,74 @@ use Joomla\Registry\Registry;
  * Costbenefitprojection Country Model
  */
 class CostbenefitprojectionModelCountry extends JModelAdmin
-{    
+{
+	/**
+	 * The tab layout fields array.
+	 *
+	 * @var      array
+	 */
+	protected $tabLayoutFields = array(
+		'details' => array(
+			'left' => array(
+				'currency',
+				'datayear',
+				'worldzone',
+				'codethree',
+				'codetwo'
+			),
+			'right' => array(
+				'working_days',
+				'presenteeism',
+				'medical_turnovers',
+				'sick_leave',
+				'healthcare',
+				'productivity_losses'
+			),
+			'above' => array(
+				'name',
+				'alias',
+				'user'
+			)
+		),
+		'public_details' => array(
+			'fullwidth' => array(
+				'publicname',
+				'publicemail',
+				'publicnumber',
+				'publicaddress'
+			)
+		),
+		'health_data_totals' => array(
+			'left' => array(
+				'maledeath',
+				'maleyld'
+			),
+			'right' => array(
+				'femaledeath',
+				'femaleyld'
+			)
+		),
+		'age_groups_percentages' => array(
+			'left' => array(
+				'percentmale'
+			),
+			'right' => array(
+				'percentfemale'
+			)
+		),
+		'causerisk_selection' => array(
+			'fullwidth' => array(
+				'causesrisks'
+			)
+		)
+	);
+
 	/**
 	 * @var        string    The prefix to use with controller messages.
 	 * @since   1.6
 	 */
 	protected $text_prefix = 'COM_COSTBENEFITPROJECTION';
-    
+
 	/**
 	 * The type alias for this content type.
 	 *

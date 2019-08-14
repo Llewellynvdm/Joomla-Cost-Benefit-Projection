@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			12th June, 2019
+	@build			14th August, 2019
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		help_document.php
@@ -26,13 +26,45 @@ use Joomla\Registry\Registry;
  * Costbenefitprojection Help_document Model
  */
 class CostbenefitprojectionModelHelp_document extends JModelAdmin
-{    
+{
+	/**
+	 * The tab layout fields array.
+	 *
+	 * @var      array
+	 */
+	protected $tabLayoutFields = array(
+		'details' => array(
+			'left' => array(
+				'target',
+				'groups',
+				'location',
+				'admin_view',
+				'site_view'
+			),
+			'right' => array(
+				'type',
+				'url',
+				'article'
+			),
+			'fullwidth' => array(
+				'content'
+			),
+			'above' => array(
+				'title',
+				'alias'
+			),
+			'under' => array(
+				'not_required'
+			)
+		)
+	);
+
 	/**
 	 * @var        string    The prefix to use with controller messages.
 	 * @since   1.6
 	 */
 	protected $text_prefix = 'COM_COSTBENEFITPROJECTION';
-    
+
 	/**
 	 * The type alias for this content type.
 	 *
