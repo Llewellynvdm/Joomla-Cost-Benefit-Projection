@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			14th August, 2019
+	@build			30th May, 2020
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		companies.php
@@ -19,6 +19,8 @@
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
+
+use Joomla\Utilities\ArrayHelper;
 
 /**
  * Companies Model
@@ -36,10 +38,10 @@ class CostbenefitprojectionModelCompanies extends JModelList
 				'a.created_by','created_by',
 				'a.modified_by','modified_by',
 				'a.name','name',
-				'a.user','user',
+				'g.name',
 				'a.department','department',
-				'a.country','country',
-				'a.service_provider','service_provider',
+				'h.name',
+				'i.user',
 				'a.per','per'
 			);
 		}
@@ -114,12 +116,18 @@ class CostbenefitprojectionModelCompanies extends JModelList
 		// load parent items
 		$items = parent::getItems();
 
-		// set values to display correctly.
+		// Set values to display correctly.
 		if (CostbenefitprojectionHelper::checkArray($items))
 		{
+			// Get the user object if not set.
+			if (!isset($user) || !CostbenefitprojectionHelper::checkObject($user))
+			{
+				$user = JFactory::getUser();
+			}
 			foreach ($items as $nr => &$item)
 			{
-				$access = (JFactory::getUser()->authorise('company.access', 'com_costbenefitprojection.company.' . (int) $item->id) && JFactory::getUser()->authorise('company.access', 'com_costbenefitprojection'));
+				// Remove items the user can't access.
+				$access = ($user->authorise('company.access', 'com_costbenefitprojection.company.' . (int) $item->id) && $user->authorise('company.access', 'com_costbenefitprojection'));
 				if (!$access)
 				{
 					unset($items[$nr]);
@@ -293,7 +301,7 @@ class CostbenefitprojectionModelCompanies extends JModelList
 
 		// Add the list ordering clause.
 		$orderCol = $this->state->get('list.ordering', 'a.id');
-		$orderDirn = $this->state->get('list.direction', 'asc');	
+		$orderDirn = $this->state->get('list.direction', 'asc');
 		if ($orderCol != '')
 		{
 			$query->order($db->escape($orderCol . ' ' . $orderDirn));
@@ -305,17 +313,23 @@ class CostbenefitprojectionModelCompanies extends JModelList
 	/**
 	 * Method to get list export data.
 	 *
+	 * @param   array  $pks  The ids of the items to get
+	 * @param   JUser  $user  The user making the request
+	 *
 	 * @return mixed  An array of data items on success, false on failure.
 	 */
-	public function getExportData($pks)
+	public function getExportData($pks, $user = null)
 	{
 		// setup the query
 		if (CostbenefitprojectionHelper::checkArray($pks))
 		{
-			// Set a value to know this is exporting method.
+			// Set a value to know this is export method. (USE IN CUSTOM CODE TO ALTER OUTCOME)
 			$_export = true;
-			// Get the user object.
-			$user = JFactory::getUser();
+			// Get the user object if not set.
+			if (!isset($user) || !CostbenefitprojectionHelper::checkObject($user))
+			{
+				$user = JFactory::getUser();
+			}
 			// Create a new query object.
 			$db = JFactory::getDBO();
 			$query = $db->getQuery(true);
@@ -365,12 +379,13 @@ class CostbenefitprojectionModelCompanies extends JModelList
 				// Get the encryption object.
 				$whmcs = new FOFEncryptAes($whmcskey);
 
-				// set values to display correctly.
+				// Set values to display correctly.
 				if (CostbenefitprojectionHelper::checkArray($items))
 				{
 					foreach ($items as $nr => &$item)
 					{
-						$access = (JFactory::getUser()->authorise('company.access', 'com_costbenefitprojection.company.' . (int) $item->id) && JFactory::getUser()->authorise('company.access', 'com_costbenefitprojection'));
+						// Remove items the user can't access.
+						$access = ($user->authorise('company.access', 'com_costbenefitprojection.company.' . (int) $item->id) && $user->authorise('company.access', 'com_costbenefitprojection'));
 						if (!$access)
 						{
 							unset($items[$nr]);

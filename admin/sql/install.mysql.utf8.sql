@@ -37,11 +37,6 @@ CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_company` (
 	`access` INT(10) unsigned NOT NULL DEFAULT 0,
 	`ordering` INT(11) NOT NULL DEFAULT 0,
 	PRIMARY KEY  (`id`),
-	KEY `idx_access` (`access`),
-	KEY `idx_checkout` (`checked_out`),
-	KEY `idx_createdby` (`created_by`),
-	KEY `idx_modifiedby` (`modified_by`),
-	KEY `idx_state` (`published`),
 	KEY `idx_name` (`name`),
 	KEY `idx_user` (`user`),
 	KEY `idx_country` (`country`),
@@ -49,7 +44,12 @@ CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_company` (
 	KEY `idx_per` (`per`),
 	KEY `idx_working_days` (`working_days`),
 	KEY `idx_datayear` (`datayear`),
-	KEY `idx_productivity_losses` (`productivity_losses`)
+	KEY `idx_productivity_losses` (`productivity_losses`),
+	KEY `idx_access` (`access`),
+	KEY `idx_checkout` (`checked_out`),
+	KEY `idx_createdby` (`created_by`),
+	KEY `idx_modifiedby` (`modified_by`),
+	KEY `idx_state` (`published`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_service_provider` (
@@ -74,13 +74,13 @@ CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_service_provider` (
 	`hits` INT(10) unsigned NOT NULL DEFAULT 0,
 	`ordering` INT(11) NOT NULL DEFAULT 0,
 	PRIMARY KEY  (`id`),
+	KEY `idx_user` (`user`),
+	KEY `idx_country` (`country`),
+	KEY `idx_publicname` (`publicname`),
 	KEY `idx_checkout` (`checked_out`),
 	KEY `idx_createdby` (`created_by`),
 	KEY `idx_modifiedby` (`modified_by`),
-	KEY `idx_state` (`published`),
-	KEY `idx_user` (`user`),
-	KEY `idx_country` (`country`),
-	KEY `idx_publicname` (`publicname`)
+	KEY `idx_state` (`published`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_country` (
@@ -124,11 +124,6 @@ CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_country` (
 	`access` INT(10) unsigned NOT NULL DEFAULT 0,
 	`ordering` INT(11) NOT NULL DEFAULT 0,
 	PRIMARY KEY  (`id`),
-	KEY `idx_access` (`access`),
-	KEY `idx_checkout` (`checked_out`),
-	KEY `idx_createdby` (`created_by`),
-	KEY `idx_modifiedby` (`modified_by`),
-	KEY `idx_state` (`published`),
 	KEY `idx_name` (`name`),
 	KEY `idx_user` (`user`),
 	KEY `idx_currency` (`currency`),
@@ -138,7 +133,12 @@ CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_country` (
 	KEY `idx_publicname` (`publicname`),
 	KEY `idx_alias` (`alias`),
 	KEY `idx_datayear` (`datayear`),
-	KEY `idx_worldzone` (`worldzone`)
+	KEY `idx_worldzone` (`worldzone`),
+	KEY `idx_access` (`access`),
+	KEY `idx_checkout` (`checked_out`),
+	KEY `idx_createdby` (`created_by`),
+	KEY `idx_modifiedby` (`modified_by`),
+	KEY `idx_state` (`published`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_causerisk` (
@@ -163,16 +163,16 @@ CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_causerisk` (
 	`access` INT(10) unsigned NOT NULL DEFAULT 0,
 	`ordering` INT(11) NOT NULL DEFAULT 0,
 	PRIMARY KEY  (`id`),
-	KEY `idx_access` (`access`),
-	KEY `idx_checkout` (`checked_out`),
-	KEY `idx_createdby` (`created_by`),
-	KEY `idx_modifiedby` (`modified_by`),
-	KEY `idx_state` (`published`),
 	KEY `idx_name` (`name`),
 	KEY `idx_ref` (`ref`),
 	KEY `idx_importname` (`importname`),
 	KEY `idx_import_id` (`import_id`),
-	KEY `idx_alias` (`alias`)
+	KEY `idx_alias` (`alias`),
+	KEY `idx_access` (`access`),
+	KEY `idx_checkout` (`checked_out`),
+	KEY `idx_createdby` (`created_by`),
+	KEY `idx_modifiedby` (`modified_by`),
+	KEY `idx_state` (`published`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_health_data` (
@@ -198,14 +198,14 @@ CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_health_data` (
 	`access` INT(10) unsigned NOT NULL DEFAULT 0,
 	`ordering` INT(11) NOT NULL DEFAULT 0,
 	PRIMARY KEY  (`id`),
+	KEY `idx_causerisk` (`causerisk`),
+	KEY `idx_year` (`year`),
+	KEY `idx_country` (`country`),
 	KEY `idx_access` (`access`),
 	KEY `idx_checkout` (`checked_out`),
 	KEY `idx_createdby` (`created_by`),
 	KEY `idx_modifiedby` (`modified_by`),
-	KEY `idx_state` (`published`),
-	KEY `idx_causerisk` (`causerisk`),
-	KEY `idx_year` (`year`),
-	KEY `idx_country` (`country`)
+	KEY `idx_state` (`published`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_scaling_factor` (
@@ -234,13 +234,13 @@ CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_scaling_factor` (
 	`hits` INT(10) unsigned NOT NULL DEFAULT 0,
 	`ordering` INT(11) NOT NULL DEFAULT 0,
 	PRIMARY KEY  (`id`),
+	KEY `idx_causerisk` (`causerisk`),
+	KEY `idx_company` (`company`),
+	KEY `idx_country` (`country`),
 	KEY `idx_checkout` (`checked_out`),
 	KEY `idx_createdby` (`created_by`),
 	KEY `idx_modifiedby` (`modified_by`),
-	KEY `idx_state` (`published`),
-	KEY `idx_causerisk` (`causerisk`),
-	KEY `idx_company` (`company`),
-	KEY `idx_country` (`country`)
+	KEY `idx_state` (`published`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_intervention` (
@@ -270,17 +270,17 @@ CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_intervention` (
 	`hits` INT(10) unsigned NOT NULL DEFAULT 0,
 	`ordering` INT(11) NOT NULL DEFAULT 0,
 	PRIMARY KEY  (`id`),
-	KEY `idx_checkout` (`checked_out`),
-	KEY `idx_createdby` (`created_by`),
-	KEY `idx_modifiedby` (`modified_by`),
-	KEY `idx_state` (`published`),
 	KEY `idx_name` (`name`),
 	KEY `idx_company` (`company`),
 	KEY `idx_type` (`type`),
 	KEY `idx_coverage` (`coverage`),
 	KEY `idx_duration` (`duration`),
 	KEY `idx_share` (`share`),
-	KEY `idx_country` (`country`)
+	KEY `idx_country` (`country`),
+	KEY `idx_checkout` (`checked_out`),
+	KEY `idx_createdby` (`created_by`),
+	KEY `idx_modifiedby` (`modified_by`),
+	KEY `idx_state` (`published`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_currency` (
@@ -310,14 +310,14 @@ CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_currency` (
 	`ordering` INT(11) NOT NULL DEFAULT 0,
 	PRIMARY KEY  (`id`),
 	UNIQUE KEY `idx_codethree` (`codethree`),
+	KEY `idx_name` (`name`),
+	KEY `idx_numericcode` (`numericcode`),
+	KEY `idx_alias` (`alias`),
 	KEY `idx_access` (`access`),
 	KEY `idx_checkout` (`checked_out`),
 	KEY `idx_createdby` (`created_by`),
 	KEY `idx_modifiedby` (`modified_by`),
-	KEY `idx_state` (`published`),
-	KEY `idx_name` (`name`),
-	KEY `idx_numericcode` (`numericcode`),
-	KEY `idx_alias` (`alias`)
+	KEY `idx_state` (`published`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_help_document` (
@@ -329,7 +329,6 @@ CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_help_document` (
 	`content` TEXT NOT NULL,
 	`groups` TEXT NOT NULL,
 	`location` TINYINT(1) NOT NULL DEFAULT 0,
-	`not_required` INT(1) NOT NULL DEFAULT 0,
 	`site_view` CHAR(255) NOT NULL DEFAULT '',
 	`target` TINYINT(1) NOT NULL DEFAULT 0,
 	`title` CHAR(64) NOT NULL DEFAULT '',
@@ -347,16 +346,16 @@ CREATE TABLE IF NOT EXISTS `#__costbenefitprojection_help_document` (
 	`hits` INT(10) unsigned NOT NULL DEFAULT 0,
 	`ordering` INT(11) NOT NULL DEFAULT 0,
 	PRIMARY KEY  (`id`),
-	KEY `idx_checkout` (`checked_out`),
-	KEY `idx_createdby` (`created_by`),
-	KEY `idx_modifiedby` (`modified_by`),
-	KEY `idx_state` (`published`),
 	KEY `idx_title` (`title`),
 	KEY `idx_type` (`type`),
 	KEY `idx_location` (`location`),
+	KEY `idx_alias` (`alias`),
 	KEY `idx_article` (`article`),
 	KEY `idx_target` (`target`),
-	KEY `idx_alias` (`alias`)
+	KEY `idx_checkout` (`checked_out`),
+	KEY `idx_createdby` (`created_by`),
+	KEY `idx_modifiedby` (`modified_by`),
+	KEY `idx_state` (`published`)
 ) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 --

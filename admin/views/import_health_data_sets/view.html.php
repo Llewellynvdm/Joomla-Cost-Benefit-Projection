@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			14th August, 2019
+	@build			30th May, 2020
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -87,7 +87,7 @@ class CostbenefitprojectionViewImport_health_data_sets extends JViewLegacy
 			JLoader::import('PHPExcel', JPATH_COMPONENT_ADMINISTRATOR . '/helpers');
 			$package		= $session->get('package', null);
 			$package		= json_decode($package, true);
-			$inputFileType	= PHPExcel_IOFactory::identify($package['dir']);
+			$inputFileType	= IOFactory::identify($package['dir']);
 			if ('csv' == trim(strtolower($inputFileType),'.'))
 			{
 				$this->headers	= CostbenefitprojectionHelper::getFileHeadersCSV($package['dir']);

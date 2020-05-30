@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			14th August, 2019
+	@build			30th May, 2020
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		script.php
@@ -849,6 +849,256 @@ class com_costbenefitprojectionInstallerScript
 			$app->enqueueMessage(JText::_('All related items was removed from the <b>#__assets</b> table'));
 		}
 
+
+		// Set db if not set already.
+		if (!isset($db))
+		{
+			$db = JFactory::getDbo();
+		}
+		// Set app if not set already.
+		if (!isset($app))
+		{
+			$app = JFactory::getApplication();
+		}
+		// Remove Costbenefitprojection from the action_logs_extensions table
+		$costbenefitprojection_action_logs_extensions = array( $db->quoteName('extension') . ' = ' . $db->quote('com_costbenefitprojection') );
+		// Create a new query object.
+		$query = $db->getQuery(true);
+		$query->delete($db->quoteName('#__action_logs_extensions'));
+		$query->where($costbenefitprojection_action_logs_extensions);
+		$db->setQuery($query);
+		// Execute the query to remove Costbenefitprojection
+		$costbenefitprojection_removed_done = $db->execute();
+		if ($costbenefitprojection_removed_done)
+		{
+			// If successfully remove Costbenefitprojection add queued success message.
+			$app->enqueueMessage(JText::_('The com_costbenefitprojection extension was removed from the <b>#__action_logs_extensions</b> table'));
+		}
+
+		// Set db if not set already.
+		if (!isset($db))
+		{
+			$db = JFactory::getDbo();
+		}
+		// Set app if not set already.
+		if (!isset($app))
+		{
+			$app = JFactory::getApplication();
+		}
+		// Remove Costbenefitprojection Company from the action_log_config table
+		$company_action_log_config = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.company') );
+		// Create a new query object.
+		$query = $db->getQuery(true);
+		$query->delete($db->quoteName('#__action_log_config'));
+		$query->where($company_action_log_config);
+		$db->setQuery($query);
+		// Execute the query to remove com_costbenefitprojection.company
+		$company_action_log_config_done = $db->execute();
+		if ($company_action_log_config_done)
+		{
+			// If successfully removed Costbenefitprojection Company add queued success message.
+			$app->enqueueMessage(JText::_('The com_costbenefitprojection.company type alias was removed from the <b>#__action_log_config</b> table'));
+		}
+
+		// Set db if not set already.
+		if (!isset($db))
+		{
+			$db = JFactory::getDbo();
+		}
+		// Set app if not set already.
+		if (!isset($app))
+		{
+			$app = JFactory::getApplication();
+		}
+		// Remove Costbenefitprojection Service_provider from the action_log_config table
+		$service_provider_action_log_config = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.service_provider') );
+		// Create a new query object.
+		$query = $db->getQuery(true);
+		$query->delete($db->quoteName('#__action_log_config'));
+		$query->where($service_provider_action_log_config);
+		$db->setQuery($query);
+		// Execute the query to remove com_costbenefitprojection.service_provider
+		$service_provider_action_log_config_done = $db->execute();
+		if ($service_provider_action_log_config_done)
+		{
+			// If successfully removed Costbenefitprojection Service_provider add queued success message.
+			$app->enqueueMessage(JText::_('The com_costbenefitprojection.service_provider type alias was removed from the <b>#__action_log_config</b> table'));
+		}
+
+		// Set db if not set already.
+		if (!isset($db))
+		{
+			$db = JFactory::getDbo();
+		}
+		// Set app if not set already.
+		if (!isset($app))
+		{
+			$app = JFactory::getApplication();
+		}
+		// Remove Costbenefitprojection Country from the action_log_config table
+		$country_action_log_config = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.country') );
+		// Create a new query object.
+		$query = $db->getQuery(true);
+		$query->delete($db->quoteName('#__action_log_config'));
+		$query->where($country_action_log_config);
+		$db->setQuery($query);
+		// Execute the query to remove com_costbenefitprojection.country
+		$country_action_log_config_done = $db->execute();
+		if ($country_action_log_config_done)
+		{
+			// If successfully removed Costbenefitprojection Country add queued success message.
+			$app->enqueueMessage(JText::_('The com_costbenefitprojection.country type alias was removed from the <b>#__action_log_config</b> table'));
+		}
+
+		// Set db if not set already.
+		if (!isset($db))
+		{
+			$db = JFactory::getDbo();
+		}
+		// Set app if not set already.
+		if (!isset($app))
+		{
+			$app = JFactory::getApplication();
+		}
+		// Remove Costbenefitprojection Causerisk from the action_log_config table
+		$causerisk_action_log_config = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.causerisk') );
+		// Create a new query object.
+		$query = $db->getQuery(true);
+		$query->delete($db->quoteName('#__action_log_config'));
+		$query->where($causerisk_action_log_config);
+		$db->setQuery($query);
+		// Execute the query to remove com_costbenefitprojection.causerisk
+		$causerisk_action_log_config_done = $db->execute();
+		if ($causerisk_action_log_config_done)
+		{
+			// If successfully removed Costbenefitprojection Causerisk add queued success message.
+			$app->enqueueMessage(JText::_('The com_costbenefitprojection.causerisk type alias was removed from the <b>#__action_log_config</b> table'));
+		}
+
+		// Set db if not set already.
+		if (!isset($db))
+		{
+			$db = JFactory::getDbo();
+		}
+		// Set app if not set already.
+		if (!isset($app))
+		{
+			$app = JFactory::getApplication();
+		}
+		// Remove Costbenefitprojection Health_data from the action_log_config table
+		$health_data_action_log_config = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.health_data') );
+		// Create a new query object.
+		$query = $db->getQuery(true);
+		$query->delete($db->quoteName('#__action_log_config'));
+		$query->where($health_data_action_log_config);
+		$db->setQuery($query);
+		// Execute the query to remove com_costbenefitprojection.health_data
+		$health_data_action_log_config_done = $db->execute();
+		if ($health_data_action_log_config_done)
+		{
+			// If successfully removed Costbenefitprojection Health_data add queued success message.
+			$app->enqueueMessage(JText::_('The com_costbenefitprojection.health_data type alias was removed from the <b>#__action_log_config</b> table'));
+		}
+
+		// Set db if not set already.
+		if (!isset($db))
+		{
+			$db = JFactory::getDbo();
+		}
+		// Set app if not set already.
+		if (!isset($app))
+		{
+			$app = JFactory::getApplication();
+		}
+		// Remove Costbenefitprojection Scaling_factor from the action_log_config table
+		$scaling_factor_action_log_config = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.scaling_factor') );
+		// Create a new query object.
+		$query = $db->getQuery(true);
+		$query->delete($db->quoteName('#__action_log_config'));
+		$query->where($scaling_factor_action_log_config);
+		$db->setQuery($query);
+		// Execute the query to remove com_costbenefitprojection.scaling_factor
+		$scaling_factor_action_log_config_done = $db->execute();
+		if ($scaling_factor_action_log_config_done)
+		{
+			// If successfully removed Costbenefitprojection Scaling_factor add queued success message.
+			$app->enqueueMessage(JText::_('The com_costbenefitprojection.scaling_factor type alias was removed from the <b>#__action_log_config</b> table'));
+		}
+
+		// Set db if not set already.
+		if (!isset($db))
+		{
+			$db = JFactory::getDbo();
+		}
+		// Set app if not set already.
+		if (!isset($app))
+		{
+			$app = JFactory::getApplication();
+		}
+		// Remove Costbenefitprojection Intervention from the action_log_config table
+		$intervention_action_log_config = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.intervention') );
+		// Create a new query object.
+		$query = $db->getQuery(true);
+		$query->delete($db->quoteName('#__action_log_config'));
+		$query->where($intervention_action_log_config);
+		$db->setQuery($query);
+		// Execute the query to remove com_costbenefitprojection.intervention
+		$intervention_action_log_config_done = $db->execute();
+		if ($intervention_action_log_config_done)
+		{
+			// If successfully removed Costbenefitprojection Intervention add queued success message.
+			$app->enqueueMessage(JText::_('The com_costbenefitprojection.intervention type alias was removed from the <b>#__action_log_config</b> table'));
+		}
+
+		// Set db if not set already.
+		if (!isset($db))
+		{
+			$db = JFactory::getDbo();
+		}
+		// Set app if not set already.
+		if (!isset($app))
+		{
+			$app = JFactory::getApplication();
+		}
+		// Remove Costbenefitprojection Currency from the action_log_config table
+		$currency_action_log_config = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.currency') );
+		// Create a new query object.
+		$query = $db->getQuery(true);
+		$query->delete($db->quoteName('#__action_log_config'));
+		$query->where($currency_action_log_config);
+		$db->setQuery($query);
+		// Execute the query to remove com_costbenefitprojection.currency
+		$currency_action_log_config_done = $db->execute();
+		if ($currency_action_log_config_done)
+		{
+			// If successfully removed Costbenefitprojection Currency add queued success message.
+			$app->enqueueMessage(JText::_('The com_costbenefitprojection.currency type alias was removed from the <b>#__action_log_config</b> table'));
+		}
+
+		// Set db if not set already.
+		if (!isset($db))
+		{
+			$db = JFactory::getDbo();
+		}
+		// Set app if not set already.
+		if (!isset($app))
+		{
+			$app = JFactory::getApplication();
+		}
+		// Remove Costbenefitprojection Help_document from the action_log_config table
+		$help_document_action_log_config = array( $db->quoteName('type_alias') . ' = '. $db->quote('com_costbenefitprojection.help_document') );
+		// Create a new query object.
+		$query = $db->getQuery(true);
+		$query->delete($db->quoteName('#__action_log_config'));
+		$query->where($help_document_action_log_config);
+		$db->setQuery($query);
+		// Execute the query to remove com_costbenefitprojection.help_document
+		$help_document_action_log_config_done = $db->execute();
+		if ($help_document_action_log_config_done)
+		{
+			// If successfully removed Costbenefitprojection Help_document add queued success message.
+			$app->enqueueMessage(JText::_('The com_costbenefitprojection.help_document type alias was removed from the <b>#__action_log_config</b> table'));
+		}
 		// little notice as after service, in case of bad experience with component.
 		echo '<h2>Did something go wrong? Are you disappointed?</h2>
 		<p>Please let me know at <a href="mailto:joomla@vdm.io">joomla@vdm.io</a>.
@@ -898,6 +1148,14 @@ class com_costbenefitprojectionInstallerScript
 		if ($type === 'install')
 		{
 		}
+		// check if the PHPExcel stuff is still around
+		if (JFile::exists(JPATH_ADMINISTRATOR . '/components/com_costbenefitprojection/helpers/PHPExcel.php'))
+		{
+			// We need to remove this old PHPExcel folder
+			$this->removeFolder(JPATH_ADMINISTRATOR . '/components/com_costbenefitprojection/helpers/PHPExcel');
+			// We need to remove this old PHPExcel file
+			JFile::delete(JPATH_ADMINISTRATOR . '/components/com_costbenefitprojection/helpers/PHPExcel.php');
+		}
 		return true;
 	}
 
@@ -913,6 +1171,8 @@ class com_costbenefitprojectionInstallerScript
 	{
 		// get application
 		$app = JFactory::getApplication();
+		// We check if we have dynamic folders to copy
+		$this->setDynamicF0ld3rs($app, $parent);
 		// set the default component settings
 		if ($type === 'install')
 		{
@@ -1021,9 +1281,9 @@ class com_costbenefitprojectionInstallerScript
 			$help_document->type_title = 'Costbenefitprojection Help_document';
 			$help_document->type_alias = 'com_costbenefitprojection.help_document';
 			$help_document->table = '{"special": {"dbtable": "#__costbenefitprojection_help_document","key": "id","type": "Help_document","prefix": "costbenefitprojectionTable","config": "array()"},"common": {"dbtable": "#__ucm_content","key": "ucm_id","type": "Corecontent","prefix": "JTable","config": "array()"}}';
-			$help_document->field_mappings = '{"common": {"core_content_item_id": "id","core_title": "title","core_state": "published","core_alias": "alias","core_created_time": "created","core_modified_time": "modified","core_body": "content","core_hits": "hits","core_publish_up": "null","core_publish_down": "null","core_access": "null","core_params": "params","core_featured": "null","core_metadata": "null","core_language": "null","core_images": "null","core_urls": "null","core_version": "version","core_ordering": "ordering","core_metakey": "null","core_metadesc": "null","core_catid": "null","core_xreference": "null","asset_id": "asset_id"},"special": {"title":"title","type":"type","groups":"groups","location":"location","admin_view":"admin_view","site_view":"site_view","not_required":"not_required","content":"content","article":"article","url":"url","target":"target","alias":"alias"}}';
+			$help_document->field_mappings = '{"common": {"core_content_item_id": "id","core_title": "title","core_state": "published","core_alias": "alias","core_created_time": "created","core_modified_time": "modified","core_body": "content","core_hits": "hits","core_publish_up": "null","core_publish_down": "null","core_access": "null","core_params": "params","core_featured": "null","core_metadata": "null","core_language": "null","core_images": "null","core_urls": "null","core_version": "version","core_ordering": "ordering","core_metakey": "null","core_metadesc": "null","core_catid": "null","core_xreference": "null","asset_id": "asset_id"},"special": {"title":"title","type":"type","groups":"groups","location":"location","admin_view":"admin_view","site_view":"site_view","not_required":"not_required","alias":"alias","content":"content","article":"article","url":"url","target":"target"}}';
 			$help_document->router = 'CostbenefitprojectionHelperRoute::getHelp_documentRoute';
-			$help_document->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/help_document.xml","hideFields": ["asset_id","checked_out","checked_out_time","version","not_required"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","type","location","not_required","article","target"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "article","targetTable": "#__content","targetColumn": "id","displayColumn": "title"}]}';
+			$help_document->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/help_document.xml","hideFields": ["asset_id","checked_out","checked_out_time","version","not_required"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","type","location","article","target"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "article","targetTable": "#__content","targetColumn": "id","displayColumn": "title"}]}';
 
 			// Set the object into the content types table.
 			$help_document_Inserted = $db->insertObject('#__content_types', $help_document);
@@ -1033,7 +1293,7 @@ class com_costbenefitprojectionInstallerScript
 			$query = $db->getQuery(true);
 			// Field to update.
 			$fields = array(
-				$db->quoteName('params') . ' = ' . $db->quote('{"autorName":"Llewellyn van der Merwe","autorEmail":"joomla@vdm.io","check_in":"-1 day","save_history":"1","history_limit":"10","titleContributor1":"Health Economist","nameContributor1":"Patrick Hanlon, M.Sc. PH","emailContributor1":"Patrick.Hanlon@unibas.ch","linkContributor1":"https://www.swisstph.ch/en/staff/profile/people/patrick-hanlon/","useContributor1":"2","showContributor1":"3","titleContributor2":"Development Advisor","nameContributor2":"Matthew Black","emailContributor2":"matthew.black@giz.de","linkContributor2":"http://www.giz.de","useContributor2":"2","showContributor2":"3","titleContributor3":"Associate Expert","nameContributor3":"Dr. Pascal Geldsetzer","emailContributor3":"pascal.geldsetzer@giz.de","linkContributor3":"http://www.giz.de","useContributor3":"2","showContributor3":"3","memberuser":["2"],"serviceprovideruser":["2"],"countryuser":["2"],"uikit_load":"1","uikit_min":"","uikit_style":"","admin_chartbackground":"#F7F7FA","admin_mainwidth":"1000","admin_chartareatop":"20","admin_chartarealeft":"20","admin_chartareawidth":"170","admin_legendtextstylefontcolor":"10","admin_legendtextstylefontsize":"20","admin_vaxistextstylefontcolor":"#63B1F2","admin_haxistextstylefontcolor":"#63B1F2","admin_haxistitletextstylefontcolor":"#63B1F2","site_chartbackground":"#F7F7FA","site_mainwidth":"1000","site_chartareatop":"20","site_chartarealeft":"20","site_chartareawidth":"170","site_legendtextstylefontcolor":"10","site_legendtextstylefontsize":"20","site_vaxistextstylefontcolor":"#63B1F2","site_haxistextstylefontcolor":"#63B1F2","site_haxistitletextstylefontcolor":"#63B1F2"}'),
+				$db->quoteName('params') . ' = ' . $db->quote('{"autorName":"Llewellyn van der Merwe","autorEmail":"joomla@vdm.io","check_in":"-1 day","save_history":"1","history_limit":"10","memberuser":["2"],"serviceprovideruser":["2"],"countryuser":["2"],"uikit_load":"1","uikit_min":"","uikit_style":"","admin_chartbackground":"#F7F7FA","admin_mainwidth":"1000","admin_chartareatop":"20","admin_chartarealeft":"20","admin_chartareawidth":"170","admin_legendtextstylefontcolor":"10","admin_legendtextstylefontsize":"20","admin_vaxistextstylefontcolor":"#63B1F2","admin_haxistextstylefontcolor":"#63B1F2","admin_haxistitletextstylefontcolor":"#63B1F2","site_chartbackground":"#F7F7FA","site_mainwidth":"1000","site_chartareatop":"20","site_chartarealeft":"20","site_chartareawidth":"170","site_legendtextstylefontcolor":"10","site_legendtextstylefontsize":"20","site_vaxistextstylefontcolor":"#63B1F2","site_haxistextstylefontcolor":"#63B1F2","site_haxistitletextstylefontcolor":"#63B1F2"}'),
 			);
 			// Condition.
 			$conditions = array(
@@ -1046,6 +1306,171 @@ class com_costbenefitprojectionInstallerScript
 			echo '<a target="_blank" href="http://www.vdm.io" title="Cost Benefit Projection">
 				<img src="components/com_costbenefitprojection/assets/images/vdm-component.png"/>
 				</a>';
+
+			// Set db if not set already.
+			if (!isset($db))
+			{
+				$db = JFactory::getDbo();
+			}
+			// Create the costbenefitprojection action logs extensions object.
+			$costbenefitprojection_action_logs_extensions = new stdClass();
+			$costbenefitprojection_action_logs_extensions->extension = 'com_costbenefitprojection';
+
+			// Set the object into the action logs extensions table.
+			$costbenefitprojection_action_logs_extensions_Inserted = $db->insertObject('#__action_logs_extensions', $costbenefitprojection_action_logs_extensions);
+
+			// Set db if not set already.
+			if (!isset($db))
+			{
+				$db = JFactory::getDbo();
+			}
+			// Create the company action log config object.
+			$company_action_log_config = new stdClass();
+			$company_action_log_config->type_title = 'COMPANY';
+			$company_action_log_config->type_alias = 'com_costbenefitprojection.company';
+			$company_action_log_config->id_holder = 'id';
+			$company_action_log_config->title_holder = 'name';
+			$company_action_log_config->table_name = '#__costbenefitprojection_company';
+			$company_action_log_config->text_prefix = 'COM_COSTBENEFITPROJECTION';
+
+			// Set the object into the action log config table.
+			$company_Inserted = $db->insertObject('#__action_log_config', $company_action_log_config);
+
+			// Set db if not set already.
+			if (!isset($db))
+			{
+				$db = JFactory::getDbo();
+			}
+			// Create the service_provider action log config object.
+			$service_provider_action_log_config = new stdClass();
+			$service_provider_action_log_config->type_title = 'SERVICE_PROVIDER';
+			$service_provider_action_log_config->type_alias = 'com_costbenefitprojection.service_provider';
+			$service_provider_action_log_config->id_holder = 'id';
+			$service_provider_action_log_config->title_holder = 'user';
+			$service_provider_action_log_config->table_name = '#__costbenefitprojection_service_provider';
+			$service_provider_action_log_config->text_prefix = 'COM_COSTBENEFITPROJECTION';
+
+			// Set the object into the action log config table.
+			$service_provider_Inserted = $db->insertObject('#__action_log_config', $service_provider_action_log_config);
+
+			// Set db if not set already.
+			if (!isset($db))
+			{
+				$db = JFactory::getDbo();
+			}
+			// Create the country action log config object.
+			$country_action_log_config = new stdClass();
+			$country_action_log_config->type_title = 'COUNTRY';
+			$country_action_log_config->type_alias = 'com_costbenefitprojection.country';
+			$country_action_log_config->id_holder = 'id';
+			$country_action_log_config->title_holder = 'name';
+			$country_action_log_config->table_name = '#__costbenefitprojection_country';
+			$country_action_log_config->text_prefix = 'COM_COSTBENEFITPROJECTION';
+
+			// Set the object into the action log config table.
+			$country_Inserted = $db->insertObject('#__action_log_config', $country_action_log_config);
+
+			// Set db if not set already.
+			if (!isset($db))
+			{
+				$db = JFactory::getDbo();
+			}
+			// Create the causerisk action log config object.
+			$causerisk_action_log_config = new stdClass();
+			$causerisk_action_log_config->type_title = 'CAUSERISK';
+			$causerisk_action_log_config->type_alias = 'com_costbenefitprojection.causerisk';
+			$causerisk_action_log_config->id_holder = 'id';
+			$causerisk_action_log_config->title_holder = 'name';
+			$causerisk_action_log_config->table_name = '#__costbenefitprojection_causerisk';
+			$causerisk_action_log_config->text_prefix = 'COM_COSTBENEFITPROJECTION';
+
+			// Set the object into the action log config table.
+			$causerisk_Inserted = $db->insertObject('#__action_log_config', $causerisk_action_log_config);
+
+			// Set db if not set already.
+			if (!isset($db))
+			{
+				$db = JFactory::getDbo();
+			}
+			// Create the health_data action log config object.
+			$health_data_action_log_config = new stdClass();
+			$health_data_action_log_config->type_title = 'HEALTH_DATA';
+			$health_data_action_log_config->type_alias = 'com_costbenefitprojection.health_data';
+			$health_data_action_log_config->id_holder = 'id';
+			$health_data_action_log_config->title_holder = 'causerisk';
+			$health_data_action_log_config->table_name = '#__costbenefitprojection_health_data';
+			$health_data_action_log_config->text_prefix = 'COM_COSTBENEFITPROJECTION';
+
+			// Set the object into the action log config table.
+			$health_data_Inserted = $db->insertObject('#__action_log_config', $health_data_action_log_config);
+
+			// Set db if not set already.
+			if (!isset($db))
+			{
+				$db = JFactory::getDbo();
+			}
+			// Create the scaling_factor action log config object.
+			$scaling_factor_action_log_config = new stdClass();
+			$scaling_factor_action_log_config->type_title = 'SCALING_FACTOR';
+			$scaling_factor_action_log_config->type_alias = 'com_costbenefitprojection.scaling_factor';
+			$scaling_factor_action_log_config->id_holder = 'id';
+			$scaling_factor_action_log_config->title_holder = 'causerisk';
+			$scaling_factor_action_log_config->table_name = '#__costbenefitprojection_scaling_factor';
+			$scaling_factor_action_log_config->text_prefix = 'COM_COSTBENEFITPROJECTION';
+
+			// Set the object into the action log config table.
+			$scaling_factor_Inserted = $db->insertObject('#__action_log_config', $scaling_factor_action_log_config);
+
+			// Set db if not set already.
+			if (!isset($db))
+			{
+				$db = JFactory::getDbo();
+			}
+			// Create the intervention action log config object.
+			$intervention_action_log_config = new stdClass();
+			$intervention_action_log_config->type_title = 'INTERVENTION';
+			$intervention_action_log_config->type_alias = 'com_costbenefitprojection.intervention';
+			$intervention_action_log_config->id_holder = 'id';
+			$intervention_action_log_config->title_holder = 'name';
+			$intervention_action_log_config->table_name = '#__costbenefitprojection_intervention';
+			$intervention_action_log_config->text_prefix = 'COM_COSTBENEFITPROJECTION';
+
+			// Set the object into the action log config table.
+			$intervention_Inserted = $db->insertObject('#__action_log_config', $intervention_action_log_config);
+
+			// Set db if not set already.
+			if (!isset($db))
+			{
+				$db = JFactory::getDbo();
+			}
+			// Create the currency action log config object.
+			$currency_action_log_config = new stdClass();
+			$currency_action_log_config->type_title = 'CURRENCY';
+			$currency_action_log_config->type_alias = 'com_costbenefitprojection.currency';
+			$currency_action_log_config->id_holder = 'id';
+			$currency_action_log_config->title_holder = 'name';
+			$currency_action_log_config->table_name = '#__costbenefitprojection_currency';
+			$currency_action_log_config->text_prefix = 'COM_COSTBENEFITPROJECTION';
+
+			// Set the object into the action log config table.
+			$currency_Inserted = $db->insertObject('#__action_log_config', $currency_action_log_config);
+
+			// Set db if not set already.
+			if (!isset($db))
+			{
+				$db = JFactory::getDbo();
+			}
+			// Create the help_document action log config object.
+			$help_document_action_log_config = new stdClass();
+			$help_document_action_log_config->type_title = 'HELP_DOCUMENT';
+			$help_document_action_log_config->type_alias = 'com_costbenefitprojection.help_document';
+			$help_document_action_log_config->id_holder = 'id';
+			$help_document_action_log_config->title_holder = 'title';
+			$help_document_action_log_config->table_name = '#__costbenefitprojection_help_document';
+			$help_document_action_log_config->text_prefix = 'COM_COSTBENEFITPROJECTION';
+
+			// Set the object into the action log config table.
+			$help_document_Inserted = $db->insertObject('#__action_log_config', $help_document_action_log_config);
 		}
 		// do any updates needed
 		if ($type === 'update')
@@ -1291,9 +1716,9 @@ class com_costbenefitprojectionInstallerScript
 			$help_document->type_title = 'Costbenefitprojection Help_document';
 			$help_document->type_alias = 'com_costbenefitprojection.help_document';
 			$help_document->table = '{"special": {"dbtable": "#__costbenefitprojection_help_document","key": "id","type": "Help_document","prefix": "costbenefitprojectionTable","config": "array()"},"common": {"dbtable": "#__ucm_content","key": "ucm_id","type": "Corecontent","prefix": "JTable","config": "array()"}}';
-			$help_document->field_mappings = '{"common": {"core_content_item_id": "id","core_title": "title","core_state": "published","core_alias": "alias","core_created_time": "created","core_modified_time": "modified","core_body": "content","core_hits": "hits","core_publish_up": "null","core_publish_down": "null","core_access": "null","core_params": "params","core_featured": "null","core_metadata": "null","core_language": "null","core_images": "null","core_urls": "null","core_version": "version","core_ordering": "ordering","core_metakey": "null","core_metadesc": "null","core_catid": "null","core_xreference": "null","asset_id": "asset_id"},"special": {"title":"title","type":"type","groups":"groups","location":"location","admin_view":"admin_view","site_view":"site_view","not_required":"not_required","content":"content","article":"article","url":"url","target":"target","alias":"alias"}}';
+			$help_document->field_mappings = '{"common": {"core_content_item_id": "id","core_title": "title","core_state": "published","core_alias": "alias","core_created_time": "created","core_modified_time": "modified","core_body": "content","core_hits": "hits","core_publish_up": "null","core_publish_down": "null","core_access": "null","core_params": "params","core_featured": "null","core_metadata": "null","core_language": "null","core_images": "null","core_urls": "null","core_version": "version","core_ordering": "ordering","core_metakey": "null","core_metadesc": "null","core_catid": "null","core_xreference": "null","asset_id": "asset_id"},"special": {"title":"title","type":"type","groups":"groups","location":"location","admin_view":"admin_view","site_view":"site_view","not_required":"not_required","alias":"alias","content":"content","article":"article","url":"url","target":"target"}}';
 			$help_document->router = 'CostbenefitprojectionHelperRoute::getHelp_documentRoute';
-			$help_document->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/help_document.xml","hideFields": ["asset_id","checked_out","checked_out_time","version","not_required"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","type","location","not_required","article","target"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "article","targetTable": "#__content","targetColumn": "id","displayColumn": "title"}]}';
+			$help_document->content_history_options = '{"formFile": "administrator/components/com_costbenefitprojection/models/forms/help_document.xml","hideFields": ["asset_id","checked_out","checked_out_time","version","not_required"],"ignoreChanges": ["modified_by","modified","checked_out","checked_out_time","version","hits"],"convertToInt": ["published","ordering","type","location","article","target"],"displayLookup": [{"sourceColumn": "created_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "modified_by","targetTable": "#__users","targetColumn": "id","displayColumn": "name"},{"sourceColumn": "article","targetTable": "#__content","targetColumn": "id","displayColumn": "title"}]}';
 
 			// Check if help_document type is already in content_type DB.
 			$help_document_id = null;
@@ -1319,8 +1744,473 @@ class com_costbenefitprojectionInstallerScript
 			echo '<a target="_blank" href="http://www.vdm.io" title="Cost Benefit Projection">
 				<img src="components/com_costbenefitprojection/assets/images/vdm-component.png"/>
 				</a>
-				<h3>Upgrade to Version 3.4.4 Was Successful! Let us know if anything is not working as expected.</h3>';
+				<h3>Upgrade to Version 3.4.6 Was Successful! Let us know if anything is not working as expected.</h3>';
+
+			// Set db if not set already.
+			if (!isset($db))
+			{
+				$db = JFactory::getDbo();
+			}
+			// Create the costbenefitprojection action logs extensions object.
+			$costbenefitprojection_action_logs_extensions = new stdClass();
+			$costbenefitprojection_action_logs_extensions->extension = 'com_costbenefitprojection';
+
+			// Check if costbenefitprojection action log extension is already in action logs extensions DB.
+			$query = $db->getQuery(true);
+			$query->select($db->quoteName(array('id')));
+			$query->from($db->quoteName('#__action_logs_extensions'));
+			$query->where($db->quoteName('extension') . ' LIKE '. $db->quote($costbenefitprojection_action_logs_extensions->extension));
+			$db->setQuery($query);
+			$db->execute();
+
+			// Set the object into the action logs extensions table if not found.
+			if (!$db->getNumRows())
+			{
+				$costbenefitprojection_action_logs_extensions_Inserted = $db->insertObject('#__action_logs_extensions', $costbenefitprojection_action_logs_extensions);
+			}
+
+			// Set db if not set already.
+			if (!isset($db))
+			{
+				$db = JFactory::getDbo();
+			}
+			// Create the company action log config object.
+			$company_action_log_config = new stdClass();
+			$company_action_log_config->id = null;
+			$company_action_log_config->type_title = 'COMPANY';
+			$company_action_log_config->type_alias = 'com_costbenefitprojection.company';
+			$company_action_log_config->id_holder = 'id';
+			$company_action_log_config->title_holder = 'name';
+			$company_action_log_config->table_name = '#__costbenefitprojection_company';
+			$company_action_log_config->text_prefix = 'COM_COSTBENEFITPROJECTION';
+
+			// Check if company action log config is already in action_log_config DB.
+			$query = $db->getQuery(true);
+			$query->select($db->quoteName(array('id')));
+			$query->from($db->quoteName('#__action_log_config'));
+			$query->where($db->quoteName('type_alias') . ' LIKE '. $db->quote($company_action_log_config->type_alias));
+			$db->setQuery($query);
+			$db->execute();
+
+			// Set the object into the content types table.
+			if ($db->getNumRows())
+			{
+				$company_action_log_config->id = $db->loadResult();
+				$company_action_log_config_Updated = $db->updateObject('#__action_log_config', $company_action_log_config, 'id');
+			}
+			else
+			{
+				$company_action_log_config_Inserted = $db->insertObject('#__action_log_config', $company_action_log_config);
+			}
+
+			// Set db if not set already.
+			if (!isset($db))
+			{
+				$db = JFactory::getDbo();
+			}
+			// Create the service_provider action log config object.
+			$service_provider_action_log_config = new stdClass();
+			$service_provider_action_log_config->id = null;
+			$service_provider_action_log_config->type_title = 'SERVICE_PROVIDER';
+			$service_provider_action_log_config->type_alias = 'com_costbenefitprojection.service_provider';
+			$service_provider_action_log_config->id_holder = 'id';
+			$service_provider_action_log_config->title_holder = 'user';
+			$service_provider_action_log_config->table_name = '#__costbenefitprojection_service_provider';
+			$service_provider_action_log_config->text_prefix = 'COM_COSTBENEFITPROJECTION';
+
+			// Check if service_provider action log config is already in action_log_config DB.
+			$query = $db->getQuery(true);
+			$query->select($db->quoteName(array('id')));
+			$query->from($db->quoteName('#__action_log_config'));
+			$query->where($db->quoteName('type_alias') . ' LIKE '. $db->quote($service_provider_action_log_config->type_alias));
+			$db->setQuery($query);
+			$db->execute();
+
+			// Set the object into the content types table.
+			if ($db->getNumRows())
+			{
+				$service_provider_action_log_config->id = $db->loadResult();
+				$service_provider_action_log_config_Updated = $db->updateObject('#__action_log_config', $service_provider_action_log_config, 'id');
+			}
+			else
+			{
+				$service_provider_action_log_config_Inserted = $db->insertObject('#__action_log_config', $service_provider_action_log_config);
+			}
+
+			// Set db if not set already.
+			if (!isset($db))
+			{
+				$db = JFactory::getDbo();
+			}
+			// Create the country action log config object.
+			$country_action_log_config = new stdClass();
+			$country_action_log_config->id = null;
+			$country_action_log_config->type_title = 'COUNTRY';
+			$country_action_log_config->type_alias = 'com_costbenefitprojection.country';
+			$country_action_log_config->id_holder = 'id';
+			$country_action_log_config->title_holder = 'name';
+			$country_action_log_config->table_name = '#__costbenefitprojection_country';
+			$country_action_log_config->text_prefix = 'COM_COSTBENEFITPROJECTION';
+
+			// Check if country action log config is already in action_log_config DB.
+			$query = $db->getQuery(true);
+			$query->select($db->quoteName(array('id')));
+			$query->from($db->quoteName('#__action_log_config'));
+			$query->where($db->quoteName('type_alias') . ' LIKE '. $db->quote($country_action_log_config->type_alias));
+			$db->setQuery($query);
+			$db->execute();
+
+			// Set the object into the content types table.
+			if ($db->getNumRows())
+			{
+				$country_action_log_config->id = $db->loadResult();
+				$country_action_log_config_Updated = $db->updateObject('#__action_log_config', $country_action_log_config, 'id');
+			}
+			else
+			{
+				$country_action_log_config_Inserted = $db->insertObject('#__action_log_config', $country_action_log_config);
+			}
+
+			// Set db if not set already.
+			if (!isset($db))
+			{
+				$db = JFactory::getDbo();
+			}
+			// Create the causerisk action log config object.
+			$causerisk_action_log_config = new stdClass();
+			$causerisk_action_log_config->id = null;
+			$causerisk_action_log_config->type_title = 'CAUSERISK';
+			$causerisk_action_log_config->type_alias = 'com_costbenefitprojection.causerisk';
+			$causerisk_action_log_config->id_holder = 'id';
+			$causerisk_action_log_config->title_holder = 'name';
+			$causerisk_action_log_config->table_name = '#__costbenefitprojection_causerisk';
+			$causerisk_action_log_config->text_prefix = 'COM_COSTBENEFITPROJECTION';
+
+			// Check if causerisk action log config is already in action_log_config DB.
+			$query = $db->getQuery(true);
+			$query->select($db->quoteName(array('id')));
+			$query->from($db->quoteName('#__action_log_config'));
+			$query->where($db->quoteName('type_alias') . ' LIKE '. $db->quote($causerisk_action_log_config->type_alias));
+			$db->setQuery($query);
+			$db->execute();
+
+			// Set the object into the content types table.
+			if ($db->getNumRows())
+			{
+				$causerisk_action_log_config->id = $db->loadResult();
+				$causerisk_action_log_config_Updated = $db->updateObject('#__action_log_config', $causerisk_action_log_config, 'id');
+			}
+			else
+			{
+				$causerisk_action_log_config_Inserted = $db->insertObject('#__action_log_config', $causerisk_action_log_config);
+			}
+
+			// Set db if not set already.
+			if (!isset($db))
+			{
+				$db = JFactory::getDbo();
+			}
+			// Create the health_data action log config object.
+			$health_data_action_log_config = new stdClass();
+			$health_data_action_log_config->id = null;
+			$health_data_action_log_config->type_title = 'HEALTH_DATA';
+			$health_data_action_log_config->type_alias = 'com_costbenefitprojection.health_data';
+			$health_data_action_log_config->id_holder = 'id';
+			$health_data_action_log_config->title_holder = 'causerisk';
+			$health_data_action_log_config->table_name = '#__costbenefitprojection_health_data';
+			$health_data_action_log_config->text_prefix = 'COM_COSTBENEFITPROJECTION';
+
+			// Check if health_data action log config is already in action_log_config DB.
+			$query = $db->getQuery(true);
+			$query->select($db->quoteName(array('id')));
+			$query->from($db->quoteName('#__action_log_config'));
+			$query->where($db->quoteName('type_alias') . ' LIKE '. $db->quote($health_data_action_log_config->type_alias));
+			$db->setQuery($query);
+			$db->execute();
+
+			// Set the object into the content types table.
+			if ($db->getNumRows())
+			{
+				$health_data_action_log_config->id = $db->loadResult();
+				$health_data_action_log_config_Updated = $db->updateObject('#__action_log_config', $health_data_action_log_config, 'id');
+			}
+			else
+			{
+				$health_data_action_log_config_Inserted = $db->insertObject('#__action_log_config', $health_data_action_log_config);
+			}
+
+			// Set db if not set already.
+			if (!isset($db))
+			{
+				$db = JFactory::getDbo();
+			}
+			// Create the scaling_factor action log config object.
+			$scaling_factor_action_log_config = new stdClass();
+			$scaling_factor_action_log_config->id = null;
+			$scaling_factor_action_log_config->type_title = 'SCALING_FACTOR';
+			$scaling_factor_action_log_config->type_alias = 'com_costbenefitprojection.scaling_factor';
+			$scaling_factor_action_log_config->id_holder = 'id';
+			$scaling_factor_action_log_config->title_holder = 'causerisk';
+			$scaling_factor_action_log_config->table_name = '#__costbenefitprojection_scaling_factor';
+			$scaling_factor_action_log_config->text_prefix = 'COM_COSTBENEFITPROJECTION';
+
+			// Check if scaling_factor action log config is already in action_log_config DB.
+			$query = $db->getQuery(true);
+			$query->select($db->quoteName(array('id')));
+			$query->from($db->quoteName('#__action_log_config'));
+			$query->where($db->quoteName('type_alias') . ' LIKE '. $db->quote($scaling_factor_action_log_config->type_alias));
+			$db->setQuery($query);
+			$db->execute();
+
+			// Set the object into the content types table.
+			if ($db->getNumRows())
+			{
+				$scaling_factor_action_log_config->id = $db->loadResult();
+				$scaling_factor_action_log_config_Updated = $db->updateObject('#__action_log_config', $scaling_factor_action_log_config, 'id');
+			}
+			else
+			{
+				$scaling_factor_action_log_config_Inserted = $db->insertObject('#__action_log_config', $scaling_factor_action_log_config);
+			}
+
+			// Set db if not set already.
+			if (!isset($db))
+			{
+				$db = JFactory::getDbo();
+			}
+			// Create the intervention action log config object.
+			$intervention_action_log_config = new stdClass();
+			$intervention_action_log_config->id = null;
+			$intervention_action_log_config->type_title = 'INTERVENTION';
+			$intervention_action_log_config->type_alias = 'com_costbenefitprojection.intervention';
+			$intervention_action_log_config->id_holder = 'id';
+			$intervention_action_log_config->title_holder = 'name';
+			$intervention_action_log_config->table_name = '#__costbenefitprojection_intervention';
+			$intervention_action_log_config->text_prefix = 'COM_COSTBENEFITPROJECTION';
+
+			// Check if intervention action log config is already in action_log_config DB.
+			$query = $db->getQuery(true);
+			$query->select($db->quoteName(array('id')));
+			$query->from($db->quoteName('#__action_log_config'));
+			$query->where($db->quoteName('type_alias') . ' LIKE '. $db->quote($intervention_action_log_config->type_alias));
+			$db->setQuery($query);
+			$db->execute();
+
+			// Set the object into the content types table.
+			if ($db->getNumRows())
+			{
+				$intervention_action_log_config->id = $db->loadResult();
+				$intervention_action_log_config_Updated = $db->updateObject('#__action_log_config', $intervention_action_log_config, 'id');
+			}
+			else
+			{
+				$intervention_action_log_config_Inserted = $db->insertObject('#__action_log_config', $intervention_action_log_config);
+			}
+
+			// Set db if not set already.
+			if (!isset($db))
+			{
+				$db = JFactory::getDbo();
+			}
+			// Create the currency action log config object.
+			$currency_action_log_config = new stdClass();
+			$currency_action_log_config->id = null;
+			$currency_action_log_config->type_title = 'CURRENCY';
+			$currency_action_log_config->type_alias = 'com_costbenefitprojection.currency';
+			$currency_action_log_config->id_holder = 'id';
+			$currency_action_log_config->title_holder = 'name';
+			$currency_action_log_config->table_name = '#__costbenefitprojection_currency';
+			$currency_action_log_config->text_prefix = 'COM_COSTBENEFITPROJECTION';
+
+			// Check if currency action log config is already in action_log_config DB.
+			$query = $db->getQuery(true);
+			$query->select($db->quoteName(array('id')));
+			$query->from($db->quoteName('#__action_log_config'));
+			$query->where($db->quoteName('type_alias') . ' LIKE '. $db->quote($currency_action_log_config->type_alias));
+			$db->setQuery($query);
+			$db->execute();
+
+			// Set the object into the content types table.
+			if ($db->getNumRows())
+			{
+				$currency_action_log_config->id = $db->loadResult();
+				$currency_action_log_config_Updated = $db->updateObject('#__action_log_config', $currency_action_log_config, 'id');
+			}
+			else
+			{
+				$currency_action_log_config_Inserted = $db->insertObject('#__action_log_config', $currency_action_log_config);
+			}
+
+			// Set db if not set already.
+			if (!isset($db))
+			{
+				$db = JFactory::getDbo();
+			}
+			// Create the help_document action log config object.
+			$help_document_action_log_config = new stdClass();
+			$help_document_action_log_config->id = null;
+			$help_document_action_log_config->type_title = 'HELP_DOCUMENT';
+			$help_document_action_log_config->type_alias = 'com_costbenefitprojection.help_document';
+			$help_document_action_log_config->id_holder = 'id';
+			$help_document_action_log_config->title_holder = 'title';
+			$help_document_action_log_config->table_name = '#__costbenefitprojection_help_document';
+			$help_document_action_log_config->text_prefix = 'COM_COSTBENEFITPROJECTION';
+
+			// Check if help_document action log config is already in action_log_config DB.
+			$query = $db->getQuery(true);
+			$query->select($db->quoteName(array('id')));
+			$query->from($db->quoteName('#__action_log_config'));
+			$query->where($db->quoteName('type_alias') . ' LIKE '. $db->quote($help_document_action_log_config->type_alias));
+			$db->setQuery($query);
+			$db->execute();
+
+			// Set the object into the content types table.
+			if ($db->getNumRows())
+			{
+				$help_document_action_log_config->id = $db->loadResult();
+				$help_document_action_log_config_Updated = $db->updateObject('#__action_log_config', $help_document_action_log_config, 'id');
+			}
+			else
+			{
+				$help_document_action_log_config_Inserted = $db->insertObject('#__action_log_config', $help_document_action_log_config);
+			}
 		}
 		return true;
+	}
+
+	/**
+	 * Remove folders with files
+	 * 
+	 * @param   string   $dir     The path to folder to remove
+	 * @param   boolean  $ignore  The folders and files to ignore and not remove
+	 *
+	 * @return  boolean   True in all is removed
+	 * 
+	 */
+	protected function removeFolder($dir, $ignore = false)
+	{
+		if (JFolder::exists($dir))
+		{
+			$it = new RecursiveDirectoryIterator($dir);
+			$it = new RecursiveIteratorIterator($it, RecursiveIteratorIterator::CHILD_FIRST);
+			// remove ending /
+			$dir = rtrim($dir, '/');
+			// now loop the files & folders
+			foreach ($it as $file)
+			{
+				if ('.' === $file->getBasename() || '..' ===  $file->getBasename()) continue;
+				// set file dir
+				$file_dir = $file->getPathname();
+				// check if this is a dir or a file
+				if ($file->isDir())
+				{
+					$keeper = false;
+					if ($this->checkArray($ignore))
+					{
+						foreach ($ignore as $keep)
+						{
+							if (strpos($file_dir, $dir.'/'.$keep) !== false)
+							{
+								$keeper = true;
+							}
+						}
+					}
+					if ($keeper)
+					{
+						continue;
+					}
+					JFolder::delete($file_dir);
+				}
+				else
+				{
+					$keeper = false;
+					if ($this->checkArray($ignore))
+					{
+						foreach ($ignore as $keep)
+						{
+							if (strpos($file_dir, $dir.'/'.$keep) !== false)
+							{
+								$keeper = true;
+							}
+						}
+					}
+					if ($keeper)
+					{
+						continue;
+					}
+					JFile::delete($file_dir);
+				}
+			}
+			// delete the root folder if not ignore found
+			if (!$this->checkArray($ignore))
+			{
+				return JFolder::delete($dir);
+			}
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Check if have an array with a length
+	 *
+	 * @input	array   The array to check
+	 *
+	 * @returns bool/int  number of items in array on success
+	 */
+	protected function checkArray($array, $removeEmptyString = false)
+	{
+		if (isset($array) && is_array($array) && ($nr = count((array)$array)) > 0)
+		{
+			// also make sure the empty strings are removed
+			if ($removeEmptyString)
+			{
+				foreach ($array as $key => $string)
+				{
+					if (empty($string))
+					{
+						unset($array[$key]);
+					}
+				}
+				return $this->checkArray($array, false);
+			}
+			return $nr;
+		}
+		return false;
+	}
+
+	/**
+	 * Method to set/copy dynamic folders into place (use with caution)
+	 *
+	 * @return void
+	 */
+	protected function setDynamicF0ld3rs($app, $parent)
+	{
+		// get the instalation path
+		$installer = $parent->getParent();
+		$installPath = $installer->getPath('source');
+		// get all the folders
+		$folders = JFolder::folders($installPath);
+		// check if we have folders we may want to copy
+		$doNotCopy = array('media','admin','site'); // Joomla already deals with these
+		if (count((array) $folders) > 1)
+		{
+			foreach ($folders as $folder)
+			{
+				// Only copy if not a standard folders
+				if (!in_array($folder, $doNotCopy))
+				{
+					// set the source path
+					$src = $installPath.'/'.$folder;
+					// set the destination path
+					$dest = JPATH_ROOT.'/'.$folder;
+					// now try to copy the folder
+					if (!JFolder::copy($src, $dest, '', true))
+					{
+						$app->enqueueMessage('Could not copy '.$folder.' folder into place, please make sure destination is writable!', 'error');
+					}
+				}
+			}
+		}
 	}
 }

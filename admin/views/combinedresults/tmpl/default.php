@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			14th August, 2019
+	@build			30th May, 2020
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
@@ -40,9 +40,7 @@ JHtml::_('behavior.keepalive');
 	}
 </script>
 <form action="<?php echo JRoute::_('index.php?option=com_costbenefitprojection&view=combinedresults'); ?>" method="post" name="adminForm" id="adminForm" class="form-validate" enctype="multipart/form-data">
-        <input type="hidden" name="task" value="" />
-        <?php echo JHtml::_('form.token'); ?>
-</form>
+
 <div id="loading" style="height:300px; width:100%">
 	<h1 style="text-align:center;" ><?php echo JText::_('COM_COSTBENEFITPROJECTION_PLEASE_WAIT'); ?></h1>
     <div style="margin:0 auto; width:180px; height:24px; padding: 5px;">
@@ -218,6 +216,9 @@ function controlSwitch(){
 	};
 }
 </script>
+<input type="hidden" name="task" value="" />
+<?php echo JHtml::_('form.token'); ?>
+</form>
 <?php else: ?>
         <h1><?php echo JText::_('COM_COSTBENEFITPROJECTION_NO_ACCESS_GRANTED'); ?></h1>
 <?php endif; ?>

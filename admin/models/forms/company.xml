@@ -356,7 +356,7 @@
 		<field
 			type="hidden"
 			name="not_required"
-			default="[]"
+			default="一_一"
 		/>
 		<!-- Productivity_losses Field. Type: Text. (joomla) -->
 		<field

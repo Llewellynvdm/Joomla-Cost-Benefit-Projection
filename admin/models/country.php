@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			14th August, 2019
+	@build			30th May, 2020
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		country.php
@@ -21,6 +21,8 @@
 defined('_JEXEC') or die('Restricted access');
 
 use Joomla\Registry\Registry;
+use Joomla\String\StringHelper;
+use Joomla\Utilities\ArrayHelper;
 
 /**
  * Costbenefitprojection Country Model
@@ -235,12 +237,18 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 		{
 			$items = $db->loadObjectList();
 
-			// set values to display correctly.
+			// Set values to display correctly.
 			if (CostbenefitprojectionHelper::checkArray($items))
 			{
+				// Get the user object if not set.
+				if (!isset($user) || !CostbenefitprojectionHelper::checkObject($user))
+				{
+					$user = JFactory::getUser();
+				}
 				foreach ($items as $nr => &$item)
 				{
-					$access = (JFactory::getUser()->authorise('intervention.access', 'com_costbenefitprojection.intervention.' . (int) $item->id) && JFactory::getUser()->authorise('intervention.access', 'com_costbenefitprojection'));
+					// Remove items the user can't access.
+					$access = ($user->authorise('intervention.access', 'com_costbenefitprojection.intervention.' . (int) $item->id) && $user->authorise('intervention.access', 'com_costbenefitprojection'));
 					if (!$access)
 					{
 						unset($items[$nr]);
@@ -371,12 +379,18 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 		{
 			$items = $db->loadObjectList();
 
-			// set values to display correctly.
+			// Set values to display correctly.
 			if (CostbenefitprojectionHelper::checkArray($items))
 			{
+				// Get the user object if not set.
+				if (!isset($user) || !CostbenefitprojectionHelper::checkObject($user))
+				{
+					$user = JFactory::getUser();
+				}
 				foreach ($items as $nr => &$item)
 				{
-					$access = (JFactory::getUser()->authorise('service_provider.access', 'com_costbenefitprojection.service_provider.' . (int) $item->id) && JFactory::getUser()->authorise('service_provider.access', 'com_costbenefitprojection'));
+					// Remove items the user can't access.
+					$access = ($user->authorise('service_provider.access', 'com_costbenefitprojection.service_provider.' . (int) $item->id) && $user->authorise('service_provider.access', 'com_costbenefitprojection'));
 					if (!$access)
 					{
 						unset($items[$nr]);
@@ -479,12 +493,18 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 		{
 			$items = $db->loadObjectList();
 
-			// set values to display correctly.
+			// Set values to display correctly.
 			if (CostbenefitprojectionHelper::checkArray($items))
 			{
+				// Get the user object if not set.
+				if (!isset($user) || !CostbenefitprojectionHelper::checkObject($user))
+				{
+					$user = JFactory::getUser();
+				}
 				foreach ($items as $nr => &$item)
 				{
-					$access = (JFactory::getUser()->authorise('company.access', 'com_costbenefitprojection.company.' . (int) $item->id) && JFactory::getUser()->authorise('company.access', 'com_costbenefitprojection'));
+					// Remove items the user can't access.
+					$access = ($user->authorise('company.access', 'com_costbenefitprojection.company.' . (int) $item->id) && $user->authorise('company.access', 'com_costbenefitprojection'));
 					if (!$access)
 					{
 						unset($items[$nr]);
@@ -562,8 +582,23 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	{
 		// set load data option
 		$options['load_data'] = $loadData;
+		// check if xpath was set in options
+		$xpath = false;
+		if (isset($options['xpath']))
+		{
+			$xpath = $options['xpath'];
+			unset($options['xpath']);
+		}
+		// check if clear form was set in options
+		$clear = false;
+		if (isset($options['clear']))
+		{
+			$clear = $options['clear'];
+			unset($options['clear']);
+		}
+
 		// Get the form.
-		$form = $this->loadForm('com_costbenefitprojection.country', 'country', $options);
+		$form = $this->loadForm('com_costbenefitprojection.country', 'country', $options, $clear, $xpath);
 
 		if (empty($form))
 		{
@@ -793,6 +828,8 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 		if (empty($data))
 		{
 			$data = $this->getItem();
+			// run the perprocess of the data
+			$this->preprocessData('com_costbenefitprojection.country', $data);
 		}
 
 		return $data;
@@ -805,7 +842,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	 *
 	 * @since   3.0
 	 */
-	protected function getUniqeFields()
+	protected function getUniqueFields()
 	{
 		return false;
 	}
@@ -864,7 +901,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	{
 		// Sanitize ids.
 		$pks = array_unique($pks);
-		JArrayHelper::toInteger($pks);
+		ArrayHelper::toInteger($pks);
 
 		// Remove any values of zero.
 		if (array_search(0, $pks, true))
@@ -905,7 +942,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 
 		if (!empty($commands['move_copy']))
 		{
-			$cmd = JArrayHelper::getValue($commands, 'move_copy', 'c');
+			$cmd = ArrayHelper::getValue($commands, 'move_copy', 'c');
 
 			if ($cmd == 'c')
 			{
@@ -1003,8 +1040,8 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 		}
 
 
-		// get list of uniqe fields
-		$uniqeFields = $this->getUniqeFields();
+		// get list of unique fields
+		$uniqueFields = $this->getUniqueFields();
 		// remove move_copy from array
 		unset($values['move_copy']);
 
@@ -1065,12 +1102,12 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 				}
 			}
 
-			// update all uniqe fields
-			if (CostbenefitprojectionHelper::checkArray($uniqeFields))
+			// update all unique fields
+			if (CostbenefitprojectionHelper::checkArray($uniqueFields))
 			{
-				foreach ($uniqeFields as $uniqeField)
+				foreach ($uniqueFields as $uniqueField)
 				{
-					$this->table->$uniqeField = $this->generateUniqe($uniqeField,$this->table->$uniqeField);
+					$this->table->$uniqueField = $this->generateUnique($uniqueField,$this->table->$uniqueField);
 				}
 			}
 
@@ -1350,16 +1387,16 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 			}
 		}
 
-		// Alter the uniqe field for save as copy
+		// Alter the unique field for save as copy
 		if ($input->get('task') === 'save2copy')
 		{
-			// Automatic handling of other uniqe fields
-			$uniqeFields = $this->getUniqeFields();
-			if (CostbenefitprojectionHelper::checkArray($uniqeFields))
+			// Automatic handling of other unique fields
+			$uniqueFields = $this->getUniqueFields();
+			if (CostbenefitprojectionHelper::checkArray($uniqueFields))
 			{
-				foreach ($uniqeFields as $uniqeField)
+				foreach ($uniqueFields as $uniqueField)
 				{
-					$data[$uniqeField] = $this->generateUniqe($uniqeField,$data[$uniqeField]);
+					$data[$uniqueField] = $this->generateUnique($uniqueField,$data[$uniqueField]);
 				}
 			}
 		}
@@ -1372,7 +1409,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	}
 	
 	/**
-	 * Method to generate a uniqe value.
+	 * Method to generate a unique value.
 	 *
 	 * @param   string  $field name.
 	 * @param   string  $value data.
@@ -1381,15 +1418,15 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	 *
 	 * @since   3.0
 	 */
-	protected function generateUniqe($field,$value)
+	protected function generateUnique($field,$value)
 	{
 
-		// set field value uniqe 
+		// set field value unique
 		$table = $this->getTable();
 
 		while ($table->load(array($field => $value)))
 		{
-			$value = JString::increment($value);
+			$value = StringHelper::increment($value);
 		}
 
 		return $value;
@@ -1417,15 +1454,15 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 			{
 				foreach($title as $nr => &$_title)
 				{
-					$_title = JString::increment($_title);
+					$_title = StringHelper::increment($_title);
 				}
 			}
 			// Make sure we have a title
 			elseif ($title)
 			{
-				$title = JString::increment($title);
+				$title = StringHelper::increment($title);
 			}
-			$alias = JString::increment($alias, 'dash');
+			$alias = StringHelper::increment($alias, 'dash');
 		}
 		// Check if this is an array of titles
 		if (CostbenefitprojectionHelper::checkArray($title))

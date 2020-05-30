@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			14th August, 2019
+	@build			30th May, 2020
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		ajax.json.php
@@ -19,6 +19,8 @@
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
+
+use Joomla\Utilities\ArrayHelper;
 
 /**
  * Costbenefitprojection Ajax Controller
@@ -98,7 +100,7 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 						$idNameValue = $jinput->get('idName', NULL, 'CMD');
 						$ojectValue = $jinput->get('oject', NULL, 'STRING');
 						$clusterValue = $jinput->get('cluster', NULL, 'WORD');
-						if($idNameValue && $ojectValue && $clusterValue && $user->id != 0)
+						if($idNameValue && $user->id != 0 && $ojectValue && $clusterValue)
 						{
 							$result = $this->getModel('ajax')->getInterventionBuildTable($idNameValue, $ojectValue, $clusterValue);
 						}
@@ -137,7 +139,7 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 						$returnRaw = $jinput->get('raw', false, 'BOOLEAN');
 						$idNameValue = $jinput->get('idName', NULL, 'CMD');
 						$clusterValue = $jinput->get('cluster', NULL, 'STRING');
-						if($idNameValue && $clusterValue && $user->id != 0)
+						if($idNameValue && $user->id != 0 && $clusterValue)
 						{
 							$result = $this->getModel('ajax')->getClusterData($idNameValue, $clusterValue);
 						}

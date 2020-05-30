@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			14th August, 2019
+	@build			30th May, 2020
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -77,7 +77,7 @@ class CostbenefitprojectionViewCombinedresults extends JViewLegacy
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{
-			throw new Exception(implode("\n", $errors), 500);
+			throw new Exception(implode(PHP_EOL, $errors), 500);
 		}
 
 		parent::display($tpl);
@@ -244,8 +244,6 @@ class CostbenefitprojectionViewCombinedresults extends JViewLegacy
 		$this->app->input->set('hidemainmenu', true);
 		// add title to the page
 		JToolbarHelper::title(JText::_('COM_COSTBENEFITPROJECTION_COMBINEDRESULTS'),'cogs');
-		// add the back button
-		// JToolBarHelper::custom('combinedresults.back', 'undo-2', '', 'COM_COSTBENEFITPROJECTION_BACK', false);
 		// add cpanel button
 		JToolBarHelper::custom('combinedresults.dashboard', 'grid-2', '', 'COM_COSTBENEFITPROJECTION_DASH', false);
 		if ($this->canDo->get('combinedresults.companies'))

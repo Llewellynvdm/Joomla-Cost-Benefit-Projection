@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			14th August, 2019
+	@build			30th May, 2020
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		import_health_data_sets.php
@@ -19,6 +19,9 @@
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
+
+use Joomla\Utilities\ArrayHelper;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 /**
  * Costbenefitprojection Import_health_data_sets Model
@@ -383,8 +386,8 @@ class CostbenefitprojectionModelImport_health_data_sets extends JModelLegacy
 			break;
 		}
 		return false;
-	} 
-	
+	}
+
 	/**
 	 * Clean up temporary uploaded spreadsheet
 	 *
@@ -431,12 +434,12 @@ class CostbenefitprojectionModelImport_health_data_sets extends JModelLegacy
 				$data['target_headers'][$header] = $jinput->getString($header, null);
 			}
 			// make sure the file is loaded		
-			JLoader::import('PHPExcel', JPATH_COMPONENT_ADMINISTRATOR . '/helpers');
+			CostbenefitprojectionHelper::composerAutoload('phpspreadsheet');
 			// set the data
 			if(isset($package['dir']))
 			{
-				$inputFileType = PHPExcel_IOFactory::identify($package['dir']);
-				$excelReader = PHPExcel_IOFactory::createReader($inputFileType);
+				$inputFileType = IOFactory::identify($package['dir']);
+				$excelReader = IOFactory::createReader($inputFileType);
 				$excelReader->setReadDataOnly(true);
 				$excelObj = $excelReader->load($package['dir']);
 				$data['array'] = $excelObj->getActiveSheet()->toArray(null, true,true,true);
@@ -681,7 +684,7 @@ class CostbenefitprojectionModelImport_health_data_sets extends JModelLegacy
 			}
 		}
 		return $found;
-	} 
+	}
 	
 	/**
 	* Save the data from the file to the database
@@ -1041,7 +1044,7 @@ class CostbenefitprojectionModelImport_health_data_sets extends JModelLegacy
 		}
 		return false;
 	}
-	
+
 	protected function getAlias($name,$type = false)
 	{
 		// sanitize the name to an alias
