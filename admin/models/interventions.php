@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		interventions.php
@@ -37,22 +37,28 @@ class CostbenefitprojectionModelInterventions extends JModelList
 				'a.ordering','ordering',
 				'a.created_by','created_by',
 				'a.modified_by','modified_by',
-				'a.name','name',
-				'g.name',
+				'g.name','company',
 				'a.type','type',
 				'a.coverage','coverage',
-				'a.description','description',
-				'a.duration','duration'
+				'a.duration','duration',
+				'a.name','name',
+				'a.description','description'
 			);
 		}
 
 		parent::__construct($config);
 	}
-	
+
 	/**
 	 * Method to auto-populate the model state.
 	 *
+	 * Note. Calling getState in this method will result in recursion.
+	 *
+	 * @param   string  $ordering   An optional ordering field.
+	 * @param   string  $direction  An optional direction (asc|desc).
+	 *
 	 * @return  void
+	 *
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
@@ -63,8 +69,24 @@ class CostbenefitprojectionModelInterventions extends JModelList
 		{
 			$this->context .= '.' . $layout;
 		}
-		$name = $this->getUserStateFromRequest($this->context . '.filter.name', 'filter_name');
-		$this->setState('filter.name', $name);
+
+		$access = $this->getUserStateFromRequest($this->context . '.filter.access', 'filter_access', 0, 'int');
+		$this->setState('filter.access', $access);
+
+		$published = $this->getUserStateFromRequest($this->context . '.filter.published', 'filter_published', '');
+		$this->setState('filter.published', $published);
+
+		$created_by = $this->getUserStateFromRequest($this->context . '.filter.created_by', 'filter_created_by', '');
+		$this->setState('filter.created_by', $created_by);
+
+		$created = $this->getUserStateFromRequest($this->context . '.filter.created', 'filter_created');
+		$this->setState('filter.created', $created);
+
+		$sorting = $this->getUserStateFromRequest($this->context . '.filter.sorting', 'filter_sorting', 0, 'int');
+		$this->setState('filter.sorting', $sorting);
+
+		$search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
+		$this->setState('filter.search', $search);
 
 		$company = $this->getUserStateFromRequest($this->context . '.filter.company', 'filter_company');
 		$this->setState('filter.company', $company);
@@ -75,29 +97,14 @@ class CostbenefitprojectionModelInterventions extends JModelList
 		$coverage = $this->getUserStateFromRequest($this->context . '.filter.coverage', 'filter_coverage');
 		$this->setState('filter.coverage', $coverage);
 
-		$description = $this->getUserStateFromRequest($this->context . '.filter.description', 'filter_description');
-		$this->setState('filter.description', $description);
-
 		$duration = $this->getUserStateFromRequest($this->context . '.filter.duration', 'filter_duration');
 		$this->setState('filter.duration', $duration);
-        
-		$sorting = $this->getUserStateFromRequest($this->context . '.filter.sorting', 'filter_sorting', 0, 'int');
-		$this->setState('filter.sorting', $sorting);
-        
-		$access = $this->getUserStateFromRequest($this->context . '.filter.access', 'filter_access', 0, 'int');
-		$this->setState('filter.access', $access);
-        
-		$search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
-		$this->setState('filter.search', $search);
 
-		$published = $this->getUserStateFromRequest($this->context . '.filter.published', 'filter_published', '');
-		$this->setState('filter.published', $published);
-        
-		$created_by = $this->getUserStateFromRequest($this->context . '.filter.created_by', 'filter_created_by', '');
-		$this->setState('filter.created_by', $created_by);
+		$name = $this->getUserStateFromRequest($this->context . '.filter.name', 'filter_name');
+		$this->setState('filter.name', $name);
 
-		$created = $this->getUserStateFromRequest($this->context . '.filter.created', 'filter_created');
-		$this->setState('filter.created', $created);
+		$description = $this->getUserStateFromRequest($this->context . '.filter.description', 'filter_description');
+		$this->setState('filter.description', $description);
 
 		// List state information.
 		parent::populateState($ordering, $direction);
@@ -253,30 +260,78 @@ class CostbenefitprojectionModelInterventions extends JModelList
 			}
 		}
 
-		// Filter by company.
-		if ($company = $this->getState('filter.company'))
+		// Filter by Company.
+		$_company = $this->getState('filter.company');
+		if (is_numeric($_company))
 		{
-			$query->where('a.company = ' . $db->quote($db->escape($company)));
+			if (is_float($_company))
+			{
+				$query->where('a.company = ' . (float) $_company);
+			}
+			else
+			{
+				$query->where('a.company = ' . (int) $_company);
+			}
+		}
+		elseif (CostbenefitprojectionHelper::checkString($_company))
+		{
+			$query->where('a.company = ' . $db->quote($db->escape($_company)));
 		}
 		// Filter by Type.
-		if ($type = $this->getState('filter.type'))
+		$_type = $this->getState('filter.type');
+		if (is_numeric($_type))
 		{
-			$query->where('a.type = ' . $db->quote($db->escape($type)));
+			if (is_float($_type))
+			{
+				$query->where('a.type = ' . (float) $_type);
+			}
+			else
+			{
+				$query->where('a.type = ' . (int) $_type);
+			}
+		}
+		elseif (CostbenefitprojectionHelper::checkString($_type))
+		{
+			$query->where('a.type = ' . $db->quote($db->escape($_type)));
 		}
 		// Filter by Coverage.
-		if ($coverage = $this->getState('filter.coverage'))
+		$_coverage = $this->getState('filter.coverage');
+		if (is_numeric($_coverage))
 		{
-			$query->where('a.coverage = ' . $db->quote($db->escape($coverage)));
+			if (is_float($_coverage))
+			{
+				$query->where('a.coverage = ' . (float) $_coverage);
+			}
+			else
+			{
+				$query->where('a.coverage = ' . (int) $_coverage);
+			}
+		}
+		elseif (CostbenefitprojectionHelper::checkString($_coverage))
+		{
+			$query->where('a.coverage = ' . $db->quote($db->escape($_coverage)));
 		}
 		// Filter by Duration.
-		if ($duration = $this->getState('filter.duration'))
+		$_duration = $this->getState('filter.duration');
+		if (is_numeric($_duration))
 		{
-			$query->where('a.duration = ' . $db->quote($db->escape($duration)));
+			if (is_float($_duration))
+			{
+				$query->where('a.duration = ' . (float) $_duration);
+			}
+			else
+			{
+				$query->where('a.duration = ' . (int) $_duration);
+			}
+		}
+		elseif (CostbenefitprojectionHelper::checkString($_duration))
+		{
+			$query->where('a.duration = ' . $db->quote($db->escape($_duration)));
 		}
 
 		// Add the list ordering clause.
 		$orderCol = $this->state->get('list.ordering', 'a.id');
-		$orderDirn = $this->state->get('list.direction', 'asc');
+		$orderDirn = $this->state->get('list.direction', 'desc');
 		if ($orderCol != '')
 		{
 			$query->order($db->escape($orderCol . ' ' . $orderDirn));
@@ -296,7 +351,7 @@ class CostbenefitprojectionModelInterventions extends JModelList
 	public function getExportData($pks, $user = null)
 	{
 		// setup the query
-		if (CostbenefitprojectionHelper::checkArray($pks))
+		if (($pks_size = CostbenefitprojectionHelper::checkArray($pks)) !== false || 'bulk' === $pks)
 		{
 			// Set a value to know this is export method. (USE IN CUSTOM CODE TO ALTER OUTCOME)
 			$_export = true;
@@ -314,7 +369,24 @@ class CostbenefitprojectionModelInterventions extends JModelList
 
 			// From the costbenefitprojection_intervention table
 			$query->from($db->quoteName('#__costbenefitprojection_intervention', 'a'));
-			$query->where('a.id IN (' . implode(',',$pks) . ')');
+			// The bulk export path
+			if ('bulk' === $pks)
+			{
+				$query->where('a.id > 0');
+			}
+			// A large array of ID's will not work out well
+			elseif ($pks_size > 500)
+			{
+				// Use lowest ID
+				$query->where('a.id >= ' . (int) min($pks));
+				// Use highest ID
+				$query->where('a.id <= ' . (int) max($pks));
+			}
+			// The normal default path
+			else
+			{
+				$query->where('a.id IN (' . implode(',',$pks) . ')');
+			}
 
 			// Filter the companies (admin sees all)
 		if (!$user->authorise('core.options', 'com_costbenefitprojection'))
@@ -429,12 +501,12 @@ class CostbenefitprojectionModelInterventions extends JModelList
 		$id .= ':' . $this->getState('filter.ordering');
 		$id .= ':' . $this->getState('filter.created_by');
 		$id .= ':' . $this->getState('filter.modified_by');
-		$id .= ':' . $this->getState('filter.name');
 		$id .= ':' . $this->getState('filter.company');
 		$id .= ':' . $this->getState('filter.type');
 		$id .= ':' . $this->getState('filter.coverage');
-		$id .= ':' . $this->getState('filter.description');
 		$id .= ':' . $this->getState('filter.duration');
+		$id .= ':' . $this->getState('filter.name');
+		$id .= ':' . $this->getState('filter.description');
 
 		return parent::getStoreId($id);
 	}

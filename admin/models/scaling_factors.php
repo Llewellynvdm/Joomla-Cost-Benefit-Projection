@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		scaling_factors.php
@@ -37,8 +37,8 @@ class CostbenefitprojectionModelScaling_factors extends JModelList
 				'a.ordering','ordering',
 				'a.created_by','created_by',
 				'a.modified_by','modified_by',
-				'g.name',
-				'h.name',
+				'g.name','causerisk',
+				'h.name','company',
 				'a.yld_scaling_factor_males','yld_scaling_factor_males',
 				'a.yld_scaling_factor_females','yld_scaling_factor_females',
 				'a.mortality_scaling_factor_males','mortality_scaling_factor_males',
@@ -50,11 +50,17 @@ class CostbenefitprojectionModelScaling_factors extends JModelList
 
 		parent::__construct($config);
 	}
-	
+
 	/**
 	 * Method to auto-populate the model state.
 	 *
+	 * Note. Calling getState in this method will result in recursion.
+	 *
+	 * @param   string  $ordering   An optional ordering field.
+	 * @param   string  $direction  An optional direction (asc|desc).
+	 *
 	 * @return  void
+	 *
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
@@ -65,6 +71,25 @@ class CostbenefitprojectionModelScaling_factors extends JModelList
 		{
 			$this->context .= '.' . $layout;
 		}
+
+		$access = $this->getUserStateFromRequest($this->context . '.filter.access', 'filter_access', 0, 'int');
+		$this->setState('filter.access', $access);
+
+		$published = $this->getUserStateFromRequest($this->context . '.filter.published', 'filter_published', '');
+		$this->setState('filter.published', $published);
+
+		$created_by = $this->getUserStateFromRequest($this->context . '.filter.created_by', 'filter_created_by', '');
+		$this->setState('filter.created_by', $created_by);
+
+		$created = $this->getUserStateFromRequest($this->context . '.filter.created', 'filter_created');
+		$this->setState('filter.created', $created);
+
+		$sorting = $this->getUserStateFromRequest($this->context . '.filter.sorting', 'filter_sorting', 0, 'int');
+		$this->setState('filter.sorting', $sorting);
+
+		$search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
+		$this->setState('filter.search', $search);
+
 		$causerisk = $this->getUserStateFromRequest($this->context . '.filter.causerisk', 'filter_causerisk');
 		$this->setState('filter.causerisk', $causerisk);
 
@@ -88,24 +113,6 @@ class CostbenefitprojectionModelScaling_factors extends JModelList
 
 		$presenteeism_scaling_factor_females = $this->getUserStateFromRequest($this->context . '.filter.presenteeism_scaling_factor_females', 'filter_presenteeism_scaling_factor_females');
 		$this->setState('filter.presenteeism_scaling_factor_females', $presenteeism_scaling_factor_females);
-        
-		$sorting = $this->getUserStateFromRequest($this->context . '.filter.sorting', 'filter_sorting', 0, 'int');
-		$this->setState('filter.sorting', $sorting);
-        
-		$access = $this->getUserStateFromRequest($this->context . '.filter.access', 'filter_access', 0, 'int');
-		$this->setState('filter.access', $access);
-        
-		$search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
-		$this->setState('filter.search', $search);
-
-		$published = $this->getUserStateFromRequest($this->context . '.filter.published', 'filter_published', '');
-		$this->setState('filter.published', $published);
-        
-		$created_by = $this->getUserStateFromRequest($this->context . '.filter.created_by', 'filter_created_by', '');
-		$this->setState('filter.created_by', $created_by);
-
-		$created = $this->getUserStateFromRequest($this->context . '.filter.created', 'filter_created');
-		$this->setState('filter.created', $created);
 
 		// List state information.
 		parent::populateState($ordering, $direction);
@@ -218,20 +225,44 @@ class CostbenefitprojectionModelScaling_factors extends JModelList
 			}
 		}
 
-		// Filter by causerisk.
-		if ($causerisk = $this->getState('filter.causerisk'))
+		// Filter by Causerisk.
+		$_causerisk = $this->getState('filter.causerisk');
+		if (is_numeric($_causerisk))
 		{
-			$query->where('a.causerisk = ' . $db->quote($db->escape($causerisk)));
+			if (is_float($_causerisk))
+			{
+				$query->where('a.causerisk = ' . (float) $_causerisk);
+			}
+			else
+			{
+				$query->where('a.causerisk = ' . (int) $_causerisk);
+			}
 		}
-		// Filter by company.
-		if ($company = $this->getState('filter.company'))
+		elseif (CostbenefitprojectionHelper::checkString($_causerisk))
 		{
-			$query->where('a.company = ' . $db->quote($db->escape($company)));
+			$query->where('a.causerisk = ' . $db->quote($db->escape($_causerisk)));
+		}
+		// Filter by Company.
+		$_company = $this->getState('filter.company');
+		if (is_numeric($_company))
+		{
+			if (is_float($_company))
+			{
+				$query->where('a.company = ' . (float) $_company);
+			}
+			else
+			{
+				$query->where('a.company = ' . (int) $_company);
+			}
+		}
+		elseif (CostbenefitprojectionHelper::checkString($_company))
+		{
+			$query->where('a.company = ' . $db->quote($db->escape($_company)));
 		}
 
 		// Add the list ordering clause.
 		$orderCol = $this->state->get('list.ordering', 'a.id');
-		$orderDirn = $this->state->get('list.direction', 'asc');
+		$orderDirn = $this->state->get('list.direction', 'desc');
 		if ($orderCol != '')
 		{
 			$query->order($db->escape($orderCol . ' ' . $orderDirn));
@@ -251,7 +282,7 @@ class CostbenefitprojectionModelScaling_factors extends JModelList
 	public function getExportData($pks, $user = null)
 	{
 		// setup the query
-		if (CostbenefitprojectionHelper::checkArray($pks))
+		if (($pks_size = CostbenefitprojectionHelper::checkArray($pks)) !== false || 'bulk' === $pks)
 		{
 			// Set a value to know this is export method. (USE IN CUSTOM CODE TO ALTER OUTCOME)
 			$_export = true;
@@ -269,7 +300,24 @@ class CostbenefitprojectionModelScaling_factors extends JModelList
 
 			// From the costbenefitprojection_scaling_factor table
 			$query->from($db->quoteName('#__costbenefitprojection_scaling_factor', 'a'));
-			$query->where('a.id IN (' . implode(',',$pks) . ')');
+			// The bulk export path
+			if ('bulk' === $pks)
+			{
+				$query->where('a.id > 0');
+			}
+			// A large array of ID's will not work out well
+			elseif ($pks_size > 500)
+			{
+				// Use lowest ID
+				$query->where('a.id >= ' . (int) min($pks));
+				// Use highest ID
+				$query->where('a.id <= ' . (int) max($pks));
+			}
+			// The normal default path
+			else
+			{
+				$query->where('a.id IN (' . implode(',',$pks) . ')');
+			}
 
 			// Filter by companies (admin sees all)
 		if ( !$user->authorise('core.options', 'com_costbenefitprojection'))

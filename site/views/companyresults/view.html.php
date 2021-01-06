@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -182,8 +182,6 @@ class CostbenefitprojectionViewCompanyresults extends JViewLegacy
 	 */
 	protected function addToolBar()
 	{
-		// adding the joomla toolbar to the front
-		JLoader::register('JToolbarHelper', JPATH_ADMINISTRATOR.'/includes/toolbar.php');
 
 		// set help url for this view if found
 		$help_url = CostbenefitprojectionHelper::getHelpUrl('companyresults');

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -44,8 +44,8 @@ class CostbenefitprojectionViewHealth_data_sets extends JViewLegacy
 		$this->user = JFactory::getUser();
 		// Add the list ordering clause.
 		$this->listOrder = $this->escape($this->state->get('list.ordering', 'a.id'));
-		$this->listDirn = $this->escape($this->state->get('list.direction', 'asc'));
-		$this->saveOrder = $this->listOrder == 'ordering';
+		$this->listDirn = $this->escape($this->state->get('list.direction', 'DESC'));
+		$this->saveOrder = $this->listOrder == 'a.ordering';
 		// set the return here value
 		$this->return_here = urlencode(base64_encode((string) JUri::getInstance()));
 		// get global action permissions
@@ -143,6 +143,11 @@ class CostbenefitprojectionViewHealth_data_sets extends JViewLegacy
 				JToolBarHelper::custom('health_data_sets.exportData', 'download', '', 'COM_COSTBENEFITPROJECTION_EXPORT_DATA', true);
 			}
 		}
+		if ($this->user->authorise('health_data.bulk_export', 'com_costbenefitprojection'))
+		{
+			// add Bulk Export button.
+			JToolBarHelper::custom('health_data_sets.getBulkExport', 'download custom-button-getbulkexport', '', 'COM_COSTBENEFITPROJECTION_BULK_EXPORT', false);
+		}
 
 		if ($this->canDo->get('core.import') && $this->canDo->get('health_data.import'))
 		{
@@ -162,6 +167,7 @@ class CostbenefitprojectionViewHealth_data_sets extends JViewLegacy
 			JToolBarHelper::preferences('com_costbenefitprojection');
 		}
 
+		// Only load publish filter if state change is allowed
 		if ($this->canState)
 		{
 			JHtmlSidebar::addFilter(
@@ -169,15 +175,6 @@ class CostbenefitprojectionViewHealth_data_sets extends JViewLegacy
 				'filter_published',
 				JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.published'), true)
 			);
-			// only load if batch allowed
-			if ($this->canBatch)
-			{
-				JHtmlBatch_::addListSelection(
-					JText::_('COM_COSTBENEFITPROJECTION_KEEP_ORIGINAL_STATE'),
-					'batch[published]',
-					JHtml::_('select.options', JHtml::_('jgrid.publishedOptions', array('all' => false)), 'value', 'text', '', true)
-				);
-			}
 		}
 
 		JHtmlSidebar::addFilter(
@@ -185,15 +182,6 @@ class CostbenefitprojectionViewHealth_data_sets extends JViewLegacy
 			'filter_access',
 			JHtml::_('select.options', JHtml::_('access.assetgroups'), 'value', 'text', $this->state->get('filter.access'))
 		);
-
-		if ($this->canBatch && $this->canCreate && $this->canEdit)
-		{
-			JHtmlBatch_::addListSelection(
-				JText::_('COM_COSTBENEFITPROJECTION_KEEP_ORIGINAL_ACCESS'),
-				'batch[access]',
-				JHtml::_('select.options', JHtml::_('access.assetgroups'), 'value', 'text')
-			);
-		}
 
 		// Set Causerisk Name Selection
 		$this->causeriskNameOptions = JFormHelper::loadFieldType('Causesrisks')->options;
@@ -209,20 +197,10 @@ class CostbenefitprojectionViewHealth_data_sets extends JViewLegacy
 		{
 			// Causerisk Name Filter
 			JHtmlSidebar::addFilter(
-				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_HEALTH_DATA_CAUSERISK_LABEL').' -',
+				'- Select ' . JText::_('COM_COSTBENEFITPROJECTION_HEALTH_DATA_CAUSERISK_LABEL') . ' -',
 				'filter_causerisk',
 				JHtml::_('select.options', $this->causeriskNameOptions, 'value', 'text', $this->state->get('filter.causerisk'))
 			);
-
-			if ($this->canBatch && $this->canCreate && $this->canEdit)
-			{
-				// Causerisk Name Batch Selection
-				JHtmlBatch_::addListSelection(
-					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_HEALTH_DATA_CAUSERISK_LABEL').' -',
-					'batch[causerisk]',
-					JHtml::_('select.options', $this->causeriskNameOptions, 'value', 'text')
-				);
-			}
 		}
 
 		// Set Year Selection
@@ -243,16 +221,6 @@ class CostbenefitprojectionViewHealth_data_sets extends JViewLegacy
 				'filter_year',
 				JHtml::_('select.options', $this->yearOptions, 'value', 'text', $this->state->get('filter.year'))
 			);
-
-			if ($this->canBatch && $this->canCreate && $this->canEdit)
-			{
-				// Year Batch Selection
-				JHtmlBatch_::addListSelection(
-					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_HEALTH_DATA_YEAR_LABEL').' -',
-					'batch[year]',
-					JHtml::_('select.options', $this->yearOptions, 'value', 'text')
-				);
-			}
 		}
 
 		// Set Country Name Selection
@@ -269,20 +237,63 @@ class CostbenefitprojectionViewHealth_data_sets extends JViewLegacy
 		{
 			// Country Name Filter
 			JHtmlSidebar::addFilter(
-				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_HEALTH_DATA_COUNTRY_LABEL').' -',
+				'- Select ' . JText::_('COM_COSTBENEFITPROJECTION_HEALTH_DATA_COUNTRY_LABEL') . ' -',
 				'filter_country',
 				JHtml::_('select.options', $this->countryNameOptions, 'value', 'text', $this->state->get('filter.country'))
 			);
+		}
 
-			if ($this->canBatch && $this->canCreate && $this->canEdit)
-			{
-				// Country Name Batch Selection
-				JHtmlBatch_::addListSelection(
-					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_HEALTH_DATA_COUNTRY_LABEL').' -',
-					'batch[country]',
-					JHtml::_('select.options', $this->countryNameOptions, 'value', 'text')
-				);
-			}
+		// Only load published batch if state and batch is allowed
+		if ($this->canState && $this->canBatch)
+		{
+			JHtmlBatch_::addListSelection(
+				JText::_('COM_COSTBENEFITPROJECTION_KEEP_ORIGINAL_STATE'),
+				'batch[published]',
+				JHtml::_('select.options', JHtml::_('jgrid.publishedOptions', array('all' => false)), 'value', 'text', '', true)
+			);
+		}
+
+		// Only load access batch if create, edit and batch is allowed
+		if ($this->canBatch && $this->canCreate && $this->canEdit)
+		{
+			JHtmlBatch_::addListSelection(
+				JText::_('COM_COSTBENEFITPROJECTION_KEEP_ORIGINAL_ACCESS'),
+				'batch[access]',
+				JHtml::_('select.options', JHtml::_('access.assetgroups'), 'value', 'text')
+			);
+		}
+
+		// Only load Causerisk Name batch if create, edit, and batch is allowed
+		if ($this->canBatch && $this->canCreate && $this->canEdit)
+		{
+			// Causerisk Name Batch Selection
+			JHtmlBatch_::addListSelection(
+				'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_HEALTH_DATA_CAUSERISK_LABEL').' -',
+				'batch[causerisk]',
+				JHtml::_('select.options', $this->causeriskNameOptions, 'value', 'text')
+			);
+		}
+
+		// Only load Year batch if create, edit, and batch is allowed
+		if ($this->canBatch && $this->canCreate && $this->canEdit)
+		{
+			// Year Batch Selection
+			JHtmlBatch_::addListSelection(
+				'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_HEALTH_DATA_YEAR_LABEL').' -',
+				'batch[year]',
+				JHtml::_('select.options', $this->yearOptions, 'value', 'text')
+			);
+		}
+
+		// Only load Country Name batch if create, edit, and batch is allowed
+		if ($this->canBatch && $this->canCreate && $this->canEdit)
+		{
+			// Country Name Batch Selection
+			JHtmlBatch_::addListSelection(
+				'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_HEALTH_DATA_COUNTRY_LABEL').' -',
+				'batch[country]',
+				JHtml::_('select.options', $this->countryNameOptions, 'value', 'text')
+			);
 		}
 	}
 
@@ -327,7 +338,7 @@ class CostbenefitprojectionViewHealth_data_sets extends JViewLegacy
 	protected function getSortFields()
 	{
 		return array(
-			'ordering' => JText::_('JGRID_HEADING_ORDERING'),
+			'a.ordering' => JText::_('JGRID_HEADING_ORDERING'),
 			'a.published' => JText::_('JSTATUS'),
 			'g.name' => JText::_('COM_COSTBENEFITPROJECTION_HEALTH_DATA_CAUSERISK_LABEL'),
 			'a.year' => JText::_('COM_COSTBENEFITPROJECTION_HEALTH_DATA_YEAR_LABEL'),
@@ -353,13 +364,13 @@ class CostbenefitprojectionViewHealth_data_sets extends JViewLegacy
 		$db->setQuery($query);
 
 		$results = $db->loadColumn();
+		$_filter = array();
 
 		if ($results)
 		{
 			// get model
 			$model = $this->getModel();
 			$results = array_unique($results);
-			$_filter = array();
 			foreach ($results as $year)
 			{
 				// Translate the year selection
@@ -367,8 +378,7 @@ class CostbenefitprojectionViewHealth_data_sets extends JViewLegacy
 				// Now add the year and its text to the options array
 				$_filter[] = JHtml::_('select.option', $year, JText::_($text));
 			}
-			return $_filter;
 		}
-		return false;
+		return $_filter;
 	}
 }

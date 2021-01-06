@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -62,7 +62,7 @@ $componentParams = $this->params; // will be removed just use $this->params inst
 	<?php $this->tab_name = 'service_providerTab'; ?>
 	<?php echo JLayoutHelper::render('joomla.edit.params', $this); ?>
 
-	<?php if ($this->canDo->get('service_provider.delete') || $this->canDo->get('core.edit.created_by') || $this->canDo->get('service_provider.edit.state') || $this->canDo->get('core.edit.created')) : ?>
+	<?php if ($this->canDo->get('core.edit.created_by') || $this->canDo->get('core.edit.created') || $this->canDo->get('service_provider.edit.state') || ($this->canDo->get('service_provider.delete') && $this->canDo->get('service_provider.edit.state'))) : ?>
 	<?php echo JHtml::_('bootstrap.addTab', 'service_providerTab', 'publishing', JText::_('COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_PUBLISHING', true)); ?>
 		<div class="row-fluid form-horizontal-desktop">
 			<div class="span6">

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		company.php
@@ -918,7 +918,7 @@ class CostbenefitprojectionModelCompany extends JModelAdmin
 	public function validate($form, $data, $group = null)
 	{
 		// check if the not_required field is set
-		if (CostbenefitprojectionHelper::checkString($data['not_required']))
+		if (isset($data['not_required']) && CostbenefitprojectionHelper::checkString($data['not_required']))
 		{
 			$requiredFields = (array) explode(',',(string) $data['not_required']);
 			$requiredFields = array_unique($requiredFields);

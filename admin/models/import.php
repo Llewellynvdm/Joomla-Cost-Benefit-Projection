@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		import.php
@@ -434,7 +434,15 @@ class CostbenefitprojectionModelImport extends JModelLegacy
 			$jinput = JFactory::getApplication()->input;
 			foreach($target_headers as $header)
 			{
-				$data['target_headers'][$header] = $jinput->getString($header, null);
+				if (($column = $jinput->getString($header, false)) !== false ||
+					($column = $jinput->getString(strtolower($header), false)) !== false)
+				{
+					$data['target_headers'][$header] = $column;
+				}
+				else
+				{
+					$data['target_headers'][$header] = null;
+				}
 			}
 			// set the data
 			if(isset($package['dir']))

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -294,12 +294,12 @@ class CostbenefitprojectionViewCompanyresults extends JViewLegacy
 		if ($this->canDo->get('companyresults.companies'))
 		{
 			// add Companies button.
-			JToolBarHelper::custom('companyresults.gotoCompanies', 'vcard', '', 'COM_COSTBENEFITPROJECTION_COMPANIES', false);
+			JToolBarHelper::custom('companyresults.gotoCompanies', 'vcard custom-button-gotocompanies', '', 'COM_COSTBENEFITPROJECTION_COMPANIES', false);
 		}
 		if ($this->canDo->get('companyresults.edit'))
 		{
 			// add Edit button.
-			JToolBarHelper::custom('companyresults.editCompany', 'pencil', '', 'COM_COSTBENEFITPROJECTION_EDIT', false);
+			JToolBarHelper::custom('companyresults.editCompany', 'pencil custom-button-editcompany', '', 'COM_COSTBENEFITPROJECTION_EDIT', false);
 		}
 
 		// set help url for this view if found

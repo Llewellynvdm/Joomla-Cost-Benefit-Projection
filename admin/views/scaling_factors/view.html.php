@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -44,8 +44,8 @@ class CostbenefitprojectionViewScaling_factors extends JViewLegacy
 		$this->user = JFactory::getUser();
 		// Add the list ordering clause.
 		$this->listOrder = $this->escape($this->state->get('list.ordering', 'a.id'));
-		$this->listDirn = $this->escape($this->state->get('list.direction', 'asc'));
-		$this->saveOrder = $this->listOrder == 'ordering';
+		$this->listDirn = $this->escape($this->state->get('list.direction', 'DESC'));
+		$this->saveOrder = $this->listOrder == 'a.ordering';
 		// set the return here value
 		$this->return_here = urlencode(base64_encode((string) JUri::getInstance()));
 		// get global action permissions
@@ -162,36 +162,13 @@ class CostbenefitprojectionViewScaling_factors extends JViewLegacy
 			JToolBarHelper::preferences('com_costbenefitprojection');
 		}
 
+		// Only load publish filter if state change is allowed
 		if ($this->canState)
 		{
 			JHtmlSidebar::addFilter(
 				JText::_('JOPTION_SELECT_PUBLISHED'),
 				'filter_published',
 				JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.published'), true)
-			);
-			// only load if batch allowed
-			if ($this->canBatch)
-			{
-				JHtmlBatch_::addListSelection(
-					JText::_('COM_COSTBENEFITPROJECTION_KEEP_ORIGINAL_STATE'),
-					'batch[published]',
-					JHtml::_('select.options', JHtml::_('jgrid.publishedOptions', array('all' => false)), 'value', 'text', '', true)
-				);
-			}
-		}
-
-		JHtmlSidebar::addFilter(
-			JText::_('JOPTION_SELECT_ACCESS'),
-			'filter_access',
-			JHtml::_('select.options', JHtml::_('access.assetgroups'), 'value', 'text', $this->state->get('filter.access'))
-		);
-
-		if ($this->canBatch && $this->canCreate && $this->canEdit)
-		{
-			JHtmlBatch_::addListSelection(
-				JText::_('COM_COSTBENEFITPROJECTION_KEEP_ORIGINAL_ACCESS'),
-				'batch[access]',
-				JHtml::_('select.options', JHtml::_('access.assetgroups'), 'value', 'text')
 			);
 		}
 
@@ -209,20 +186,10 @@ class CostbenefitprojectionViewScaling_factors extends JViewLegacy
 		{
 			// Causerisk Name Filter
 			JHtmlSidebar::addFilter(
-				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTOR_CAUSERISK_LABEL').' -',
+				'- Select ' . JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTOR_CAUSERISK_LABEL') . ' -',
 				'filter_causerisk',
 				JHtml::_('select.options', $this->causeriskNameOptions, 'value', 'text', $this->state->get('filter.causerisk'))
 			);
-
-			if ($this->canBatch && $this->canCreate && $this->canEdit)
-			{
-				// Causerisk Name Batch Selection
-				JHtmlBatch_::addListSelection(
-					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTOR_CAUSERISK_LABEL').' -',
-					'batch[causerisk]',
-					JHtml::_('select.options', $this->causeriskNameOptions, 'value', 'text')
-				);
-			}
 		}
 
 		// Set Company Name Selection
@@ -239,20 +206,42 @@ class CostbenefitprojectionViewScaling_factors extends JViewLegacy
 		{
 			// Company Name Filter
 			JHtmlSidebar::addFilter(
-				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTOR_COMPANY_LABEL').' -',
+				'- Select ' . JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTOR_COMPANY_LABEL') . ' -',
 				'filter_company',
 				JHtml::_('select.options', $this->companyNameOptions, 'value', 'text', $this->state->get('filter.company'))
 			);
+		}
 
-			if ($this->canBatch && $this->canCreate && $this->canEdit)
-			{
-				// Company Name Batch Selection
-				JHtmlBatch_::addListSelection(
-					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTOR_COMPANY_LABEL').' -',
-					'batch[company]',
-					JHtml::_('select.options', $this->companyNameOptions, 'value', 'text')
-				);
-			}
+		// Only load published batch if state and batch is allowed
+		if ($this->canState && $this->canBatch)
+		{
+			JHtmlBatch_::addListSelection(
+				JText::_('COM_COSTBENEFITPROJECTION_KEEP_ORIGINAL_STATE'),
+				'batch[published]',
+				JHtml::_('select.options', JHtml::_('jgrid.publishedOptions', array('all' => false)), 'value', 'text', '', true)
+			);
+		}
+
+		// Only load Causerisk Name batch if create, edit, and batch is allowed
+		if ($this->canBatch && $this->canCreate && $this->canEdit)
+		{
+			// Causerisk Name Batch Selection
+			JHtmlBatch_::addListSelection(
+				'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTOR_CAUSERISK_LABEL').' -',
+				'batch[causerisk]',
+				JHtml::_('select.options', $this->causeriskNameOptions, 'value', 'text')
+			);
+		}
+
+		// Only load Company Name batch if create, edit, and batch is allowed
+		if ($this->canBatch && $this->canCreate && $this->canEdit)
+		{
+			// Company Name Batch Selection
+			JHtmlBatch_::addListSelection(
+				'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTOR_COMPANY_LABEL').' -',
+				'batch[company]',
+				JHtml::_('select.options', $this->companyNameOptions, 'value', 'text')
+			);
 		}
 	}
 
@@ -297,7 +286,7 @@ class CostbenefitprojectionViewScaling_factors extends JViewLegacy
 	protected function getSortFields()
 	{
 		return array(
-			'ordering' => JText::_('JGRID_HEADING_ORDERING'),
+			'a.ordering' => JText::_('JGRID_HEADING_ORDERING'),
 			'a.published' => JText::_('JSTATUS'),
 			'g.name' => JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTOR_CAUSERISK_LABEL'),
 			'h.name' => JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTOR_COMPANY_LABEL'),

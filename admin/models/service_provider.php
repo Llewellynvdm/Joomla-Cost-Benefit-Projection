@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		service_provider.php
@@ -199,9 +199,17 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 		$query->select('ag.title AS access_level');
 		$query->join('LEFT', '#__viewlevels AS ag ON ag.id = a.access');
 		// Filter by access level.
-		if ($access = $this->getState('filter.access'))
+		$_access = $this->getState('filter.access');
+		if ($_access && is_numeric($_access))
 		{
-			$query->where('a.access = ' . (int) $access);
+			$query->where('a.access = ' . (int) $_access);
+		}
+		elseif (CostbenefitprojectionHelper::checkArray($_access))
+		{
+			// Secure the array for the query
+			$_access = ArrayHelper::toInteger($_access);
+			// Filter by the Access Array.
+			$query->where('a.access IN (' . implode(',', $_access) . ')');
 		}
 		// Implement View Level Access
 		if (!$user->authorise('core.options', 'com_costbenefitprojection'))

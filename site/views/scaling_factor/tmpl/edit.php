@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -27,8 +27,8 @@ JHtml::_('formbehavior.chosen', 'select');
 JHtml::_('behavior.keepalive');
 JHtml::_('behavior.tabstate');
 JHtml::_('behavior.calendar');
-$componentParams = $this->params; // will be removed just use $this->params instead
 ?>
+<div class="costbenefitprojection-scaling_factor">
 <?php echo $this->toolbar->render(); ?>
 <form action="<?php echo JRoute::_('index.php?option=com_costbenefitprojection&layout=edit&id='. (int) $this->item->id . $this->referral); ?>" method="post" name="adminForm" id="adminForm" class="form-validate" enctype="multipart/form-data">
 
@@ -52,7 +52,7 @@ $componentParams = $this->params; // will be removed just use $this->params inst
 	<?php $this->tab_name = 'scaling_factorTab'; ?>
 	<?php echo JLayoutHelper::render('joomla.edit.params', $this); ?>
 
-	<?php if ($this->canDo->get('scaling_factor.delete') || $this->canDo->get('core.edit.created_by') || $this->canDo->get('scaling_factor.edit.state') || $this->canDo->get('core.edit.created')) : ?>
+	<?php if ($this->canDo->get('core.edit.created_by') || $this->canDo->get('core.edit.created') || $this->canDo->get('scaling_factor.edit.state') || ($this->canDo->get('scaling_factor.delete') && $this->canDo->get('scaling_factor.edit.state'))) : ?>
 	<?php echo JHtml::_('bootstrap.addTab', 'scaling_factorTab', 'publishing', JText::_('COM_COSTBENEFITPROJECTION_SCALING_FACTOR_PUBLISHING', true)); ?>
 		<div class="row-fluid form-horizontal-desktop">
 			<div class="span6">
@@ -92,6 +92,7 @@ $componentParams = $this->params; // will be removed just use $this->params inst
 	</div>
 </div>
 </form>
+</div>
 
 <script type="text/javascript">
 

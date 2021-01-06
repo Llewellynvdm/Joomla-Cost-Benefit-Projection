@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -36,9 +36,8 @@ class CostbenefitprojectionViewCostbenefitprojection extends JViewLegacy
 		$this->contributors		= CostbenefitprojectionHelper::getContributors();
 		$this->usagedata = $this->get('UsageData');
 		$this->github = $this->get('Github');
-		$this->readme = $this->get('Readme');
-		$this->wiki = $this->get('Wiki');
 		$this->noticeboard = $this->get('Noticeboard');
+		$this->readme = $this->get('Readme');
 		
 		// get the manifest details of the component
 		$this->manifest = CostbenefitprojectionHelper::manifest();

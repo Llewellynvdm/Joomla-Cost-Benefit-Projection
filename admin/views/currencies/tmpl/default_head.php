@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_head.php
@@ -24,7 +24,7 @@ defined('_JEXEC') or die('Restricted access');
 <tr>
 	<?php if ($this->canEdit&& $this->canState): ?>
 		<th width="1%" class="nowrap center hidden-phone">
-			<?php echo JHtml::_('grid.sort', '<i class="icon-menu-2"></i>', 'ordering', $this->listDirn, $this->listOrder, null, 'asc', 'JGRID_HEADING_ORDERING'); ?>
+			<?php echo JHtml::_('grid.sort', '<i class="icon-menu-2"></i>', 'a.ordering', $this->listDirn, $this->listOrder, null, 'asc', 'JGRID_HEADING_ORDERING'); ?>
 		</th>
 		<th width="20" class="nowrap center">
 			<?php echo JHtml::_('grid.checkall'); ?>

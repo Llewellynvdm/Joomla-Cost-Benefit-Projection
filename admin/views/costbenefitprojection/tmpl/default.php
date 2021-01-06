@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
@@ -82,24 +82,24 @@ JHtml::_('behavior.tooltip');
 		</div>
 		<?php echo JHtml::_('bootstrap.endTab'); ?>
 
-		<?php echo JHtml::_('bootstrap.addTab', 'cpanel_tab', 'readme', JText::_('Readme', true)); ?>
-		<div class="row-fluid">
-			<div class="span12">
-				<?php  echo JHtml::_('bootstrap.startAccordion', 'readme_accordian', array('active' => 'readme_one')); ?>
-					<?php  echo JHtml::_('bootstrap.addSlide', 'readme_accordian', 'Information', 'readme_one'); ?>
-						<?php echo $this->loadTemplate('readme_information');?>
-					<?php  echo JHtml::_('bootstrap.endSlide'); ?>
-				<?php  echo JHtml::_('bootstrap.endAccordion'); ?>
-			</div>
-		</div>
-		<?php echo JHtml::_('bootstrap.endTab'); ?>
-
 		<?php echo JHtml::_('bootstrap.addTab', 'cpanel_tab', 'vast_development_method', JText::_('Vast Development Method', true)); ?>
 		<div class="row-fluid">
 			<div class="span12">
 				<?php  echo JHtml::_('bootstrap.startAccordion', 'vast_development_method_accordian', array('active' => 'vast_development_method_one')); ?>
 					<?php  echo JHtml::_('bootstrap.addSlide', 'vast_development_method_accordian', 'Notice Board', 'vast_development_method_one'); ?>
 						<?php echo $this->loadTemplate('vast_development_method_notice_board');?>
+					<?php  echo JHtml::_('bootstrap.endSlide'); ?>
+				<?php  echo JHtml::_('bootstrap.endAccordion'); ?>
+			</div>
+		</div>
+		<?php echo JHtml::_('bootstrap.endTab'); ?>
+
+		<?php echo JHtml::_('bootstrap.addTab', 'cpanel_tab', 'readme', JText::_('Readme', true)); ?>
+		<div class="row-fluid">
+			<div class="span12">
+				<?php  echo JHtml::_('bootstrap.startAccordion', 'readme_accordian', array('active' => 'readme_one')); ?>
+					<?php  echo JHtml::_('bootstrap.addSlide', 'readme_accordian', 'Information', 'readme_one'); ?>
+						<?php echo $this->loadTemplate('readme_information');?>
 					<?php  echo JHtml::_('bootstrap.endSlide'); ?>
 				<?php  echo JHtml::_('bootstrap.endAccordion'); ?>
 			</div>

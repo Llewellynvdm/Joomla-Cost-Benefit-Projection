@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -21,6 +21,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\Language\Language;
+use Joomla\Registry\Registry;
 use Joomla\String\StringHelper;
 use Joomla\Utilities\ArrayHelper;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -982,9 +983,33 @@ abstract class CostbenefitprojectionHelper
 
 	/**
 	 * Greate user and update given table
+	 *
+	 * @param   array  $credentials  Array('name' => string, 'username' => string, 'email' => string, 'password' => string, 'password2' => string)
+	 * @param   int    $autologin
+	 * @param   array  $params  Array('useractivation' => int, 'sendpassword' => int, 'allowUserRegistration' => int)
+	 * @param   array  $mode 1 = Site Registrations; 0 = Admin Registration; 2 = Custom Helper Method Called registerUser
+	 *
+	 * @return  int|Error  User ID on success, or an error.
 	 */
-	public static function createUser($new)
+	public static function createUser($credentials, $autologin = 0,
+		$params = array(
+			'useractivation' => 0, 'sendpassword' => 1
+		), $mode = 1
+	)
 	{
+		// Override mode
+		if ($mode == 2 && method_exists(__CLASS__, 'registerUser'))
+		{
+			// Update params
+			$params['autologin'] = $autologin;
+			// Now Register User
+			return self::registerUser($credentials, $params);
+		}
+		elseif ($mode == 2)
+		{
+			// Fallback to Site Registrations
+			$mode = 1;
+		}
 		// load the user component language files if there is an error.
 		$lang = JFactory::getLanguage();
 		$extension = 'com_users';
@@ -992,53 +1017,113 @@ abstract class CostbenefitprojectionHelper
 		$language_tag = 'en-GB';
 		$reload = true;
 		$lang->load($extension, $base_dir, $language_tag, $reload);
-		// load the user regestration model
-		$model = self::getModel('registration', JPATH_ROOT. '/components/com_users', 'Users');
-		// make sure no activation is needed
-		$useractivation = self::setParams('com_users','useractivation',0);
-		// make sure password is send
-		$sendpassword = self::setParams('com_users','sendpassword',1);
-		// Check if password was set
-		if (isset($new['password']) && isset($new['password2']) && self::checkString($new['password']) && self::checkString($new['password2']))
+		// Load the correct user model.
+		if ($mode == 1) // 1 = Site Registrations
 		{
-			// Use the users passwords
-			$password = $new['password'];
-			$password2 = $new['password2'];
+			// Load the user site-registration model
+			$model = self::getModel('registration', $base_dir . '/components/' . $extension, 'Users');
 		}
-		else
+		else // 0 = Admin Registration
 		{
-			// Set random password
-			$password = self::randomkey(8);
-			$password2 = $password;
+			// Load the backend-user model
+			$model = self::getModel('user', JPATH_ADMINISTRATOR . '/components/' . $extension, 'Users');
 		}
-		// set username if not set
-		if (!isset($new['username']) || !self::checkString($new['username']))
+		// Check if we have params/config
+		if (self::checkArray($params))
 		{
-			$new['username'] = self::safeString($new['name']);
+			// Make changes to user config
+			foreach ($params as $param => $set)
+			{
+				// If you know of a better path, let me know
+				$params[$param] = self::setParams($extension, $param, $set);
+			}
 		}
-		// linup new user data
+		// Set username to email if not set
+		if (!isset($credentials['username']) || !self::checkString($credentials['username']))
+		{
+			$credentials['username'] = $credentials['email'];
+		}
+		// Lineup new user data array
 		$data = array(
-			'username' => $new['username'],
-			'name' => $new['name'],
-			'email1' => $new['email'],
-			'password1' => $password, // First password field
-			'password2' => $password2, // Confirm password field
+			'username' => $credentials['username'],
+			'name' => $credentials['name'],
 			'block' => 0 );
-		// register the new user
-		$userId = $model->register($data);
-		// set activation back to default
-		self::setParams('com_users','useractivation',$useractivation);
-		// set send password back to default
-		self::setParams('com_users','sendpassword',$sendpassword);
+		// Added details based on mode
+		if ($mode == 1) // 1 = Site-registration mode
+		{
+			$data['email1'] = $credentials['email'];
+		}
+		else // 0 = Admin-registration mode
+		{
+			$data['email'] = $credentials['email'];
+			$data['registerDate'] = JFactory::getDate()->toSql();
+		}
+		// Check if password was set
+		if ($mode == 1 && (!isset($credentials['password']) || !isset($credentials['password2']) || !self::checkString($credentials['password']) || !self::checkString($credentials['password2'])))
+		{
+			// Set random password when empty password was submitted,
+			// when using the 1 = site-registration mode
+			$credentials['password'] = self::randomkey(8);
+			$credentials['password2'] = $credentials['password'];
+		}
+		// Now Add password if set
+		if (isset($credentials['password']) && isset($credentials['password2'])  && self::checkString($credentials['password']) && self::checkString($credentials['password2']))
+		{
+			if ($mode == 1) // 1 = Site-registration mode
+			{
+				$data['password1'] = $credentials['password'];
+			}
+			else // 0 = Admin-registration mode
+			{
+				$data['password'] = $credentials['password'];
+			}
+			$data['password2'] = $credentials['password2'];
+		}
+		// Load the group/s value if set, only for Admin Registration ($mode == 0)
+		if ($mode == 0 && isset($credentials['groups']) && self::checkArray($credentials['groups']))
+		{
+			$data['groups'] = $credentials['groups'];
+		}
+		// Create the new user
+		if ($mode == 1) // 1 = Site-registration mode
+		{
+			$userId = $model->register($data);
+		}
+		else // 0 = Admin-registration mode
+		{
+			$model->save($data);
+			$userId = $model->getState('user.id', 0);
+		}
+		// Check if we have params
+		if (self::checkArray($params))
+		{
+			// Change user params/config back
+			foreach ($params as $param => $set)
+			{
+				// If you know of a better path, let me know
+				self::setParams($extension, $param, $set);
+			}
+		}
 		// if user is created
 		if ($userId > 0)
 		{
+			// Auto Login if Needed
+			if ($autologin && isset($credentials['password']))
+			{
+				// Try to login
+				try{
+					JFactory::getApplication()->login($credentials);
+				} catch (Exception $exception){
+					// Do noting for now, may want to set redirect.
+				}
+			}
+			// Return ID
 			return $userId;
 		}
 		return $model->getError();
 	}
 
-	protected static function setParams($component,$target,$value)
+	public static function setParams($component,$target,$value)
 	{
 		// Get the params and set the new values
 		$params = JComponentHelper::getParams($component);
@@ -1056,7 +1141,7 @@ abstract class CostbenefitprojectionHelper
 			
 			// Execute the query
 			$db->setQuery($query);
-			$db->query();
+			$db->execute();
 		}
 		return $was;
 	}
@@ -1083,21 +1168,17 @@ abstract class CostbenefitprojectionHelper
 			$password2 = $new['password2'];
 		}
 		// set username
-		if (isset($new['username']) && self::checkString($new['username']))
+		if (!isset($new['username']) || !self::checkString($new['username']))
 		{
-			$new['username'] = self::safeString($new['username']);
+			$new['username'] = $new['email'];
 		}
-		else
-		{
-			$new['username'] = self::safeString($new['name']);
-		}
-		// linup update user data
+		// lineup update user data
 		$data = array(
 			'id' => $new['id'],
 			'username' => $new['username'],
 			'name' => $new['name'],
 			'email' => $new['email'],
-			'password1' => $password, // First password field
+			'password' => $password, // First password field
 			'password2' => $password2, // Confirm password field
 			'block' => 0 );
 		// set groups if found
@@ -1258,6 +1339,8 @@ abstract class CostbenefitprojectionHelper
 			->setLastModifiedBy($modified)
 			->setTitle($title)
 			->setSubject($subjectTab);
+		// The file type
+		$file_type = 'Xls';
 		// set description
 		if ($description)
 		{
@@ -1297,21 +1380,46 @@ abstract class CostbenefitprojectionHelper
 		));
 
 		// Add some data
-		if (self::checkArray($rows))
+		if (($size = self::checkArray($rows)) !== false)
 		{
 			$i = 1;
-			foreach ($rows as $array){
+
+			// Based on data size we adapt the behaviour.
+			$xls_mode = 1;
+			if ($size > 3000)
+			{
+				$xls_mode = 3;
+				$file_type = 'Csv';
+			}
+			elseif ($size > 2000)
+			{
+				$xls_mode = 2;
+			}
+
+			// Set active sheet and get it.
+			$active_sheet = $spreadsheet->setActiveSheetIndex(0);
+			foreach ($rows as $array)
+			{
 				$a = 'A';
-				foreach ($array as $value){
-					$spreadsheet->setActiveSheetIndex(0)->setCellValue($a.$i, $value);
-					if ($i == 1){
-						$spreadsheet->getActiveSheet()->getColumnDimension($a)->setAutoSize(true);
-						$spreadsheet->getActiveSheet()->getStyle($a.$i)->applyFromArray($headerStyles);
-						$spreadsheet->getActiveSheet()->getStyle($a.$i)->getAlignment()->setHorizontal(PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
-					} elseif ($a === 'A'){
-						$spreadsheet->getActiveSheet()->getStyle($a.$i)->applyFromArray($sideStyles);
-					} else {
-						$spreadsheet->getActiveSheet()->getStyle($a.$i)->applyFromArray($normalStyles);
+				foreach ($array as $value)
+				{
+					$active_sheet->setCellValue($a.$i, $value);
+					if ($xls_mode != 3)
+					{
+						if ($i == 1)
+						{
+							$active_sheet->getColumnDimension($a)->setAutoSize(true);
+							$active_sheet->getStyle($a.$i)->applyFromArray($headerStyles);
+							$active_sheet->getStyle($a.$i)->getAlignment()->setHorizontal(PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+						}
+						elseif ($a === 'A')
+						{
+							$active_sheet->getStyle($a.$i)->applyFromArray($sideStyles);
+						}
+						elseif ($xls_mode == 1)
+						{
+							$active_sheet->getStyle($a.$i)->applyFromArray($normalStyles);
+						}
 					}
 					$a++;
 				}
@@ -1331,7 +1439,7 @@ abstract class CostbenefitprojectionHelper
 
 		// Redirect output to a client's web browser (Excel5)
 		header('Content-Type: application/vnd.ms-excel');
-		header('Content-Disposition: attachment;filename="'.$fileName.'.xls"');
+		header('Content-Disposition: attachment;filename="' . $fileName . '.' . strtolower($file_type) .'"');
 		header('Cache-Control: max-age=0');
 		// If you're serving to IE 9, then the following may be needed
 		header('Cache-Control: max-age=1');
@@ -1342,7 +1450,7 @@ abstract class CostbenefitprojectionHelper
 		header ('Cache-Control: cache, must-revalidate'); // HTTP/1.1
 		header ('Pragma: public'); // HTTP/1.0
 
-		$writer = IOFactory::createWriter($spreadsheet, 'Xls');
+		$writer = IOFactory::createWriter($spreadsheet, $file_type);
 		$writer->save('php://output');
 		jexit();
 	}

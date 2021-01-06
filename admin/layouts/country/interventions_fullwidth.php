@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		interventions_fullwidth.php
@@ -121,25 +121,25 @@ $can = CostbenefitprojectionHelper::getActions('intervention');
 		<td>
 			<?php echo $displayData->escape($item->duration); ?>
 		</td>
-		<?php if ($item->published == 1):?>
+		<?php if ($item->published == 1): ?>
 			<td class="center"  data-value="1">
 				<span class="status-metro status-published" title="<?php echo JText::_('COM_COSTBENEFITPROJECTION_PUBLISHED');  ?>">
 					<?php echo JText::_('COM_COSTBENEFITPROJECTION_PUBLISHED'); ?>
 				</span>
 			</td>
-		<?php elseif ($item->published == 0):?>
+		<?php elseif ($item->published == 0): ?>
 			<td class="center"  data-value="2">
 				<span class="status-metro status-inactive" title="<?php echo JText::_('COM_COSTBENEFITPROJECTION_INACTIVE');  ?>">
 					<?php echo JText::_('COM_COSTBENEFITPROJECTION_INACTIVE'); ?>
 				</span>
 			</td>
-		<?php elseif ($item->published == 2):?>
+		<?php elseif ($item->published == 2): ?>
 			<td class="center"  data-value="3">
 				<span class="status-metro status-archived" title="<?php echo JText::_('COM_COSTBENEFITPROJECTION_ARCHIVED');  ?>">
 					<?php echo JText::_('COM_COSTBENEFITPROJECTION_ARCHIVED'); ?>
 				</span>
 			</td>
-		<?php elseif ($item->published == -2):?>
+		<?php elseif ($item->published == -2): ?>
 			<td class="center"  data-value="4">
 				<span class="status-metro status-trashed" title="<?php echo JText::_('COM_COSTBENEFITPROJECTION_TRASHED');  ?>">
 					<?php echo JText::_('COM_COSTBENEFITPROJECTION_TRASHED'); ?>

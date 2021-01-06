@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		scaling_factors.php
@@ -63,7 +63,7 @@ class CostbenefitprojectionControllerScaling_factors extends JControllerAdmin
 			$input = JFactory::getApplication()->input;
 			$pks = $input->post->get('cid', array(), 'array');
 			// Sanitize the input
-			ArrayHelper::toInteger($pks);
+			$pks = ArrayHelper::toInteger($pks);
 			// Get the model
 			$model = $this->getModel('Scaling_factors');
 			// get the data to export

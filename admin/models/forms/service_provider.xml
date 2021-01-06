@@ -76,13 +76,20 @@
 			readonly="true"
 			filter="unset"
 		/>
+		<!-- Was added due to Permissions JS needing a Title field -->
+		<!-- Let us know at gh-629 should this change -->
+		<!-- https://github.com/vdm-io/Joomla-Component-Builder/issues/629#issuecomment-750117235 -->
+		<field
+			name="title"
+			type="hidden"
+			default="costbenefitprojection service_provider"
+		/>
 		<!-- Dynamic Fields. -->
 		<!-- User Field. Type: Serviceprovideruser. (custom) -->
 		<field
 			type="serviceprovideruser"
 			name="user"
 			label="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_USER_LABEL"
-			description="JFIELD_TITLE_DESC"
 			default=""
 			hint="COM_COSTBENEFITPROJECTION_SERVICE_PROVIDER_USER_HINT"
 		/>

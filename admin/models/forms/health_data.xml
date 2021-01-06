@@ -84,13 +84,20 @@
 			readonly="true"
 			filter="unset"
 		/>
+		<!-- Was added due to Permissions JS needing a Title field -->
+		<!-- Let us know at gh-629 should this change -->
+		<!-- https://github.com/vdm-io/Joomla-Component-Builder/issues/629#issuecomment-750117235 -->
+		<field
+			name="title"
+			type="hidden"
+			default="costbenefitprojection health_data"
+		/>
 		<!-- Dynamic Fields. -->
 		<!-- Causerisk Field. Type: Causesrisks. (custom) -->
 		<field
 			type="causesrisks"
 			name="causerisk"
 			label="COM_COSTBENEFITPROJECTION_HEALTH_DATA_CAUSERISK_LABEL"
-			description="JFIELD_TITLE_DESC"
 			class="list_class span12"
 			multiple="false"
 			default="0"

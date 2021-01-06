@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		health_data_sets.php
@@ -63,7 +63,7 @@ class CostbenefitprojectionControllerHealth_data_sets extends JControllerAdmin
 			$input = JFactory::getApplication()->input;
 			$pks = $input->post->get('cid', array(), 'array');
 			// Sanitize the input
-			ArrayHelper::toInteger($pks);
+			$pks = ArrayHelper::toInteger($pks);
 			// Get the model
 			$model = $this->getModel('Health_data_sets');
 			// get the data to export
@@ -112,5 +112,48 @@ class CostbenefitprojectionControllerHealth_data_sets extends JControllerAdmin
 		$message = JText::_('COM_COSTBENEFITPROJECTION_IMPORT_FAILED');
 		$this->setRedirect(JRoute::_('index.php?option=com_costbenefitprojection&view=health_data_sets', false), $message, 'error');
 		return;
+	}
+
+
+	/**
+	 * get a bulk export of health_data_sets
+	 */
+	public function getBulkExport()
+	{
+		// Check for request forgeries
+		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
+		// check if export is allowed for this user.
+		$user = JFactory::getUser();
+		$status = 'error';
+		if ($user->authorise('health_data.bulk_export', 'com_costbenefitprojection'))
+		{
+			// Get the model
+			$model = $this->getModel('Health_data_sets');
+			// get the data
+			if (($data = $model->getBulkExport()) !== false)
+			{
+				// now set the data to the spreadsheet
+				$date = JFactory::getDate();
+				try
+				{
+					CostbenefitprojectionHelper::xls($data, 'Health_data_sets_' . $date->format('jS_F_Y'), 'Health_data_sets exported (' . $date->format('jS F, Y') . ')', 'health_data_sets');
+				}
+				catch (\RuntimeException $e)
+				{
+					jexit('Error: ' . $e->getMessage());
+				}
+			}
+			else
+			{
+				// Set error message
+				$message = JText::_('COM_COSTBENEFITPROJECTION_BULK_EXPORT_OF_HEALTH_DATA_SETS_FAILED_SHOULD_THIS_ISSUE_CONTINUE_PLEASE_INFORM_YOUR_SYSTEM_ADMINISTRATOR');
+			}
+		}
+		else
+		{
+			// Set error message
+			$message = JText::_('COM_COSTBENEFITPROJECTION_YOU_DO_NOT_HAVE_PERMISSION_TO_DO_A_BULK_EXPORT_OF_HEALTH_DATA_SETS');
+		}
+		$this->setRedirect(JRoute::_('index.php?option=com_costbenefitprojection&view=health_data_sets', false), $message, $status);
 	}
 }

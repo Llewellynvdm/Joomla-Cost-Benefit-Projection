@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -19,6 +19,7 @@
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
+
 JHtml::_('behavior.tabstate');
 
 // Access check.

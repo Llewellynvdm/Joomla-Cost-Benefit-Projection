@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		companyresults.php
@@ -203,7 +203,7 @@ class CostbenefitprojectionModelCompanyresults extends JModelItem
 				if ($e->getCode() == 404)
 				{
 					// Need to go thru the error handler to allow Redirect to work.
-					JError::raiseWaring(404, $e->getMessage());
+					JError::raiseWarning(404, $e->getMessage());
 				}
 				else
 				{

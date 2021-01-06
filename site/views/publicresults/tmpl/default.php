@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default.php
@@ -20,6 +20,8 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
+
+
 // set the active tabs based on interventions
 if (isset($this->results->interventions) && CostbenefitprojectionHelper::checkArray($this->results->interventions))
 {
@@ -31,7 +33,6 @@ else
 	$savings = '';
 	$details = 'uk-active ';
 }
-
 ?>
 <div class="uk-clearfix"><div class="uk-float-right"><?php echo $this->toolbar->render(); ?></div></div>
 <div id="loading" style="height:300px; width:100%">

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -186,8 +186,6 @@ class CostbenefitprojectionViewCpanel extends JViewLegacy
 	 */
 	protected function addToolBar()
 	{
-		// adding the joomla toolbar to the front
-		JLoader::register('JToolbarHelper', JPATH_ADMINISTRATOR.'/includes/toolbar.php');
 		
 		// set help url for this view if found
 		$help_url = CostbenefitprojectionHelper::getHelpUrl('cpanel');
@@ -215,7 +213,7 @@ class CostbenefitprojectionViewCpanel extends JViewLegacy
 		{
 			// this is where you want to load your module position
 			$modules = JModuleHelper::getModules($position);
-			if ($modules)
+			if (CostbenefitprojectionHelper::checkArray($modules, true))
 			{
 				// set the place holder
 				$this->setModules[$position] = array();

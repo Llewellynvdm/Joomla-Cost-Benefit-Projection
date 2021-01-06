@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		companies.php
@@ -34,25 +34,32 @@ class CostbenefitprojectionModelCompanies extends JModelList
 			$config['filter_fields'] = array(
 				'a.id','id',
 				'a.published','published',
+				'a.access','access',
 				'a.ordering','ordering',
 				'a.created_by','created_by',
 				'a.modified_by','modified_by',
-				'a.name','name',
-				'g.name',
 				'a.department','department',
-				'h.name',
-				'i.user',
-				'a.per','per'
+				'h.name','country',
+				'i.user','service_provider',
+				'a.per','per',
+				'a.name','name',
+				'g.name','user'
 			);
 		}
 
 		parent::__construct($config);
 	}
-	
+
 	/**
 	 * Method to auto-populate the model state.
 	 *
+	 * Note. Calling getState in this method will result in recursion.
+	 *
+	 * @param   string  $ordering   An optional ordering field.
+	 * @param   string  $direction  An optional direction (asc|desc).
+	 *
 	 * @return  void
+	 *
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
@@ -63,11 +70,24 @@ class CostbenefitprojectionModelCompanies extends JModelList
 		{
 			$this->context .= '.' . $layout;
 		}
-		$name = $this->getUserStateFromRequest($this->context . '.filter.name', 'filter_name');
-		$this->setState('filter.name', $name);
 
-		$user = $this->getUserStateFromRequest($this->context . '.filter.user', 'filter_user');
-		$this->setState('filter.user', $user);
+		$access = $this->getUserStateFromRequest($this->context . '.filter.access', 'filter_access', 0, 'int');
+		$this->setState('filter.access', $access);
+
+		$published = $this->getUserStateFromRequest($this->context . '.filter.published', 'filter_published', '');
+		$this->setState('filter.published', $published);
+
+		$created_by = $this->getUserStateFromRequest($this->context . '.filter.created_by', 'filter_created_by', '');
+		$this->setState('filter.created_by', $created_by);
+
+		$created = $this->getUserStateFromRequest($this->context . '.filter.created', 'filter_created');
+		$this->setState('filter.created', $created);
+
+		$sorting = $this->getUserStateFromRequest($this->context . '.filter.sorting', 'filter_sorting', 0, 'int');
+		$this->setState('filter.sorting', $sorting);
+
+		$search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
+		$this->setState('filter.search', $search);
 
 		$department = $this->getUserStateFromRequest($this->context . '.filter.department', 'filter_department');
 		$this->setState('filter.department', $department);
@@ -80,24 +100,12 @@ class CostbenefitprojectionModelCompanies extends JModelList
 
 		$per = $this->getUserStateFromRequest($this->context . '.filter.per', 'filter_per');
 		$this->setState('filter.per', $per);
-        
-		$sorting = $this->getUserStateFromRequest($this->context . '.filter.sorting', 'filter_sorting', 0, 'int');
-		$this->setState('filter.sorting', $sorting);
-        
-		$access = $this->getUserStateFromRequest($this->context . '.filter.access', 'filter_access', 0, 'int');
-		$this->setState('filter.access', $access);
-        
-		$search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
-		$this->setState('filter.search', $search);
 
-		$published = $this->getUserStateFromRequest($this->context . '.filter.published', 'filter_published', '');
-		$this->setState('filter.published', $published);
-        
-		$created_by = $this->getUserStateFromRequest($this->context . '.filter.created_by', 'filter_created_by', '');
-		$this->setState('filter.created_by', $created_by);
+		$name = $this->getUserStateFromRequest($this->context . '.filter.name', 'filter_name');
+		$this->setState('filter.name', $name);
 
-		$created = $this->getUserStateFromRequest($this->context . '.filter.created', 'filter_created');
-		$this->setState('filter.created', $created);
+		$user = $this->getUserStateFromRequest($this->context . '.filter.user', 'filter_user');
+		$this->setState('filter.user', $user);
 
 		// List state information.
 		parent::populateState($ordering, $direction);
@@ -253,9 +261,17 @@ class CostbenefitprojectionModelCompanies extends JModelList
 		$query->select('ag.title AS access_level');
 		$query->join('LEFT', '#__viewlevels AS ag ON ag.id = a.access');
 		// Filter by access level.
-		if ($access = $this->getState('filter.access'))
+		$_access = $this->getState('filter.access');
+		if ($_access && is_numeric($_access))
 		{
-			$query->where('a.access = ' . (int) $access);
+			$query->where('a.access = ' . (int) $_access);
+		}
+		elseif (CostbenefitprojectionHelper::checkArray($_access))
+		{
+			// Secure the array for the query
+			$_access = ArrayHelper::toInteger($_access);
+			// Filter by the Access Array.
+			$query->where('a.access IN (' . implode(',', $_access) . ')');
 		}
 		// Implement View Level Access
 		if (!$user->authorise('core.options', 'com_costbenefitprojection'))
@@ -279,29 +295,77 @@ class CostbenefitprojectionModelCompanies extends JModelList
 		}
 
 		// Filter by Department.
-		if ($department = $this->getState('filter.department'))
+		$_department = $this->getState('filter.department');
+		if (is_numeric($_department))
 		{
-			$query->where('a.department = ' . $db->quote($db->escape($department)));
+			if (is_float($_department))
+			{
+				$query->where('a.department = ' . (float) $_department);
+			}
+			else
+			{
+				$query->where('a.department = ' . (int) $_department);
+			}
 		}
-		// Filter by country.
-		if ($country = $this->getState('filter.country'))
+		elseif (CostbenefitprojectionHelper::checkString($_department))
 		{
-			$query->where('a.country = ' . $db->quote($db->escape($country)));
+			$query->where('a.department = ' . $db->quote($db->escape($_department)));
 		}
-		// Filter by service_provider.
-		if ($service_provider = $this->getState('filter.service_provider'))
+		// Filter by Country.
+		$_country = $this->getState('filter.country');
+		if (is_numeric($_country))
 		{
-			$query->where('a.service_provider = ' . $db->quote($db->escape($service_provider)));
+			if (is_float($_country))
+			{
+				$query->where('a.country = ' . (float) $_country);
+			}
+			else
+			{
+				$query->where('a.country = ' . (int) $_country);
+			}
+		}
+		elseif (CostbenefitprojectionHelper::checkString($_country))
+		{
+			$query->where('a.country = ' . $db->quote($db->escape($_country)));
+		}
+		// Filter by Service_provider.
+		$_service_provider = $this->getState('filter.service_provider');
+		if (is_numeric($_service_provider))
+		{
+			if (is_float($_service_provider))
+			{
+				$query->where('a.service_provider = ' . (float) $_service_provider);
+			}
+			else
+			{
+				$query->where('a.service_provider = ' . (int) $_service_provider);
+			}
+		}
+		elseif (CostbenefitprojectionHelper::checkString($_service_provider))
+		{
+			$query->where('a.service_provider = ' . $db->quote($db->escape($_service_provider)));
 		}
 		// Filter by Per.
-		if ($per = $this->getState('filter.per'))
+		$_per = $this->getState('filter.per');
+		if (is_numeric($_per))
 		{
-			$query->where('a.per = ' . $db->quote($db->escape($per)));
+			if (is_float($_per))
+			{
+				$query->where('a.per = ' . (float) $_per);
+			}
+			else
+			{
+				$query->where('a.per = ' . (int) $_per);
+			}
+		}
+		elseif (CostbenefitprojectionHelper::checkString($_per))
+		{
+			$query->where('a.per = ' . $db->quote($db->escape($_per)));
 		}
 
 		// Add the list ordering clause.
 		$orderCol = $this->state->get('list.ordering', 'a.id');
-		$orderDirn = $this->state->get('list.direction', 'asc');
+		$orderDirn = $this->state->get('list.direction', 'desc');
 		if ($orderCol != '')
 		{
 			$query->order($db->escape($orderCol . ' ' . $orderDirn));
@@ -321,7 +385,7 @@ class CostbenefitprojectionModelCompanies extends JModelList
 	public function getExportData($pks, $user = null)
 	{
 		// setup the query
-		if (CostbenefitprojectionHelper::checkArray($pks))
+		if (($pks_size = CostbenefitprojectionHelper::checkArray($pks)) !== false || 'bulk' === $pks)
 		{
 			// Set a value to know this is export method. (USE IN CUSTOM CODE TO ALTER OUTCOME)
 			$_export = true;
@@ -339,7 +403,24 @@ class CostbenefitprojectionModelCompanies extends JModelList
 
 			// From the costbenefitprojection_company table
 			$query->from($db->quoteName('#__costbenefitprojection_company', 'a'));
-			$query->where('a.id IN (' . implode(',',$pks) . ')');
+			// The bulk export path
+			if ('bulk' === $pks)
+			{
+				$query->where('a.id > 0');
+			}
+			// A large array of ID's will not work out well
+			elseif ($pks_size > 500)
+			{
+				// Use lowest ID
+				$query->where('a.id >= ' . (int) min($pks));
+				// Use highest ID
+				$query->where('a.id <= ' . (int) max($pks));
+			}
+			// The normal default path
+			else
+			{
+				$query->where('a.id IN (' . implode(',',$pks) . ')');
+			}
 
 			// Filter by companies (admin sees all)
 		if (!$user->authorise('core.options', 'com_costbenefitprojection'))
@@ -489,15 +570,16 @@ class CostbenefitprojectionModelCompanies extends JModelList
 		$id .= ':' . $this->getState('filter.id');
 		$id .= ':' . $this->getState('filter.search');
 		$id .= ':' . $this->getState('filter.published');
+		$id .= ':' . $this->getState('filter.access');
 		$id .= ':' . $this->getState('filter.ordering');
 		$id .= ':' . $this->getState('filter.created_by');
 		$id .= ':' . $this->getState('filter.modified_by');
-		$id .= ':' . $this->getState('filter.name');
-		$id .= ':' . $this->getState('filter.user');
 		$id .= ':' . $this->getState('filter.department');
 		$id .= ':' . $this->getState('filter.country');
 		$id .= ':' . $this->getState('filter.service_provider');
 		$id .= ':' . $this->getState('filter.per');
+		$id .= ':' . $this->getState('filter.name');
+		$id .= ':' . $this->getState('filter.user');
 
 		return parent::getStoreId($id);
 	}

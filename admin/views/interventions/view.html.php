@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -44,8 +44,8 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 		$this->user = JFactory::getUser();
 		// Add the list ordering clause.
 		$this->listOrder = $this->escape($this->state->get('list.ordering', 'a.id'));
-		$this->listDirn = $this->escape($this->state->get('list.direction', 'asc'));
-		$this->saveOrder = $this->listOrder == 'ordering';
+		$this->listDirn = $this->escape($this->state->get('list.direction', 'DESC'));
+		$this->saveOrder = $this->listOrder == 'a.ordering';
 		// set the return here value
 		$this->return_here = urlencode(base64_encode((string) JUri::getInstance()));
 		// get global action permissions
@@ -162,36 +162,13 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 			JToolBarHelper::preferences('com_costbenefitprojection');
 		}
 
+		// Only load publish filter if state change is allowed
 		if ($this->canState)
 		{
 			JHtmlSidebar::addFilter(
 				JText::_('JOPTION_SELECT_PUBLISHED'),
 				'filter_published',
 				JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.published'), true)
-			);
-			// only load if batch allowed
-			if ($this->canBatch)
-			{
-				JHtmlBatch_::addListSelection(
-					JText::_('COM_COSTBENEFITPROJECTION_KEEP_ORIGINAL_STATE'),
-					'batch[published]',
-					JHtml::_('select.options', JHtml::_('jgrid.publishedOptions', array('all' => false)), 'value', 'text', '', true)
-				);
-			}
-		}
-
-		JHtmlSidebar::addFilter(
-			JText::_('JOPTION_SELECT_ACCESS'),
-			'filter_access',
-			JHtml::_('select.options', JHtml::_('access.assetgroups'), 'value', 'text', $this->state->get('filter.access'))
-		);
-
-		if ($this->canBatch && $this->canCreate && $this->canEdit)
-		{
-			JHtmlBatch_::addListSelection(
-				JText::_('COM_COSTBENEFITPROJECTION_KEEP_ORIGINAL_ACCESS'),
-				'batch[access]',
-				JHtml::_('select.options', JHtml::_('access.assetgroups'), 'value', 'text')
 			);
 		}
 
@@ -209,20 +186,10 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 		{
 			// Company Name Filter
 			JHtmlSidebar::addFilter(
-				'- Select '.JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_COMPANY_LABEL').' -',
+				'- Select ' . JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_COMPANY_LABEL') . ' -',
 				'filter_company',
 				JHtml::_('select.options', $this->companyNameOptions, 'value', 'text', $this->state->get('filter.company'))
 			);
-
-			if ($this->canBatch && $this->canCreate && $this->canEdit)
-			{
-				// Company Name Batch Selection
-				JHtmlBatch_::addListSelection(
-					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_COMPANY_LABEL').' -',
-					'batch[company]',
-					JHtml::_('select.options', $this->companyNameOptions, 'value', 'text')
-				);
-			}
 		}
 
 		// Set Type Selection
@@ -243,16 +210,6 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 				'filter_type',
 				JHtml::_('select.options', $this->typeOptions, 'value', 'text', $this->state->get('filter.type'))
 			);
-
-			if ($this->canBatch && $this->canCreate && $this->canEdit)
-			{
-				// Type Batch Selection
-				JHtmlBatch_::addListSelection(
-					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_TYPE_LABEL').' -',
-					'batch[type]',
-					JHtml::_('select.options', $this->typeOptions, 'value', 'text')
-				);
-			}
 		}
 
 		// Set Coverage Selection
@@ -273,16 +230,6 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 				'filter_coverage',
 				JHtml::_('select.options', $this->coverageOptions, 'value', 'text', $this->state->get('filter.coverage'))
 			);
-
-			if ($this->canBatch && $this->canCreate && $this->canEdit)
-			{
-				// Coverage Batch Selection
-				JHtmlBatch_::addListSelection(
-					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_COVERAGE_LABEL').' -',
-					'batch[coverage]',
-					JHtml::_('select.options', $this->coverageOptions, 'value', 'text')
-				);
-			}
 		}
 
 		// Set Duration Selection
@@ -303,16 +250,60 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 				'filter_duration',
 				JHtml::_('select.options', $this->durationOptions, 'value', 'text', $this->state->get('filter.duration'))
 			);
+		}
 
-			if ($this->canBatch && $this->canCreate && $this->canEdit)
-			{
-				// Duration Batch Selection
-				JHtmlBatch_::addListSelection(
-					'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_DURATION_LABEL').' -',
-					'batch[duration]',
-					JHtml::_('select.options', $this->durationOptions, 'value', 'text')
-				);
-			}
+		// Only load published batch if state and batch is allowed
+		if ($this->canState && $this->canBatch)
+		{
+			JHtmlBatch_::addListSelection(
+				JText::_('COM_COSTBENEFITPROJECTION_KEEP_ORIGINAL_STATE'),
+				'batch[published]',
+				JHtml::_('select.options', JHtml::_('jgrid.publishedOptions', array('all' => false)), 'value', 'text', '', true)
+			);
+		}
+
+		// Only load Company Name batch if create, edit, and batch is allowed
+		if ($this->canBatch && $this->canCreate && $this->canEdit)
+		{
+			// Company Name Batch Selection
+			JHtmlBatch_::addListSelection(
+				'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_COMPANY_LABEL').' -',
+				'batch[company]',
+				JHtml::_('select.options', $this->companyNameOptions, 'value', 'text')
+			);
+		}
+
+		// Only load Type batch if create, edit, and batch is allowed
+		if ($this->canBatch && $this->canCreate && $this->canEdit)
+		{
+			// Type Batch Selection
+			JHtmlBatch_::addListSelection(
+				'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_TYPE_LABEL').' -',
+				'batch[type]',
+				JHtml::_('select.options', $this->typeOptions, 'value', 'text')
+			);
+		}
+
+		// Only load Coverage batch if create, edit, and batch is allowed
+		if ($this->canBatch && $this->canCreate && $this->canEdit)
+		{
+			// Coverage Batch Selection
+			JHtmlBatch_::addListSelection(
+				'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_COVERAGE_LABEL').' -',
+				'batch[coverage]',
+				JHtml::_('select.options', $this->coverageOptions, 'value', 'text')
+			);
+		}
+
+		// Only load Duration batch if create, edit, and batch is allowed
+		if ($this->canBatch && $this->canCreate && $this->canEdit)
+		{
+			// Duration Batch Selection
+			JHtmlBatch_::addListSelection(
+				'- Keep Original '.JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_DURATION_LABEL').' -',
+				'batch[duration]',
+				JHtml::_('select.options', $this->durationOptions, 'value', 'text')
+			);
 		}
 	}
 
@@ -357,7 +348,7 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 	protected function getSortFields()
 	{
 		return array(
-			'ordering' => JText::_('JGRID_HEADING_ORDERING'),
+			'a.ordering' => JText::_('JGRID_HEADING_ORDERING'),
 			'a.published' => JText::_('JSTATUS'),
 			'a.name' => JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_NAME_LABEL'),
 			'g.name' => JText::_('COM_COSTBENEFITPROJECTION_INTERVENTION_COMPANY_LABEL'),
@@ -386,13 +377,13 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 		$db->setQuery($query);
 
 		$results = $db->loadColumn();
+		$_filter = array();
 
 		if ($results)
 		{
 			// get model
 			$model = $this->getModel();
 			$results = array_unique($results);
-			$_filter = array();
 			foreach ($results as $type)
 			{
 				// Translate the type selection
@@ -400,9 +391,8 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 				// Now add the type and its text to the options array
 				$_filter[] = JHtml::_('select.option', $type, JText::_($text));
 			}
-			return $_filter;
 		}
-		return false;
+		return $_filter;
 	}
 
 	protected function getTheCoverageSelections()
@@ -422,19 +412,18 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 		$db->setQuery($query);
 
 		$results = $db->loadColumn();
+		$_filter = array();
 
 		if ($results)
 		{
 			$results = array_unique($results);
-			$_filter = array();
 			foreach ($results as $coverage)
 			{
 				// Now add the coverage and its text to the options array
 				$_filter[] = JHtml::_('select.option', $coverage, $coverage);
 			}
-			return $_filter;
 		}
-		return false;
+		return $_filter;
 	}
 
 	protected function getTheDurationSelections()
@@ -454,18 +443,17 @@ class CostbenefitprojectionViewInterventions extends JViewLegacy
 		$db->setQuery($query);
 
 		$results = $db->loadColumn();
+		$_filter = array();
 
 		if ($results)
 		{
 			$results = array_unique($results);
-			$_filter = array();
 			foreach ($results as $duration)
 			{
 				// Now add the duration and its text to the options array
 				$_filter[] = JHtml::_('select.option', $duration, $duration);
 			}
-			return $_filter;
 		}
-		return false;
+		return $_filter;
 	}
 }

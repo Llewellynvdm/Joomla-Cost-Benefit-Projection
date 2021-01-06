@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		ajax.php
@@ -242,7 +242,7 @@ public function getInterventionBuildTable($idName,$oject,$cluster)
 	public function isNew($notice)
 	{
 		// first get the file path
-		$path_filename = CostbenefitprojectionHelper::getFilePath('user', 'notice', JFactory::getUser()->username, $fileType = '.md', JPATH_COMPONENT_ADMINISTRATOR);
+		$path_filename = CostbenefitprojectionHelper::getFilePath('path', 'usernotice', 'md', JFactory::getUser()->username, JPATH_COMPONENT_ADMINISTRATOR);
 		// check if the file is set
 		if (($content = @file_get_contents($path_filename)) !== FALSE)
 		{
@@ -260,7 +260,7 @@ public function getInterventionBuildTable($idName,$oject,$cluster)
 	public function isRead($notice)
 	{
 		// first get the file path
-		$path_filename = CostbenefitprojectionHelper::getFilePath('user', 'notice', JFactory::getUser()->username, $fileType = '.md', JPATH_COMPONENT_ADMINISTRATOR);
+		$path_filename = CostbenefitprojectionHelper::getFilePath('path', 'usernotice', 'md', JFactory::getUser()->username, JPATH_COMPONENT_ADMINISTRATOR);
 		// set as read if not already set
 		if (($content = @file_get_contents($path_filename)) !== FALSE)
 		{

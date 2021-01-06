@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -109,8 +109,8 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 							$viewName 	= $name;
 							$alt 		= $name;
 							$url 		= $url;
-							$image 		= $name.'.'.$type;
-							$name 		= 'COM_COSTBENEFITPROJECTION_DASHBOARD_'.CostbenefitprojectionHelper::safeString($name,'U');
+							$image 		= $name . '.' . $type;
+							$name 		= 'COM_COSTBENEFITPROJECTION_DASHBOARD_' . CostbenefitprojectionHelper::safeString($name,'U');
 						}
 					}
 					// internal views
@@ -132,17 +132,27 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 							switch($action)
 							{
 								case 'add':
-									$url 	= 'index.php?option=com_costbenefitprojection&view='.$name.'&layout=edit';
-									$image 	= $name.'_'.$action.'.'.$type;
-									$alt 	= $name.'&nbsp;'.$action;
+									$url	= 'index.php?option=com_costbenefitprojection&view=' . $name . '&layout=edit';
+									$image	= $name . '_' . $action.  '.' . $type;
+									$alt	= $name . '&nbsp;' . $action;
 									$name	= 'COM_COSTBENEFITPROJECTION_DASHBOARD_'.CostbenefitprojectionHelper::safeString($name,'U').'_ADD';
 									$add	= true;
 								break;
 								default:
-									$url 	= 'index.php?option=com_categories&view=categories&extension=com_costbenefitprojection.'.$name;
-									$image 	= $name.'_'.$action.'.'.$type;
-									$alt 	= $name.'&nbsp;'.$action;
-									$name	= 'COM_COSTBENEFITPROJECTION_DASHBOARD_'.CostbenefitprojectionHelper::safeString($name,'U').'_'.CostbenefitprojectionHelper::safeString($action,'U');
+									// check for new convention (more stable)
+									if (strpos($action, '_qpo0O0oqp_') !== false)
+									{
+										list($action, $extension) = (array) explode('_qpo0O0oqp_', $action);
+										$extension = str_replace('_po0O0oq_', '.', $extension);
+									}
+									else
+									{
+										$extension = 'com_costbenefitprojection.' . $name;
+									}
+									$url	= 'index.php?option=com_categories&view=categories&extension=' . $extension;
+									$image	= $name . '_' . $action . '.' . $type;
+									$alt	= $viewName . '&nbsp;' . $action;
+									$name	= 'COM_COSTBENEFITPROJECTION_DASHBOARD_' . CostbenefitprojectionHelper::safeString($name,'U') . '_' . CostbenefitprojectionHelper::safeString($action,'U');
 								break;
 							}
 						}
@@ -150,9 +160,9 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 						{
 							$viewName 	= $name;
 							$alt 		= $name;
-							$url 		= 'index.php?option=com_costbenefitprojection&view='.$name;
-							$image 		= $name.'.'.$type;
-							$name 		= 'COM_COSTBENEFITPROJECTION_DASHBOARD_'.CostbenefitprojectionHelper::safeString($name,'U');
+							$url 		= 'index.php?option=com_costbenefitprojection&view=' . $name;
+							$image 		= $name . '.' . $type;
+							$name 		= 'COM_COSTBENEFITPROJECTION_DASHBOARD_' . CostbenefitprojectionHelper::safeString($name,'U');
 							$hover		= false;
 						}
 					}
@@ -160,8 +170,8 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 					{
 						$viewName 	= $view;
 						$alt 		= $view;
-						$url 		= 'index.php?option=com_costbenefitprojection&view='.$view;
-						$image 		= $view.'.png';
+						$url 		= 'index.php?option=com_costbenefitprojection&view=' . $view;
+						$image 		= $view . '.png';
 						$name 		= ucwords($view).'<br /><br />';
 						$hover		= false;
 					}
@@ -173,7 +183,7 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 						$dashboard_list = false;
 						$accessTo = '';
 						$accessAdd = '';
-						// acces checking start
+						// access checking start
 						$accessCreate = (isset($viewAccess[$viewName.'.create'])) ? CostbenefitprojectionHelper::checkString($viewAccess[$viewName.'.create']):false;
 						$accessAccess = (isset($viewAccess[$viewName.'.access'])) ? CostbenefitprojectionHelper::checkString($viewAccess[$viewName.'.access']):false;
 						// set main controllers
@@ -188,7 +198,7 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 						{
 							$accessAdd = 'core.create';
 						}
-						// check if acces to view is set
+						// check if access to view is set
 						if ($accessAccess)
 						{
 							$accessTo = $viewAccess[$viewName.'.access'];
@@ -598,117 +608,105 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 
 	public function getGithub()
 	{
+		// load jquery (not sure why... but else the timeago breaks)
+		JHtml::_('jquery.framework');
+		// get the document to load the scripts
 		$document = JFactory::getDocument();
-		$document->addScript(JURI::root() . "media/com_costbenefitprojection/js/marked.js");
+		$document->addScript(JURI::root() . "media/com_costbenefitprojection/js/timeago.js");
 		$document->addScriptDeclaration('
-		var token = "'.JSession::getFormToken().'";
-		var urlToGetAllOpenIssues = "https://api.github.com/repos/namibia/CBP-Joomla-3-Component/issues?state=open&page=1&per_page=5";
-		var urlToGetAllClosedIssues = "https://api.github.com/repos/namibia/CBP-Joomla-3-Component/issues?state=closed&page=1&per_page=5";
+		var urlToGetAllOpenIssues = "https://api.github.com/repos/Llewellynvdm/Joomla-Cost-Benefit-Projection/issues?state=open&page=1&per_page=5";
+		var urlToGetAllClosedIssues = "https://api.github.com/repos/Llewellynvdm/Joomla-Cost-Benefit-Projection/issues?state=closed&page=1&per_page=5";
+		var urlToGetAllReleases = "https://api.github.com/repos/Llewellynvdm/Joomla-Cost-Benefit-Projection/releases?page=1&per_page=5";
 		jQuery(document).ready(function () {
 			jQuery.getJSON(urlToGetAllOpenIssues, function (openissues) {
 				jQuery("#openissues").html("");
 				jQuery.each(openissues, function (i, issue) {
+					// set time ago
+					var timeago = jQuery.timeago(new Date(issue.created_at)); 
 					jQuery("#openissues")
             				.append("<h3><a href=\"" + issue.html_url + "\" target=\"_blank\">" + issue.title + "</a></h3>")
-            				.append("<small><em>#" + issue.number + " '.JText::_('COM_COSTBENEFITPROJECTION_OPENED_BY').' " + issue.user.login + "<em></small>")
+					.append("<img alt=\"@" + issue.user.login + "\" style=\"vertical-align: baseline;\" src=\"" + issue.user.avatar_url +"&amp;s=60\" width=\"30\" height=\"30\"> ")
+            				.append("<em><a href=\"" + issue.user.html_url + "\" target=\"_blank\">" + issue.user.login + "</a> '.JText::_('COM_COSTBENEFITPROJECTION_OPENED_THIS').' <a href=\"" + issue.html_url + "\" target=\"_blank\">'.JText::_('COM_COSTBENEFITPROJECTION_ISSUE').'-" + issue.number + "</a> (" + timeago + ")</em> ")
             				.append(marked(issue.body))
-            				.append("<a href=\"" + issue.html_url + "\" target=\"_blank\">'.JText::_('COM_COSTBENEFITPROJECTION_RESPOND_TO_THIS_ISSUE_ON_GITHUB').'</a>...<hr />");
+            				.append("<a href=\"" + issue.html_url + "\" target=\"_blank\"><span class=\'icon-new-tab\'></span>'.JText::_('COM_COSTBENEFITPROJECTION_RESPOND_TO_THIS_ISSUE_ON_GITHUB').'</a>...<hr />");
     				});
 			});
 			jQuery.getJSON(urlToGetAllClosedIssues, function (closedissues) {
 				jQuery("#closedissues").html("");
 				jQuery.each(closedissues, function (i, issue) {
+					// set time ago
+					var timeago = jQuery.timeago(new Date(issue.created_at)); 
 					jQuery("#closedissues")
             				.append("<h3><a href=\"" + issue.html_url + "\" target=\"_blank\">" + issue.title + "</a></h3>")
-            				.append("<small><em>#" + issue.number + " '.JText::_('COM_COSTBENEFITPROJECTION_OPENED_BY').' " + issue.user.login + "<em></small>")
+					.append("<img alt=\"@" + issue.user.login + "\" style=\"vertical-align: baseline;\" src=\"" + issue.user.avatar_url +"&amp;s=60\" width=\"30\" height=\"30\"> ")
+            				.append("<em><a href=\"" + issue.user.html_url + "\" target=\"_blank\">" + issue.user.login + "</a> '.JText::_('COM_COSTBENEFITPROJECTION_OPENED').' <a href=\"" + issue.html_url + "\" target=\"_blank\">'.JText::_('COM_COSTBENEFITPROJECTION_ISSUE').'-" + issue.number + "</a> (" + timeago + ")</em>")
             				.append(marked(issue.body))
-            				.append("<a href=\"" + issue.html_url + "\" target=\"_blank\">'.JText::_('COM_COSTBENEFITPROJECTION_REVIEW_THIS_ISSUE_ON_GITHUB').'</a>...<hr />");
+            				.append("<a href=\"" + issue.html_url + "\" target=\"_blank\"><span class=\'icon-new-tab\'></span>'.JText::_('COM_COSTBENEFITPROJECTION_REVIEW_THIS_ISSUE_ON_GITHUB').'</a>...<hr />");
     				});
 			});
-		});
-		// to check is READ/NEW
-		function getIS(type,notice){
-			if(type == 1){
-				var getUrl = "index.php?option=com_costbenefitprojection&task=ajax.isNew&format=json";
-			} else if (type == 2) {
-				var getUrl = "index.php?option=com_costbenefitprojection&task=ajax.isRead&format=json";
-			}	
-			if(token.length > 0 && notice.length){
-				var request = "token="+token+"&notice="+notice;
-			}
-			return jQuery.ajax({
-				type: "POST",
-				url: getUrl,
-				dataType: "jsonp",
-				data: request,
-				jsonp: "callback"
-			});
-		}
-		// nice little dot trick :)
-		jQuery(document).ready( function($) {
-			var x=0;
-			setInterval(function() {
-				var dots = "";
-				x++;
-				for (var y=0; y < x%8; y++) {
-					dots+=".";
+			jQuery.getJSON(urlToGetAllReleases, function (tagreleases) {				
+				// set the update notice while we are at it
+				var activeVersion = tagreleases[0].tag_name.substring(1);
+				if (activeVersion === manifest.version) {
+					// local version is in sync with latest release
+					jQuery(".update-notice").html("<small><span style=\'color:green;\'><span class=\'icon-shield\'></span>'.JText::_('COM_COSTBENEFITPROJECTION_UP_TO_DATE').'</span></small>");
+				} else {
+					// split versions in to array
+					var activeVersionArray = activeVersion.split(".");
+					var localVersionArray = manifest.version.split(".");					
+					if ((+localVersionArray[0] > +activeVersionArray[0]) || 
+					(+localVersionArray[0] == +activeVersionArray[0] && +localVersionArray[1] > +activeVersionArray[1]) || 
+					(+localVersionArray[0] == +activeVersionArray[0] && +localVersionArray[1] == +activeVersionArray[1] && +localVersionArray[2] > +activeVersionArray[2])) {
+						// local version head latest release
+						jQuery(".update-notice").html("<small><span style=\'color:#F7B033;\'><span class=\'icon-wrench\'></span>'.JText::_('COM_COSTBENEFITPROJECTION_BETA_RELEASE').'</span></small>");
+					} else {
+						// local version behind latest release
+						jQuery(".update-notice").html("<small><span style=\'color:red;\'><span class=\'icon-warning-circle\'></span>'.JText::_('COM_COSTBENEFITPROJECTION_OUT_OF_DATE').'</span></small>");
+					}
 				}
-				$(".loading-dots").text(dots);
-			} , 500);
+				// set the taged releases
+				jQuery("#tagreleases").html("");
+				jQuery.each(tagreleases, function (i, tagrelease) {
+					// set active release
+					var activeNotice = "";
+					if (i === 0) {
+						var activeNotice = "<a class=\'btn btn-small btn-success\' href=\'https://github.com/Llewellynvdm/Joomla-Cost-Benefit-Projection/releases/latest\'><span class=\'icon-shield icon-white\'></span> '.JText::_('COM_COSTBENEFITPROJECTION_LATEST_RELEASE').'</a><br /><br />";
+					}
+					// set time ago
+					var timeago = jQuery.timeago(new Date(tagrelease.published_at)); 
+					jQuery("#tagreleases")
+            				.append("<h3><a href=\"" + tagrelease.html_url + "\" target=\"_blank\">" + tagrelease.name + "</a></h3>")
+					.append(activeNotice)
+					.append("<img alt=\"@" + tagrelease.author.login + "\" style=\"vertical-align: baseline;\" src=\"" + tagrelease.author.avatar_url +"&amp;s=60\" width=\"30\" height=\"30\"> ")
+            				.append("<em><a href=\"" + tagrelease.author.html_url + "\" target=\"_blank\">" + tagrelease.author.login + "</a> '.JText::_('COM_COSTBENEFITPROJECTION_RELEASED_THIS').'<em> <b><span class=\'icon-tag-2\'></span>" + tagrelease.tag_name+ "</b> (" + timeago + ")")
+            				.append(marked(tagrelease.body))
+            				.append(" <a class=\"hasTooltip\" href=\"" + tagrelease.assets[0].browser_download_url + "\" title=\"'.JText::_('COM_COSTBENEFITPROJECTION_DOWNLOAD').' " + tagrelease.assets[0].name + "\" target=\"_self\"><span class=\'icon-download\'></span>" + tagrelease.assets[0].name + "</a> (<a class=\"hasTooltip\" href=\"" + tagrelease.assets[0].browser_download_url + "\" title=\"'.JText::_('COM_COSTBENEFITPROJECTION_TOTAL_DOWNLOADS').'\"><small>" + tagrelease.assets[0].download_count + "</small></a>) ")
+            				.append("| <a href=\"" + tagrelease.html_url + "\" target=\"_blank\" title=\"'.JText::_('COM_COSTBENEFITPROJECTION_OPEN').' " + tagrelease.name + " '.JText::_('COM_COSTBENEFITPROJECTION_ON_GITHUB').'\"><span class=\'icon-new-tab\'></span>'.JText::_('COM_COSTBENEFITPROJECTION_OPEN_ON_GITHUB').'</a>...<hr />");
+    				});
+			});
 		});');
 		$create = '<div class="btn-group pull-right">
-					<a href="https://github.com/namibia/CBP-Joomla-3-Component/issues/new" class="btn btn-primary"  target="_blank">'.JText::_('COM_COSTBENEFITPROJECTION_NEW_ISSUE').'</a>
+					<a href="https://github.com/Llewellynvdm/Joomla-Cost-Benefit-Projection/issues/new" class="btn btn-primary"  target="_blank">'.JText::_('COM_COSTBENEFITPROJECTION_NEW_ISSUE').'</a>
 				</div></br >';
-		$moreopen = '<b><a href="https://github.com/namibia/CBP-Joomla-3-Component/issues" target="_blank">'.JText::_('COM_COSTBENEFITPROJECTION_VIEW_MORE_ISSUES_ON_GITHUB').'</a>...</b>';
-		$moreclosed = '<b><a href="https://github.com/namibia/CBP-Joomla-3-Component/issues?q=is%3Aissue+is%3Aclosed" target="_blank">'.JText::_('COM_COSTBENEFITPROJECTION_VIEW_MORE_ISSUES_ON_GITHUB').'</a>...</b>';
+		$moreopen = '<b><a href="https://github.com/Llewellynvdm/Joomla-Cost-Benefit-Projection/issues" target="_blank">'.JText::_('COM_COSTBENEFITPROJECTION_VIEW_MORE_ISSUES_ON_GITHUB').'</a>...</b> ';
+		$moreclosed = '<b><a href="https://github.com/Llewellynvdm/Joomla-Cost-Benefit-Projection/issues?q=is%3Aissue+is%3Aclosed" target="_blank">'.JText::_('COM_COSTBENEFITPROJECTION_VIEW_MORE_ISSUES_ON_GITHUB').'</a>...</b> ';
+		$viewissues = '<b><a href="https://github.com/Llewellynvdm/Joomla-Cost-Benefit-Projection/releases" target="_blank">'.JText::_('COM_COSTBENEFITPROJECTION_VIEW_MORE_RELEASES_ON_GITHUB').'</a>...</b> ';
 
 		return (object) array(
 				'openissues' => $create.'<div id="openissues">'.JText::_('COM_COSTBENEFITPROJECTION_A_FEW_OPEN_ISSUES_FROM_GITHUB_IS_LOADING').'.<span class="loading-dots">.</span></small></div>'.$moreopen, 
-				'closedissues' => $create.'<div id="closedissues">'.JText::_('COM_COSTBENEFITPROJECTION_A_FEW_CLOSED_ISSUES_FROM_GITHUB_IS_LOADING').'.<span class="loading-dots">.</span></small></div>'.$moreclosed
+				'closedissues' => $create.'<div id="closedissues">'.JText::_('COM_COSTBENEFITPROJECTION_A_FEW_CLOSED_ISSUES_FROM_GITHUB_IS_LOADING').'.<span class="loading-dots">.</span></small></div>'.$moreclosed,
+				'tagreleases' => '<div id="tagreleases">'.JText::_('COM_COSTBENEFITPROJECTION_LAST_FEW_RELEASES_FROM_GITHUB_IS_LOADING').'.<span class="loading-dots">.</span></small></div>'.$viewissues
 		);
-	}
-
-	public function getReadme()
-	{
-		$document = JFactory::getDocument();
-		$document->addScriptDeclaration('
-		var getreadme = "'. JURI::root() . 'administrator/components/com_costbenefitprojection/README.txt";
-		jQuery(document).ready(function () {
-			jQuery.get(getreadme)
-			.success(function(readme) { 
-				jQuery("#readme-md").html(marked(readme));
-			})
-			.error(function(jqXHR, textStatus, errorThrown) { 
-				jQuery("#readme-md").html("'.JText::_('COM_COSTBENEFITPROJECTION_PLEASE_CHECK_AGAIN_LATTER').'");
-			});
-		});');
-
-		return '<div id="readme-md">'.JText::_('COM_COSTBENEFITPROJECTION_THE_README_IS_LOADING').'.<span class="loading-dots">.</span></small></div>';
-	}
-
-	public function getWiki()
-	{
-		$document = JFactory::getDocument();
-		$document->addScriptDeclaration('
-		var gewiki = "https://raw.githubusercontent.com/wiki/namibia/CBP-Joomla-3-Component/Home.md";
-		jQuery(document).ready(function () {
-			jQuery.get(gewiki)
-			.success(function(wiki) { 
-				jQuery("#wiki-md").html(marked(wiki));
-			})
-			.error(function(jqXHR, textStatus, errorThrown) { 
-				jQuery("#wiki-md").html("'.JText::_('COM_COSTBENEFITPROJECTION_PLEASE_CHECK_AGAIN_LATTER').'");
-			});
-		});');
-
-		return '<div id="wiki-md">'.JText::_('COM_COSTBENEFITPROJECTION_THE_WIKI_IS_LOADING').'.<span class="loading-dots">.</span></small></div>';
 	}
 
 	public function getNoticeboard()
 	{
+		// get the document to load the scripts
 		$document = JFactory::getDocument();
+		$document->addScript(JURI::root() . "media/com_costbenefitprojection/js/marked.js");
 		$document->addScriptDeclaration('
-		var noticeboard = "https://www.vdm.io/costbenefitprojection-noticeboard-md";
+		var token = "'.JSession::getFormToken().'";
+		var noticeboard = "https://vdm.bz/costbenefitprojection-noticeboard-md";
 		jQuery(document).ready(function () {
 			jQuery.get(noticeboard)
 			.success(function(board) { 
@@ -717,7 +715,7 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 					getIS(1,board).done(function(result) {
 						if (result){
 							jQuery("#cpanel_tabTabs a").each(function() {
-								if (this.href.indexOf("#vast_development_method") >= 0) {
+								if (this.href.indexOf("#vast_development_method") >= 0 || this.href.indexOf("#notice_board") >= 0) {
 									var textVDM = jQuery(this).text();
 									jQuery(this).html("<span class=\"label label-important vdm-new-notice\">1</span> "+textVDM);
 									jQuery(this).attr("id","vdm-new-notice");
@@ -739,8 +737,57 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 			.error(function(jqXHR, textStatus, errorThrown) { 
 				jQuery("#noticeboard-md").html("'.JText::_('COM_COSTBENEFITPROJECTION_ALL_IS_GOOD_PLEASE_CHECK_AGAIN_LATTER').'");
 			});
-		});');
+		});
+		// to check is READ/NEW
+		function getIS(type,notice){
+			if(type == 1){
+				var getUrl = "index.php?option=com_costbenefitprojection&task=ajax.isNew&format=json&raw=true";
+			} else if (type == 2) {
+				var getUrl = "index.php?option=com_costbenefitprojection&task=ajax.isRead&format=json&raw=true";
+			}	
+			if(token.length > 0 && notice.length){
+				var request = "token="+token+"&notice="+notice;
+			}
+			return jQuery.ajax({
+				type: "POST",
+				url: getUrl,
+				dataType: "json",
+				data: request,
+				jsonp: false
+			});
+		}
+		
+// nice little dot trick :)
+jQuery(document).ready( function($) {
+  var x=0;
+  setInterval(function() {
+	var dots = "";
+	x++;
+	for (var y=0; y < x%8; y++) {
+		dots+=".";
+	}
+	$(".loading-dots").text(dots);
+  } , 500);
+});');
 
 		return '<div id="noticeboard-md">'.JText::_('COM_COSTBENEFITPROJECTION_THE_NOTICE_BOARD_IS_LOADING').'.<span class="loading-dots">.</span></small></div>';
+	}
+
+	public function getReadme()
+	{
+		$document = JFactory::getDocument();
+		$document->addScriptDeclaration('
+		var getreadme = "'. JURI::root() . 'administrator/components/com_costbenefitprojection/README.txt";
+		jQuery(document).ready(function () {
+			jQuery.get(getreadme)
+			.success(function(readme) { 
+				jQuery("#readme-md").html(marked(readme));
+			})
+			.error(function(jqXHR, textStatus, errorThrown) { 
+				jQuery("#readme-md").html("'.JText::_('COM_COSTBENEFITPROJECTION_PLEASE_CHECK_AGAIN_LATTER').'");
+			});
+		});');
+
+		return '<div id="readme-md"><small>'.JText::_('COM_COSTBENEFITPROJECTION_THE_README_IS_LOADING').'.<span class="loading-dots">.</span></small></div>';
 	}
 }

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			30th May, 2020
+	@build			6th January, 2021
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -51,7 +51,7 @@ $componentParams = $this->params; // will be removed just use $this->params inst
 	<?php $this->tab_name = 'health_dataTab'; ?>
 	<?php echo JLayoutHelper::render('joomla.edit.params', $this); ?>
 
-	<?php if ($this->canDo->get('health_data.delete') || $this->canDo->get('core.edit.created_by') || $this->canDo->get('health_data.edit.state') || $this->canDo->get('core.edit.created')) : ?>
+	<?php if ($this->canDo->get('core.edit.created_by') || $this->canDo->get('core.edit.created') || $this->canDo->get('health_data.edit.state') || ($this->canDo->get('health_data.delete') && $this->canDo->get('health_data.edit.state'))) : ?>
 	<?php echo JHtml::_('bootstrap.addTab', 'health_dataTab', 'publishing', JText::_('COM_COSTBENEFITPROJECTION_HEALTH_DATA_PUBLISHING', true)); ?>
 		<div class="row-fluid form-horizontal-desktop">
 			<div class="span6">

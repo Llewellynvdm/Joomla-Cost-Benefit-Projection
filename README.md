@@ -22,12 +22,12 @@ max_input_vars = 5000
 + *Author*: [Llewellyn van der Merwe](mailto:joomla@vdm.io)
 + *Name*: [Cost Benefit Projection](https://www.staffhealthcbp.com/)
 + *First Build*: 15th June, 2012
-+ *Last Build*: 30th May, 2020
++ *Last Build*: 6th January, 2021
 + *Version*: 3.4.x
 + *Copyright*: Copyright (C) 2015. All Rights Reserved
 + *License*: GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html
-+ *Line count*: **85996**
-+ *File count*: **585**
++ *Line count*: **86905**
++ *File count*: **587**
 + *Folder count*: **103**
 
 > This **component** was build with a Joomla [Automated Component Builder](https://www.vdm.io/joomla-component-builder).
