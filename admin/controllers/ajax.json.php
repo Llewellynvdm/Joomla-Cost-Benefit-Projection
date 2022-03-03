@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			6th January, 2021
+	@build			2nd March, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		ajax.json.php
@@ -32,8 +32,10 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 		parent::__construct($config);
 		// make sure all json stuff are set
 		JFactory::getDocument()->setMimeEncoding( 'application/json' );
-		JResponse::setHeader('Content-Disposition','attachment;filename="getajax.json"');
-		JResponse::setHeader("Access-Control-Allow-Origin", "*");
+		// get the application
+		$app = JFactory::getApplication();
+		$app->setHeader('Content-Disposition','attachment;filename="getajax.json"');
+		$app->setHeader('Access-Control-Allow-Origin', '*');
 		// load the tasks 
 		$this->registerTask('calculatedResult', 'ajax');
 		$this->registerTask('interventionBuildTable', 'ajax');
@@ -44,20 +46,26 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 
 	public function ajax()
 	{
+		// get the user for later use
 		$user 		= JFactory::getUser();
+		// get the input values
 		$jinput 	= JFactory::getApplication()->input;
+		// check if we should return raw
+		$returnRaw	= $jinput->get('raw', false, 'BOOLEAN');
+		// return to a callback function
+		$callback	= $jinput->get('callback', null, 'CMD');
 		// Check Token!
 		$token 		= JSession::getFormToken();
 		$call_token	= $jinput->get('token', 0, 'ALNUM');
 		if($jinput->get($token, 0, 'ALNUM') || $token === $call_token)
 		{
+			// get the task
 			$task = $this->getTask();
 			switch($task)
 			{
 				case 'calculatedResult':
 					try
 					{
-						$returnRaw = $jinput->get('raw', false, 'BOOLEAN');
 						$idValue = $jinput->get('id', NULL, 'INT');
 						$dataValue = $jinput->get('data', NULL, 'BASE64');
 						if($idValue && $dataValue)
@@ -68,7 +76,7 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 						{
 							$result = false;
 						}
-						if($callback = $jinput->get('callback', null, 'CMD'))
+						if($callback)
 						{
 							echo $callback . "(".json_encode($result).");";
 						}
@@ -83,9 +91,13 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 					}
 					catch(Exception $e)
 					{
-						if($callback = $jinput->get('callback', null, 'CMD'))
+						if($callback)
 						{
 							echo $callback."(".json_encode($e).");";
+						}
+						elseif($returnRaw)
+						{
+							echo json_encode($e);
 						}
 						else
 						{
@@ -96,7 +108,6 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 				case 'interventionBuildTable':
 					try
 					{
-						$returnRaw = $jinput->get('raw', false, 'BOOLEAN');
 						$idNameValue = $jinput->get('idName', NULL, 'CMD');
 						$ojectValue = $jinput->get('oject', NULL, 'STRING');
 						$clusterValue = $jinput->get('cluster', NULL, 'WORD');
@@ -108,7 +119,7 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 						{
 							$result = false;
 						}
-						if($callback = $jinput->get('callback', null, 'CMD'))
+						if($callback)
 						{
 							echo $callback . "(".json_encode($result).");";
 						}
@@ -123,9 +134,13 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 					}
 					catch(Exception $e)
 					{
-						if($callback = $jinput->get('callback', null, 'CMD'))
+						if($callback)
 						{
 							echo $callback."(".json_encode($e).");";
+						}
+						elseif($returnRaw)
+						{
+							echo json_encode($e);
 						}
 						else
 						{
@@ -136,7 +151,6 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 				case 'getClusterData':
 					try
 					{
-						$returnRaw = $jinput->get('raw', false, 'BOOLEAN');
 						$idNameValue = $jinput->get('idName', NULL, 'CMD');
 						$clusterValue = $jinput->get('cluster', NULL, 'STRING');
 						if($idNameValue && $user->id != 0 && $clusterValue)
@@ -147,7 +161,7 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 						{
 							$result = false;
 						}
-						if($callback = $jinput->get('callback', null, 'CMD'))
+						if($callback)
 						{
 							echo $callback . "(".json_encode($result).");";
 						}
@@ -162,9 +176,13 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 					}
 					catch(Exception $e)
 					{
-						if($callback = $jinput->get('callback', null, 'CMD'))
+						if($callback)
 						{
 							echo $callback."(".json_encode($e).");";
+						}
+						elseif($returnRaw)
+						{
+							echo json_encode($e);
 						}
 						else
 						{
@@ -175,7 +193,6 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 				case 'isNew':
 					try
 					{
-						$returnRaw = $jinput->get('raw', false, 'BOOLEAN');
 						$noticeValue = $jinput->get('notice', NULL, 'STRING');
 						if($noticeValue && $user->id != 0)
 						{
@@ -185,7 +202,7 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 						{
 							$result = false;
 						}
-						if($callback = $jinput->get('callback', null, 'CMD'))
+						if($callback)
 						{
 							echo $callback . "(".json_encode($result).");";
 						}
@@ -200,9 +217,13 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 					}
 					catch(Exception $e)
 					{
-						if($callback = $jinput->get('callback', null, 'CMD'))
+						if($callback)
 						{
 							echo $callback."(".json_encode($e).");";
+						}
+						elseif($returnRaw)
+						{
+							echo json_encode($e);
 						}
 						else
 						{
@@ -213,7 +234,6 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 				case 'isRead':
 					try
 					{
-						$returnRaw = $jinput->get('raw', false, 'BOOLEAN');
 						$noticeValue = $jinput->get('notice', NULL, 'STRING');
 						if($noticeValue && $user->id != 0)
 						{
@@ -223,7 +243,7 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 						{
 							$result = false;
 						}
-						if($callback = $jinput->get('callback', null, 'CMD'))
+						if($callback)
 						{
 							echo $callback . "(".json_encode($result).");";
 						}
@@ -238,9 +258,13 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 					}
 					catch(Exception $e)
 					{
-						if($callback = $jinput->get('callback', null, 'CMD'))
+						if($callback)
 						{
 							echo $callback."(".json_encode($e).");";
+						}
+						elseif($returnRaw)
+						{
+							echo json_encode($e);
 						}
 						else
 						{
@@ -252,9 +276,14 @@ class CostbenefitprojectionControllerAjax extends JControllerLegacy
 		}
 		else
 		{
-			if($callback = $jinput->get('callback', null, 'CMD'))
+			// return to a callback function
+			if($callback)
 			{
 				echo $callback."(".json_encode(false).");";
+			}
+			elseif($returnRaw)
+			{
+				echo json_encode(false);
 			}
 			else
 			{

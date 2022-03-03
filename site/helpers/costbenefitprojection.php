@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			6th January, 2021
+	@build			2nd March, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -20,6 +20,7 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\Language\Language;
 use Joomla\Registry\Registry;
 use Joomla\String\StringHelper;
@@ -841,12 +842,12 @@ abstract class CostbenefitprojectionHelper
 			$filePath = $path . '/' . $name . '.php';
 			$fullPathModel = $fullPathModels . '/' . $name . '.php';
 			// check if it exists
-			if (JFile::exists($filePath))
+			if (File::exists($filePath))
 			{
 				// get the file
 				require_once $filePath;
 			}
-			elseif (JFile::exists($fullPathModel))
+			elseif (File::exists($fullPathModel))
 			{
 				// get the file
 				require_once $fullPathModel;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="component" version="3.2" method="upgrade">
+<extension type="component" version="4" method="upgrade">
 	<name>COM_COSTBENEFITPROJECTION</name>
-	<creationDate>6th January, 2021</creationDate>
+	<creationDate>2nd March, 2022</creationDate>
 	<author>Llewellyn van der Merwe</author>
 	<authorEmail>joomla@vdm.io</authorEmail>
 	<authorUrl>http://www.vdm.io</authorUrl>
@@ -105,6 +105,6 @@ Benefits are calculated based on the model projecting reductions in workdays los
 
 	</administration>
 	<updateservers>
-		<server type="extension" enabled="1" element="com_costbenefitprojection" name="Cost Benefit Projection">https://raw.githubusercontent.com/namibia/CBP-Joomla-3-Component/master/costbenefitprojection_update_server.xml</server>
+		<server type="extension" enabled="1" element="com_costbenefitprojection" name="Cost Benefit Projection">https://raw.githubusercontent.com/Llewellynvdm/Joomla-Cost-Benefit-Projection/master/costbenefitprojection_update_server.xml</server>
 	</updateservers>
 </extension>

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			6th January, 2021
+	@build			2nd March, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -20,7 +20,7 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-JHtml::_('behavior.tabstate');
+
 
 // Set the component css/js
 $document = JFactory::getDocument();
@@ -29,7 +29,7 @@ $document->addScript('components/com_costbenefitprojection/assets/js/site.js');
 
 // Require helper files
 JLoader::register('CostbenefitprojectionHelper', __DIR__ . '/helpers/costbenefitprojection.php');
-JLoader::register('CostbenefitprojectionHelperRoute', __DIR__ . '/helpers/route.php'); 
+JLoader::register('CostbenefitprojectionHelperRoute', __DIR__ . '/helpers/route.php');
 
 // Get an instance of the controller prefixed by Costbenefitprojection
 $controller = JControllerLegacy::getInstance('Costbenefitprojection');

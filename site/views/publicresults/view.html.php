@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			6th January, 2021
+	@build			2nd March, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -20,6 +20,8 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.module.helper');
+
+use Joomla\CMS\Filesystem\File;
 
 /**
  * Costbenefitprojection View class for the Publicresults
@@ -131,13 +133,13 @@ class CostbenefitprojectionViewPublicresults extends JViewLegacy
 				foreach (CostbenefitprojectionHelper::$uk_components[$class] as $name)
 				{
 					// check if the CSS file exists.
-					if (JFile::exists(JPATH_ROOT.'/media/com_costbenefitprojection/uikit-v2/css/components/'.$name.$style.$size.'.css'))
+					if (File::exists(JPATH_ROOT.'/media/com_costbenefitprojection/uikit-v2/css/components/'.$name.$style.$size.'.css'))
 					{
 						// load the css.
 						$this->document->addStyleSheet(JURI::root(true) .'/media/com_costbenefitprojection/uikit-v2/css/components/'.$name.$style.$size.'.css', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/css');
 					}
 					// check if the JavaScript file exists.
-					if (JFile::exists(JPATH_ROOT.'/media/com_costbenefitprojection/uikit-v2/js/components/'.$name.$size.'.js'))
+					if (File::exists(JPATH_ROOT.'/media/com_costbenefitprojection/uikit-v2/js/components/'.$name.$size.'.js'))
 					{
 						// load the js.
 						$this->document->addScript(JURI::root(true) .'/media/com_costbenefitprojection/uikit-v2/js/components/'.$name.$size.'.js', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('version' => 'auto') : 'text/javascript', (CostbenefitprojectionHelper::jVersion()->isCompatible('3.8.0')) ? array('type' => 'text/javascript', 'async' => 'async') : true);
@@ -187,10 +189,10 @@ class CostbenefitprojectionViewPublicresults extends JViewLegacy
 	{
 
 		// set help url for this view if found
-		$help_url = CostbenefitprojectionHelper::getHelpUrl('publicresults');
-		if (CostbenefitprojectionHelper::checkString($help_url))
+		$this->help_url = CostbenefitprojectionHelper::getHelpUrl('publicresults');
+		if (CostbenefitprojectionHelper::checkString($this->help_url))
 		{
-			JToolbarHelper::help('COM_COSTBENEFITPROJECTION_HELP_MANAGER', false, $help_url);
+			JToolbarHelper::help('COM_COSTBENEFITPROJECTION_HELP_MANAGER', false, $this->help_url);
 		}
 		// now initiate the toolbar
 		$this->toolbar = JToolbar::getInstance();

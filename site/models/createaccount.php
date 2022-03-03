@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			6th January, 2021
+	@build			2nd March, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		createaccount.php
@@ -114,7 +114,7 @@ class CostbenefitprojectionModelCreateaccount extends JModelList
 		{
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
+			$this->_dispatcher = JFactory::getApplication();
 			foreach ($items as $nr => &$item)
 			{
 				// Always create a slug for sef URL's
@@ -125,7 +125,7 @@ class CostbenefitprojectionModelCreateaccount extends JModelList
 				$_publicaddress = new stdClass();
 				$_publicaddress->text =& $item->publicaddress; // value must be in text
 				// Since all values are now in text (Joomla Limitation), we also add the field name (publicaddress) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.createaccount.publicaddress', &$_publicaddress, &$params, 0));
+				$this->_dispatcher->triggerEvent("onContentPrepare", array('com_costbenefitprojection.createaccount.publicaddress', &$_publicaddress, &$params, 0));
 				// Checking if publicaddress has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->publicaddress,$this->uikitComp);
 				// set idCountryService_providerB to the $item object.

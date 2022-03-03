@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			6th January, 2021
+	@build			2nd March, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -20,6 +20,7 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\Language\Language;
 use Joomla\Registry\Registry;
 use Joomla\String\StringHelper;
@@ -1301,7 +1302,7 @@ abstract class CostbenefitprojectionHelper
 	/**
 	* Prepares the xml document
 	*/
-	public static function xls($rows, $fileName = null, $title = null, $subjectTab = null, $creator = 'Joomla Component Builder', $description = null, $category = null,$keywords = null, $modified = null)
+	public static function xls($rows, $fileName = null, $title = null, $subjectTab = null, $creator = 'Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb', $description = null, $category = null,$keywords = null, $modified = null)
 	{
 		// set the user
 		$user = JFactory::getUser();
@@ -1335,7 +1336,7 @@ abstract class CostbenefitprojectionHelper
 		// Set document properties
 		$spreadsheet->getProperties()
 			->setCreator($creator)
-			->setCompany('Joomla Component Builder')
+			->setCompany('Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb')
 			->setLastModifiedBy($modified)
 			->setTitle($title)
 			->setSubject($subjectTab);
@@ -1952,12 +1953,12 @@ abstract class CostbenefitprojectionHelper
 			$filePath = $path . '/' . $name . '.php';
 			$fullPathModel = $fullPathModels . '/' . $name . '.php';
 			// check if it exists
-			if (JFile::exists($filePath))
+			if (File::exists($filePath))
 			{
 				// get the file
 				require_once $filePath;
 			}
-			elseif (JFile::exists($fullPathModel))
+			elseif (File::exists($fullPathModel))
 			{
 				// get the file
 				require_once $fullPathModel;

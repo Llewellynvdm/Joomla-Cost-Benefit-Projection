@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			6th January, 2021
+	@build			2nd March, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -19,6 +19,8 @@
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
+
+
 
 /**
  * Costbenefitprojection Model
@@ -627,7 +629,7 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
             				.append("<h3><a href=\"" + issue.html_url + "\" target=\"_blank\">" + issue.title + "</a></h3>")
 					.append("<img alt=\"@" + issue.user.login + "\" style=\"vertical-align: baseline;\" src=\"" + issue.user.avatar_url +"&amp;s=60\" width=\"30\" height=\"30\"> ")
             				.append("<em><a href=\"" + issue.user.html_url + "\" target=\"_blank\">" + issue.user.login + "</a> '.JText::_('COM_COSTBENEFITPROJECTION_OPENED_THIS').' <a href=\"" + issue.html_url + "\" target=\"_blank\">'.JText::_('COM_COSTBENEFITPROJECTION_ISSUE').'-" + issue.number + "</a> (" + timeago + ")</em> ")
-            				.append(marked(issue.body))
+            				.append(marked.parse(issue.body))
             				.append("<a href=\"" + issue.html_url + "\" target=\"_blank\"><span class=\'icon-new-tab\'></span>'.JText::_('COM_COSTBENEFITPROJECTION_RESPOND_TO_THIS_ISSUE_ON_GITHUB').'</a>...<hr />");
     				});
 			});
@@ -640,7 +642,7 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
             				.append("<h3><a href=\"" + issue.html_url + "\" target=\"_blank\">" + issue.title + "</a></h3>")
 					.append("<img alt=\"@" + issue.user.login + "\" style=\"vertical-align: baseline;\" src=\"" + issue.user.avatar_url +"&amp;s=60\" width=\"30\" height=\"30\"> ")
             				.append("<em><a href=\"" + issue.user.html_url + "\" target=\"_blank\">" + issue.user.login + "</a> '.JText::_('COM_COSTBENEFITPROJECTION_OPENED').' <a href=\"" + issue.html_url + "\" target=\"_blank\">'.JText::_('COM_COSTBENEFITPROJECTION_ISSUE').'-" + issue.number + "</a> (" + timeago + ")</em>")
-            				.append(marked(issue.body))
+            				.append(marked.parse(issue.body))
             				.append("<a href=\"" + issue.html_url + "\" target=\"_blank\"><span class=\'icon-new-tab\'></span>'.JText::_('COM_COSTBENEFITPROJECTION_REVIEW_THIS_ISSUE_ON_GITHUB').'</a>...<hr />");
     				});
 			});
@@ -679,7 +681,7 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 					.append(activeNotice)
 					.append("<img alt=\"@" + tagrelease.author.login + "\" style=\"vertical-align: baseline;\" src=\"" + tagrelease.author.avatar_url +"&amp;s=60\" width=\"30\" height=\"30\"> ")
             				.append("<em><a href=\"" + tagrelease.author.html_url + "\" target=\"_blank\">" + tagrelease.author.login + "</a> '.JText::_('COM_COSTBENEFITPROJECTION_RELEASED_THIS').'<em> <b><span class=\'icon-tag-2\'></span>" + tagrelease.tag_name+ "</b> (" + timeago + ")")
-            				.append(marked(tagrelease.body))
+            				.append(marked.parse(tagrelease.body))
             				.append(" <a class=\"hasTooltip\" href=\"" + tagrelease.assets[0].browser_download_url + "\" title=\"'.JText::_('COM_COSTBENEFITPROJECTION_DOWNLOAD').' " + tagrelease.assets[0].name + "\" target=\"_self\"><span class=\'icon-download\'></span>" + tagrelease.assets[0].name + "</a> (<a class=\"hasTooltip\" href=\"" + tagrelease.assets[0].browser_download_url + "\" title=\"'.JText::_('COM_COSTBENEFITPROJECTION_TOTAL_DOWNLOADS').'\"><small>" + tagrelease.assets[0].download_count + "</small></a>) ")
             				.append("| <a href=\"" + tagrelease.html_url + "\" target=\"_blank\" title=\"'.JText::_('COM_COSTBENEFITPROJECTION_OPEN').' " + tagrelease.name + " '.JText::_('COM_COSTBENEFITPROJECTION_ON_GITHUB').'\"><span class=\'icon-new-tab\'></span>'.JText::_('COM_COSTBENEFITPROJECTION_OPEN_ON_GITHUB').'</a>...<hr />");
     				});
@@ -711,7 +713,7 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 			jQuery.get(noticeboard)
 			.success(function(board) { 
 				if (board.length > 5) {
-					jQuery("#noticeboard-md").html(marked(board));
+					jQuery("#noticeboard-md").html(marked.parse(board));
 					getIS(1,board).done(function(result) {
 						if (result){
 							jQuery("#cpanel_tabTabs a").each(function() {
@@ -746,7 +748,7 @@ class CostbenefitprojectionModelCostbenefitprojection extends JModelList
 				var getUrl = "index.php?option=com_costbenefitprojection&task=ajax.isRead&format=json&raw=true";
 			}	
 			if(token.length > 0 && notice.length){
-				var request = "token="+token+"&notice="+notice;
+				var request = token+"=1&notice="+notice;
 			}
 			return jQuery.ajax({
 				type: "POST",

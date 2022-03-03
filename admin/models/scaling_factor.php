@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			6th January, 2021
+	@build			2nd March, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		scaling_factor.php
@@ -116,12 +116,6 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 				$registry = new Registry;
 				$registry->loadString($item->metadata);
 				$item->metadata = $registry->toArray();
-			}
-			
-			if (!empty($item->id))
-			{
-				$item->tags = new JHelperTags;
-				$item->tags->getTagIds($item->id, 'com_costbenefitprojection.scaling_factor');
 			}
 		}
 
@@ -244,7 +238,7 @@ class CostbenefitprojectionModelScaling_factor extends JModelAdmin
 	 */
 	public function getScript()
 	{
-		return 'administrator/components/com_costbenefitprojection/models/forms/scaling_factor.js';
+		return 'media/com_costbenefitprojection/js/scaling_factor.js';
 	}
     
 	/**

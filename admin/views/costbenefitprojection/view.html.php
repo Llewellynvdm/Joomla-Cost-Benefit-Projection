@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			6th January, 2021
+	@build			2nd March, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -19,6 +19,8 @@
 
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
+
+
 
 /**
  * Costbenefitprojection View class
@@ -67,10 +69,10 @@ class CostbenefitprojectionViewCostbenefitprojection extends JViewLegacy
 		JToolBarHelper::title(JText::_('COM_COSTBENEFITPROJECTION_DASHBOARD'), 'grid-2');
 
 		// set help url for this view if found
-		$help_url = CostbenefitprojectionHelper::getHelpUrl('costbenefitprojection');
-		if (CostbenefitprojectionHelper::checkString($help_url))
+		$this->help_url = CostbenefitprojectionHelper::getHelpUrl('costbenefitprojection');
+		if (CostbenefitprojectionHelper::checkString($this->help_url))
 		{
-			JToolbarHelper::help('COM_COSTBENEFITPROJECTION_HELP_MANAGER', false, $help_url);
+			JToolbarHelper::help('COM_COSTBENEFITPROJECTION_HELP_MANAGER', false, $this->help_url);
 		}
 
 		if ($canDo->get('core.admin') || $canDo->get('core.options'))

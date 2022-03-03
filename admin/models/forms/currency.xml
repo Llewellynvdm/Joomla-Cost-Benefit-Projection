@@ -102,8 +102,6 @@
 			maxlength="150"
 			description="COM_COSTBENEFITPROJECTION_CURRENCY_NAME_DESCRIPTION"
 			class="text_area"
-			readonly="false"
-			disabled="false"
 			required="true"
 			filter="STRING"
 			message="COM_COSTBENEFITPROJECTION_CURRENCY_NAME_MESSAGE"

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			6th January, 2021
+	@build			2nd March, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		publicresults.php
@@ -152,7 +152,7 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 				}
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
+			$this->_dispatcher = JFactory::getApplication();
 				// Check if we can decode causesrisks
 				if (CostbenefitprojectionHelper::checkJson($data->causesrisks))
 				{
@@ -171,7 +171,7 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 				$_country_publicaddress = new stdClass();
 				$_country_publicaddress->text =& $data->country_publicaddress; // value must be in text
 				// Since all values are now in text (Joomla Limitation), we also add the field name (country_publicaddress) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.publicresults.country_publicaddress', &$_country_publicaddress, &$params, 0));
+				$this->_dispatcher->triggerEvent("onContentPrepare", array('com_costbenefitprojection.publicresults.country_publicaddress', &$_country_publicaddress, &$params, 0));
 				// Checking if country_publicaddress has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($data->country_publicaddress,$this->uikitComp);
 				// set the global causesrisks value.
@@ -272,7 +272,7 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 		{
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
+			$this->_dispatcher = JFactory::getApplication();
 			return $db->loadObjectList();
 		}
 		return false;
@@ -299,7 +299,7 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 		$query->from($db->quoteName('#__costbenefitprojection_causerisk', 'g'));
 
 		// Check if $causesrisks is an array with values.
-		$array = $causesrisks;
+		$array = (CostbenefitprojectionHelper::checkJson($causesrisks, true)) ? json_decode($causesrisks,true) : $causesrisks;
 		if (isset($array) && CostbenefitprojectionHelper::checkArray($array, true))
 		{
 			$query->where('g.id IN (' . implode(',', $array) . ')');
@@ -318,7 +318,7 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 		{
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
+			$this->_dispatcher = JFactory::getApplication();
 			$items = $db->loadObjectList();
 
 			// Convert the parameter fields into objects.
@@ -330,7 +330,7 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 				$_description = new stdClass();
 				$_description->text =& $item->description; // value must be in text
 				// Since all values are now in text (Joomla Limitation), we also add the field name (description) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.publicresults.description', &$_description, &$params, 0));
+				$this->_dispatcher->triggerEvent("onContentPrepare", array('com_costbenefitprojection.publicresults.description', &$_description, &$params, 0));
 				// Checking if description has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->description,$this->uikitComp);
 			}
@@ -384,7 +384,7 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 		{
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
+			$this->_dispatcher = JFactory::getApplication();
 			return $db->loadObjectList();
 		}
 		return false;
@@ -411,7 +411,7 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 		$query->from($db->quoteName('#__costbenefitprojection_causerisk', 'gg'));
 
 		// Check if $causesrisks is an array with values.
-		$array = $causesrisks;
+		$array = (CostbenefitprojectionHelper::checkJson($causesrisks, true)) ? json_decode($causesrisks,true) : $causesrisks;
 		if (isset($array) && CostbenefitprojectionHelper::checkArray($array, true))
 		{
 			$query->where('gg.id IN (' . implode(',', $array) . ')');
@@ -430,7 +430,7 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 		{
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
+			$this->_dispatcher = JFactory::getApplication();
 			return $db->loadObjectList();
 		}
 		return false;
@@ -466,7 +466,7 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 		{
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
+			$this->_dispatcher = JFactory::getApplication();
 			$items = $db->loadObjectList();
 
 			// Convert the parameter fields into objects.
@@ -484,7 +484,7 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 				$_reference = new stdClass();
 				$_reference->text =& $item->reference; // value must be in text
 				// Since all values are now in text (Joomla Limitation), we also add the field name (reference) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.publicresults.reference', &$_reference, &$params, 0));
+				$this->_dispatcher->triggerEvent("onContentPrepare", array('com_costbenefitprojection.publicresults.reference', &$_reference, &$params, 0));
 				// Checking if reference has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->reference,$this->uikitComp);
 			}
@@ -546,7 +546,7 @@ class CostbenefitprojectionModelPublicresults extends JModelItem
 		{
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
+			$this->_dispatcher = JFactory::getApplication();
 			foreach ($items as $nr => &$item)
 			{
 				// Always create a slug for sef URL's

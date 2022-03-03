@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			6th January, 2021
+	@build			2nd March, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		country.php
@@ -156,12 +156,6 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 			{
 				// JSON Decode causesrisks.
 				$item->causesrisks = json_decode($item->causesrisks);
-			}
-			
-			if (!empty($item->id))
-			{
-				$item->tags = new JHelperTags;
-				$item->tags->getTagIds($item->id, 'com_costbenefitprojection.country');
 			}
 		}
 		$this->countryvvvy = $item->id;
@@ -691,7 +685,7 @@ class CostbenefitprojectionModelCountry extends JModelAdmin
 	 */
 	public function getScript()
 	{
-		return 'administrator/components/com_costbenefitprojection/models/forms/country.js';
+		return 'media/com_costbenefitprojection/js/country.js';
 	}
     
 	/**

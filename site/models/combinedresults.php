@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			6th January, 2021
+	@build			2nd March, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		combinedresults.php
@@ -331,7 +331,7 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 		$query->from($db->quoteName('#__costbenefitprojection_causerisk', 'g'));
 
 		// Check if $causesrisks is an array with values.
-		$array = $causesrisks;
+		$array = (CostbenefitprojectionHelper::checkJson($causesrisks, true)) ? json_decode($causesrisks,true) : $causesrisks;
 		if (isset($array) && CostbenefitprojectionHelper::checkArray($array, true))
 		{
 			$query->where('g.id IN (' . implode(',', $array) . ')');
@@ -422,7 +422,7 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 		$query->from($db->quoteName('#__costbenefitprojection_causerisk', 'gg'));
 
 		// Check if $causesrisks is an array with values.
-		$array = $causesrisks;
+		$array = (CostbenefitprojectionHelper::checkJson($causesrisks, true)) ? json_decode($causesrisks,true) : $causesrisks;
 		if (isset($array) && CostbenefitprojectionHelper::checkArray($array, true))
 		{
 			$query->where('gg.id IN (' . implode(',', $array) . ')');

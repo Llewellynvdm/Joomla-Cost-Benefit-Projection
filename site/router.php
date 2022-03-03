@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			6th January, 2021
+	@build			2nd March, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		router.php
@@ -59,7 +59,7 @@ class CostbenefitprojectionRouter extends JComponentRouterBase
 		{
 			$view = $query['view'];
 
-			if (empty($query['Itemid']))
+			if (empty($query['Itemid']) && !(isset($view) && isset($query['id']) && ($view === 'company' || $view === 'scaling_factor' || $view === 'intervention' || $view === 'cpanel' || $view === 'publicresults' || $view === 'createaccount' || $view === 'companyresults' || $view === 'combinedresults')))
 			{
 				$segments[] = $query['view'];
 			}
@@ -122,7 +122,7 @@ class CostbenefitprojectionRouter extends JComponentRouterBase
 		$count = count($segments);
 		$vars = array();
 		
-		//Handle View and Identifier
+		// Handle View and Identifier
 		switch($segments[0])
 		{
 			case 'company':

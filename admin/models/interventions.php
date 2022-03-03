@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			6th January, 2021
+	@build			2nd March, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		interventions.php
@@ -117,7 +117,7 @@ class CostbenefitprojectionModelInterventions extends JModelList
 	 */
 	public function getItems()
 	{
-		// check in items
+		// Check in items
 		$this->checkInNow();
 
 		// load parent items
@@ -527,17 +527,19 @@ class CostbenefitprojectionModelInterventions extends JModelList
 
 			// Get a db connection.
 			$db = JFactory::getDbo();
-			// reset query
+			// Reset query.
 			$query = $db->getQuery(true);
 			$query->select('*');
 			$query->from($db->quoteName('#__costbenefitprojection_intervention'));
-			$db->setQuery($query);
+			// Only select items that are checked out.
+			$query->where($db->quoteName('checked_out') . '!=0');
+			$db->setQuery($query, 0, 1);
 			$db->execute();
 			if ($db->getNumRows())
 			{
-				// Get Yesterdays date
+				// Get Yesterdays date.
 				$date = JFactory::getDate()->modify($time)->toSql();
-				// reset query
+				// Reset query.
 				$query = $db->getQuery(true);
 
 				// Fields to update.
@@ -552,7 +554,7 @@ class CostbenefitprojectionModelInterventions extends JModelList
 					$db->quoteName('checked_out_time') . '<\''.$date.'\''
 				);
 
-				// Check table
+				// Check table.
 				$query->update($db->quoteName('#__costbenefitprojection_intervention'))->set($fields)->where($conditions); 
 
 				$db->setQuery($query);

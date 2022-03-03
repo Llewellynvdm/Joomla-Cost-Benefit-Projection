@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			6th January, 2021
+	@build			2nd March, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		causerisk.php
@@ -113,12 +113,6 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 				$registry = new Registry;
 				$registry->loadString($item->metadata);
 				$item->metadata = $registry->toArray();
-			}
-			
-			if (!empty($item->id))
-			{
-				$item->tags = new JHelperTags;
-				$item->tags->getTagIds($item->id, 'com_costbenefitprojection.causerisk');
 			}
 		}
 
@@ -241,7 +235,7 @@ class CostbenefitprojectionModelCauserisk extends JModelAdmin
 	 */
 	public function getScript()
 	{
-		return 'administrator/components/com_costbenefitprojection/models/forms/causerisk.js';
+		return 'media/com_costbenefitprojection/js/causerisk.js';
 	}
     
 	/**

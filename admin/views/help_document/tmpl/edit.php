@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			6th January, 2021
+	@build			2nd March, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		edit.php
@@ -21,8 +21,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
-JHtml::_('behavior.tooltip');
-JHtml::_('behavior.formvalidation');
+JHtml::_('behavior.formvalidator');
 JHtml::_('formbehavior.chosen', 'select');
 JHtml::_('behavior.keepalive');
 $componentParams = $this->params; // will be removed just use $this->params instead

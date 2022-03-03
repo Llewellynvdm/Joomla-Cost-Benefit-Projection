@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			6th January, 2021
+	@build			2nd March, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		help_document.php
@@ -331,7 +331,7 @@ class CostbenefitprojectionTableHelp_document extends JTable
 			$this->alias = $this->title;
 		}
 
-		$this->alias = JApplication::stringURLSafe($this->alias);
+		$this->alias = JApplicationHelper::stringURLSafe($this->alias);
 
 		if (trim(str_replace('-', '', $this->alias)) == '')
 		{

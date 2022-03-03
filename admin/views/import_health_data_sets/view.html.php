@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			6th January, 2021
+	@build			2nd March, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		view.html.php
@@ -127,10 +127,10 @@ class CostbenefitprojectionViewImport_health_data_sets extends JViewLegacy
 		}
 
 		// set help url for this view if found
-		$help_url = CostbenefitprojectionHelper::getHelpUrl('import_health_data_sets');
-		if (CostbenefitprojectionHelper::checkString($help_url))
+		$this->help_url = CostbenefitprojectionHelper::getHelpUrl('import_health_data_sets');
+		if (CostbenefitprojectionHelper::checkString($this->help_url))
 		{
-			   JToolbarHelper::help('COM_COSTBENEFITPROJECTION_HELP_MANAGER', false, $help_url);
+			   JToolbarHelper::help('COM_COSTBENEFITPROJECTION_HELP_MANAGER', false, $this->help_url);
 		}
 	}
 }

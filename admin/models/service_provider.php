@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			6th January, 2021
+	@build			2nd March, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		service_provider.php
@@ -119,12 +119,6 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 			{
 				// JSON Decode testcompanies.
 				$item->testcompanies = json_decode($item->testcompanies);
-			}
-			
-			if (!empty($item->id))
-			{
-				$item->tags = new JHelperTags;
-				$item->tags->getTagIds($item->id, 'com_costbenefitprojection.service_provider');
 			}
 		}
 		$this->service_providervvvx = $item->id;
@@ -419,7 +413,7 @@ class CostbenefitprojectionModelService_provider extends JModelAdmin
 	 */
 	public function getScript()
 	{
-		return 'administrator/components/com_costbenefitprojection/models/forms/service_provider.js';
+		return 'media/com_costbenefitprojection/js/service_provider.js';
 	}
     
 	/**

@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			6th January, 2021
+	@build			2nd March, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		cpanel.php
@@ -135,7 +135,7 @@ class CostbenefitprojectionModelCpanel extends JModelList
 		{
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
+			$this->_dispatcher = JFactory::getApplication();
 			foreach ($items as $nr => &$item)
 			{
 				// Always create a slug for sef URL's
@@ -200,7 +200,7 @@ class CostbenefitprojectionModelCpanel extends JModelList
 				$_country_publicaddress = new stdClass();
 				$_country_publicaddress->text =& $item->country_publicaddress; // value must be in text
 				// Since all values are now in text (Joomla Limitation), we also add the field name (country_publicaddress) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.cpanel.country_publicaddress', &$_country_publicaddress, &$params, 0));
+				$this->_dispatcher->triggerEvent("onContentPrepare", array('com_costbenefitprojection.cpanel.country_publicaddress', &$_country_publicaddress, &$params, 0));
 				// Checking if country_publicaddress has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->country_publicaddress,$this->uikitComp);
 				// Check if item has params, or pass whole item.
@@ -209,7 +209,7 @@ class CostbenefitprojectionModelCpanel extends JModelList
 				$_service_provider_publicaddress = new stdClass();
 				$_service_provider_publicaddress->text =& $item->service_provider_publicaddress; // value must be in text
 				// Since all values are now in text (Joomla Limitation), we also add the field name (service_provider_publicaddress) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.cpanel.service_provider_publicaddress', &$_service_provider_publicaddress, &$params, 0));
+				$this->_dispatcher->triggerEvent("onContentPrepare", array('com_costbenefitprojection.cpanel.service_provider_publicaddress', &$_service_provider_publicaddress, &$params, 0));
 				// Checking if service_provider_publicaddress has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->service_provider_publicaddress,$this->uikitComp);
 				// set idCompanyScaling_factorD to the $item object.
@@ -261,7 +261,7 @@ class CostbenefitprojectionModelCpanel extends JModelList
 		{
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
+			$this->_dispatcher = JFactory::getApplication();
 			$items = $db->loadObjectList();
 
 			// Convert the parameter fields into objects.
@@ -273,7 +273,7 @@ class CostbenefitprojectionModelCpanel extends JModelList
 				$_reference = new stdClass();
 				$_reference->text =& $item->reference; // value must be in text
 				// Since all values are now in text (Joomla Limitation), we also add the field name (reference) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.cpanel.reference', &$_reference, &$params, 0));
+				$this->_dispatcher->triggerEvent("onContentPrepare", array('com_costbenefitprojection.cpanel.reference', &$_reference, &$params, 0));
 				// Checking if reference has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->reference,$this->uikitComp);
 			}
@@ -314,7 +314,7 @@ class CostbenefitprojectionModelCpanel extends JModelList
 		{
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
+			$this->_dispatcher = JFactory::getApplication();
 			$items = $db->loadObjectList();
 
 			// Convert the parameter fields into objects.
@@ -332,7 +332,7 @@ class CostbenefitprojectionModelCpanel extends JModelList
 				$_description = new stdClass();
 				$_description->text =& $item->description; // value must be in text
 				// Since all values are now in text (Joomla Limitation), we also add the field name (description) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.cpanel.description', &$_description, &$params, 0));
+				$this->_dispatcher->triggerEvent("onContentPrepare", array('com_costbenefitprojection.cpanel.description', &$_description, &$params, 0));
 				// Checking if description has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->description,$this->uikitComp);
 			}

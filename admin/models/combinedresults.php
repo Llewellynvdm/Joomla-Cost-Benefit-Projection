@@ -4,7 +4,7 @@
 /-------------------------------------------------------------------------------------------------------/
 
 	@version		3.4.x
-	@build			6th January, 2021
+	@build			2nd March, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		combinedresults.php
@@ -163,7 +163,7 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 		{
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
+			$this->_dispatcher = JFactory::getApplication();
 			foreach ($items as $nr => &$item)
 			{
 				// Always create a slug for sef URL's
@@ -234,7 +234,7 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 				$_country_publicaddress = new stdClass();
 				$_country_publicaddress->text =& $item->country_publicaddress; // value must be in text
 				// Since all values are now in text (Joomla Limitation), we also add the field name (country_publicaddress) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.combinedresults.country_publicaddress', &$_country_publicaddress, &$params, 0));
+				$this->_dispatcher->triggerEvent("onContentPrepare", array('com_costbenefitprojection.combinedresults.country_publicaddress', &$_country_publicaddress, &$params, 0));
 				// Checking if country_publicaddress has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->country_publicaddress,$this->uikitComp);
 				// set the global causesrisks value.
@@ -311,7 +311,7 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 		{
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
+			$this->_dispatcher = JFactory::getApplication();
 			return $db->loadObjectList();
 		}
 		return false;
@@ -351,7 +351,7 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 		{
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
+			$this->_dispatcher = JFactory::getApplication();
 			$items = $db->loadObjectList();
 
 			// Convert the parameter fields into objects.
@@ -363,7 +363,7 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 				$_reference = new stdClass();
 				$_reference->text =& $item->reference; // value must be in text
 				// Since all values are now in text (Joomla Limitation), we also add the field name (reference) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.combinedresults.reference', &$_reference, &$params, 0));
+				$this->_dispatcher->triggerEvent("onContentPrepare", array('com_costbenefitprojection.combinedresults.reference', &$_reference, &$params, 0));
 				// Checking if reference has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->reference,$this->uikitComp);
 			}
@@ -405,7 +405,7 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 		{
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
+			$this->_dispatcher = JFactory::getApplication();
 			$items = $db->loadObjectList();
 
 			// Convert the parameter fields into objects.
@@ -423,7 +423,7 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 				$_description = new stdClass();
 				$_description->text =& $item->description; // value must be in text
 				// Since all values are now in text (Joomla Limitation), we also add the field name (description) to context
-				$this->_dispatcher->trigger("onContentPrepare", array('com_costbenefitprojection.combinedresults.description', &$_description, &$params, 0));
+				$this->_dispatcher->triggerEvent("onContentPrepare", array('com_costbenefitprojection.combinedresults.description', &$_description, &$params, 0));
 				// Checking if description has uikit components that must be loaded.
 				$this->uikitComp = CostbenefitprojectionHelper::getUikitComp($item->description,$this->uikitComp);
 			}
@@ -453,7 +453,7 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 		$query->from($db->quoteName('#__costbenefitprojection_causerisk', 'g'));
 
 		// Check if $causesrisks is an array with values.
-		$array = $causesrisks;
+		$array = (CostbenefitprojectionHelper::checkJson($causesrisks, true)) ? json_decode($causesrisks,true) : $causesrisks;
 		if (isset($array) && CostbenefitprojectionHelper::checkArray($array, true))
 		{
 			$query->where('g.id IN (' . implode(',', $array) . ')');
@@ -472,7 +472,7 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 		{
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
+			$this->_dispatcher = JFactory::getApplication();
 			return $db->loadObjectList();
 		}
 		return false;
@@ -523,7 +523,7 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 		{
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
+			$this->_dispatcher = JFactory::getApplication();
 			return $db->loadObjectList();
 		}
 		return false;
@@ -550,7 +550,7 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 		$query->from($db->quoteName('#__costbenefitprojection_causerisk', 'gg'));
 
 		// Check if $causesrisks is an array with values.
-		$array = $causesrisks;
+		$array = (CostbenefitprojectionHelper::checkJson($causesrisks, true)) ? json_decode($causesrisks,true) : $causesrisks;
 		if (isset($array) && CostbenefitprojectionHelper::checkArray($array, true))
 		{
 			$query->where('gg.id IN (' . implode(',', $array) . ')');
@@ -569,7 +569,7 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 		{
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
+			$this->_dispatcher = JFactory::getApplication();
 			return $db->loadObjectList();
 		}
 		return false;
@@ -608,7 +608,7 @@ class CostbenefitprojectionModelCombinedresults extends JModelList
 		{
 			// Load the JEvent Dispatcher
 			JPluginHelper::importPlugin('content');
-			$this->_dispatcher = JEventDispatcher::getInstance();
+			$this->_dispatcher = JFactory::getApplication();
 			return $db->loadObjectList();
 		}
 		return false;
