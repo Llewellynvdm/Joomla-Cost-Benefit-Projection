@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.x
-	@build			2nd March, 2022
+	@version		3.5.x
+	@build			27th May, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		ajax.php
@@ -20,12 +20,13 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Utilities\ArrayHelper;
 
 /**
- * Costbenefitprojection Ajax Model
+ * Costbenefitprojection Ajax List Model
  */
-class CostbenefitprojectionModelAjax extends JModelList
+class CostbenefitprojectionModelAjax extends ListModel
 {
 	protected $app_params;
 

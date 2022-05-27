@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.x
-	@build			2nd March, 2022
+	@version		3.5.x
+	@build			27th May, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		import_health_data_sets.php
@@ -20,12 +20,13 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\Utilities\ArrayHelper;
 
 /**
- * Costbenefitprojection Import_health_data_sets Controller
+ * Costbenefitprojection Import_health_data_sets Base Controller
  */
-class CostbenefitprojectionControllerImport_health_data_sets extends JControllerLegacy
+class CostbenefitprojectionControllerImport_health_data_sets extends BaseController
 {
 	/**
 	 * Import an spreadsheet.

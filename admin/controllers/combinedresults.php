@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.x
-	@build			2nd March, 2022
+	@version		3.5.x
+	@build			27th May, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		combinedresults.php
@@ -20,14 +20,22 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\MVC\Controller\AdminController;
 use Joomla\Utilities\ArrayHelper;
 
 /**
- * Combinedresults Controller
+ * Combinedresults Admin Controller
  */
-class CostbenefitprojectionControllerCombinedresults extends JControllerAdmin
+class CostbenefitprojectionControllerCombinedresults extends AdminController
 {
+	/**
+	 * The prefix to use with controller messages.
+	 *
+	 * @var    string
+	 * @since  1.6
+	 */
 	protected $text_prefix = 'COM_COSTBENEFITPROJECTION_COMBINEDRESULTS';
+
 	/**
 	 * Proxy for getModel.
 	 * @since	2.5
@@ -39,7 +47,7 @@ class CostbenefitprojectionControllerCombinedresults extends JControllerAdmin
 		return $model;
 	}
 
-        public function dashboard()
+	public function dashboard()
 	{
 		$this->setRedirect(JRoute::_('index.php?option=com_costbenefitprojection', false));
 		return;

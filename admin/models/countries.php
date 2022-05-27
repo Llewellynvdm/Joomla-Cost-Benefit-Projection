@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.x
-	@build			2nd March, 2022
+	@version		3.5.x
+	@build			27th May, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		countries.php
@@ -20,12 +20,13 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Utilities\ArrayHelper;
 
 /**
- * Countries Model
+ * Countries List Model
  */
-class CostbenefitprojectionModelCountries extends JModelList
+class CostbenefitprojectionModelCountries extends ListModel
 {
 	public function __construct($config = array())
 	{
@@ -189,7 +190,7 @@ class CostbenefitprojectionModelCountries extends JModelList
 		$query->join('LEFT', $db->quoteName('#__users', 'g') . ' ON (' . $db->quoteName('a.user') . ' = ' . $db->quoteName('g.id') . ')');
 
 		// From the costbenefitprojection_currency table.
-		$query->select($db->quoteName('h.name','currency_name'));
+		$query->select($db->quoteName(['h.name','h.id'],['currency_name','currency_id']));
 		$query->join('LEFT', $db->quoteName('#__costbenefitprojection_currency', 'h') . ' ON (' . $db->quoteName('a.currency') . ' = ' . $db->quoteName('h.codethree') . ')');
 
 		// Filter by published state

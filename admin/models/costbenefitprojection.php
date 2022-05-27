@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.x
-	@build			2nd March, 2022
+	@version		3.5.x
+	@build			27th May, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		costbenefitprojection.php
@@ -20,12 +20,13 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
-
+use Joomla\CMS\MVC\Model\ListModel;
+use Joomla\Utilities\ArrayHelper;
 
 /**
- * Costbenefitprojection Model
+ * Costbenefitprojection List Model
  */
-class CostbenefitprojectionModelCostbenefitprojection extends JModelList
+class CostbenefitprojectionModelCostbenefitprojection extends ListModel
 {
 	public function getIcons()
 	{
@@ -783,7 +784,7 @@ jQuery(document).ready( function($) {
 		jQuery(document).ready(function () {
 			jQuery.get(getreadme)
 			.success(function(readme) { 
-				jQuery("#readme-md").html(marked(readme));
+				jQuery("#readme-md").html(marked.parse(readme));
 			})
 			.error(function(jqXHR, textStatus, errorThrown) { 
 				jQuery("#readme-md").html("'.JText::_('COM_COSTBENEFITPROJECTION_PLEASE_CHECK_AGAIN_LATTER').'");

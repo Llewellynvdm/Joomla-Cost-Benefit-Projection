@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.x
-	@build			2nd March, 2022
+	@version		3.5.x
+	@build			27th May, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		import_health_data_sets.php
@@ -20,15 +20,16 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\Filesystem\Folder;
 use Joomla\Utilities\ArrayHelper;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 /**
- * Costbenefitprojection Import_health_data_sets Model
+ * Costbenefitprojection Import_health_data_sets Base Database Model
  */
-class CostbenefitprojectionModelImport_health_data_sets extends JModelLegacy
+class CostbenefitprojectionModelImport_health_data_sets extends BaseDatabaseModel
 {
 	// set uploading values
 	protected $use_streams = false;

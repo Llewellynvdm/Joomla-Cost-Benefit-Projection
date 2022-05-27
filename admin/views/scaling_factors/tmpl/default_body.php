@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.x
-	@build			2nd March, 2022
+	@version		3.5.x
+	@build			27th May, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_body.php
@@ -79,7 +79,7 @@ $edit = "index.php?option=com_costbenefitprojection&view=scaling_factors&task=sc
 		</td>
 		<td class="nowrap">
 			<div class="name">
-				<?php if ($this->user->authorise('company.edit', 'com_costbenefitprojection.company.' . (int)$item->company)): ?>
+				<?php if ($this->user->authorise('company.edit', 'com_costbenefitprojection.company.' . (int) $item->company)): ?>
 					<a href="index.php?option=com_costbenefitprojection&view=companies&task=company.edit&id=<?php echo $item->company; ?>&return=<?php echo $this->return_here; ?>"><?php echo $this->escape($item->company_name); ?></a>
 				<?php else: ?>
 					<?php echo $this->escape($item->company_name); ?>

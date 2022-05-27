@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.x
-	@build			2nd March, 2022
+	@version		3.5.x
+	@build			27th May, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		default_body.php
@@ -98,7 +98,7 @@ $edit = "index.php?option=com_costbenefitprojection&view=companies&task=company.
 		</td>
 		<td class="nowrap">
 			<div class="name">
-				<?php if ($this->user->authorise('country.edit', 'com_costbenefitprojection.country.' . (int)$item->country)): ?>
+				<?php if ($this->user->authorise('country.edit', 'com_costbenefitprojection.country.' . (int) $item->country)): ?>
 					<a href="index.php?option=com_costbenefitprojection&view=countries&task=country.edit&id=<?php echo $item->country; ?>&return=<?php echo $this->return_here; ?>"><?php echo $this->escape($item->country_name); ?></a>
 				<?php else: ?>
 					<?php echo $this->escape($item->country_name); ?>
@@ -107,7 +107,7 @@ $edit = "index.php?option=com_costbenefitprojection&view=companies&task=company.
 		</td>
 		<td class="nowrap">
 			<div class="name">
-				<?php if ($this->user->authorise('service_provider.edit', 'com_costbenefitprojection.service_provider.' . (int)$item->service_provider)): ?>
+				<?php if ($this->user->authorise('service_provider.edit', 'com_costbenefitprojection.service_provider.' . (int) $item->service_provider)): ?>
 					<a href="index.php?option=com_costbenefitprojection&view=service_providers&task=service_provider.edit&id=<?php echo $item->service_provider; ?>&return=<?php echo $this->return_here; ?>"><?php echo JFactory::getUser((int)$item->service_provider_user)->name; ?></a>
 				<?php else: ?>
 					<?php echo JFactory::getUser((int)$item->service_provider_user)->name; ?>

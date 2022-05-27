@@ -3,8 +3,8 @@
 	Deutsche Gesellschaft für International Zusammenarbeit (GIZ) Gmb 
 /-------------------------------------------------------------------------------------------------------/
 
-	@version		3.4.x
-	@build			2nd March, 2022
+	@version		3.5.x
+	@build			27th May, 2022
 	@created		15th June, 2012
 	@package		Cost Benefit Projection
 	@subpackage		health_data.php
@@ -20,6 +20,7 @@
 // No direct access to this file
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Table\Table;
 use Joomla\Registry\Registry;
 use Joomla\String\StringHelper;
 use Joomla\Utilities\ArrayHelper;
@@ -27,7 +28,7 @@ use Joomla\Utilities\ArrayHelper;
 /**
  * Health_data_sets Table class
  */
-class CostbenefitprojectionTableHealth_data extends JTable
+class CostbenefitprojectionTableHealth_data extends Table
 {
 	/**
 	 * Ensure the params and metadata in json encoded in the bind method
